@@ -14,9 +14,9 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 
-	"github.com/intel-secl/intel-secl/v4/pkg/lib/privacyca"
-	pcaConsts "github.com/intel-secl/intel-secl/v4/pkg/lib/privacyca/constants"
-	wlaModel "github.com/intel-secl/intel-secl/v4/pkg/model/wlagent"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/privacyca"
+	pcaConsts "github.com/intel-secl/intel-secl/v5/pkg/lib/privacyca/constants"
+	wlaModel "github.com/intel-secl/intel-secl/v5/pkg/model/wlagent"
 	"github.com/pkg/errors"
 )
 

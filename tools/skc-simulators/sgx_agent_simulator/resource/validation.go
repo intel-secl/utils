@@ -5,7 +5,7 @@
 package resource
 
 import (
-	"intel/isecl/sgx_agent/v4/constants"
+	"intel/isecl/sgx_agent/v5/constants"
 	"regexp"
 )
 

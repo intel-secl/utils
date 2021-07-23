@@ -13,9 +13,9 @@ import (
 	"strconv"
 
 	errorLog "github.com/pkg/errors"
-	commLog "intel/isecl/lib/common/v4/log"
-	"intel/isecl/lib/common/v4/setup"
-	"intel/isecl/sgx_agent/v4/constants"
+	commLog "intel/isecl/lib/common/v5/log"
+	"intel/isecl/lib/common/v5/setup"
+	"intel/isecl/sgx_agent/v5/constants"
 
 	log "github.com/sirupsen/logrus"
 )

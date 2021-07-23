@@ -12,10 +12,10 @@ import (
 	"encoding/pem"
 	"testing"
 
-	"github.com/intel-secl/intel-secl/v4/pkg/lib/common/crypt"
-	"github.com/intel-secl/intel-secl/v4/pkg/lib/privacyca"
-	"github.com/intel-secl/intel-secl/v4/pkg/lib/privacyca/tpm2utils"
-	model "github.com/intel-secl/intel-secl/v4/pkg/model/wlagent"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/common/crypt"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/privacyca"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/privacyca/tpm2utils"
+	model "github.com/intel-secl/intel-secl/v5/pkg/model/wlagent"
 )
 
 func TestBindingKey(t *testing.T) {

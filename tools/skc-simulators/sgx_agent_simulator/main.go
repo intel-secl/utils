@@ -6,7 +6,7 @@ package main
 
 import (
 	"fmt"
-	"intel/isecl/sgx_agent/v4/constants"
+	"intel/isecl/sgx_agent/v5/constants"
 	"os"
 	"os/user"
 	"strconv"

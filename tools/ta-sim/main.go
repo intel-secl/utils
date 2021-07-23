@@ -29,9 +29,9 @@ import (
 
 	"github.com/google/uuid"
 
-	client "github.com/intel-secl/intel-secl/v4/pkg/clients/ta"
-	"github.com/intel-secl/intel-secl/v4/pkg/lib/common/crypt"
-	tamodel "github.com/intel-secl/intel-secl/v4/pkg/model/ta"
+	client "github.com/intel-secl/intel-secl/v5/pkg/clients/ta"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/common/crypt"
+	tamodel "github.com/intel-secl/intel-secl/v5/pkg/model/ta"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"

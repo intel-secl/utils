@@ -69,7 +69,7 @@ Build SGX Agent Simulator
 
 ``` {.shell}
 git clone https://github.com/intel-secl/utils.git && cd utils
-git checkout v4.0/develop
+git checkout v5.0/develop
 cd tools/skc-simulators/sgx_agent_simulator/sgx_agent_simulator_automation/build_scripts/
 
 - To build SGX Agent Simulator,

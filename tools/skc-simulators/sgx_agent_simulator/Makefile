@@ -4,8 +4,8 @@ VERSION := $(or ${GITTAG}, v0.0.0)
 BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%S%z)
 PROXY_EXISTS := $(shell if [[ "${https_proxy}" || "${http_proxy}" ]]; then echo 1; else echo 0; fi)
 DOCKER_PROXY_FLAGS := ""
-MONOREPO_GITURL := "https://github.com/intel-secl/intel-secl.git"
-MONOREPO_GITBRANCH := "v4.0.0"
+MONOREPO_GITURL := "https://gitlab.devtools.intel.com/sst/isecl/intel-secl.git"
+MONOREPO_GITBRANCH := "v5.0/develop"
 
 ifeq ($(PROXY_EXISTS),1)
 	DOCKER_PROXY_FLAGS = --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy}
@@ -31,7 +31,7 @@ installer: sgx_agent
 	makeself out/installer out/sgx_agent-$(VERSION).bin "SGX Agent $(VERSION)" ./install.sh
 
 sgx_agent:
-	env GOOS=linux GOSUMDB=off GOPROXY=direct go build -ldflags "-X intel/isecl/sgx_agent/v4/version.BuildDate=$(BUILDDATE) -X intel/isecl/sgx_agent/v4/version.Version=$(VERSION) -X intel/isecl/sgx_agent/v4/version.GitHash=$(GITCOMMIT)" -o out/sgx_agent
+	env GOOS=linux GOSUMDB=off GOPROXY=direct go build -ldflags "-X intel/isecl/sgx_agent/v5/version.BuildDate=$(BUILDDATE) -X intel/isecl/sgx_agent/v5/version.Version=$(VERSION) -X intel/isecl/sgx_agent/v5/version.GitHash=$(GITCOMMIT)" -o out/sgx_agent
 
 docker: sgx_agent
 ifeq ($(PROXY_EXISTS),1)

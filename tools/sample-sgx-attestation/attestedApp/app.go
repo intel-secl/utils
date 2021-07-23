@@ -6,7 +6,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/intel-secl/sample-sgx-attestation/v4/common"
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
 	"github.com/pkg/errors"
 	"io"
 	"os"
