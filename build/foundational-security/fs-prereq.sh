@@ -19,7 +19,6 @@ PRE_REQ_PACKAGES_RHEL=(
 declare -a PRE_REQ_PACKAGES_UBUNTU
 PRE_REQ_PACKAGES_UBUNTU=(
   wget
-  gcc
   git
   patch
   zip

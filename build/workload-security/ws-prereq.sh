@@ -33,7 +33,6 @@ DEB_PACKAGES_DOCKER=(
 declare -a PRE_REQ_COMMON_PACKAGES
 PRE_REQ_COMMON_PACKAGES=(
   wget
-  gcc
   git
   patch
   zip
@@ -46,6 +45,7 @@ declare -a PRE_REQ_PACKAGES_RHEL
 PRE_REQ_PACKAGES_RHEL=(
   glib2-devel
   glibc-devel
+  gcc
   gcc-c++
   openssl-devel
   tpm2-tss-2.0.0-4.el8.x86_64
