@@ -164,6 +164,7 @@ func authorizeEndpoint(r *http.Request) error {
 // Step 1 - Receive a connect request. Respond with Quote and Public Key
 func httpGetQuotePubkey(a *App) errorHandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) error {
+		log.Info("Received HTTP client connection for ", common.GetIdentity)
 		err := authorizeEndpoint(r)
 		if err != nil {
 			return err
@@ -230,6 +231,9 @@ func httpGetQuotePubkey(a *App) errorHandlerFunc {
 // Step 2 : Receive Wrapped SWK from Attesting App
 func httpReceiveWrappedSWK(a *App) errorHandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) error {
+
+		log.Info("Received HTTP client connection for ", common.PostWrappedSWK)
+
 		err := authorizeEndpoint(r)
 		if err != nil {
 			return err
@@ -279,6 +283,9 @@ func httpReceiveWrappedSWK(a *App) errorHandlerFunc {
 // Step 3 : Receive Wrapped Message from Attesting App
 func httpReceiveWrappedMessage(a *App) errorHandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) error {
+
+		log.Info("Handling HTTP client connection for ", common.PostWrappedMessage)
+
 		err := authorizeEndpoint(r)
 		if err != nil {
 			return err

@@ -154,6 +154,8 @@ func (ca AppVerifierController) SharePubkeyWrappedSWK(baseURL string, key []byte
 		rootCAs.AppendCertsFromPEM(rootCACert)
 	}
 
+	log.Info("Sharing wrapped SWK to Attested App at ", url)
+
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -183,6 +185,8 @@ func (ca AppVerifierController) SharePubkeyWrappedSWK(baseURL string, key []byte
 		log.Error("Status Code : ", resp.StatusCode)
 		return errors.New("Posting SWK to Attested App failed.")
 	}
+
+	log.Infof("HTTP Status Code %d for %s", resp.StatusCode, url)
 
 	return nil
 }
@@ -251,6 +255,8 @@ func (ca AppVerifierController) ShareSWKWrappedSecret(baseURL string, key []byte
 		rootCAs.AppendCertsFromPEM(rootCACert)
 	}
 
+	log.Info("Sharing wrapped message to Attested App at ", url)
+
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -281,10 +287,17 @@ func (ca AppVerifierController) ShareSWKWrappedSecret(baseURL string, key []byte
 		return errors.New("Posting wrapped message to Attested App failed.")
 	}
 
+	log.Infof("HTTP Status Code %d for %s", resp.StatusCode, url)
+
 	return nil
 }
 
 func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce string) (error, *common.IdentityResponse) {
+
+	// Use custom formatter.
+	Formatter := new(customFormatter)
+	Formatter.DisableTimestamp = true
+	log.SetFormatter(Formatter)
 
 	url := baseURL + common.GetIdentity
 
@@ -330,6 +343,8 @@ func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce str
 		},
 	}
 
+	log.Info("Requesting quote and public key from Attested App at ", url)
+
 	resp, err := client.Do(req)
 	if resp != nil {
 		defer func() {
@@ -349,6 +364,8 @@ func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce str
 		log.Error("Status Code : ", resp.StatusCode)
 		return errors.New("Fetching quote and public key from Attested App failed."), nil
 	}
+
+	log.Infof("HTTP Status Code %d for %s", resp.StatusCode, url)
 
 	response, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -379,11 +396,6 @@ func (ca AppVerifierController) VerifySGXQuote(sgxQuote []byte, userData []byte)
 // verifySgxQuote verifies the quote
 func (ca AppVerifierController) verifyQuote(quote []byte, userData []byte) error {
 	var err error
-
-	// Initialize logger.
-	Formatter := new(customFormatter)
-	Formatter.DisableTimestamp = true
-	log.SetFormatter(Formatter)
 
 	// Convert byte array to string.
 	qData := base64.StdEncoding.EncodeToString(quote)
