@@ -31,7 +31,7 @@ installer: sgx_agent
 	makeself out/installer out/sgx_agent-$(VERSION).bin "SGX Agent $(VERSION)" ./install.sh
 
 sgx_agent:
-	env GOOS=linux GOSUMDB=off GOPROXY=direct go build -ldflags "-X intel/isecl/sgx_agent/v5/version.BuildDate=$(BUILDDATE) -X intel/isecl/sgx_agent/v5/version.Version=$(VERSION) -X intel/isecl/sgx_agent/v5/version.GitHash=$(GITCOMMIT)" -o out/sgx_agent
+	env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy && env GOOS=linux GOSUMDB=off GOPROXY=direct go build -ldflags "-X intel/isecl/sgx_agent/v5/version.BuildDate=$(BUILDDATE) -X intel/isecl/sgx_agent/v5/version.Version=$(VERSION) -X intel/isecl/sgx_agent/v5/version.GitHash=$(GITCOMMIT)" -o out/sgx_agent
 
 docker: sgx_agent
 ifeq ($(PROXY_EXISTS),1)
@@ -42,7 +42,8 @@ endif
 	docker save isecl/sgx-agent:$(VERSION) > out/sgx-agent-$(VERSION)-$(GITCOMMIT).tar
 
 test:
-	GOSUMDB=off GOPROXY=direct go  test ./... -coverprofile cover.out
+	env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
+	GOSUMDB=off GOPROXY=direct go test ./... -coverprofile cover.out
 	go tool cover -func cover.out
 	go tool cover -html=cover.out -o cover.html
 

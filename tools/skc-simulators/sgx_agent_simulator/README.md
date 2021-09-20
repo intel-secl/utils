@@ -30,7 +30,7 @@ Software requirements
 -   git
 -   makeself
 -   docker
--   Go 1.14.4
+-   Go 1.16.7
 
 Step By Step Build Instructions
 ===============================
@@ -44,18 +44,18 @@ Install required shell commands
 sudo dnf install -y git wget makeself docker
 ```
 
-### Install `go 1.14.4`
+### Install `go 1.16.7`
 
-The `Certificate Management Service` requires Go version 1.14 that has
-support for `go modules`. The build was validated with version 1.14.4
+The `Certificate Management Service` requires Go version 1.16 that has
+support for `go modules`. The build was validated with version 1.16.7
 version of `go`. It is recommended that you use a newer version of `go`
 - but please keep in mind that the product has been validated with
-1.14.4 and newer versions of `go` may introduce compatibility issues.
+1.16.7 and newer versions of `go` may introduce compatibility issues.
 You can use the following to install `go`.
 
 ``` {.shell}
-wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
-tar -xzf go1.14.4.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.16.7.linux-amd64.tar.gz
+tar -xzf go1.16.7.linux-amd64.tar.gz
 sudo mv go /usr/local
 export GOROOT=/usr/local/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH

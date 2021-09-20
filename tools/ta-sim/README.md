@@ -8,7 +8,7 @@ The Trust Agent Simulator could be used for simulating Trust Agents for performa
 
 The Trust Agent Simulator is written in Go and the only tool that is needed for building it is Go
 
-- Requires Go Version 1.14 or later
+- Requires Go Version 1.16 or later
 
 Simplest way to build the Trust Agent invoke the make commands from the commandline. This will produce an installer that will be located in deployments/installer/
 

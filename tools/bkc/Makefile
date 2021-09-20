@@ -7,6 +7,7 @@ BUILDDATE_FILENAME := $(shell TZ=UTC date +%Y-%m-%dT%H-%M-%S)
 
 bkc-tool:
 	cd cmd && \
+	env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
 	env CGO_CFLAGS_ALLOW="-f.*" GOOS=linux GOSUMDB=off GOPROXY=direct go build -gcflags=all="-N -l" \
 		-ldflags "-X main.Version=$(VERSION) -X main.Build=$(GITCOMMIT) -X main.BuildDate=$(BUILDDATE)" \
 		-o bkc-tool.bin

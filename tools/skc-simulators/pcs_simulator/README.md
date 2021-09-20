@@ -17,7 +17,7 @@ System Requirements
 Software requirements
 ---------------------
 
--   Go 1.14.4
+-   Go 1.16.7
 
 Step By Step Build Instructions
 ===============================
@@ -32,12 +32,12 @@ sudo systemctl stop firewalld
 
 ```
 
-### Install `go 1.14.4`
+### Install `go 1.16.7`
 
 
 ``` {.shell}
-wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
-tar -xzf go1.14.4.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.16.7.linux-amd64.tar.gz
+tar -xzf go1.16.7.linux-amd64.tar.gz
 sudo mv go /usr/local
 export GOROOT=/usr/local/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH

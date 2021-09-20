@@ -1,4 +1,4 @@
-image: golang:1.14
+image: golang:1.16
 
 before_script:
   - git config --global http.proxy ${HTTP_PROXY}
@@ -37,6 +37,7 @@ pcssimulator:
   tags:
     - go
   script:
+    - env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
     - cd tools/skc-simulators/pcs_simulator
     - go get -u github.com/gorilla/mux
     - go build ./...
@@ -67,7 +68,7 @@ sample-sgx-attestation:
   image: centos:8.2.2004
   only:
     changes:
-      - tools/sample-sgx-attestation
+      - tools/sample-sgx-attestation/*
   before_script:
     - export http_proxy=${HTTP_PROXY}
     - export https_proxy=${HTTPS_PROXY}
@@ -87,7 +88,7 @@ sample-sgx-attestation:
     - source /opt/intel/sgxsdk/environment
     - cd /root && wget -q https://github.com/intel/intel-sgx-ssl/archive/refs/tags/lin_2.13_1.1.1i.zip && unzip lin_2.13_1.1.1i.zip
     - cd /root/intel-sgx-ssl-lin_2.13_1.1.1i/openssl_source && wget -q  https://www.openssl.org/source/openssl-1.1.1k.tar.gz && cd ../Linux && make all >/dev/null && make install > /dev/null
-    - wget -q https://golang.org/dl/go1.14.6.linux-amd64.tar.gz && tar -xzf go1.14.6.linux-amd64.tar.gz -C /usr/local/
+    - wget -q https://golang.org/dl/go1.16.7.linux-amd64.tar.gz && tar -xzf go1.16.7.linux-amd64.tar.gz -C /usr/local/
     - ln -sf /usr/local/go/bin/* /usr/bin/
     - git config --global http.proxy ${HTTP_PROXY}
     - git config --global https.proxy ${HTTPS_PROXY}
@@ -98,16 +99,15 @@ sample-sgx-attestation:
   script:
     - touch tools/sample-sgx-attestation/rootca.pem && make -C tools/sample-sgx-attestation all || make -C tools/sample-sgx-attestation all
 
-stylechecker:
+Stylechecker:
   stage: scan
   only:
     - merge_requests
+  image: golang:1.16
   tags:
-    - go
+    - k8s
   script:
-    - cd tools
-    - gofmt -l .
     - |
-      if [ "$(gofmt -l . | wc -l)"  -gt 0 ]; then
+      if [ "$(GOPROXY=direct GOSUMDB=off gofmt -l . | wc -l)"  -gt 0 ]; then
              exit 1
       fi

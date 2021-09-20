@@ -1,5 +1,5 @@
 #!/bin//bash
-GO_VERSION=go1.14.2
+GO_VERSION=go1.16.7
 
 # Check OS and VERSION
 OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
