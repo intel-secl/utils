@@ -36,7 +36,7 @@ DEB_PACKAGES=(
   http://us.archive.ubuntu.com/ubuntu/pool/main/i/init-system-helpers/init-system-helpers_1.57_all.deb
   http://archive.ubuntu.com/ubuntu/pool/main/t/tpm-udev/tpm-udev_0.4_all.deb
   http://us.archive.ubuntu.com/ubuntu/pool/main/t/tpm2-tss/libtss2-esys0_2.3.2-1_amd64.deb
-  http://security.ubuntu.com/ubuntu/pool/main/libg/libgcrypt20/libgcrypt20-dev_1.8.1-4ubuntu1.2_amd64.deb
+  http://security.ubuntu.com/ubuntu/pool/main/libg/libgcrypt20/libgcrypt20-dev_1.8.5-5ubuntu1_amd64.deb
   http://archive.ubuntu.com/ubuntu/pool/main/t/tpm2-tss/libtss2-dev_2.3.2-1_amd64.deb
 )
 

@@ -7,7 +7,7 @@ RHEL8 package Requirements
 	BaseOS
 	AppStream
 	CodeReady
-- dnf install git
+- $PKGMGR install git
 - Ensure that the system date is properly setup (to PDT time)
 
 How to Build
@@ -21,9 +21,8 @@ Repo Contents
 =============
 skc_library_build.sh	 	Master build script which builds SKC Library and its SGX dependencies
 build_prerequisites.sh 		Install RHEL 8 package dependecies required for SKC Library build
-download_dcap_driver.sh 	Download SGX dcap driver pre-built binary and adds to the tar file
 install_sgxsdk.sh 		Downloads SGX SDK pre-built binary and installs it on build machine
 install_sgxrpms.sh 		Downloads SGX PSW/QGL RPMS and installs them
 install_ctk.sh		 	Downloads Crypto Api Toolkit repo, builds it and adds dynamic libraries to the tar file
 build_skclib.sh			Downloads SKC_Library repo, builds it and adds it to the tar file
-build_skclib_docker.sh		Build SKC Library docker image
+build_skc_docker.sh		Build SKC Library docker image

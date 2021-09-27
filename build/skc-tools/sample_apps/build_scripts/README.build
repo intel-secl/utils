@@ -1,6 +1,6 @@
 Pre-requisite for the Sample Apps build system
 ==============================================
- - RHEL 8.2 or UBUNTU 18.04
+ - RHEL 8.2 or UBUNTU 18.04 or UBUNTU 20.04
  - GoLang v1.13 or greater
  - gcc toolchain
  - make

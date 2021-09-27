@@ -35,6 +35,6 @@
 
 
 - name: ISECL - WORKLOAD AGENT | Verify successful installation of WLA
-  shell: "grep 'Installation completed.' /root/workload_agent-install.log"
+  shell: "grep 'Setup finished successfully!' /root/workload_agent-install.log"
   register: successful_install
-  failed_when: "'Installation completed.' not in successful_install.stdout"
+  failed_when: "'Setup finished successfully!' not in successful_install.stdout"

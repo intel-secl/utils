@@ -11,6 +11,10 @@ Pre Requisites
 - configure no_proxy and add loopback address of vm ip and sgx server ip
 
 
+Deploying all SGX Attestation Components (CMS/AAS/SCS/SQVS) on a single VM/baremetal
+------------------------------------------------------------------------------------
+# ./install_sgx_infra.sh
+
 Deploying all SKC components (CMS/AAS/SCS/SQVS/KBS/SHVS/IHUB) on a single VM/baremetal
 --------------------------------------------------------------------------------------
 # ./install_skc.sh
@@ -23,10 +27,14 @@ Deploying SKC Enterprise side components (CMS/AAS/SCS/SQVS/KBS) on a single VM/b
 ----------------------------------------------------------------------------------------
 # ./install_enterprise_skc.sh
 
-To check if installation is successful, following command can be used
-# netstat -lntp (if netstat command is not available, run dnf install net-tools)
+Deploying Orchestration Components (CMS/AAS/SCS/SQVS/IHUB/SHVS) on a single VM/baremetal
+----------------------------------------------------------------------------------------
+# ./install_enterprise_skc.sh
 
-Alternatively a service status can be checked as follows
+To check if installation is successful, following command can be used
+# netstat -lntp (if netstat command is not available, run $PKGMGR install net-tools)
+
+Alternatively service status can be checked as follows
 # cms status
 # authservice status
 

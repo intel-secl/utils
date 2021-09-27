@@ -1,11 +1,362 @@
 {
 	"info": {
-		"_postman_id": "82e5d4b7-18a5-4be2-9a93-212adc63a4fe",
+		"_postman_id": "5a5e54a0-f09c-4403-bb8a-77e71c3e1de2",
 		"name": "Data Fencing with Asset Tags(RHEL)",
 		"description": "Data Fencing and Asset Tags builds on the Platform Integrity use case to allow physical\nTPMs to be written with Asset Tags containing any number of key/value pairs.\nThis use case is typically used to identify the geographic location of the\nphysical server, but can also be used to identify other attributes. For example,\nthe Asset Tags provided by the Data Fencing and Asset Tags use case could be used to\nidentify hosts that meet specific compliance requirements and can run\ncontrolled workloads.\n\n> **Note:** Ensure to follow the Hardware requirements and installation required from the [Product Guide](https://01.org/intel-secl/documentation/intel%C2%AE-secl-dc-product-guide)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Verify Services",
+			"item": [
+				{
+					"name": "cmsVersion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{cms}}"
+							],
+							"port": "{{cmsPort}}",
+							"path": [
+								"cms",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{cms}}"
+									],
+									"port": "{{cmsPort}}",
+									"path": [
+										"cms",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Apr 2021 07:30:35 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Certificate Management Service\nVersion: v3.5.0-bc8d490\nBuild Date: 2021-04-21T12:17:16+0000\n"
+						}
+					]
+				},
+				{
+					"name": "aasVersion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Apr 2021 07:38:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v3.5.0-bc8d490\nBuild Date: 2021-04-21T12:17:16+0000\n"
+						}
+					]
+				},
+				{
+					"name": "hvsVersion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "https://{{hvs}}:{{hvsPort}}/hvs/v2/version",
+							"protocol": "https",
+							"host": [
+								"{{hvs}}"
+							],
+							"port": "{{hvsPort}}",
+							"path": [
+								"hvs",
+								"v2",
+								"version"
+							]
+						},
+						"description": "Retrieves the version of hvs."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "https://{{hvs}}:{{hvsPort}}/hvs/v2/version",
+									"protocol": "https",
+									"host": [
+										"{{hvs}}"
+									],
+									"port": "{{hvsPort}}",
+									"path": [
+										"hvs",
+										"v2",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Sep 2020 12:41:27 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "14"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "v3.0.0-6d6d8e1"
+						}
+					]
+				},
+				{
+					"name": "tagentVersion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tagent}}:{{tagentPort}}/v2/version",
+							"protocol": "https",
+							"host": [
+								"{{tagent}}"
+							],
+							"port": "{{tagentPort}}",
+							"path": [
+								"v2",
+								"version"
+							]
+						},
+						"description": "Retrieves the version of trust agent."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{tagent}}:{{tagentPort}}/v2/version",
+									"protocol": "https",
+									"host": [
+										"{{tagent}}"
+									],
+									"port": "{{tagentPort}}",
+									"path": [
+										"v2",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 May 2021 07:31:55 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Trust Agent\nVersion: v3.6.0-4112149\nBuild Date: 2021-05-25T13:30:09Z\n"
+						}
+					]
+				}
+			],
+			"description": "The Version API can be used to confirm that all services are up and running\r\nbefore proceeding to the actual use case demonstration.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
 		{
 			"name": "Authorization",
 			"item": [

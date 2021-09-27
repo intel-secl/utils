@@ -1,5 +1,4 @@
 #!/bin/bash
-
 red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
@@ -18,7 +17,7 @@ SGX_DEFAULT_PATH=/etc/sgx_default_qcnl.conf
 
 update_credential_ini()
 {
-	sed -i "s|server=.*|server=https:\/\/$KBS_HOSTNAME:${KBS_PORT:-9443}|g" $KMS_NPM_PATH
+	sed -i "s|server=.*|server=https:\/\/$KBS_HOSTNAME:${KBS_PORT:-9443}/kbs|g" $KMS_NPM_PATH
 	sed -i "s|request_params=.*|request_params=\"\/CN=$SKC_USER\"|g" $CREDENTIAL_PATH
 	sed -i "s|server=.*|server=$CMS_IP|g" $CREDENTIAL_PATH
 	sed -i "s|port=.*|port=${CMS_PORT:-8445}|g" $CREDENTIAL_PATH

@@ -1,27 +1,13 @@
 #!/bin/bash
-SKCLIB_BIN=bin
-SGX_DRIVER_VERSION=1.41
-SGX_INSTALL_DIR=/opt/intel
+source config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
+
 SKCLIB_INSTALL_DIR=/opt/skc
 SKCLIB_DEVOPS_DIR=$SKCLIB_INSTALL_DIR/devops
 SKC_DEVOPS_SCRIPTS_PATH=$SKCLIB_DEVOPS_DIR/scripts
-
-# Check OS and VERSION
-OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
-temp="${OS%\"}"
-temp="${temp#\"}"
-OS="$temp"
-
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
-
-KDIR=/lib/modules/$(uname -r)/build
-cat $KDIR/.config | grep "CONFIG_INTEL_SGX=y" > /dev/null
-INKERNEL_SGX=$?
-DRIVER_VERSION=`modinfo intel_sgx | grep -w 'version:' | awk '{print $2}'`
-modprobe -n intel_sgx 2>/dev/null
-DRIVER_LOADED=$?
 
 uninstall_skc()
 {
@@ -37,9 +23,9 @@ uninstall_skc()
 
 	echo "uninstalling sgx psw/qgl"
         if [ "$OS" == "rhel" ]; then
-                dnf remove -y libsgx-launch libsgx-uae-service libsgx-urts libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel libsgx-dcap-default-qpl
+                $PKGMGR remove -y libsgx-launch libsgx-uae-service libsgx-urts libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel libsgx-dcap-default-qpl
         elif [ "$OS" == "ubuntu" ]; then
-                apt remove -y libsgx-launch libsgx-uae-service libsgx-urts libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-dev libsgx-dcap-default-qpl-dev libsgx-dcap-default-qpl
+                $PKGMGR remove -y libsgx-launch libsgx-uae-service libsgx-urts libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-dev libsgx-dcap-default-qpl-dev libsgx-dcap-default-qpl
         fi
 
         if [[ "$INKERNEL_SGX" -eq 1 ]]; then
@@ -56,7 +42,6 @@ uninstall_skc()
         else
                 echo "found inbuilt sgx driver, skipping dcap driver uninstallation"
         fi
-
 }
 
 install_dcap_driver()
@@ -76,20 +61,19 @@ install_dcap_driver()
         fi
 }
 
-
 install_psw_qgl()
 {
 	if [ "$OS" == "rhel" ]; then
 		tar -xf $SKCLIB_BIN/sgx_rpm_local_repo.tgz || exit 1
 		yum-config-manager --add-repo file://$PWD/sgx_rpm_local_repo || exit 1
-		dnf install -qy --nogpgcheck libsgx-launch libsgx-uae-service libsgx-urts libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel libsgx-dcap-default-qpl || exit 1
+		$PKGMGR install -qy --nogpgcheck libsgx-launch libsgx-uae-service libsgx-urts libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel libsgx-dcap-default-qpl || exit 1
 		rm -rf sgx_rpm_local_repo /etc/yum.repos.d/*sgx_rpm_local_repo.repo
 	elif [ "$OS" == "ubuntu" ]; then
-		echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ bionic main' | sudo tee /etc/apt/sources.list.d/intel-sgx.list
-		wget -qO - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | sudo apt-key add - || exit 1
-		apt update -y || exit 1
-		apt install -y libsgx-launch libsgx-uae-service libsgx-urts || exit 1
-		apt install -y libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-dev libsgx-dcap-default-qpl-dev libsgx-dcap-default-qpl || exit 1
+                echo $SGX_LIBS_REPO | sudo tee /etc/$PKGMGR/sources.list.d/intel-sgx.list
+		wget -qO - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | sudo $PKGMGR-key add - || exit 1
+		$PKGMGR update -y || exit 1
+		$PKGMGR install -y libsgx-launch libsgx-uae-service libsgx-urts || exit 1
+		$PKGMGR install -y libsgx-ae-qve libsgx-dcap-ql libsgx-dcap-ql-dev libsgx-dcap-default-qpl-dev libsgx-dcap-default-qpl || exit 1
 	fi
 }
 
@@ -105,11 +89,12 @@ install_cryptoapitoolkit()
 	echo "${green} crypto api toolkit installed ${reset}"
 }
 
-exit_on_error() {
-  if [ $? != 0 ]; then
-    echo "$1"
-    exit 1
-  fi
+exit_on_error()
+{
+	if [ $? != 0 ]; then
+		echo "$1"
+		exit 1
+	fi
 }
 
 install_skc_library_bin()

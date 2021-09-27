@@ -14,15 +14,16 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
-	"github.com/intel-secl/sample-sgx-attestation/v5/common"
-	"github.com/pkg/errors"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"unsafe"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
+	"github.com/pkg/errors"
 )
 
 type privilegeError struct {
@@ -66,9 +67,8 @@ func (ehf errorHandlerFunc) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (a *App) getPubkeyFromEnclave() []byte {
 	var keyBuffer []byte
 	var pubKeySize C.int
-	var keyPtr *C.u_int8_t
 
-	keyPtr = C.get_public_key(&pubKeySize)
+	keyPtr := C.get_public_key(&pubKeySize)
 
 	if keyPtr == nil {
 		log.Error("Unable to retrive public key from enclave.")
@@ -151,10 +151,10 @@ func (a *App) EnclaveDestroy() error {
 	return nil
 }
 
-func authorizeEndpoint(r *http.Request) error {
+func authorizeEndpoint(bearerToken string, r *http.Request) error {
 	// Dummy authorization.
 	token := r.Header.Get("Authorization")
-	if token != common.DummyBearerToken {
+	if token != bearerToken {
 		return resourceError{Message: "Bearer token is invalid.", StatusCode: http.StatusUnauthorized}
 	}
 
@@ -164,8 +164,8 @@ func authorizeEndpoint(r *http.Request) error {
 // Step 1 - Receive a connect request. Respond with Quote and Public Key
 func httpGetQuotePubkey(a *App) errorHandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) error {
-		log.Info("Received HTTP client connection for ", common.GetIdentity)
-		err := authorizeEndpoint(r)
+
+		err := authorizeEndpoint(a.Config.DummyBearerToken, r)
 		if err != nil {
 			return err
 		}
@@ -231,10 +231,7 @@ func httpGetQuotePubkey(a *App) errorHandlerFunc {
 // Step 2 : Receive Wrapped SWK from Attesting App
 func httpReceiveWrappedSWK(a *App) errorHandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) error {
-
-		log.Info("Received HTTP client connection for ", common.PostWrappedSWK)
-
-		err := authorizeEndpoint(r)
+		err := authorizeEndpoint(a.Config.DummyBearerToken, r)
 		if err != nil {
 			return err
 		}
@@ -283,10 +280,7 @@ func httpReceiveWrappedSWK(a *App) errorHandlerFunc {
 // Step 3 : Receive Wrapped Message from Attesting App
 func httpReceiveWrappedMessage(a *App) errorHandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) error {
-
-		log.Info("Handling HTTP client connection for ", common.PostWrappedMessage)
-
-		err := authorizeEndpoint(r)
+		err := authorizeEndpoint(a.Config.DummyBearerToken, r)
 		if err != nil {
 			return err
 		}
@@ -378,7 +372,7 @@ func (a *App) startServer() error {
 
 	// Setup signal handlers to gracefully handle termination
 	stop := make(chan os.Signal, 1)
-	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGKILL)
+	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGQUIT)
 
 	// Dispatch web server go routine
 	go func() {

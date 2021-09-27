@@ -1,37 +1,19 @@
 #!/bin/bash
-HOME_DIR=~/
-SKC_BINARY_DIR=$HOME_DIR/binaries
-
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
-
-# Check OS and VERSION
-OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
-temp="${OS%\"}"
-temp="${temp#\"}"
-OS="$temp"
-VER=$(cat /etc/os-release | grep ^VERSION_ID | tr -d 'VERSION_ID="')
-
-if [[ "$OS" == "rhel" && "$VER" == "8.1" || "$VER" == "8.2" ]]; then
-	dnf install -qy https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm || exit 1
-	dnf install -qy jq || exit 1
-elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" ]]; then
-	apt install -y jq curl || exit 1
-else
-	echo "${red} Unsupported OS. Please use RHEL 8.1/8.2 or Ubuntu 18.04 ${reset}"
+source install_sgx_infra.sh
+if [ $? -ne 0 ]; then
+	echo "${red} unable to deploy SGX Attestation Infrastructure services ${reset}"
 	exit 1
 fi
 
 # Copy env files to Home directory
-\cp -pf $SKC_BINARY_DIR/env/shvs.env $HOME_DIR
-\cp -pf $SKC_BINARY_DIR/env/ihub.env $HOME_DIR
-\cp -pf $SKC_BINARY_DIR/env/iseclpgdb.env $HOME_DIR
-\cp -pf $SKC_BINARY_DIR/env/populate-users.env $HOME_DIR
+\cp -pf $BINARY_DIR/env/shvs.env $HOME_DIR
+\cp -pf $BINARY_DIR/env/ihub.env $HOME_DIR
+\cp -pf $BINARY_DIR/env/iseclpgdb.env $HOME_DIR
+\cp -pf $BINARY_DIR/env/populate-users.env $HOME_DIR
 
 # Copy DB and user/role creation script to Home directory
-\cp -pf $SKC_BINARY_DIR/create_db.sh $HOME_DIR
-\cp -pf $SKC_BINARY_DIR/populate-users.sh $HOME_DIR
+\cp -pf $BINARY_DIR/create_db.sh $HOME_DIR
+\cp -pf $BINARY_DIR/populate-users.sh $HOME_DIR
 
 if [ -f ./orchestrator.conf ]; then
 	echo "Reading Installation variables from $(pwd)/orchestrator.conf"

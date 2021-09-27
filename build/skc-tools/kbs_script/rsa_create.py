@@ -10,7 +10,7 @@ from kmip.pie import client
 from kmip import enums
 from subprocess import call
 
-HOSTNAME_IP = 
+KMIP_IP = 
 SERVER_PORT = '5696'
 CERT_PATH = '/etc/pykmip/client_certificate.pem'
 KEY_PATH = '/etc/pykmip/client_key.pem'
@@ -47,7 +47,7 @@ def CreateCertificate():
 
 def AsymmetricKeyRSA():
 
-    c = ProxyKmipClient(hostname=HOSTNAME_IP,port=SERVER_PORT,cert=CERT_PATH,key=KEY_PATH,ca=CA_PATH)
+    c = ProxyKmipClient(hostname=KMIP_IP,port=SERVER_PORT,cert=CERT_PATH,key=KEY_PATH,ca=CA_PATH)
     print("Asymmetric Key Creation")
     with c:
         key_id = c.create_key_pair(

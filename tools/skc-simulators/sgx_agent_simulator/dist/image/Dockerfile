@@ -11,16 +11,16 @@ RUN chmod +x /create_roles.sh
 COPY $SGX_AGENT_BIN/sgx_rpm_local_repo ${PWD}/sgx_rpm_local_repo
 COPY $SGX_AGENT_BIN/libdcap_quoteprov.so.1 $SGX_AGENT_BIN/pck_id_retrieval_tool_enclave.signed.so /usr/sbin/ 
 COPY $SGX_AGENT_BIN/PCKIDRetrievalTool /usr/sbin/
-COPY $SGX_AGENT_BIN/libsgx-ra-uefi-1.10.103.1-1.el8.x86_64.rpm $PWD
+COPY $SGX_AGENT_BIN/libsgx-ra-uefi-1.11.100.2-1.el8.x86_64.rpm $PWD
 
-RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN dnf install -y yum-utils dmidecode
+RUN dnf install -qy https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN dnf install -qy yum-utils dmidecode
 
 RUN yum-config-manager --add-repo file://$PWD/sgx_rpm_local_repo && \
-    dnf install -y --nogpgcheck libsgx-dcap-ql && \
+    dnf install -qy --nogpgcheck libsgx-dcap-ql && \
     rm -rf sgx_rpm_local_repo /etc/yum.repos.d/*sgx_rpm_local_repo.repo
 
-RUN rpm -ivh libsgx-ra-uefi-1.10.103.1-1.el8.x86_64.rpm
+RUN rpm -ivh libsgx-ra-uefi-1.11.100.2-1.el8.x86_64.rpm
 
 COPY out/sgx_agent /usr/bin/sgx_agent
 COPY dist/image/entrypoint.sh /entrypoint.sh

@@ -9,11 +9,12 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
-	"github.com/intel-secl/sample-sgx-attestation/v5/common"
-	"github.com/pkg/errors"
 	cos "intel/isecl/lib/common/v5/os"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
+	"github.com/pkg/errors"
 )
 
 // ExternalVerifier verifies quotes when SGX Attestation service is NOT operating in standalone mode
@@ -71,6 +72,9 @@ func (ev ExternalVerifier) VerifyQuote(quote string, userData string) (QuoteVeri
 	// Look for certificates in the current directory
 	// CMS root CA cert might be available.
 	rootCaCertPems, err := cos.GetDirFileContents("./", "*.pem")
+	if err != nil {
+		return QuoteVerifyAttributes{}, errors.Wrap(err, "Could not read root CA certificate")
+	}
 
 	for _, rootCACert := range rootCaCertPems {
 		rootCAs.AppendCertsFromPEM(rootCACert)

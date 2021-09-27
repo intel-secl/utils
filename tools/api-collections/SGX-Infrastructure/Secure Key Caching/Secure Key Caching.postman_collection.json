@@ -1,11 +1,389 @@
 {
 	"info": {
-		"_postman_id": "35e78341-1015-46d8-84a2-f371a9f7ba87",
+		"_postman_id": "1ba8ed43-6437-44d2-a987-bc2bfae6c0a9",
 		"name": "Secure Key Caching",
 		"description": "Key Protection is implemented by the SKC Client -- a set of libraries - which must be linked with a\ntenant workload, like Nginx, deployed in a CSP environment and the Key Broker Service (KBS)\ndeployed in the tenant's enterprise environment. The SKC Client retrieves the keys needed by the\nworkload from KBS after proving that the key can be protected in an SGX enclave.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Verify Services",
+			"item": [
+				{
+					"name": "cmsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{cms}}"
+							],
+							"port": "{{cmsPort}}",
+							"path": [
+								"cms",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{cms}}"
+									],
+									"port": "{{cmsPort}}",
+									"path": [
+										"cms",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:47:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Certificate Management Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:40+0000\n"
+						}
+					]
+				},
+				{
+					"name": "aasVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:48:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:31+0000\n"
+						}
+					]
+				},
+				{
+					"name": "scsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:48:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: SGX Caching Service\nVersion: v4.0.0-ee8da06\nBuild Date: 2021-07-20T08:49:13+0000\n"
+						}
+					]
+				},
+				{
+					"name": "kbsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:48:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "94"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Key Broker Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:49:04+0000\n"
+						}
+					]
+				},
+				{
+					"name": "sqvsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{sqvs}}"
+							],
+							"port": "{{sqvsPort}}",
+							"path": [
+								"svs",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{sqvs}}"
+									],
+									"port": "{{sqvsPort}}",
+									"path": [
+										"svs",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:48:43 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: SGX Quote Verification Service\nVersion: v4.0.0-e181d6d\nBuild Date: 2021-07-20T08:49:57+0000\n"
+						}
+					]
+				}
+			],
+			"description": "The command line option can be used to confirm that the service is up and running before proceeding to the actual use case demonstration.\n\nVerify SGX Agent:\n\n```\nsgx_agent status\n```",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
 		{
 			"name": "Authorization",
 			"item": [
@@ -259,31 +637,6 @@
 			]
 		},
 		{
-			"name": "Verify Services",
-			"item": [],
-			"description": "The command-line option can be used to confirm that all services are up and running before proceeding to the actual use case demonstration.\n\nVerify KBS:\n\n```\nkbs status\n```\n\nVerify SQVS:\n\n```\nsqvs status\n```\n\nVerify SCS:\n\n```\nscs status\n```",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
 			"name": "Extracting SGX Enclave values for Key Transfer Policy",
 			"item": [],
 			"description": "Values that are specific to the enclave such as sgx_enclave_issuer_anyof, sgx_enclave_measurement_anyof and sgx_enclave_issuer_product_id_anyof can be retrived using sgx_sign utility that is available as part of Intel SGX SDK.\r\n\r\nRun sgx_sign utility on the signed enclave (This command should be run on the build system).\r\n\r\n```\r\n/opt/intel/sgxsdk/bin/x64/sgx_sign dump -enclave <path to the signed enclave> -dumpfile info.txt\r\n```\r\n\r\nFor sgx_enclave_issuer_anyof, in info.txt, search for \"mrsigner->value\" . E.g mrsigner->value :\r\n\r\n```\r\nmrsigner->value: \"0x83 0xd7 0x19 0xe7 0x7d 0xea 0xca 0x14 0x70 0xf6 0xba 0xf6 0x2a 0x4d 0x77 0x43 0x03 0xc8 0x99 0xdb 0x69 0x02 0x0f 0x9c 0x70 0xee 0x1d 0xfc 0x08 0xc7 0xce 0x9e\"\r\n```\r\n\r\nRemove the whitespace and 0x characters from the above string and add it to the policy file. E.g :\r\n\r\n```\r\n\"sgx_enclave_issuer_anyof\":[\"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"]\r\n```\r\n\r\nFor sgx_enclave_measurement_anyof, in info.txt, search for metadata->enclave_css.body.enclave_hash.m . E.g metadata->enclave_css.body.enclave_hash.m :\r\n\r\n```\r\nmetadata->enclave_css.body.enclave_hash.m:\r\n0xad 0x46 0x74 0x9e 0xd4 0x1e 0xba 0xa2 0x32 0x72 0x52 0x04 0x1e 0xe7 0x46 0xd3\r\n0x79 0x1a 0x9f 0x24 0x31 0x83 0x0f 0xee 0x08 0x83 0xf7 0x99 0x3c 0xaf 0x31 0x6a\r\n```\r\n\r\nRemove the whitespace and 0x characters from the above string and add it to the policy file. E.g :\r\n\r\n```\r\n\"sgx_enclave_measurement_anyof\":[\"ad46749ed41ebaa2327252041ee746d3791a9f2431830fee0883f7993caf316a\"]\r\n```"
@@ -305,46 +658,47 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
-							{
-								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
-								"key": "Authorization",
-								"value": "Bearer {{bearerTokenEa}}"
-							},
-							{
-								"description": "(Required) Accept header",
-								"key": "Accept",
-								"value": "application/json"
-							},
 							{
 								"key": "Content-Type",
 								"value": "application/json",
 								"description": "(Required) Content-Type header"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": "(Required) Accept header",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenEa}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_issuer_product_id_anyof\": [\n        0\n    ],\n    \"sgx_enclave_issuer_extended_product_id_anyof\": [\n        \"00000000000000000000000000000000\"\n    ],\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_config_id_svn\": 0,\n    \"sgx_enclave_svn_minimum\": 1,\n    \"sgx_config_id_anyof\": [\n        \"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"\n    ],\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ],\n    \"sgx_enforce_tcb_up_to_date\": false\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_enclave_svn_minimum\": 1,\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ],\n    \"sgx_enforce_tcb_up_to_date\": false,\n    \"sgx_enclave_issuer_product_id\": 0\n}"
 						},
 						"url": {
-							"raw": "https://{{kbs}}:{{kbsPort}}/v1/key-transfer-policies",
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
 							"protocol": "https",
 							"host": [
 								"{{kbs}}"
 							],
 							"port": "{{kbsPort}}",
 							"path": [
+								"kbs",
 								"v1",
 								"key-transfer-policies"
 							]
 						},
-						"description": "Creates a key transfer policy.\n\nThe serialized KeyTransferPolicyAttributes Go struct object represents the content of the request body.\n\n | Attribute                                    | Description |\n |----------------------------------------------|-------------|\n | sgx_enclave_issuer_anyof                     | Array of allowed common names of SGX enclave’s code signing certificate. This is mandatory. The same issuer must be added as a trusted certificate in key server configuration settings. |\n | sgx_enclave_issuer_product_id_anyof          | Array of (16-bit value) (ISVPRODID). This is mandatory. This is like a qualifier for the issuer so same issuer (code signing) key can sign separate products. |\n | sgx_enclave_issuer_extended_product_id_anyof | Array of (16-byte value) (ISVPRODID). This is like a qualifier for the issuer so same issuer key can sign separate products, it's like product id but simply bigger (starts in Coffee Lake). |\n | sgx_enclave_measurement_anyof                | Array of enclave measurements that are allowed to retrieve the key (MRENCLAVE). Expect client to have one of these measurements in the SGX quote (this supports use case of providing key only to an SGX enclave that will enforce the key usage policy locally). |\n | sgx_config_id_svn                            | Integer. |\n | sgx_enclave_svn_minimum                      | Minimum version number required. |\n | sgx_config_id_anyof                          | Array of config id measurements that are allowed to retrieve the key. Required value for the enclave to have when it launched. for loading e.g. Java applets into enclavized JVM, so that enclave measurement is JVM measurement, and when it launches it's configured with this id, so when it loads applet it can measure it and compare to config id in register, and refuse to load applet if wrong (starts in Coffee Lake). |\n | tls_client_certificate_issuer_cn_anyof       | Array of Common Name to expect on client certificate's issuer field. Expect client certificate to have any one of these issuers. |\n | tls_client_certificate_san_anyof             | Array of Subject Alternative Name to expect in client certificate's extensions. Expect client certificate to have any of these names. |\n | tls_client_certificate_san_allof             | Array of Subject Alternative Name to expect in client certificate's extensions. Expect client certificate to have all of these names. |\n | attestation_type_anyof                       | Array of Attestation Type identifiers that client must support to get the key expect client to advertise these with the key request e.g. \"SGX\", \"KPT2\" (note that if key server needs to restrict technologies, then it should list only the ones that can receive the key). |\n | sgx_enforce_tcb_up_to_date                   | Boolean. |\n"
+						"description": "Creates a key transfer policy.\n\nThe serialized KeyTransferPolicyAttributes Go struct object represents the content of the request body.\n\n | Attribute                                    | Description |\n |----------------------------------------------|-------------|\n | sgx_enclave_issuer_anyof                     | Array of hash of enclave signing key. This is mandatory field. |\n | sgx_enclave_issuer_product_id                | Enclave Product ID. The ISV should configure a unique ProdID for each product which may want to share sealed data between enclaves signed with a specific MRSIGNER. This is mandatory field. |\n | sgx_enclave_measurement_anyof                | Array of enclave measurements that are allowed to retrieve the key (MRENCLAVE). Expect client to have one of these measurements in the SGX quote (this supports use case of providing key only to an SGX enclave that will enforce the key usage policy locally). |\n | sgx_enclave_svn_minimum                      | Minimum version number required. |\n | tls_client_certificate_issuer_cn_anyof       | Array of Common Name to expect on client certificate's issuer field. Expect client certificate to have any one of these issuers. |\n | tls_client_certificate_san_anyof             | Array of Subject Alternative Name to expect in client certificate's extensions. Expect client certificate to have any of these names. |\n | tls_client_certificate_san_allof             | Array of Subject Alternative Name to expect in client certificate's extensions. Expect client certificate to have all of these names. |\n | attestation_type_anyof                       | Array of Attestation Type identifiers that client must support to get the key expect client to advertise these with the key request e.g. \"SGX\" (note that if key server needs to restrict technologies, then it should list only the ones that can receive the key). |\n | sgx_enforce_tcb_up_to_date                   | Boolean. |\n"
 					},
 					"response": [
 						{
@@ -353,24 +707,28 @@
 								"method": "POST",
 								"header": [
 									{
-										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
-										"key": "Authorization",
-										"value": "Bearer {{bearerTokenEa}}"
-									},
-									{
-										"description": "(Required) Accept header",
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
 										"key": "Content-Type",
+										"name": "Content-Type",
 										"value": "application/json",
-										"description": "(Required) Content-Type header"
+										"description": "(Required) Content-Type header",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"description": "(Required) Accept header",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_issuer_product_id_anyof\": [\n        0\n    ],\n    \"sgx_enclave_issuer_extended_product_id_anyof\": [\n        \"00000000000000000000000000000000\"\n    ],\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_config_id_svn\": 0,\n    \"sgx_enclave_svn_minimum\": 1,\n    \"sgx_config_id_anyof\": [\n        \"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"\n    ],\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ],\n    \"sgx_enforce_tcb_up_to_date\": false\n}",
+									"raw": "{\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_enclave_svn_minimum\": 1,\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ],\n    \"sgx_enforce_tcb_up_to_date\": false,\n    \"sgx_enclave_issuer_product_id\": 0\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -378,13 +736,14 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{kbs}}:{{kbsPort}}/v1/key-transfer-policies",
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
 									"protocol": "https",
 									"host": [
 										"{{kbs}}"
 									],
 									"port": "{{kbsPort}}",
 									"path": [
+										"kbs",
 										"v1",
 										"key-transfer-policies"
 									]
@@ -400,15 +759,15 @@
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 09 Nov 2020 10:32:57 GMT"
+									"value": "Wed, 08 Sep 2021 19:35:03 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "767"
+									"value": "497"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"{{keyTransferPolicyId}}\",\n    \"created_at\": \"2020-11-09T10:32:57.962968825Z\",\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_issuer_product_id_anyof\": [\n        0\n    ],\n    \"sgx_enclave_issuer_extended_product_id_anyof\": [\n        \"00000000000000000000000000000000\"\n    ],\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_config_id_svn\": 0,\n    \"sgx_enclave_svn_minimum\": 1,\n    \"sgx_config_id_anyof\": [\n        \"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"\n    ],\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ]\n}"
+							"body": "{\n    \"id\": \"{{keyTransferPolicyId}}\",\n    \"created_at\": \"2021-09-08T19:35:03.69181252Z\",\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_issuer_product_id\": 0,\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_enclave_svn_minimum\": 1,\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ]\n}"
 						}
 					]
 				},
@@ -443,13 +802,14 @@
 							}
 						},
 						"url": {
-							"raw": "https://{{kbs}}:{{kbsPort}}/v1/keys",
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
 							"protocol": "https",
 							"host": [
 								"{{kbs}}"
 							],
 							"port": "{{kbsPort}}",
 							"path": [
+								"kbs",
 								"v1",
 								"keys"
 							]
@@ -488,13 +848,14 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{kbs}}:{{kbsPort}}/v1/keys",
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
 									"protocol": "https",
 									"host": [
 										"{{kbs}}"
 									],
 									"port": "{{kbsPort}}",
 									"path": [
+										"kbs",
 										"v1",
 										"keys"
 									]
@@ -553,13 +914,14 @@
 							}
 						},
 						"url": {
-							"raw": "https://{{kbs}}:{{kbsPort}}/v1/keys",
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
 							"protocol": "https",
 							"host": [
 								"{{kbs}}"
 							],
 							"port": "{{kbsPort}}",
 							"path": [
+								"kbs",
 								"v1",
 								"keys"
 							]
@@ -598,13 +960,14 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{kbs}}:{{kbsPort}}/v1/keys",
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
 									"protocol": "https",
 									"host": [
 										"{{kbs}}"
 									],
 									"port": "{{kbsPort}}",
 									"path": [
+										"kbs",
 										"v1",
 										"keys"
 									]
@@ -709,7 +1072,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"quote\": \"<string>\",\n    \"userData\": \"<string>\"\n}"
+							"raw": "{\n    \"quote\": \"AwACAAAAAAAGAAsAk5pyM/ecTKmUCg2zlX8GB1obJ5fsdDPnqdQKnQySLq8AAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAACQRv4RMZIqKxheSPQ+Pc+dHNEUmWv8x8+P7sOH3TXh2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAKDtqek5bBMZRqfK0bQkYtKolooktdT+kXCjZXrDzYKTkXgC8UPM1QHeMxQCbeHdZ6o5igkRoZRYW3GuWCYui43pgRaXXbd2MT6X0ze8XzF3hSdjqPO77qTq9UFAilX1a6/gO87m25OTrJoH1L+/puPi463SpCq+QXjGm7NqQEG8AgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAFxgaTuTglIDbWPPgJ2tBdKqHc0aTg3f+RFRMLraJCY+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyDi60vm5l2dlHVt1Z7oFyIIUp62D5NZh2HewYoKELGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANYQn/wjmyNhTRju1HFZR6bTRkPCNGSr7EWR7PVE2v12HznKjxP1FYsjBc5gheh1XFscxrpfqQr9od8SCObzUKSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBS0xmb3lxSno1WC9DNWZ4VThoZ252aUJnTlRFTUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJeE1EZ3kKTmpBMk1qTXhPRm9YRFRJNE1EZ3lOakEyTWpNeE9Gb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVFWZXoxbCtKR1MKclNYay9oc29MR0owT3ZZTnJsbGhOZW8zVXFDWW50OU9CWG5MMEsveVVaUVdKOHRnVHRUZ0RFTGE4T0FzdGFTMlo0SDM1TWVuMWlwSgpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVRTEcxYXRRNAplSFJTdTg0UjhCd1U3NFR0V3Fvd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBREU4UENSZzR1VTg2MGtDOXNaNzRrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFKaXAvdnVvT1VycjYzbUJrOEVncjFEQkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQU0vMmhGNno3aE5GaDdRVmhxYzVjZEFWYUtXamRPVjllK1ZIaUxMamNNZUlBaUVBcW9ueVoxYllyeGh1WThMZQpDYnloemgyUE1iYWFlTEdrVU9nUFlpR0lHSGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}"
 						},
 						"url": {
 							"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/sgx_qv_verify_quote",
@@ -752,7 +1115,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"quote\": \"AwACAAAAAAAFAAoAk5pyM/ecTKmUCg2zlX8GB3HHO7ubYF/PJVbCISbSSAYAAAAAAgIAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAADnAAAAAAAAAD708T5CMYqlBj/XQN5SkwSIu/+GIzYcaGw4HETKqHk9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADNFxxWlBxs5JaQtFX2kdnIoEwuQ+Ck0w91L6UoXH7lfwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABT9iwCApadupRBkF6TjjvN+79hY/cURtoFb0N+tQQyDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAJebwh/oA8bfeD/7labQe/F7QldB20tL5lSz75DMYrkqe03HqBfx9I8Ea7/k0eMW7A+L/y8qwL/kUtc5eNPX+o/jyVSxJEHZ7uLmoxVdtTBiQpSv5JR5M2qem33SYcVB9uycLbAd0iOrWpE2Hnm7q/qLAVj//UbB/+dThPvPvWFkAgIAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAGDYWvKL6NHECgjZiwCdX4rME4Sjhc9GCADkeHkdGpecAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtUZdwWxK4I7b//LXQQxF/XgH8vIUXGer+OwNKaOBjKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiSP8Nr+QcNR3EvCQ7pbDROOG2Th43bmKTtWLFCuYx1S8qvtzEro7hKxgUS68j7yfxe0/1su+xo7lR3jX94ntQSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlUQ0NCSnFnQXdJQkFnSVVlVERLVXZ5V2h4TmRsbWhFVXM1eGhSUEJUWlV3Q2dZSUtvWkl6ajBFQXdJd2NERWlNQ0FHQTFVRQpBd3daU1c1MFpXd2dVMGRZSUZCRFN5QlFiR0YwWm05eWJTQkRRVEVhTUJnR0ExVUVDZ3dSU1c1MFpXd2dRMjl5Y0c5eVlYUnBiMjR4CkZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3Q1FZRFZRUUlEQUpEUVRFTE1Ba0dBMVVFQmhNQ1ZWTXdIaGNOTWpFd01qRXkKTVRjeE16UTFXaGNOTWpnd01qRXlNVGN4TXpRMVdqQndNU0l3SUFZRFZRUUREQmxKYm5SbGJDQlRSMWdnVUVOTElFTmxjblJwWm1sagpZWFJsTVJvd0dBWURWUVFLREJGSmJuUmxiQ0JEYjNKd2IzSmhkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKCkJnTlZCQWdNQWtOQk1Rc3dDUVlEVlFRR0V3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCT0NjNHdiRzI4SjkKcWNXUjg1Zzl6YmFWbXViemxnc2szbkZOZUhvVW5OR3lHOXFoU1BXdVg5clRLYk1hdFdBbi8xdXY2UzFOTmFPaDNxcmdyb0pIUnRxagpnZ01RTUlJREREQWZCZ05WSFNNRUdEQVdnQlJaSTlPblNxaGpWQzQ1Y0szZ0R3Y3JWeVFxdHpCdkJnTlZIUjhFYURCbU1HU2dZcUJnCmhsNW9kSFJ3Y3pvdkwzTmllQzVoY0drdWRISjFjM1JsWkhObGNuWnBZMlZ6TG1sdWRHVnNMbU52YlM5elozZ3ZZMlZ5ZEdsbWFXTmgKZEdsdmJpOTJNeTl3WTJ0amNtdy9ZMkU5Y0d4aGRHWnZjbTBtWlc1amIyUnBibWM5WkdWeU1CMEdBMVVkRGdRV0JCUjNIbkZYczJMcApPVmkwVWhwVk9qeGNnclF2VmpBT0JnTlZIUThCQWY4RUJBTUNCc0F3REFZRFZSMFRBUUgvQkFJd0FEQ0NBamtHQ1NxR1NJYjRUUUVOCkFRU0NBaW93Z2dJbU1CNEdDaXFHU0liNFRRRU5BUUVFRUtwVWpKSmk4Q0xoa0h3em15d1dnQWN3Z2dGakJnb3Foa2lHK0UwQkRRRUMKTUlJQlV6QVFCZ3NxaGtpRytFMEJEUUVDQVFJQkFqQVFCZ3NxaGtpRytFMEJEUUVDQWdJQkFqQVFCZ3NxaGtpRytFMEJEUUVDQXdJQgpBREFRQmdzcWhraUcrRTBCRFFFQ0JBSUJBREFRQmdzcWhraUcrRTBCRFFFQ0JRSUJBREFRQmdzcWhraUcrRTBCRFFFQ0JnSUJBREFRCkJnc3Foa2lHK0UwQkRRRUNCd0lCQURBUUJnc3Foa2lHK0UwQkRRRUNDQUlCQURBUUJnc3Foa2lHK0UwQkRRRUNDUUlCQURBUUJnc3EKaGtpRytFMEJEUUVDQ2dJQkFEQVFCZ3NxaGtpRytFMEJEUUVDQ3dJQkFEQVFCZ3NxaGtpRytFMEJEUUVDREFJQkFEQVFCZ3NxaGtpRworRTBCRFFFQ0RRSUJBREFRQmdzcWhraUcrRTBCRFFFQ0RnSUJBREFRQmdzcWhraUcrRTBCRFFFQ0R3SUJBREFRQmdzcWhraUcrRTBCCkRRRUNFQUlCQURBUUJnc3Foa2lHK0UwQkRRRUNFUUlCQ2pBZkJnc3Foa2lHK0UwQkRRRUNFZ1FRQWdJQUFBQUFBQUFBQUFBQUFBQUEKQURBUUJnb3Foa2lHK0UwQkRRRURCQUlBQURBVUJnb3Foa2lHK0UwQkRRRUVCQVlRWUdvQUFBQXdEd1lLS29aSWh2aE5BUTBCQlFvQgpBVEFlQmdvcWhraUcrRTBCRFFFR0JCQ2NTcUM0NW5KWWJuMXpHSEdVWFJoK01FUUdDaXFHU0liNFRRRU5BUWN3TmpBUUJnc3Foa2lHCitFMEJEUUVIQVFFQi96QVFCZ3NxaGtpRytFMEJEUUVIQWdFQkFEQVFCZ3NxaGtpRytFMEJEUUVIQXdFQi96QUtCZ2dxaGtqT1BRUUQKQWdOSkFEQkdBaUVBN3JXamVieTltZDNBWmk4bnJSR2NpdnRZYWZnOERObEVRUlhVQS9RQ0NJY0NJUUNxeGM0YjcveVczOFp2aytFSwpSQWY2aVJhdmNEbk1rcE9ZbmJ3TFJ4Q05OZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}",
+									"raw": "{\n    \"quote\": \"AwACAAAAAAAGAAsAk5pyM/ecTKmUCg2zlX8GB1obJ5fsdDPnqdQKnQySLq8AAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAACQRv4RMZIqKxheSPQ+Pc+dHNEUmWv8x8+P7sOH3TXh2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAKDtqek5bBMZRqfK0bQkYtKolooktdT+kXCjZXrDzYKTkXgC8UPM1QHeMxQCbeHdZ6o5igkRoZRYW3GuWCYui43pgRaXXbd2MT6X0ze8XzF3hSdjqPO77qTq9UFAilX1a6/gO87m25OTrJoH1L+/puPi463SpCq+QXjGm7NqQEG8AgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAFxgaTuTglIDbWPPgJ2tBdKqHc0aTg3f+RFRMLraJCY+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyDi60vm5l2dlHVt1Z7oFyIIUp62D5NZh2HewYoKELGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANYQn/wjmyNhTRju1HFZR6bTRkPCNGSr7EWR7PVE2v12HznKjxP1FYsjBc5gheh1XFscxrpfqQr9od8SCObzUKSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBS0xmb3lxSno1WC9DNWZ4VThoZ252aUJnTlRFTUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJeE1EZ3kKTmpBMk1qTXhPRm9YRFRJNE1EZ3lOakEyTWpNeE9Gb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVFWZXoxbCtKR1MKclNYay9oc29MR0owT3ZZTnJsbGhOZW8zVXFDWW50OU9CWG5MMEsveVVaUVdKOHRnVHRUZ0RFTGE4T0FzdGFTMlo0SDM1TWVuMWlwSgpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVRTEcxYXRRNAplSFJTdTg0UjhCd1U3NFR0V3Fvd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBREU4UENSZzR1VTg2MGtDOXNaNzRrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFKaXAvdnVvT1VycjYzbUJrOEVncjFEQkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQU0vMmhGNno3aE5GaDdRVmhxYzVjZEFWYUtXamRPVjllK1ZIaUxMamNNZUlBaUVBcW9ueVoxYllyeGh1WThMZQpDYnloemgyUE1iYWFlTEdrVU9nUFlpR0lHSGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -782,16 +1145,20 @@
 									"value": "application/json"
 								},
 								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
 									"key": "Date",
-									"value": "Fri, 12 Feb 2021 18:09:23 GMT"
+									"value": "Wed, 08 Sep 2021 21:33:07 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "591"
+									"value": "348"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"Message\": \"SGX_QL_QV_RESULT_OK\",\n    \"reportData\": \"53f62c0202969dba9441905e938e3bcdfbbf6163f71446da056f437eb504320f\",\n    \"userDataMatch\": \"false\",\n    \"EnclaveIssuer\": \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\",\n    \"EnclaveMeasurement\": \"3ef4f13e42318aa5063fd740de52930488bbff8623361c686c381c44caa8793d\",\n    \"EnclaveIssuerProdID\": \"00\",\n    \"EnclaveIssuerExtProdID\": \"00000000000000000000000000000000\",\n    \"ConfigSvn\": \"00\",\n    \"IsvSvn\": \"01\",\n    \"ConfigId\": \"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\",\n    \"TcbLevel\": \"OutOfDate\"\n}"
+							"body": "{\n    \"reportData\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n    \"Message\": \"SGX_QL_QV_RESULT_OK\",\n    \"EnclaveIssuer\": \"d412a4f07ef83892a5915fb2ab584be31e186e5a4f95ab5f6950fd4eb8694d7b\",\n    \"EnclaveMeasurement\": \"2411bf844c648a8ac617923d0f8f73e7473445265aff31f3e3fbb0e1f74d7876\",\n    \"EnclaveIssuerProdID\": \"00\",\n    \"IsvSvn\": \"00\",\n    \"TcbLevel\": \"OutOfDate\"\n}"
 						}
 					]
 				},
@@ -903,7 +1270,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"quoteData\": {\n        \"Message\": \"SGX_QL_QV_RESULT_OK\",\n        \"reportData\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n        \"EnclaveIssuer\": \"d412a4f07ef83892a5915fb2ab584be31e186e5a4f95ab5f6950fd4eb8694d7b\",\n        \"EnclaveMeasurement\": \"c1145d4f5f3ec497bbd55c9c50dffa8d0e3a50cac715ead40f41e3b4cae47ba0\",\n        \"EnclaveIssuerProdID\": \"00\",\n        \"EnclaveIssuerExtProdID\": \"00000000000000000000000000000000\",\n        \"ConfigSvn\": \"00\",\n        \"IsvSvn\": \"00\",\n        \"ConfigID\": \"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\",\n        \"TcbLevel\": \"OutOfDate\",\n        \"Quote\": \"<quote in request>\",\n        \"Challenge\": \"<challenge in request>\"\n    },\n    \"signature\": \"<Digital Signature of the content of response field>\",\n    \"certificateChain\": \"<Chain of leaf and intermediate certs>\"\n}"
+							"body": "{\n    \"quoteData\":\"<Base 64 encoded JSON>\",\n    \"signature\": \"<Digital Signature of the content of response field>\",\n    \"certificateChain\": \"<Chain of leaf and intermediate certs>\"\n}"
 						}
 					]
 				}

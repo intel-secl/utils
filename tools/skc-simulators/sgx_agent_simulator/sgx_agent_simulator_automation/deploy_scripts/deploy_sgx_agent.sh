@@ -1,37 +1,20 @@
 #!/bin/bash
-SGX_DRIVER_VERSION=1.41
-SGX_INSTALL_DIR=/opt/intel
-MP_RPM_VER=1.10.103.1-1
-SGX_AGENT_BIN=bin
+source config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
-
-KDIR=/lib/modules/$(uname -r)/build
-cat $KDIR/.config | grep 'CONFIG_INTEL_SGX=y\|CONFIG_X86_SGX=y' > /dev/null
-INKERNEL_SGX=$?
-DRIVER_VERSION=`modinfo intel_sgx | grep -w 'version:' | awk '{print $2}'`
-modprobe -n intel_sgx 2>/dev/null
-DRIVER_LOADED=$?
-
-# Check OS and VERSION
-OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
-temp="${OS%\"}"
-temp="${temp#\"}"
-OS="$temp"
-VER=$(cat /etc/os-release | grep ^VERSION_ID | tr -d 'VERSION_ID="')
-
-uninstall_sgx_agent()
+uninstall()
 {
 	echo "uninstalling sgx psw/qgl and multi-package agent rpm"
 	if [ "$OS" == "rhel" ]; then
-		dnf remove -y libsgx-dcap-ql libsgx-ra-uefi
+		$PKGMGR remove -y libsgx-dcap-ql libsgx-ra-uefi
 	elif [ "$OS" == "ubuntu" ]; then
-		apt remove -y libsgx-dcap-ql libsgx-ra-uefi
+		$PKGMGR remove -y libsgx-dcap-ql libsgx-ra-uefi
 	fi
 	echo "uninstalling PCKIDRetrieval Tool"
-	rm -rf /usr/sbin/libdcap_quoteprov.so.1 /usr/sbin/pck_id_retrieval_tool_enclave.signed.so /usr/sbin/PCKIDRetrievalTool
+	rm -rf $USR_BIN_DIR/libdcap_quoteprov.so.1 $USR_BIN_DIR/pck_id_retrieval_tool_enclave.signed.so $USR_BIN_DIR/PCKIDRetrievalTool
 	
 	if [[ "$INKERNEL_SGX" -eq 1 ]]; then
 		if [[ "$DRIVER_LOADED" -ne 0 ]]; then
@@ -86,13 +69,13 @@ install_psw_qgl()
 	if [ "$OS" == "rhel" ]; then
 		tar -xf $SGX_AGENT_BIN/sgx_rpm_local_repo.tgz
 		yum-config-manager --add-repo file://$PWD/sgx_rpm_local_repo || exit 1
-		dnf install -qy --nogpgcheck libsgx-dcap-ql || exit 1
+		$PKGMGR install -qy --nogpgcheck libsgx-dcap-ql || exit 1
 		rm -rf sgx_rpm_local_repo /etc/yum.repos.d/*sgx_rpm_local_repo.repo
 	elif [ "$OS" == "ubuntu" ]; then
-		echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ bionic main' | sudo tee /etc/apt/sources.list.d/intel-sgx.list
+                echo $SGX_LIBS_REPO | sudo tee /etc/apt/sources.list.d/intel-sgx.list
 		wget -qO - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | sudo apt-key add -
-		apt update -y || exit 1
-		apt install -y libsgx-dcap-ql || exit 1
+		$PKGMGR update -y || exit 1
+		$PKGMGR install -y libsgx-dcap-ql || exit 1
 	fi
 	echo "${green} sgx psw and qgl installed ${reset}"
 }
@@ -102,15 +85,15 @@ install_multipackage_agent_rpm()
 	if [ "$OS" == "rhel" ]; then
 		rpm -ivh $SGX_AGENT_BIN/libsgx-ra-uefi-$MP_RPM_VER.el8.x86_64.rpm || exit 1
 	elif [ "$OS" == "ubuntu" ]; then
-		apt install -y libsgx-ra-uefi || exit 1
+		$PKGMGR install -y libsgx-ra-uefi || exit 1
 	fi
 	echo "${green} sgx multipackage registration agent installed ${reset}"
 }
 
 install_pckretrieval_tool()
 {
-	\cp -pf $SGX_AGENT_BIN/libdcap_quoteprov.so.1 $SGX_AGENT_BIN/pck_id_retrieval_tool_enclave.signed.so /usr/sbin/
-	\cp -pf $SGX_AGENT_BIN/PCKIDRetrievalTool /usr/sbin/
+	\cp -pf $SGX_AGENT_BIN/libdcap_quoteprov.so.1 $SGX_AGENT_BIN/pck_id_retrieval_tool_enclave.signed.so $USR_BIN_DIR
+	\cp -pf $SGX_AGENT_BIN/PCKIDRetrievalTool $USR_BIN_DIR
 	echo "${green} pckid retrieval tool installed ${reset}"
 }
 
@@ -152,7 +135,7 @@ install_sgx_agent() {
 	echo "${green} SGX Agent Installation Successful ${reset}"
 }
 
-uninstall_sgx_agent
+uninstall
 install_prerequisites
 install_dcap_driver
 install_psw_qgl

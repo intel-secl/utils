@@ -14,6 +14,7 @@ type Configuration struct {
 	AttestedAppServiceHost string `yaml:"attestedapp-host" mapstructure:"attestedapp-host"`
 	AttestedAppServicePort int    `yaml:"attestedapp-port" mapstructure:"attestedapp-port"`
 	SqvsUrl                string `yaml:"sqvs-url" mapstructure:"sqvs-url"`
+	DummyBearerToken       string `yaml:"bearer-token" mapstructure:"bearer-token"`
 }
 
 func LoadConfiguration() (*Configuration, error) {

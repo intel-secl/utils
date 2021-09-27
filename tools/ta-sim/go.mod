@@ -9,3 +9,5 @@ require (
 	github.com/sirupsen/logrus v1.4.0
 	github.com/spf13/viper v1.7.0
 )
+
+replace github.com/intel-secl/intel-secl/v5 => gitlab.devtools.intel.com/sst/isecl/intel-secl.git/v5 v5.0/develop

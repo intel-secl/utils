@@ -1,18 +1,9 @@
 #!/bin/bash
-SGX_AGENT_DIR=$PWD/sgx_agent
-SGX_AGENT_BIN_DIR=$SGX_AGENT_DIR/bin
-SGX_VERSION=2.13
-
-# Check OS and VERSION
-OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
-temp="${OS%\"}"
-temp="${temp#\"}"
-OS="$temp"
-VER=$(cat /etc/os-release | grep ^VERSION_ID | tr -d 'VERSION_ID="')
-OS_FLAVOUR="$OS""$VER"
-
-SGX_URL="https://download.01.org/intel-sgx/sgx-linux/${SGX_VERSION}/distro/$OS_FLAVOUR-server"
-SGX_DRIVER_VERSION=1.41
+source ../../../../../build/skc-tools/config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
 
 fetch_dcap_driver()
 {

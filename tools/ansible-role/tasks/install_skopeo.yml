@@ -1,12 +1,43 @@
 ---
-- name: ISECL - SKOPEO | Install skopeo from repository
+- name: INSTALL SKOPEO | RHEL - Disable container-tools module
+  copy:
+    dest: /etc/dnf/modules.d/container-tools.module
+    content: |
+      [container-tools]
+      name=container-tools
+      stream=rhel8
+      profiles=
+      state=disabled  
+
+- name: INSTALL SKOPEO | RHEL - Install dnf-command(copr)
+  dnf:
+    name: dnf-command(copr)
+    state: present  
+
+- name: INSTALL SKOPEO | RHEL - Add container-selinux repo 
+  copy:
+    dest: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:rhcontainerbot:container-selinux.repo
+    content: |
+      [copr:copr.fedorainfracloud.org:rhcontainerbot:container-selinux]
+      name=Copr repo for container-selinux owned by rhcontainerbot
+      baseurl=https://download.copr.fedorainfracloud.org/results/rhcontainerbot/container-selinux/epel-8-$basearch/
+      type=rpm-md
+      skip_if_unavailable=True
+      gpgcheck=1
+      gpgkey=https://download.copr.fedorainfracloud.org/results/rhcontainerbot/container-selinux/pubkey.gpg
+      repo_gpgcheck=0
+      enabled=1
+      enabled_metadata=1  
+
+- name: INSTALL SKOPEO | RHEL - Add libcontainers repo
+  shell: dnf config-manager --add-repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{crio_os}}/devel:kubic:libcontainers:stable.repo
+  args:
+    chdir: /root
+    executable: /bin/bash
+    creates: /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo
+    warn: false  
+
+- name: INSTALL SKOPEO | RHEL - Install skopeo
   dnf:
     name: skopeo
     state: present
-
-
-- name: ISECL - SKOPEO |  Copy skopeo binary TO usr/bin directory
-  copy:
-    src: "{{ skopeo_installer_file_src }}"
-    dest: "/usr/bin/skopeo"
-    mode: "u+x"

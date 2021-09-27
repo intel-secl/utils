@@ -1,0 +1,78 @@
+#!/bin/bash
+HOME_DIR=~/
+BINARY_DIR=$HOME_DIR/binaries
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
+# Check OS and VERSION
+OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
+temp="${OS%\"}"
+temp="${temp#\"}"
+OS="$temp"
+VER=$(cat /etc/os-release | grep ^VERSION_ID | tr -d 'VERSION_ID="')
+OS_FLAVOUR="$OS""$VER"
+
+if [ $OS == "rhel" ]; then
+	PKGMGR=dnf
+	LIB_DIR=/usr/lib64
+else
+	PKGMGR=apt
+	LIB_DIR=/usr/lib
+fi
+
+USR_BIN_DIR=/usr/bin
+USR_SBIN_DIR=/usr/sbin/
+USR_LOCALBIN_DIR=/usr/local/bin
+
+SGX_VERSION=2.14
+SGX_SDK_VERSION=2.14.100.2
+SGX_DRIVER_VERSION=1.41
+DCAP_VERSION=1.11
+SGX_DCAP_TAG=DCAP_1.11
+MP_RPM_VER=1.11.100.2-1
+OPENSSL_VERSION=1.1.1k
+SGX_URL="https://download.01.org/intel-sgx/sgx-linux/${SGX_VERSION}/distro/$OS_FLAVOUR-server"
+LINUX_SGX_REPO="https://github.com/intel/linux-sgx.git"
+SGX_DCAP_REPO="https://github.com/intel/SGXDataCenterAttestationPrimitives.git"
+SGX_SSL_REPO="https://github.com/intel/intel-sgx-ssl.git"
+MPA_URL="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/tools/SGXMultiPackageAgent/$OS_FLAVOUR-server"
+CTK_REPO="https://github.com/intel/crypto-api-toolkit.git"
+GIT_CLONE_PATH=/tmp/sgx
+SGX_INSTALL_DIR=/opt/intel
+GIT_CLONE_LINUX_SGXSSL=$GIT_CLONE_PATH/linux-sgx
+GIT_CLONE_SGXSSL=$GIT_CLONE_PATH/intel-sgx-ssl
+GIT_CLONE_SGX_CTK=$GIT_CLONE_PATH/crypto-api-toolkit
+CTK_INSTALL=$SGX_INSTALL_DIR/cryptoapitoolkit
+P11_KIT_PATH=/usr/include/p11-kit-1/p11-kit/
+CTK_PREFIX=$SGX_INSTALL_DIR/cryptoapitoolkit
+SGXSSL_PREFIX=$SGX_INSTALL_DIR/sgxssl
+INTEL_SGX_STACK_REPO="https://download.01.org/intelsgxstack/2021-07-28/rhel"
+SGX_STACK_URL="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/distro/rhel8.2-server"
+DCAP_SIGNED_LIBRARIES="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/prebuilt_dcap_$DCAP_VERSION.tar.gz"
+
+KDIR=/lib/modules/$(uname -r)/build
+cat $KDIR/.config | grep 'CONFIG_INTEL_SGX=y\|CONFIG_X86_SGX=y' > /dev/null
+INKERNEL_SGX=$?
+DRIVER_VERSION=`modinfo intel_sgx 2>/dev/null | grep -w 'version:' | awk '{print $2}'`
+modprobe -n intel_sgx 2>/dev/null
+DRIVER_LOADED=$?
+
+SGX_AGENT_DIR=$PWD/sgx_agent
+SGX_AGENT_BIN_DIR=$SGX_AGENT_DIR/bin
+SGX_AGENT_BIN=bin
+
+SAMPLEAPPS_DIR=$PWD/sample_apps
+SAMPLEAPPS_BIN_DIR=$SAMPLEAPPS_DIR/bin
+
+SKCLIB_VERSION=4.1
+SKCLIB_DIR=$PWD/skc_library
+SKCLIB_BIN_DIR=$SKCLIB_DIR/bin
+SKCLIB_BIN=bin
+
+if [ "$VER" == "20.04" ]; then
+	SGX_LIBS_REPO='deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ focal main'
+elif [ "$VER" == "18.04" ]; then
+	SGX_LIBS_REPO='deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ bionic main'
+fi

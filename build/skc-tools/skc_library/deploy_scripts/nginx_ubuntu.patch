@@ -1,7 +1,8 @@
 --- nginx.conf	2021-04-08 21:22:28.108012307 -0700
 +++ /root/nginx.conf	2021-04-09 02:45:29.260936472 -0700
 @@ -1,8 +1,11 @@
-+# nginx version 1.14.0 (Ubuntu)
++# nginx version 1.14.0 (Ubuntu 18.04)
++# nginx version 1.18.0 (Ubuntu 20.04)
  user www-data;
  worker_processes auto;
  pid /run/nginx.pid;

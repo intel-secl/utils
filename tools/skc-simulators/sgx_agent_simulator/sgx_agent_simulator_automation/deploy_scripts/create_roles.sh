@@ -1,8 +1,9 @@
 #!/bin/bash
-
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
+source config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
 
 source agent.conf
 if [ $? -ne 0 ]; then

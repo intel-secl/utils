@@ -326,7 +326,7 @@ deploy_sqvs() {
   echo "|      DEPLOY: SGX-QUOTE-VERIFICATION-SERVICE      |"
   echo "----------------------------------------------------"
 
-  required_variables="SQVS_INCLUDE_TOKEN,SGX_TRUSTED_ROOT_CA_PATH"
+  required_variables="SQVS_INCLUDE_TOKEN,SGX_TRUSTED_ROOT_CA_FILE"
   check_mandatory_variables $SQVS $required_variables
 
   cd sqvs/
@@ -341,11 +341,14 @@ deploy_sqvs() {
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: ${CMS_TLS_CERT_SHA384}/g" configMap.yml
   sed -i "s/SAN_LIST:.*/SAN_LIST: ${SQVS_CERT_SAN_LIST}/g" configMap.yml
   sed -i "s/SQVS_INCLUDE_TOKEN:.*/SQVS_INCLUDE_TOKEN: \"${SQVS_INCLUDE_TOKEN}\"/g" configMap.yml
-  sed -i "s#SGX_TRUSTED_ROOT_CA_PATH:.*#SGX_TRUSTED_ROOT_CA_PATH: ${SGX_TRUSTED_ROOT_CA_PATH}#g" configMap.yml
+  sed -i "s#SGX_TRUSTED_ROOT_CA_PATH:.*#SGX_TRUSTED_ROOT_CA_PATH: /tmp/${SGX_TRUSTED_ROOT_CA_FILE}#g" configMap.yml
   sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=${BEARER_TOKEN}/g" secrets.txt
+  sed -i "s/SIGN_QUOTE_RESPONSE:.*/SIGN_QUOTE_RESPONSE: \"${SIGN_QUOTE_RESPONSE}\"/g" configMap.yml
+  sed -i "s/RESPONSE_SIGNING_KEY_LENGTH:.*/RESPONSE_SIGNING_KEY_LENGTH: \"${RESPONSE_SIGNING_KEY_LENGTH}\"/g" configMap.yml  
 
   $KUBECTL create secret generic sqvs-secret --from-file=secrets.txt --namespace=isecl
-
+  $KUBECTL create secret generic sqvs-trusted-rootca --from-file=trusted_rootca_files/$SGX_TRUSTED_ROOT_CA_FILE --namespace=isecl
+  
   # deploy
   $KUBECTL kustomize . | $KUBECTL apply -f -
 
@@ -781,8 +784,10 @@ cleanup_sqvs() {
   sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=\${BEARER_TOKEN}/g" secrets.txt
   sed -i "s/CMS_TLS_CERT_SHA384: .*/CMS_TLS_CERT_SHA384: \${CMS_TLS_CERT_SHA384}/g" configMap.yml
   sed -i "s/SAN_LIST: .*/SAN_LIST: \${SAN_LIST}/g" configMap.yml
+  sed -i "s/RESPONSE_SIGNING_KEY_LENGTH: .*/RESPONSE_SIGNING_KEY_LENGTH: \${RESPONSE_SIGNING_KEY_LENGTH}/g" configMap.yml
+  sed -i "s/SIGN_QUOTE_RESPONSE: .*/SIGN_QUOTE_RESPONSE: \${SIGN_QUOTE_RESPONSE}/g" configMap.yml
 
-  $KUBECTL delete secret sqvs-secret --namespace isecl
+  $KUBECTL delete secret sqvs-secret sqvs-trusted-rootca --namespace isecl
   $KUBECTL delete configmap sqvs-config --namespace isecl
   $KUBECTL delete deploy sqvs-deployment --namespace isecl
   $KUBECTL delete svc sqvs-svc --namespace isecl

@@ -6,10 +6,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/intel-secl/sample-sgx-attestation/v5/common"
-	"github.com/pkg/errors"
 	"io"
 	"os"
+
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
+	"github.com/pkg/errors"
 )
 
 var errInvalidCmd = errors.New("Invalid input after command")
@@ -65,7 +66,6 @@ func (a *App) Run(args []string) error {
 
 		return a.startServer()
 	}
-	return nil
 }
 
 func (a *App) configuration() *common.Configuration {

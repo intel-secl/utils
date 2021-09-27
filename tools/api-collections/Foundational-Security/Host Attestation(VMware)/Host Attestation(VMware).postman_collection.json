@@ -1,11 +1,134 @@
 {
 	"info": {
-		"_postman_id": "d475a9f8-ca0e-42f0-8cfe-5a1195d5525c",
+		"_postman_id": "cf38368e-0a35-4d07-944a-9b9a5a8a8b1b",
 		"name": "Host Attestation(VMware)",
 		"description": "The Host Attestation use case will enable external platform integrity verification using TCG-standard practices. This feature is the foundation for other Intel® SecL – DC use cases.\n\nPlatform Attestation involves taking measurements of system components during system boot, and then cryptographically verifying that the actual measurements taken match a set of expected or approved values, ensuring that the measured components were in an acceptable or “trusted” state at the time of the last system boot. \n\nIntel® SecL – DC leverages the Trusted Compute Group specification for a trusted boot process, extending measurements of platform components to registers in a TPM, and securely generating quotes of those measurements from the TPM for remote comparison to expected values (attestation). \n\nDeployment will include only the Verification Service, which is typically installed on a Virtual Machine. \n \nPlatform Attestation for VMware ESXi* servers does not require a Trust Agent. Instead, it requires communication with vCenter Server*; vCenter* and ESXi will handle the TPM-specific functions, and the Intel® SecL – DC Verification Service will retrieve the TPM quote for a given host from a vCenter API. ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Verify Services",
+			"item": [
+				{
+					"name": "hvsVersion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "https://{{hvs}}:{{hvsPort}}/hvs/v2/version",
+							"protocol": "https",
+							"host": [
+								"{{hvs}}"
+							],
+							"port": "{{hvsPort}}",
+							"path": [
+								"hvs",
+								"v2",
+								"version"
+							]
+						},
+						"description": "Retrieves the version of hvs."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "https://{{hvs}}:{{hvsPort}}/hvs/v2/version",
+									"protocol": "https",
+									"host": [
+										"{{hvs}}"
+									],
+									"port": "{{hvsPort}}",
+									"path": [
+										"hvs",
+										"v2",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Sep 2020 13:50:37 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "14"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "v3.0.0-8301d9e"
+						}
+					]
+				}
+			],
+			"description": "The Version API can be used to confirm that all services are up and running\r\nbefore proceeding to the actual use case demonstration.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
 		{
 			"name": "Authorization",
 			"item": [
@@ -232,129 +355,6 @@
 				}
 			],
 			"description": "Before connecting to vCenter to register hosts or clusters, the vCenter TLS certificate needs to be\nimported to the Verification Service. This must be done for each vCenter server that the\nVerification Service will connect to, for importing Flavors or registering hosts.\n\n1. Download the root CA certs from vCenter:\n```shell\nwget https://<vCenter IP or hostname>/certs/download.zip --no-check-certificate\n```\nThis downloads all the root CA certificates for you into `download.zip` file.\n```shell\nunzip download.zip\n```\nAll the certificates will be stored under `<pwd>/certs/`. Certs will be in PEM format\n\n2. Upload the certificates to the HVS using API\n\n>**Note:** Please make sure that the certificate does not contain any other characters other\nthan the base64 characters like that of \\n or -----BEGIN CERTIFICATE----- etc.\n\n3. After upload is successful, restart the HVS\n   ```shell\n   hvs stop; hvs start\n   ```",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Verify Services",
-			"item": [
-				{
-					"name": "hvsVersion",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "text/plain"
-							}
-						],
-						"url": {
-							"raw": "https://{{hvs}}:{{hvsPort}}/hvs/v2/version",
-							"protocol": "https",
-							"host": [
-								"{{hvs}}"
-							],
-							"port": "{{hvsPort}}",
-							"path": [
-								"hvs",
-								"v2",
-								"version"
-							]
-						},
-						"description": "Retrieves the version of hvs."
-					},
-					"response": [
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"type": "text",
-										"value": "text/plain"
-									}
-								],
-								"url": {
-									"raw": "https://{{hvs}}:{{hvsPort}}/hvs/v2/version",
-									"protocol": "https",
-									"host": [
-										"{{hvs}}"
-									],
-									"port": "{{hvsPort}}",
-									"path": [
-										"hvs",
-										"v2",
-										"version"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=63072000; includeSubDomains"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 28 Sep 2020 13:50:37 GMT"
-								},
-								{
-									"key": "Content-Length",
-									"value": "14"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								}
-							],
-							"cookie": [],
-							"body": "v3.0.0-8301d9e"
-						}
-					]
-				}
-			],
-			"description": "The Version API can be used to confirm that all services are up and running\r\nbefore proceeding to the actual use case demonstration.",
 			"event": [
 				{
 					"listen": "prerequest",

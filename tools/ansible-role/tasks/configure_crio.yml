@@ -1,0 +1,81 @@
+---
+- name: CONFIGURE CRIO | Create hooks.d directory
+  become: yes
+  file:
+    name: /usr/share/containers/oci/hooks.d
+    state: directory
+
+- name: CONFIGURE CRIO | RHEL - Add link for conmon service
+  file:
+    src: /usr/bin/conmon
+    dest: /usr/libexec/crio/conmon
+    state: link
+    force: yes  
+
+- name: CONFIGURE CRIO | Download crictl
+  become: yes
+  get_url:
+    url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{crictl_version}}/crictl-v{{crictl_version}}-linux-amd64.tar.gz"
+    dest: /root
+
+# Using shell module as unarchive module is erroring out
+- name: CONFIGURE CRIO | Untar crictl
+  become: yes
+  shell: "tar -xf crictl-v{{crictl_version}}-linux-amd64.tar.gz -C /usr/local/bin"
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/crictl
+    chdir: /root
+    warn: false
+
+- name: CONFIGURE CRIO | Create the .conf file to load the modules at bootup
+  become: yes
+  file:
+    path: /etc/modules-load.d/crio.conf
+    state: touch
+
+- name: CONFIGURE CRIO | Update crio.conf under modules-load.d 
+  become: yes
+  blockinfile:
+    path: /etc/modules-load.d/crio.conf
+    block: |
+       overlay
+       br_netfilter
+
+- name: CONFIGURE CRIO | Enable kernel modules
+  become: yes
+  modprobe:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - overlay
+    - br_netfilter
+
+- name: CONFIGURE CRIO | Create 99-kubernetes-cri.conf file
+  become: yes
+  file:
+    path: /etc/sysctl.d/99-kubernetes-cri.conf
+    state: touch
+    mode: 0644
+
+- name: CONFIGURE CRIO | Update 99-kubernetes-cri.conf
+  become: yes
+  blockinfile:
+    path: /etc/sysctl.d/99-kubernetes-cri.conf
+    block: |
+       net.bridge.bridge-nf-call-iptables  = 1
+       net.ipv4.ip_forward                 = 1
+       net.bridge.bridge-nf-call-ip6tables = 1
+  notify: Reload systemd
+
+- meta: flush_handlers
+
+
+- name: CONFIGURE CRIO | Update cgroup_manager to systemd under /etc/crio/crio.conf
+  become: yes
+  lineinfile:
+    path: /etc/crio/crio.conf
+    regexp: '^cgroup_manager ='
+    line: 'cgroup_manager = "systemd"'  
+
+- meta: flush_handlers

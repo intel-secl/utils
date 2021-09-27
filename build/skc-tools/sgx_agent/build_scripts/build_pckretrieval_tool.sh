@@ -1,12 +1,13 @@
 #!/bin/bash
-SGX_AGENT_DIR=$PWD/sgx_agent
-SGX_DCAP_TAG=DCAP_1.10.3
-SGX_DCAP_REPO="https://github.com/intel/SGXDataCenterAttestationPrimitives.git"
-GIT_CLONE_PATH=/tmp/dcap
-SGX_AGENT_BIN_DIR=$SGX_AGENT_DIR/bin
+source ../../config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
 
 build_PCKID_Retrieval_tool()
 {
+	rm -rf $GIT_CLONE_PATH
 	pushd $PWD
 	git clone $SGX_DCAP_REPO $GIT_CLONE_PATH || exit 1
 	cp -pf remove_pccs_connect.diff $GIT_CLONE_PATH/tools/PCKRetrievalTool

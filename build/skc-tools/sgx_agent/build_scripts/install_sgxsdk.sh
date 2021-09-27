@@ -1,17 +1,9 @@
 #!/bin/bash
-SGX_INSTALL_DIR=/opt/intel
-SGX_VERSION=2.13.3
-
-# Check OS and VERSION
-OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
-temp="${OS%\"}"
-temp="${temp#\"}"
-OS="$temp"
-VER=$(cat /etc/os-release | grep ^VERSION_ID | tr -d 'VERSION_ID="')
-OS_FLAVOUR="$OS""$VER"
-
-SGX_URL="https://download.01.org/intel-sgx/sgx-linux/${SGX_VERSION}/distro/$OS_FLAVOUR-server"
-SGX_SDK_VERSION=2.13.103.1
+source ../../config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
 
 install_sgxsdk()
 {
@@ -20,7 +12,7 @@ install_sgxsdk()
 	./sgx_linux_x64_sdk*.bin -prefix=$SGX_INSTALL_DIR || exit 1
 	source $SGX_INSTALL_DIR/sgxsdk/environment
 	if [ $? -ne 0 ]; then
-		echo "failed while setting sgx environment"
+		echo "${red} failed while setting sgx environment ${reset}"
 		exit 1
 	fi
 	rm -f sgx_linux_x64_sdk_$SGX_SDK_VERSION.bin

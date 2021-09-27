@@ -16,16 +16,16 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/json"
-	"fmt"
-	"github.com/intel-secl/sample-sgx-attestation/v5/common"
-	"github.com/pkg/errors"
-	logger "github.com/sirupsen/logrus"
 	cos "intel/isecl/lib/common/v5/os"
 	"io"
 	"io/ioutil"
 	"math/big"
 	"net/http"
 	"strings"
+
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
+	"github.com/pkg/errors"
+	logger "github.com/sirupsen/logrus"
 )
 
 // TODO : Consolidate loggers.
@@ -41,27 +41,15 @@ func (f *customFormatter) Format(entry *logger.Entry) ([]byte, error) {
 	return []byte(customLog), e
 }
 
-type resourceError struct {
-	StatusCode int
-	Message    string
-}
-
 type QuoteVerifyAttributes struct {
-	Message                        string `json:"Message"`
-	ReportData                     string `json:"reportData"`
-	UserDataMatch                  string `json:"userDataMatch"`
-	EnclaveIssuer                  string `json:"EnclaveIssuer"`
-	EnclaveIssuerProductID         string `json:"EnclaveIssuerProdID"`
-	EnclaveIssuerExtendedProductID string `json:"EnclaveIssuerExtProdID"`
-	EnclaveMeasurement             string `json:"EnclaveMeasurement"`
-	ConfigSvn                      string `json:"ConfigSvn"`
-	IsvSvn                         string `json:"IsvSvn"`
-	ConfigID                       string `json:"ConfigId"`
-	TCBLevel                       string `json:"TcbLevel"`
-}
-
-func (e resourceError) Error() string {
-	return fmt.Sprintf("%d: %s", e.StatusCode, e.Message)
+	ReportData             string `json:"reportData"`
+	UserDataMatch          string `json:"userDataMatch"`
+	Message                string `json:"Message"`
+	EnclaveIssuer          string `json:"EnclaveIssuer"`
+	EnclaveMeasurement     string `json:"EnclaveMeasurement"`
+	EnclaveIssuerProductID string `json:"EnclaveIssuerProdID"`
+	IsvSvn                 string `json:"IsvSvn"`
+	TCBLevel               string `json:"TcbLevel"`
 }
 
 type AppVerifierController struct {
@@ -96,7 +84,6 @@ func wrapSWKByPublicKey(swk []byte, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to create cipher text")
 	}
-
 	return wrappedSWK, nil
 }
 
@@ -107,7 +94,6 @@ func (ca AppVerifierController) GenerateSWK() ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to read the key bytes")
 	}
-
 	return keyBytes, nil
 }
 
@@ -139,7 +125,7 @@ func (ca AppVerifierController) SharePubkeyWrappedSWK(baseURL string, key []byte
 
 	req.Header.Add("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Add("Authorization", common.DummyBearerToken)
+	req.Header.Add("Authorization", ca.Config.DummyBearerToken)
 
 	// Get the SystemCertPool, continue with an empty pool on error
 	rootCAs, _ := x509.SystemCertPool()
@@ -149,12 +135,13 @@ func (ca AppVerifierController) SharePubkeyWrappedSWK(baseURL string, key []byte
 
 	// Looking for self signed certificates.
 	rootCaCertPems, err := cos.GetDirFileContents("./", "cert.pem")
+	if err != nil {
+		return errors.Wrap(err, "Could not read root CA certificate")
+	}
 
 	for _, rootCACert := range rootCaCertPems {
 		rootCAs.AppendCertsFromPEM(rootCACert)
 	}
-
-	log.Info("Sharing wrapped SWK to Attested App at ", url)
 
 	client := &http.Client{
 		Transport: &http.Transport{
@@ -186,13 +173,10 @@ func (ca AppVerifierController) SharePubkeyWrappedSWK(baseURL string, key []byte
 		return errors.New("Posting SWK to Attested App failed.")
 	}
 
-	log.Infof("HTTP Status Code %d for %s", resp.StatusCode, url)
-
 	return nil
 }
 
 func (ca AppVerifierController) ShareSWKWrappedSecret(baseURL string, key []byte, message []byte) error {
-
 	log.Info("Message : ", string(message))
 
 	if len(key) != common.SWKSize {
@@ -240,7 +224,7 @@ func (ca AppVerifierController) ShareSWKWrappedSecret(baseURL string, key []byte
 
 	req.Header.Add("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Add("Authorization", common.DummyBearerToken)
+	req.Header.Add("Authorization", ca.Config.DummyBearerToken)
 
 	// Get the SystemCertPool, continue with an empty pool on error
 	rootCAs, _ := x509.SystemCertPool()
@@ -250,12 +234,13 @@ func (ca AppVerifierController) ShareSWKWrappedSecret(baseURL string, key []byte
 
 	// Look for self signed certificates
 	rootCaCertPems, err := cos.GetDirFileContents("./", "cert.pem")
+	if err != nil {
+		return errors.Wrap(err, "Could not read root CA certificate")
+	}
 
 	for _, rootCACert := range rootCaCertPems {
 		rootCAs.AppendCertsFromPEM(rootCACert)
 	}
-
-	log.Info("Sharing wrapped message to Attested App at ", url)
 
 	client := &http.Client{
 		Transport: &http.Transport{
@@ -286,18 +271,10 @@ func (ca AppVerifierController) ShareSWKWrappedSecret(baseURL string, key []byte
 		log.Error("Status Code : ", resp.StatusCode)
 		return errors.New("Posting wrapped message to Attested App failed.")
 	}
-
-	log.Infof("HTTP Status Code %d for %s", resp.StatusCode, url)
-
 	return nil
 }
 
-func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce string) (error, *common.IdentityResponse) {
-
-	// Use custom formatter.
-	Formatter := new(customFormatter)
-	Formatter.DisableTimestamp = true
-	log.SetFormatter(Formatter)
+func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce string) (*common.IdentityResponse, error) {
 
 	url := baseURL + common.GetIdentity
 
@@ -307,18 +284,18 @@ func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce str
 	reqBytes := new(bytes.Buffer)
 	err := json.NewEncoder(reqBytes).Encode(idr)
 	if err != nil {
-		return errors.Wrap(err, "Error in encoding the nonce."), nil
+		return nil, errors.Wrap(err, "Error in encoding the nonce.")
 	}
 
 	// Send request to Attested App
 	req, err := http.NewRequest("GET", url, reqBytes)
 	if err != nil {
-		return errors.Wrap(err, "Error in Creating request."), nil
+		return nil, errors.Wrap(err, "Error in Creating request.")
 	}
 
 	req.Header.Add("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Add("Authorization", common.DummyBearerToken)
+	req.Header.Add("Authorization", ca.Config.DummyBearerToken)
 
 	// Get the SystemCertPool, continue with an empty pool on error
 	rootCAs, _ := x509.SystemCertPool()
@@ -328,6 +305,9 @@ func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce str
 
 	// Looking for self signed certificates.
 	rootCaCertPems, err := cos.GetDirFileContents("./", "cert.pem")
+	if err != nil {
+		return nil, errors.Wrap(err, "Could not read root CA certificate")
+	}
 
 	for _, rootCACert := range rootCaCertPems {
 		rootCAs.AppendCertsFromPEM(rootCACert)
@@ -343,8 +323,6 @@ func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce str
 		},
 	}
 
-	log.Info("Requesting quote and public key from Attested App at ", url)
-
 	resp, err := client.Do(req)
 	if resp != nil {
 		defer func() {
@@ -357,30 +335,28 @@ func (ca AppVerifierController) ConnectAndReceiveQuote(baseURL string, nonce str
 
 	if err != nil {
 		log.Error(err)
-		return errors.Wrap(err, "Error fetching quote and public key from Attested App."), nil
+		return nil, errors.Wrap(err, "Error fetching quote and public key from Attested App.")
 	}
 
 	if resp.StatusCode != http.StatusOK {
 		log.Error("Status Code : ", resp.StatusCode)
-		return errors.New("Fetching quote and public key from Attested App failed."), nil
+		return nil, errors.New("Fetching quote and public key from Attested App failed.")
 	}
-
-	log.Infof("HTTP Status Code %d for %s", resp.StatusCode, url)
 
 	response, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.WithError(err).Error("Could not read Quote Response body.")
-		return err, nil
+		return nil, err
 	}
 
 	// Unmarshal JSON response
 	var responseAttributes common.IdentityResponse
 	err = json.Unmarshal(response, &responseAttributes)
 	if err != nil {
-		return errors.Wrap(err, "Error in unmarshalling response."), nil
+		return nil, errors.Wrap(err, "Error in unmarshalling response.")
 	}
 
-	return nil, &responseAttributes
+	return &responseAttributes, nil
 }
 
 func (ca AppVerifierController) VerifySGXQuote(sgxQuote []byte, userData []byte) bool {
@@ -396,6 +372,11 @@ func (ca AppVerifierController) VerifySGXQuote(sgxQuote []byte, userData []byte)
 // verifySgxQuote verifies the quote
 func (ca AppVerifierController) verifyQuote(quote []byte, userData []byte) error {
 	var err error
+
+	// Initialize logger.
+	Formatter := new(customFormatter)
+	Formatter.DisableTimestamp = true
+	log.SetFormatter(Formatter)
 
 	// Convert byte array to string.
 	qData := base64.StdEncoding.EncodeToString(quote)
@@ -418,7 +399,7 @@ func (ca AppVerifierController) verifyQuote(quote []byte, userData []byte) error
 
 	// split by newline
 	lines := strings.Split(string(qpRaw), common.EndLine)
-	var mreValue, mrSignerValue, cpusvnValue string
+	var mreValue, mrSignerValue string
 	for _, line := range lines {
 		// split by :
 		lv := strings.Split(strings.TrimSpace(line), common.PolicyFileDelim)
@@ -431,13 +412,11 @@ func (ca AppVerifierController) verifyQuote(quote []byte, userData []byte) error
 			mreValue = lv[1]
 		case common.MRSignerField:
 			mrSignerValue = lv[1]
-		case common.CpuSvnField:
-			cpusvnValue = lv[1]
 		}
 	}
 
-	log.Infof("Quote policy has values \n\tMREnclaveField = %s \n\tMRSignerField = %s \n\tCpuSvnField = %s",
-		mreValue, mrSignerValue, cpusvnValue)
+	log.Infof("Quote policy has values \n\tMREnclaveField = %s \n\tMRSignerField = %s",
+		mreValue, mrSignerValue)
 
 	if responseAttributes.EnclaveIssuer != mrSignerValue {
 		log.Errorf("Quote policy mismatch in %s", common.MRSignerField)
@@ -445,14 +424,6 @@ func (ca AppVerifierController) verifyQuote(quote []byte, userData []byte) error
 		return err
 	} else {
 		log.Infof("%s matched with Quote Policy", common.MRSignerField)
-	}
-
-	if responseAttributes.ConfigSvn != cpusvnValue {
-		log.Errorf("Quote policy mismatch in %s", common.CpuSvnField)
-		err = errors.Errorf("Quote policy mismatch in %s", common.CpuSvnField)
-		return err
-	} else {
-		log.Infof("%s matched with Quote Policy", common.CpuSvnField)
 	}
 
 	if responseAttributes.EnclaveMeasurement != mreValue {
@@ -470,6 +441,5 @@ func (ca AppVerifierController) verifyQuote(quote []byte, userData []byte) error
 	} else {
 		log.Infof("User Data (public key hash) matched.")
 	}
-
 	return nil
 }

@@ -216,6 +216,7 @@
 - include: "{{ item }}"
   loop:
       - install_crio.yml
+      - configure_crio.yml
       - install_wla.yml
   when: 
       - "'Node' in groups"

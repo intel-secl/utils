@@ -37,6 +37,8 @@ spec:
               mountPath: /etc/sqvs
             - name: sqvs-logs-volume
               mountPath: /var/log/sqvs
+            - name: trusted-rootca
+              mountPath: /tmp/
       containers:
         - name: sqvs
           image: <image-name>:<image-tag>
@@ -68,4 +70,7 @@ spec:
             type: DirectoryOrCreate
         - name: sqvs-credentials
           secret:
-              secretName: sqvs-secret            
+              secretName: sqvs-secret
+        - name: trusted-rootca
+          secret:
+              secretName: sqvs-trusted-rootca

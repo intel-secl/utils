@@ -27,6 +27,15 @@ spec:
                     operator: In
                     values:
                       - "TXT-ENABLED"
+      tolerations:
+      - key: "untrusted"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      - key: "untrusted"
+        operator: "Equal"
+        value: "true"
+        effect: "NoExecute"
       containers:
         - image: <image-name>:<image-tag>
           name: ta-txt

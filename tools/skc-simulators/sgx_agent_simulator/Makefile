@@ -42,8 +42,7 @@ endif
 	docker save isecl/sgx-agent:$(VERSION) > out/sgx-agent-$(VERSION)-$(GITCOMMIT).tar
 
 test:
-	env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
-	GOSUMDB=off GOPROXY=direct go test ./... -coverprofile cover.out
+	GOSUMDB=off GOPROXY=direct go  test ./... -coverprofile cover.out
 	go tool cover -func cover.out
 	go tool cover -html=cover.out -o cover.html
 

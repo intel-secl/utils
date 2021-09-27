@@ -40,6 +40,7 @@ pcssimulator:
     - env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
     - cd tools/skc-simulators/pcs_simulator
     - go get -u github.com/gorilla/mux
+    - GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
     - go build ./...
 
 sgxagentsim:
@@ -111,3 +112,22 @@ Stylechecker:
       if [ "$(GOPROXY=direct GOSUMDB=off gofmt -l . | wc -l)"  -gt 0 ]; then
              exit 1
       fi
+
+snykscan:
+  stage: scan
+  only:
+    - merge_requests
+  tags:
+    - snyk-scan-utils
+  allow_failure: true
+  before_script:
+    - export CGO_CFLAGS_ALLOW="-f.*" GOOS=linux GOSUMDB=off GOPROXY=direct
+    - snyk config set endpoint=$SNYK_URL
+    - snyk auth $AUTH_TOKEN
+    - snyk config set api=$SYNK_API_TOKEN
+    - snyk config set org=$ORG_NAME
+  script:
+    - snyk test --insecure --all-projects --json-file-output=snyc-scan.json
+  artifacts:
+    paths:
+      - snyc-scan.json

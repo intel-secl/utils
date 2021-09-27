@@ -46,7 +46,7 @@ sudo dnf install -y git wget makeself docker
 
 ### Install `go 1.16.7`
 
-The `Certificate Management Service` requires Go version 1.16 that has
+The `Certificate Management Service` requires Go version 1.14 that has
 support for `go modules`. The build was validated with version 1.16.7
 version of `go`. It is recommended that you use a newer version of `go`
 - but please keep in mind that the product has been validated with

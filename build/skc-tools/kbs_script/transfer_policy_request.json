@@ -1,11 +1,8 @@
 {
 	"sgx_enclave_issuer_anyof":["cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f"],
-	"sgx_enclave_issuer_product_id_anyof":[0],
-	"sgx_enclave_issuer_extended_product_id_anyof":["00000000000000000000000000000000"],
+	"sgx_enclave_issuer_product_id":0,
 	"sgx_enclave_measurement_anyof":["3ef4f13e42318aa5063fd740de52930488bbff8623361c686c381c44caa8793d"],
-	"sgx_config_id_svn":0,
 	"sgx_enclave_svn_minimum":1,
-	"sgx_config_id_anyof":["00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],
 	"tls_client_certificate_issuer_cn_anyof":["CMSCA", "CMS TLS Client CA"],
 	"client_permissions_allof":["nginx","USA"],
 	"attestation_type_anyof":["SGX"],

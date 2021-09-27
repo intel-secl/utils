@@ -12,7 +12,7 @@ The project demonstrates several fundamental usages of Intel® Software Guard Ex
 
 *Note* 
 -	Attested app uses self-signed certificate to simulate a production CA-signed certificate.
--	Attesting app uses a static token to simulate a token that is generated in a production environment.
+-	Attesting app uses a static token in config.yml to simulate a token that is generated in a production environment.
 -	Input validation and error handling are minimal to keep the focus on SGX related code. Actual applications need to perform full input validation and error handling.
 
 --------------------------------------------------------------------------------
@@ -111,7 +111,6 @@ The different between HeapMinSize and HeapMaxSize is the heap memory. This is ad
 ```yaml
 MREnclave:
 MRSigner:
-CPU_SVN:
 ```
 - Run the sgx_sign utility to get values of MR Enclave and MR Signer needed by the policy file.
 
@@ -128,7 +127,6 @@ sgx_sign dump -enclave ./attestedApp/libenclave/enclave.signed.so -dumpfile info
 ```yaml
 MREnclave:c80de12554feb664496c59f708954aca1572a8cf60f2184f99857081b6314bb8
 MRSigner:83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e
-CPU_SVN:00
 ```
 - Run `make all`. This would copy the policy file and the config.yml to {source folder}/out
 
@@ -155,11 +153,12 @@ CPU_SVN:00
 
 These are the components involved:
 
-Component             | Short Name         | Implmented In | Requires SGX for deploy | Requires SGX for build
---------------------- | ------------------ | ------------- | ----------------------- | ----------------------
-sgx-attesting-app      | verifier           | Go            | No                      | No
-sgx-attested-app | Attested App Service | Go            | Yes                     | Yes
-libenclave      | SGX Enclave Workload           | C/C++            | Yes                      | Yes
+Component             | Short Name           | Implmented In | Requires SGX for deploy | Requires SGX for build
+--------------------- | ------------------   | ------------- | ----------------------- | ----------------------
+sgx-attesting-app     | verifier             | Go            | No                      | No
+sgx-attested-app      | Attested App Service | Go            | Yes                     | Yes
+libenclave            | SGX Enclave Workload | C/C++         | Yes                     | Yes
+---------------------------------------------------------------------------------------------------------------
 
 ### Quote Verification and Secret Provisioning Workflow:
 

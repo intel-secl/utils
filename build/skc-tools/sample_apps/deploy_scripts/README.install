@@ -2,7 +2,7 @@ Pre-requisite for the Sample Apps Deployment
 ============================================
  - SGX Enabled in BIOS
  - RHEL 8.2 OS or UBUNTU 18.O4
- - GoLang v1.13 or greater
+ - GoLang v1.14.2
  - gcc toolchain
  - make
  - Running instance of CMS, SCS and SQVS.

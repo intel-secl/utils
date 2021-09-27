@@ -2,7 +2,8 @@
 +++ openssl.cnf	2021-04-05 04:14:15.155853329 -0700
 @@ -1,4 +1,4 @@
 -#
-+# OpenSSL 1.1.1 (Ubuntu)
++# OpenSSL 1.1.1 (Ubuntu 18.04)
++# OpenSSL 1.1.1f (Ubuntu 20.04)
  # OpenSSL example configuration file.
  # This is mostly being used for generation of certificate requests.
  #

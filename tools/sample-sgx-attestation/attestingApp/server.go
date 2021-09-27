@@ -7,11 +7,12 @@ package main
 import (
 	"crypto/rand"
 	"encoding/base64"
+	"math/big"
+	"strconv"
+
 	"github.com/intel-secl/sample-sgx-attestation/v5/attestingApp/controllers"
 	"github.com/intel-secl/sample-sgx-attestation/v5/common"
 	"github.com/pkg/errors"
-	"math/big"
-	"strconv"
 )
 
 func (a *App) startVerifier() error {
@@ -43,7 +44,7 @@ func (a *App) startVerifier() error {
 	}
 
 	// Send a connect message and receive SGX Quote + Public key
-	err, respMsg := verifyController.ConnectAndReceiveQuote(baseURL, nonce.String())
+	respMsg, err := verifyController.ConnectAndReceiveQuote(baseURL, nonce.String())
 
 	if err != nil {
 		log.Error("Error in receiving quote and public key.")

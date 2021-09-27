@@ -1,7 +1,9 @@
 #!/bin/bash
-
-SGX_AGENT_DIR=$PWD/sgx_agent
-SGX_AGENT_BIN_DIR=$SGX_AGENT_DIR/bin
+source ../../../../../build/skc-tools/config
+if [ $? -ne 0 ]; then
+	echo "unable to read config variables"
+	exit 1
+fi
 
 build_sgx_agent()
 {

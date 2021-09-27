@@ -1,15 +1,13 @@
 TARGETS = intel-secl workload-service k8s-extensions trust-agent
 INTEL_SECL_K8S = authservice cms ihub kbs hvs
 
-binaries: clean download-eca $(TARGETS) workload-agent skopeo cri-o
+binaries: clean download-eca $(TARGETS) workload-agent
 	mkdir binaries
 	cp intel-secl/deployments/installer/*.bin binaries/
 	cp intel-secl/deployments/installer/*.sh binaries/
 	cp workload-service/out/*.bin binaries/
 	cp trust-agent/out/*.bin binaries/
 	cp workload-agent/out/*.bin binaries/
-	cp skopeo/skopeo binaries/
-	cp cri-o/bin/crio binaries/
 	cp k8s-extensions/out/isecl-k8s-extensions-v*.tar.gz binaries/
 
 k8s: k8s_common
@@ -36,7 +34,7 @@ k8s-aio: k8s_common
 	cp intel-secl/deployments/k8s/aas/populate-users k8s/manifests/aas/scripts/
 	cp intel-secl/deployments/k8s/aas/populate-users.env k8s/manifests/aas/scripts/populate-users.env
 
-k8s_common: clean $(INTEL_SECL_K8S) wls_k8s k8s-extensions tagent_k8s wlagent_k8s cri-o wpm-installer skopeo
+k8s_common: clean $(INTEL_SECL_K8S) wls_k8s k8s-extensions tagent_k8s wlagent_k8s wpm-installer
 	mkdir -p k8s/binaries
 	mkdir -p k8s/container-images
 	mkdir -p k8s/manifests
@@ -44,9 +42,6 @@ k8s_common: clean $(INTEL_SECL_K8S) wls_k8s k8s-extensions tagent_k8s wlagent_k8
 	cp -r utils/build/workload-security/k8s/pre-requisites.sh k8s/manifests/
 	cp -r utils/build/workload-security/k8s/isecl-bootstrap-db-services.sh k8s/manifests/isecl-bootstrap-db-services.sh
 	cp utils/build/workload-security/k8s/isecl-k8s.env k8s/manifests/isecl-k8s.env
-	cp utils/build/workload-security/k8s/install-prereqs-crio.sh k8s/container-runtime/
-	cp utils/build/workload-security/k8s/uninstall-crio.sh k8s/container-runtime/
-	cp cri-o/bin/crio k8s/container-runtime/
 	cp -r utils/build/k8s-manifests/k8s-extensions-controller k8s/manifests/
 	cp -r utils/build/k8s-manifests/k8s-extensions-scheduler k8s/manifests/
 	cp -r utils/build/workload-security/k8s/ta k8s/manifests/ta
@@ -57,7 +52,6 @@ k8s_common: clean $(INTEL_SECL_K8S) wls_k8s k8s-extensions tagent_k8s wlagent_k8
 	cp workload-agent/out/*.tar k8s/container-images/
 	cp trust-agent/out/*.tar k8s/container-images/
 	cp workload-service/out/*.tar k8s/container-images/
-	cp skopeo/skopeo k8s/binaries/
 
 tagent_k8s:
 	cd trust-agent && make oci-archive
@@ -88,19 +82,10 @@ workload-agent:
 	cd workload-agent && \
 	make installer
 
-skopeo:
-	cd skopeo && \
-	make binary-local DISABLE_CGO=1
-
-cri-o:
-	cd cri-o && \
-	sed -i 's/override CFLAGS += -static/#override CFLAGS += -static/g' pause/Makefile && \
-	make
-
 $(TARGETS):
 	cd $@ && make installer
 
 %-clean:
 	cd $* && make clean
 
-.PHONY: all clean $(TARGETS) workload-agent skopeo cri-o
+.PHONY: all clean $(TARGETS) workload-agent

@@ -5,7 +5,6 @@
 package common
 
 const (
-	DummyBearerToken       = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkR1bW15QmVhcmVyVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.Czed89Gn-nhHGAH2DzVqo453k04eF0PvBuZvvOJeE1Q"
 	DefaultAttestedAppHost = "127.0.0.1"
 	DefaultAttestedAppPort = 9999
 )

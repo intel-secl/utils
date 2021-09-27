@@ -4,14 +4,14 @@
     src: "{{kbs_script_folder_src}}"
     dest: "/root"
     mode: "u+x"
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 
 - name: KMIP KBS | Update Server Configuration File
   template:
     src: "server.conf.j2"
     dest: "/root/{{kbs_script_folder_name}}/server.conf"
     mode: "u+x"
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 
 - name:  KMIP KBS | Run PyKmip Server Installation Script
   shell: "set -o pipefail && ./install_pykmip.sh 2>&1 | tee pykmip-install.log"
@@ -19,21 +19,21 @@
     chdir: /root/{{kbs_script_folder_name}}
     executable: /bin/bash
   notify: start pykmip
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 
 - meta: flush_handlers
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 
 - name: KMIP KBS | Verify successful installation of PYKMIP
   shell: grep 'Installation completed successfully!' /root/{{kbs_script_folder_name}}/pykmip-install.log
   register: successful_install
   failed_when: "'Installation completed successfully!' not in successful_install.stdout"
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 
 - name: KMIP KBS | Update RSA Create Python script
   template:
     src: "rsa_create.py.j2"
     dest: "/root/{{kbs_script_folder_name}}/rsa_create.py"
     mode: "u+x"
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 

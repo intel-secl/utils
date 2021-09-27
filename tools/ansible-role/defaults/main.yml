@@ -222,18 +222,10 @@ kbs_script_folder_src: "{{binaries_path}}/{{kbs_script_folder_name}}"
 # The port for running the pyKmip server
 kmip_port: 5696
 
-# ---------------------------------------- SKOPEO -----------------------------------------------------#
-
-# The binary installer file source for Skopeo
-skopeo_installer_file_src: "{{binaries_path}}/{{skopeo_installer_file_name}}"
-
-# The binary installer file source for Skopeo
-skopeo_installer_file_name: skopeo
-
 # ----------------------------------------- DOCKER ----------------------------------------------------#
 
 # The docker version supported by Intel® SecL-DC for Launch Time Protection - Container Confidentiality with Docker
-docker_version: "19.03.13"
+docker_version: "20.10.8"
 
 
 # ---------------------------------------- WORKLOAD POLICY MANAGER ------------------------------------ #
@@ -263,17 +255,16 @@ ta_installer_file_src: "{{binaries_path}}/{{ta_installer_file_name}}"
 # ---------------------------------------- CRIO -----------------------------------------------------#
 
 # The crio version supported with Intel® SecL-DC
-crio_version: "1.17"
+crio_version: "1.21"
 
 # The crictl version for the corresponding crio version
-crictl_version: "v1.17.0"
+crictl_version: "1.21.0"
 
-# The name of the binary installer for CRIO
-crio_installer_file_name: crio
-
-# The binary installer file source for CRIO
-crio_file_src: "{{binaries_path}}/{{crio_installer_file_name}}"
-
+# The OS on which crio runtime needs to be installed. Currently the below option is only 
+# required in case of debian based OS
+# Use "crio_os: xUbuntu_20.04" along with "container_runtime: crio" when deploying on Ubuntu-20.04
+# Use "crio_os: CentOS_8" along with "container_runtime: crio" when deploying on RHEL-8.4
+crio_os: CentOS_8
 
 # --------------------------------------- WORKLOAD AGENT -------------------------------------------- #
 
@@ -355,6 +346,8 @@ sqvs_trusted_rootca_filename: trusted_rootca.pem
 # The trusted root ca file source for SGX Quote Verification Service
 sqvs_trusted_rootca_file_src: "{{binaries_path}}/{{sqvs_trusted_rootca_filename}}"
 
+# The response signing key length for SGX Quote Verification Service
+response_signing_key_length: 3072
 
 # --------------------------------------- SGX Agent ------------------------------------------------- #
 

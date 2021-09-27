@@ -1,75 +1,19 @@
 ---
-- name: ISECL - CRIO | Download cri-o rpms
-  get_url:
-    url: "{{item}}"
-    dest: /root
-  with_items:
-      - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.17/CentOS_8/x86_64/cri-o-1.17.5-4.el8.x86_64.rpm
-      - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.17/CentOS_8/x86_64/golang-github-cpuguy83-go-md2man-1.0.7-13.el8.x86_64.rpm
-      - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.17/CentOS_8/x86_64/golang-github-cpuguy83-go-md2man-debuginfo-1.0.7-13.el8.x86_64.rpm
-      - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.17/CentOS_8/x86_64/golang-github-cpuguy83-go-md2man-debugsource-1.0.7-13.el8.x86_64.rpm
+- name: INSTALL CRIO | RHEL - Add crio repo
+  shell: dnf config-manager --add-repo {{item}}
+  args:
+    chdir: /root
+    executable: /bin/bash
+    creates: 
+      - /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{crio_version}}.repo
+      - /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo
+    warn: false
+  with_items: 
+      - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{crio_os}}/devel:kubic:libcontainers:stable.repo
+      - https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{crio_version}}/{{crio_os}}/devel:kubic:libcontainers:stable:cri-o:{{crio_version}}.repo
   
-- name: ISECL - CRIO | Install cri-o runtime
+- name: INSTALL CRIO | Install cri-o runtime  
   dnf: 
-    name:  
-      - cri-o-1.17.5-4.el8.x86_64.rpm
-      - golang-github-cpuguy83-go-md2man-1.0.7-13.el8.x86_64.rpm
-      - golang-github-cpuguy83-go-md2man-debuginfo-1.0.7-13.el8.x86_64.rpm
-      - golang-github-cpuguy83-go-md2man-debugsource-1.0.7-13.el8.x86_64.rpm
-  
-
-- name: ISECL - CRIO | Create hooks.d directory
-  file:
-    name: /usr/share/containers/oci/hooks.d
-    state: directory
-
-
-- name: ISECL - CRIO | Create symlink for cri-o service
-  file:
-    src: /usr/bin/conmon
-    dest: /usr/libexec/crio/conmon
-    state: link
-
-
-- name: ISECL - CRIO | Replace cri-o binary in /usr/bin
-  copy:
-    src: "{{crio_file_src}}"
-    dest: /usr/bin/crio
-    mode: "u+x"
-
-
-- name: ISECL - CRIO | Update plugin_dirs path in crio.conf
-  lineinfile:
-    path: /etc/crio/crio.conf
-    regexp: '"/usr/libexec/cni",$'
-    line: '          "/opt/cni/bin"'
-
-
-- name: ISECL - CRIO  | Add suffix specific to isecl in crio.service
-  lineinfile: 
-    path: /usr/lib/systemd/system/crio.service
-    regexp: \$CRIO_METRICS_OPTIONS
-    line: "          $CRIO_METRICS_OPTIONS --decryption-secl-parameters secl:enabled"
-  notify: start crio
-
-
-- meta: flush_handlers
-
-
-- name: ISECL - CRIO | Download crictl
-  get_url:
-    url : https://github.com/kubernetes-sigs/cri-tools/releases/download/{{crictl_version}}/crictl-{{crictl_version}}-linux-amd64.tar.gz
-    dest: /root/crictl-{{crictl_version}}-linux-amd64.tar.gz
-
-
-- name: ISECL - CRIO | Unarchive and copy crictl binary to /usr/local/bin
-  unarchive: 
-    src: /root/crictl-{{crictl_version}}-linux-amd64.tar.gz
-    dest: /usr/local/bin/
-    remote_src: yes
-
-
-- name: ISECL - CRIO | Cleanup downloaded file
-  file:
-    path: /root/crictl-{{crictl_version}}-linux-amd64.tar.gz
-    state: absent
+    name: cri-o
+    state: present
+    update_cache: yes
