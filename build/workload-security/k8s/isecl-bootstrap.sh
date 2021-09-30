@@ -434,6 +434,7 @@ deploy_kbs() {
       sed -i "s/KMIP_USERNAME:.*//g" secrets.yml
       sed -i "s/KMIP_PASSWORD:.*//g" secrets.yml
       sed -i "s/- secrets.yml*//g" kustomization.yml
+      sed -i '/kbs-credentials/,+1d' deployment.yml
     else
       sed -i "s/KMIP_USERNAME:.*/KMIP_USERNAME: $KMIP_USERNAME/g" secrets.yml
       sed -i "s/KMIP_PASSWORD:.*/KMIP_PASSWORD: $KMIP_PASSWORD/g" secrets.yml
@@ -444,6 +445,7 @@ deploy_kbs() {
       sed -i "s/KBS_USERNAME:.*//g" secrets.yml
       sed -i "s/KBS_PASSWORD:.*//g" secrets.yml
       sed -i "s/- secrets:.*//g" kustomization.yml
+      sed -i '/kbs-credentials/,+1d' deployment.yml
     else
       sed -i "s/KBS_USERNAME:.*/KBS_USERNAME: $KBS_USERNAME/g" secrets.yml
       sed -i "s/KBS_PASSWORD:.*/KBS_PASSWORD: $KBS_PASSWORD/g" secrets.yml
