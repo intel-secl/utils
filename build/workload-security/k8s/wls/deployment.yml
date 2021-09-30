@@ -56,8 +56,8 @@ spec:
               mountPath: /etc/workload-service
             - name: wls-db-certs
               mountPath: /etc/postgresql/
-            - mountPath: /etc/secret-volume/
-              name: wls-credentials
+            - mountPath: /etc/secrets/
+              name: wls-secrets
               readOnly: true
       volumes:
         - name: wls-logs-volume
@@ -72,6 +72,10 @@ spec:
           secret:
             secretName: wls-db-certs
             defaultMode: 0640
-        - name: wls-credentials
-          secret:
-              secretName: wls-secret            
+        - name: wls-secrets
+          projected:
+            sources:
+              - secret:
+                  name: wls-credentials
+              - secret:
+                  name: bearer-token

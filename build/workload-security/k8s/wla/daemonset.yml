@@ -48,7 +48,7 @@ spec:
               mountPath: /opt/trustagent/configuration
             - name: wla-socket
               mountPath: /var/run/workload-agent
-            - mountPath: /etc/secret-volume/
+            - mountPath: /etc/secrets/
               name: wla-credentials
               readOnly: true
       volumes:
@@ -71,6 +71,10 @@ spec:
           hostPath:
             path: /var/run/workload-agent
             type: DirectoryOrCreate
-        - name: wla-credentials
-          secret:
-              secretName: wla-secret           
+        - name: wla-secrets
+          projected:
+            sources:
+              - secret:
+                  name: wla-credentials
+              - secret:
+                  name: bearer-token

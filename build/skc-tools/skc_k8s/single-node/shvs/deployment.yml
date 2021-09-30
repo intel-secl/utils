@@ -57,8 +57,8 @@ spec:
               mountPath: /var/log/shvs/
             - name: shvs-db-certs
               mountPath: /etc/postgresql/
-            - mountPath: /etc/secret-volume/
-              name: shvs-credentials
+            - mountPath: /etc/secrets/
+              name: shvs-secrets
               readOnly: true
       volumes:
         - name: shvs-logs-volume
@@ -73,6 +73,10 @@ spec:
           secret:
             secretName: shvs-db-certs
             defaultMode: 0640
-        - name: shvs-credentials
-          secret:
-              secretName: shvs-secret            
+        - name: shvs-secrets
+          projected:
+            sources:
+              - secret:
+                  name: shvs-credentials
+              - secret:
+                  name: bearer-token

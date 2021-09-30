@@ -65,7 +65,7 @@ spec:
             - name: tpmrm
               mountPath: /dev/tpmrm0
             - name: wla-credentials
-              mountPath: /etc/secret-volume/
+              mountPath: /etc/secrets/
       containers:
         - name: pause
           image: gcr.io/google_containers/pause
@@ -89,6 +89,10 @@ spec:
         - name: tpmrm
           hostPath:
             path: /dev/tpmrm0
-        - name: wla-credentials
-          secret:
-            secretName: wla-secret
+        - name: wla-secrets
+          projected:
+            sources:
+              - secret:
+                  name: wla-credentials
+              - secret:
+                  name: bearer-token

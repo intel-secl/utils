@@ -55,8 +55,8 @@ spec:
               subPath: apiserver.crt
             - name: ihub-logs-volume
               mountPath: /var/log/ihub/
-            - mountPath: /etc/secret-volume/
-              name: ihub-credentials
+            - mountPath: /etc/secrets/
+              name: ihub-secrets
               readOnly: true
       volumes:
         - name: ihub-logs-volume
@@ -71,6 +71,10 @@ spec:
           secret:
             secretName: ihub-k8s-certs
             defaultMode: 0640
-        - name: ihub-credentials
-          secret:
-              secretName: ihub-secret
+        - name: ihub-secrets
+          projected:
+            sources:
+              - secret:
+                  name: ihub-credentials
+              - secret:
+                  name: bearer-token

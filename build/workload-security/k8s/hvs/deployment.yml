@@ -56,8 +56,8 @@ spec:
               mountPath: /var/log/hvs/
             - name: hvs-db-certs
               mountPath: /etc/postgresql/
-            - mountPath: /etc/secret-volume/
-              name: hvs-credentials
+            - mountPath: /etc/secrets/
+              name: hvs-secrets
               readOnly: true
       volumes:
         - name: hvs-logs-volume
@@ -72,6 +72,10 @@ spec:
           secret:
             secretName: hvs-db-certs
             defaultMode: 0640
-        - name: hvs-credentials
-          secret:
-              secretName: hvs-secret 
+        - name: hvs-secrets
+          projected:
+            sources:
+              - secret:
+                  name: hvs-credentials
+              - secret:
+                  name: bearer-token

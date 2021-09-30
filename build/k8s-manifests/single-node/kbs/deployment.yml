@@ -61,8 +61,8 @@ spec:
               mountPath: /opt/kbs
             - name: kbs-kmip-volume
               mountPath: /etc/kmip
-            - mountPath: /etc/secret-volume/
-              name: kbs-credentials
+            - mountPath: /etc/secrets/
+              name: kbs-secrets
               readOnly: true              
       volumes:
         - name: kbs-logs-volume
@@ -77,9 +77,13 @@ spec:
           hostPath:
             path: /opt/kbs
             type: DirectoryOrCreate
-        - name: kbs-credentials
-          secret:
-              secretName: kbs-secret
         - name: kbs-kmip-volume
           secret:
             secretName: kmip-certs
+        - name: kbs-secrets
+          projected:
+            sources:
+              - secret:
+                  name: kbs-credentials
+              - secret:
+                  name: bearer-token

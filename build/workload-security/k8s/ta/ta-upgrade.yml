@@ -59,8 +59,8 @@ spec:
             mountPath: /opt/trustagent
           - name: tpmrm
             mountPath: /dev/tpmrm0
-          - name: ta-credentials
-            mountPath: /etc/secret-volume/
+          - name: ta-secrets
+            mountPath: /etc/secrets/
       containers:
         - name: pause
           image: gcr.io/google_containers/pause
@@ -76,10 +76,14 @@ spec:
         - name: tpmrm
           hostPath:
             path: /dev/tpmrm0
-        - name: ta-credentials
-          secret:
-            secretName: ta-secret
         - name: ta-backup-volume
           hostPath:
             path: /tmp/trustagent_backup
             type: DirectoryOrCreate
+        - name: ta-secrets
+          projected:
+            sources:
+              - secret:
+                  name: ta-credentials
+              - secret:
+                  name: bearer-token

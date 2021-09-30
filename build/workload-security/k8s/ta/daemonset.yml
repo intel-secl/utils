@@ -77,8 +77,8 @@ spec:
               readOnly: true
             - name: wla-config-volume
               mountPath: /etc/workload-agent/
-            - mountPath: /etc/secret-volume/
-              name: ta-credentials
+            - mountPath: /etc/secrets/
+              name: ta-secrets
               readOnly: true
       volumes:
         - name: ta-logs-volume
@@ -120,6 +120,10 @@ spec:
           hostPath:
             path: /etc/workload-agent
             type: DirectoryOrCreate
-        - name: ta-credentials
-          secret:
-              secretName: ta-secret 
+        - name: ta-secrets
+          projected:
+            sources:
+              - secret:
+                  name: ta-credentials
+              - secret:
+                  name: bearer-token

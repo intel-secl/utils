@@ -82,6 +82,7 @@ get_cms_tls_cert_sha384() {
 get_aas_bootstrap_token() {
   cms_pod=$($KUBECTL get pod -n isecl -l app=cms -o jsonpath="{.items[0].metadata.name}")
   AAS_BOOTSTRAP_TOKEN=$($KUBECTL exec -n isecl --stdin $cms_pod -- cms setup cms-auth-token --force | grep "JWT Token:" | awk '{print $3}')
+  $KUBECTL create secret generic aas-bootstrap-token -n isecl --from-literal=BEARER_TOKEN=$AAS_BOOTSTRAP_TOKEN --save-config --dry-run=client -o yaml | $KUBECTL apply -f -
 }
 
 deploy_authservice() {
@@ -92,13 +93,12 @@ deploy_authservice() {
   echo "|    DEPLOY: AUTHENTICATION-AUTHORIZATION-SERVICE  |"
   echo "----------------------------------------------------"
 
-  required_variables="AAS_ADMIN_USERNAME,AAS_ADMIN_PASSWORD,AAS_DB_HOSTNAME,AAS_DB_NAME,AAS_DB_PORT,AAS_DB_SSLMODE,AAS_BOOTSTRAP_TOKEN,AAS_SAN_LIST"
+  required_variables="AAS_ADMIN_USERNAME,AAS_ADMIN_PASSWORD,AAS_DB_HOSTNAME,AAS_DB_NAME,AAS_DB_PORT,AAS_DB_SSLMODE,AAS_SAN_LIST"
   check_mandatory_variables $AAS $required_variables
 
   cd aas/
 
   # update configMap and secrets
-  sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=$AAS_BOOTSTRAP_TOKEN/g" secrets.txt
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: $CMS_TLS_CERT_SHA384/g" configMap.yml
   sed -i "s#CMS_BASE_URL:.*#CMS_BASE_URL: $CMS_BASE_URL#g" configMap.yml
   sed -i "s/SAN_LIST:.*/SAN_LIST: $AAS_SAN_LIST/g" configMap.yml
@@ -111,12 +111,12 @@ deploy_authservice() {
     echo "  NATS_ACCOUNT_NAME: $NATS_ACCOUNT_NAME" >>configMap.yml
     echo "hi"
   fi
-  sed -i "s/AAS_DB_USERNAME=.*/AAS_DB_USERNAME=$AAS_DB_USERNAME/g" secrets.txt
-  sed -i "s/AAS_DB_PASSWORD=.*/AAS_DB_PASSWORD=$AAS_DB_PASSWORD/g" secrets.txt
-  sed -i "s/AAS_ADMIN_USERNAME=.*/AAS_ADMIN_USERNAME=$AAS_ADMIN_USERNAME/g" secrets.txt
-  sed -i "s/AAS_ADMIN_PASSWORD=.*/AAS_ADMIN_PASSWORD=$AAS_ADMIN_PASSWORD/g" secrets.txt
+  echo $AAS_DB_USERNAME
+  sed -i "s/AAS_DB_USERNAME:.*/AAS_DB_USERNAME: $AAS_DB_USERNAME/g" secrets.yml
+  sed -i "s/AAS_DB_PASSWORD:.*/AAS_DB_PASSWORD: $AAS_DB_PASSWORD/g" secrets.yml
+  sed -i "s/AAS_ADMIN_USERNAME:.*/AAS_ADMIN_USERNAME: $AAS_ADMIN_USERNAME/g" secrets.yml
+  sed -i "s/AAS_ADMIN_PASSWORD:.*/AAS_ADMIN_PASSWORD: $AAS_ADMIN_PASSWORD/g" secrets.yml
 
-  $KUBECTL create secret generic aas-secret --from-file=secrets.txt --namespace=isecl
   # deploy
   $KUBECTL kustomize . | $KUBECTL apply -f -
 
@@ -190,6 +190,7 @@ get_bearer_token() {
 
   BEARER_TOKEN=$(grep "Token for User: $INSTALL_ADMIN_USERNAME" $aas_scripts_dir/populate-users.log -A 2 | grep BEARER_TOKEN | cut -d '=' -f2)
   echo "Install token: $BEARER_TOKEN"
+  $KUBECTL create secret generic bearer-token -n isecl --from-literal=BEARER_TOKEN=$BEARER_TOKEN --save-config --dry-run=client -o yaml | $KUBECTL apply -f -
 
   if [ ! -z "$NATS_SERVERS" ]; then
     CC_TA_TOKEN=$(grep "Custom Claims Token For TA" $aas_scripts_dir/populate-users.log -A 2 | grep BEARER_TOKEN | cut -d '=' -f2)
@@ -208,7 +209,7 @@ deploy_hvs() {
   get_bearer_token
   get_cms_tls_cert_sha384
 
-  required_variables="BEARER_TOKEN,CMS_TLS_CERT_SHA384,HVS_SERVICE_USERNAME,HVS_SERVICE_PASSWORD,HVS_CERT_SAN_LIST,AAS_API_URL,CMS_BASE_URL,HVS_DB_HOSTNAME,HVS_DB_PORT,HVS_DB_NAME"
+  required_variables="CMS_TLS_CERT_SHA384,HVS_SERVICE_USERNAME,HVS_SERVICE_PASSWORD,HVS_CERT_SAN_LIST,AAS_API_URL,CMS_BASE_URL,HVS_DB_HOSTNAME,HVS_DB_PORT,HVS_DB_NAME"
   check_mandatory_variables $SHVS $required_variables
 
   # update hvs configMap & secrets
@@ -217,10 +218,10 @@ deploy_hvs() {
   else
     sed -i "s#NATS_SERVERS:.*#NATS_SERVERS: ${NATS_SERVERS}#g" configMap.yml
   fi
-  sed -i "s/HVS_SERVICE_USERNAME=.*/HVS_SERVICE_USERNAME=${HVS_SERVICE_USERNAME}/g" secrets.txt
-  sed -i "s/HVS_SERVICE_PASSWORD=.*/HVS_SERVICE_PASSWORD=${HVS_SERVICE_PASSWORD}/g" secrets.txt
-  sed -i "s/HVS_DB_USERNAME=.*/HVS_DB_USERNAME=${HVS_DB_USERNAME}/g" secrets.txt
-  sed -i "s/HVS_DB_PASSWORD=.*/HVS_DB_PASSWORD=${HVS_DB_PASSWORD}/g" secrets.txt
+  sed -i "s/HVS_SERVICE_USERNAME:.*/HVS_SERVICE_USERNAME: ${HVS_SERVICE_USERNAME}/g" secrets.yml
+  sed -i "s/HVS_SERVICE_PASSWORD:.*/HVS_SERVICE_PASSWORD: ${HVS_SERVICE_PASSWORD}/g" secrets.yml
+  sed -i "s/HVS_DB_USERNAME:.*/HVS_DB_USERNAME: ${HVS_DB_USERNAME}/g" secrets.yml
+  sed -i "s/HVS_DB_PASSWORD:.*/HVS_DB_PASSWORD: ${HVS_DB_PASSWORD}/g" secrets.yml
 
   sed -i "s/SAN_LIST:.*/SAN_LIST: ${HVS_CERT_SAN_LIST}/g" configMap.yml
   sed -i "s/HVS_DB_HOSTNAME:.*/HVS_DB_HOSTNAME: ${HVS_DB_HOSTNAME}/g" configMap.yml
@@ -231,8 +232,6 @@ deploy_hvs() {
   sed -i "s#AAS_API_URL:.*#AAS_API_URL: ${AAS_API_URL}#g" configMap.yml
   sed -i "s#CMS_BASE_URL:.*#CMS_BASE_URL: ${CMS_BASE_URL}#g" configMap.yml
   sed -i "s/HVS_DB_HOSTNAME:.*/HVS_DB_HOSTNAME: ${HVS_DB_HOSTNAME}/g" configMap.yml
-
-  $KUBECTL create secret generic hvs-secret --from-file=secrets.txt --namespace=isecl
 
   # deploy
   $KUBECTL kustomize . | $KUBECTL apply -f -
@@ -311,19 +310,16 @@ deploy_ihub() {
   cp $K8S_API_SERVER_CERT secrets/apiserver.crt
 
   #update configMap & secrets
-  sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=${BEARER_TOKEN}/g" secrets.txt
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: $CMS_TLS_CERT_SHA384/g" configMap.yml
   sed -i "s/TLS_SAN_LIST:.*/TLS_SAN_LIST: $IH_CERT_SAN_LIST/g" configMap.yml
   sed -i "s/KUBERNETES_TOKEN:.*/KUBERNETES_TOKEN: $kubernetes_token/g" configMap.yml
   sed -i "s/KUBERNETES_URL:.*/KUBERNETES_URL: https:\/\/$K8S_CONTROL_PLANE_IP:$API_SERVER_PORT\//g" configMap.yml
-  sed -i "s/IHUB_SERVICE_USERNAME=.*/IHUB_SERVICE_USERNAME=$IHUB_SERVICE_USERNAME/g" secrets.txt
-  sed -i "s/IHUB_SERVICE_PASSWORD=.*/IHUB_SERVICE_PASSWORD=$IHUB_SERVICE_PASSWORD/g" secrets.txt
+  sed -i "s/IHUB_SERVICE_USERNAME:.*/IHUB_SERVICE_USERNAME: $IHUB_SERVICE_USERNAME/g" secrets.yml
+  sed -i "s/IHUB_SERVICE_PASSWORD:.*/IHUB_SERVICE_PASSWORD: $IHUB_SERVICE_PASSWORD/g" secrets.yml
   sed -i "s#CMS_BASE_URL:.*#CMS_BASE_URL: ${CMS_BASE_URL}#g" configMap.yml
   sed -i "s#AAS_API_URL:.*#AAS_API_URL: ${AAS_API_URL}#g" configMap.yml
   sed -i "s#HVS_BASE_URL:.*#HVS_BASE_URL: ${HVS_BASE_URL}#g" configMap.yml
   sed -i "s/SHVS_BASE_URL:.*//g" configMap.yml
-
-  $KUBECTL create secret generic ihub-secret --from-file=secrets.txt --namespace=isecl
 
   # deploy
   $KUBECTL kustomize . | $KUBECTL apply -f -
@@ -409,7 +405,6 @@ deploy_kbs() {
   cd kbs/
 
   #update configMap
-  sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=${BEARER_TOKEN}/g" secrets.txt
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: $CMS_TLS_CERT_SHA384/g" configMap.yml
   sed -i "s/TLS_SAN_LIST:.*/TLS_SAN_LIST: $KBS_CERT_SAN_LIST/g" configMap.yml
   sed -i "s#ENDPOINT_URL:.*#ENDPOINT_URL: $ENDPOINT_URL#g" configMap.yml
@@ -434,7 +429,25 @@ deploy_kbs() {
   sed -i "s#KMIP_ROOT_CERT_PATH:.*#KMIP_ROOT_CERT_PATH: $KMIP_ROOT_CERT_PATH#g" configMap.yml
   $KUBECTL create secret generic kmip-certs --namespace isecl --from-file=kmip-secrets
 
-  $KUBECTL create secret generic kbs-secret --from-file=secrets.txt --namespace=isecl
+    if [ -z "$KMIP_USERNAME" ] || [ ! -f "$KMIP_PASSWORD" ]; then
+      echo "Either or both values for KMIP_USERNAME and KMIP_PASSWORD are not set. Ignoring..."
+      sed -i "s/KMIP_USERNAME:.*//g" secrets.yml
+      sed -i "s/KMIP_PASSWORD:.*//g" secrets.yml
+      sed -i "s/- secrets.yml*//g" kustomization.yml
+    else
+      sed -i "s/KMIP_USERNAME:.*/KMIP_USERNAME: $KMIP_USERNAME/g" secrets.yml
+      sed -i "s/KMIP_PASSWORD:.*/KMIP_PASSWORD: $KMIP_PASSWORD/g" secrets.yml
+  fi
+
+  if [ -z "$KBS_USERNAME" ] || [ ! -f "$KBS_PASSWORD" ]; then
+      echo "Either or both values for KBS_USERNAME and KBS_PASSWORD are not set. Ignoring..."
+      sed -i "s/KBS_USERNAME:.*//g" secrets.yml
+      sed -i "s/KBS_PASSWORD:.*//g" secrets.yml
+      sed -i "s/- secrets:.*//g" kustomization.yml
+    else
+      sed -i "s/KBS_USERNAME:.*/KBS_USERNAME: $KBS_USERNAME/g" secrets.yml
+      sed -i "s/KBS_PASSWORD:.*/KBS_PASSWORD: $KBS_PASSWORD/g" secrets.yml
+  fi
 
   # deploy
   $KUBECTL kustomize . | $KUBECTL apply -f -
@@ -470,18 +483,15 @@ deploy_wls() {
   get_cms_tls_cert_sha384
 
   # update wls configMap & secrets
-  sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=${BEARER_TOKEN}/g" secrets.txt
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: ${CMS_TLS_CERT_SHA384}/g" configMap.yml
   sed -i "s#AAS_API_URL:.*#AAS_API_URL: $AAS_API_URL#g" configMap.yml
   sed -i "s#HVS_URL:.*#HVS_URL: $HVS_URL#g" configMap.yml
   sed -i "s#CMS_BASE_URL:.*#CMS_BASE_URL: $CMS_BASE_URL#g" configMap.yml
   sed -i "s/SAN_LIST:.*/SAN_LIST: $WLS_CERT_SAN_LIST/g" configMap.yml
-  sed -i "s/WLS_SERVICE_USERNAME=.*/WLS_SERVICE_USERNAME=${WLS_SERVICE_USERNAME}/g" secrets.txt
-  sed -i "s/WLS_SERVICE_PASSWORD=.*/WLS_SERVICE_PASSWORD=${WLS_SERVICE_PASSWORD}/g" secrets.txt
-  sed -i "s/WLS_DB_USERNAME=.*/WLS_DB_USERNAME=${WLS_DB_USERNAME}/g" secrets.txt
-  sed -i "s/WLS_DB_PASSWORD=.*/WLS_DB_PASSWORD=${WLS_DB_PASSWORD}/g" secrets.txt
-
-  $KUBECTL create secret generic wls-secret --from-file=secrets.txt --namespace=isecl
+  sed -i "s/WLS_SERVICE_USERNAME:.*/WLS_SERVICE_USERNAME: ${WLS_SERVICE_USERNAME}/g" secrets.yml
+  sed -i "s/WLS_SERVICE_PASSWORD:.*/WLS_SERVICE_PASSWORD: ${WLS_SERVICE_PASSWORD}/g" secrets.yml
+  sed -i "s/WLS_DB_USERNAME:.*/WLS_DB_USERNAME: ${WLS_DB_USERNAME}/g" secrets.yml
+  sed -i "s/WLS_DB_PASSWORD:.*/WLS_DB_PASSWORD: ${WLS_DB_PASSWORD}/g" secrets.yml
 
   # deploy
   $KUBECTL kustomize . | $KUBECTL apply -f -
@@ -521,21 +531,18 @@ deploy_tagent() {
   sed -i "s#CMS_TLS_CERT_SHA384:.*#CMS_TLS_CERT_SHA384: $CMS_TLS_CERT_SHA384#g" configMap.yml
 
   if [ ! -z "$TPM_OWNER_SECRET" ]; then
-    sed -i "s/TPM_OWNER_SECRET=.*/TPM_OWNER_SECRET=$TPM_OWNER_SECRET/g" secrets.txt
+    sed -i "s/TPM_OWNER_SECRET:.*/TPM_OWNER_SECRET: $TPM_OWNER_SECRET/g" secrets.yml
   else
-    sed -i "s/TPM_OWNER_SECRET=.*//g" secrets.txt
+    sed -i "s/- secrets.yml//g" kustomization.yml
   fi
   if [ "$TA_SERVICE_MODE" == "outbound" ]; then
     sed -i "s/TA_SERVICE_MODE:.*/TA_SERVICE_MODE: $TA_SERVICE_MODE/g" configMap.yml
     sed -i "s#NATS_SERVERS:.*#NATS_SERVERS: $NATS_SERVERS#g" configMap.yml
-    sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=$CC_TA_TOKEN/g" secrets.txt
+    $KUBECTL create secret generic bearer-token -n isecl --from-literal=BEARER_TOKEN=$CC_TA_TOKEN --save-config --dry-run=client -o yaml | $KUBECTL apply -f -
   else
     sed -i "s/TA_SERVICE_MODE:.*//g" configMap.yml
     sed -i "s/NATS_SERVERS:.*//g" configMap.yml
-    sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=$BEARER_TOKEN/g" secrets.txt
   fi
-
-  $KUBECTL create secret generic ta-secret --from-file=secrets.txt --namespace=isecl
 
   $KUBECTL kustomize . | $KUBECTL apply -f -
   # wait to get ready
@@ -605,15 +612,12 @@ deploy_wlagent() {
   check_mandatory_variables $WLAGENT $required_variables
   cd wla/
   # #update trustagent.env
-  sed -i "s/BEARER_TOKEN=.*/BEARER_TOKEN=$BEARER_TOKEN/g" secrets.txt
   sed -i "s#AAS_API_URL:.*#AAS_API_URL: $AAS_API_URL#g" configMap.yml
   sed -i "s#HVS_URL:.*#HVS_URL: $HVS_URL#g" configMap.yml
   sed -i "s#CMS_BASE_URL:.*#CMS_BASE_URL: $CMS_BASE_URL#g" configMap.yml
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: $CMS_TLS_CERT_SHA384/g" configMap.yml
-  sed -i "s/WLA_SERVICE_USERNAME=.*/WLA_SERVICE_USERNAME=$WLA_SERVICE_USERNAME/g" secrets.txt
-  sed -i "s/WLA_SERVICE_PASSWORD=.*/WLA_SERVICE_PASSWORD=$WLA_SERVICE_PASSWORD/g" secrets.txt
-
-  $KUBECTL create secret generic wla-secret --from-file=secrets.txt --namespace=isecl
+  sed -i "s/WLA_SERVICE_USERNAME:.*/WLA_SERVICE_USERNAME: $WLA_SERVICE_USERNAME/g" secrets.yml
+  sed -i "s/WLA_SERVICE_PASSWORD:.*/WLA_SERVICE_PASSWORD: $WLA_SERVICE_PASSWORD/g" secrets.yml
 
   $KUBECTL kustomize . | $KUBECTL apply -f -
   # wait to get ready
@@ -635,7 +639,7 @@ cleanup_wls() {
 
   echo "Cleaning up WORKLOAD-SERVICE..."
 
-  $KUBECTL delete secret wls-secret --namespace isecl
+  $KUBECTL delete secret wls-credentials --namespace isecl
   $KUBECTL delete configmap wls-config --namespace isecl
   $KUBECTL delete deploy wls-deployment --namespace isecl
 
@@ -664,7 +668,7 @@ cleanup_tagent() {
   echo "Cleaning up TRUST-AGENT..."
 
   $KUBECTL delete configmap ta-config --namespace isecl
-  $KUBECTL delete secret ta-secret --namespace isecl
+  $KUBECTL delete secret ta-credentials --namespace isecl
 
   $KUBECTL delete daemonset ta-daemonset-txt --namespace isecl
   $KUBECTL delete daemonset ta-daemonset-suefi --namespace isecl
@@ -674,7 +678,7 @@ cleanup_wlagent() {
   echo "Cleaning up WORKLOAD-AGENT..."
 
   $KUBECTL delete configmap wla-config --namespace isecl
-  $KUBECTL delete secret wla-secret --namespace isecl
+  $KUBECTL delete secret wla-credentials --namespace isecl
   $KUBECTL delete daemonset wla-daemonset --namespace isecl
 }
 
@@ -682,7 +686,7 @@ cleanup_kbs() {
 
   echo "Cleaning up KEY-BROKER-SERVICE..."
 
-  $KUBECTL delete secret kbs-secret --namespace isecl
+  $KUBECTL delete secret kbs-credentials --namespace isecl
   $KUBECTL delete configmap kbs-config --namespace isecl
   $KUBECTL delete deploy kbs-deployment --namespace isecl
   $KUBECTL delete svc kbs-svc --namespace isecl
@@ -705,7 +709,7 @@ cleanup_ihub() {
   IFS=$'\r\n' GLOBIGNORE='*' command eval 'secrets=$(kubectl get secrets -n isecl | grep ihub-k8s-certs | cut -d " " -f 1)'
   for i in "${secrets[@]}"; do kubectl delete secret -n isecl $i >/dev/null; done
 
-  $KUBECTL delete secret ihub-secret --namespace isecl
+  $KUBECTL delete secret ihub-credentials --namespace isecl
   $KUBECTL delete configmap ihub-config --namespace isecl
   $KUBECTL delete deploy ihub-deployment --namespace isecl
 
@@ -747,7 +751,7 @@ cleanup_hvs() {
 
   echo "Cleaning up HOST-VERIFICATION-SERVICE..."
 
-  $KUBECTL delete secret hvs-secret --namespace isecl
+  $KUBECTL delete secret hvs-credentials --namespace isecl
 
   $KUBECTL delete configmap hvs-config --namespace isecl
   $KUBECTL delete deploy hvs-deployment --namespace isecl
@@ -767,7 +771,7 @@ cleanup_authservice() {
 
   echo "Cleaning up AUTHENTICATION-AUTHORIZATION-SERVICE..."
 
-  $KUBECTL delete secret aas-secret --namespace isecl
+  $KUBECTL delete secret aas-credentials --namespace isecl
   $KUBECTL delete configmap aas-config --namespace isecl
   $KUBECTL delete deploy aas-deployment --namespace isecl
   $KUBECTL delete svc aas-svc --namespace isecl
@@ -850,6 +854,10 @@ bootstrap() {
 
 }
 
+cleanup_bearer_token() {
+  $KUBECTL delete secret bearer-token -n isecl
+}
+
 # #Function to cleanup Intel Micro SecL on Micro K8s
 cleanup() {
 
@@ -864,6 +872,7 @@ cleanup() {
   cleanup_isecl_scheduler
   cleanup_isecl_controller
   cleanup_common_components
+  cleanup_bearer_token
   if [ $? == 0 ]; then
     echo "Wait for pods to terminate..."
     sleep 30
@@ -900,6 +909,7 @@ deploy_common_components() {
   fi
   deploy_hvs
   deploy_tagent
+  cleanup_bearer_token
 }
 
 cleanup_common_components() {
@@ -910,6 +920,7 @@ cleanup_common_components() {
     cleanup_nats
   fi
   cleanup_tagent
+  cleanup_bearer_token
 }
 
 #Dispatch works based on args to script

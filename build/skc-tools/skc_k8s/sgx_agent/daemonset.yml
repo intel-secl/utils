@@ -52,8 +52,8 @@ spec:
               mountPath: /dev/sgx/
             - name: sagent-pck-data
               mountPath: /opt/pckData
-            - mountPath: /etc/secret-volume/
-              name: sagent-credentials
+            - mountPath: /etc/secrets/
+              name: sagent-secrets
               readOnly: true
       volumes:
         - name: sagent-logs-volume
@@ -80,6 +80,6 @@ spec:
           hostPath:
             path: /opt/pckData
             type: FileOrCreate
-        - name: sagent-credentials
+        - name: sagent-secrets
           secret:
-              secretName: sagent-secret
+              secretName: sagent-credentials

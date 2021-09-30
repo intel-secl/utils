@@ -18,4 +18,5 @@ commonLabels:
 
 resources:
 - configMap.yml
+- secrets.yml
 - deployment.yml
