@@ -1,7 +1,13 @@
 OPENSSL=openssl
 OUTDIR=./output
+key_bits=3072
 
 mkdir -p $OUTDIR
+
+if [ ! -z "$1" ]; then
+        key_bits=$1
+        echo "Gen Cert & Key - Key bit size : $key_bits"
+fi
 
 rm $OUTDIR/*.cert
 rm $OUTDIR/*.key
@@ -14,11 +20,11 @@ SERVER_KEY=$OUTDIR/server.key
 SERVER_PKCS8_KEY=$OUTDIR/server_pkcs8.key
 
 CN="RSA Root CA" $OPENSSL req -config ${CA_CONF_PATH} -x509 -nodes \
-        -keyout ${CA_ROOT_CERT} -out ${CA_ROOT_CERT} -newkey rsa:3072 -days 3650
+        -keyout ${CA_ROOT_CERT} -out ${CA_ROOT_CERT} -newkey rsa:$key_bits -days 3650
 
 # EE RSA certificates: create request first
 CN="localhost" $OPENSSL req -config ${CA_CONF_PATH} -nodes \
-        -keyout ${SERVER_KEY} -out ${OUTDIR}/req.csr -newkey rsa:3072
+        -keyout ${SERVER_KEY} -out ${OUTDIR}/req.csr -newkey rsa:$key_bits
 
 # Sign request: end entity extensions
 $OPENSSL x509 -req -in ${OUTDIR}/req.csr -CA ${CA_ROOT_CERT} -days 3600 \

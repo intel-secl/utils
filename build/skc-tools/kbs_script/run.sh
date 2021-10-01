@@ -5,6 +5,31 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
+KEY_BITS=3072
+if [ ! -z "$2" ]; then
+	echo "Key bits provided as command line argument: $2"
+	if [[ $2 -eq 2048 ||  $2 -eq 3072 ||  $2 -eq 4096 || $2 -eq 7680 ]]; then
+	    KEY_BITS=$2
+        else
+	    echo "${red} Invalid Key Bit provided: please provide 2048, 3072, 4096, 7680 ${reset}"
+	    exit 1         
+	fi
+fi
+
+
+
+python3 rsa_create.py $KEY_BITS > key-create-output.txt 2>&1
+
+if [ $? -ne 0 ]; then
+	echo "${red} Could not create rsa key in KMIP server ${reset}"
+	exit 1
+fi
+
+KMIP_KEY_ID=$(cat key-create-output.txt | grep -rn '^Private Key ID' | sed -e "s/.*Private Key ID : //g")
+SERVER_CERT=$( cat key-create-output.txt | grep -rn '^Server certificate :' | sed -e "s/.*Server certificate : //g")
+
+echo "key id value: $KMIP_KEY_ID, cert-path: $SERVER_CERT"
+
 # read from environment variables file if it exists
 if [ -f ./kbs.conf ]; then
 	echo "Reading Installation variables from $(pwd)/kbs.conf"
@@ -104,11 +129,11 @@ echo "${green} Key Transfer Policy Created ${reset}"
 #create a RSA key
 if [ "$1" = "reg" ]; then
 	if [ -z "${KMIP_KEY_ID}" ]; then
-		source gen_cert_key.sh
+		source gen_cert_key.sh $KEY_BITS
             printf "{
             \"key_information\":{
                     \"algorithm\":\"RSA\",
-                    \"key_length\":3072,
+                    \"key_length\":$KEY_BITS,
                     \"key_string\":\"$(cat ${SERVER_PKCS8_KEY} | tr '\r\n' '@')\"
             },
                     \"transfer_policy_ID\": ${transfer_policy_id}
@@ -120,7 +145,7 @@ if [ "$1" = "reg" ]; then
             printf "{
             \"key_information\":{
                     \"algorithm\":\"RSA\",
-                    \"key_length\":3072,
+                    \"key_length\":$KEY_BITS,
                     \"kmip_key_id\":\"${KMIP_KEY_ID}\"
             },
                     \"transfer_policy_ID\": ${transfer_policy_id}

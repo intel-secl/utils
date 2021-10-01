@@ -9,11 +9,13 @@ from kmip.pie import objects
 from kmip.pie import client
 from kmip import enums
 from subprocess import call
+from subprocess import getoutput
 
 KMIP_IP = 
 SERVER_PORT = '5696'
 CERT_PATH = '/etc/pykmip/client_certificate.pem'
 KEY_PATH = '/etc/pykmip/client_key.pem'
+KEY_BITS=3072
 CA_PATH = '/etc/pykmip/root_certificate.pem'
 
 TEMP_DIRECTORY = 'temp'
@@ -52,7 +54,7 @@ def AsymmetricKeyRSA():
     with c:
         key_id = c.create_key_pair(
             enums.CryptographicAlgorithm.RSA,
-            3072,
+            KEY_BITS,
             public_usage_mask=[
                 enums.CryptographicUsageMask.ENCRYPT
             ],
@@ -82,4 +84,10 @@ def main():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+         KEY_BITS=int(sys.argv[1])
+         if KEY_BITS != 2048 and KEY_BITS !=3072 and KEY_BITS !=4096 and KEY_BITS != 7680:
+             print("Invalid Key Bit provided: Please provide valid key bits 2048, 3072, 4096, 7680")
+             exit(1)
+         print("KEY BITS: ", KEY_BITS)
     main()
