@@ -49,7 +49,7 @@ spec:
             - name: wla-socket
               mountPath: /var/run/workload-agent
             - mountPath: /etc/secrets/
-              name: wla-credentials
+              name: wla-secrets
               readOnly: true
       volumes:
         - name: wla-logs-volume
