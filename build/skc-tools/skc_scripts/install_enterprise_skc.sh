@@ -56,6 +56,9 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
+echo "Uninstalling Key Broker Service...."
+kbs uninstall --purge
+
 echo "Updating Key Broker Service env...."
 KBS_HOSTNAME=$("hostname")
 sed -i "s/^\(TLS_SAN_LIST\s*=\s*\).*\$/\1$SYSTEM_SAN,$KBS_HOSTNAME/" ~/kbs.env
