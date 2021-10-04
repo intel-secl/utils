@@ -18,7 +18,14 @@ fi
 \cp -pf ./create_db.sh $HOME_DIR
 \cp -pf ./populate-users.sh $HOME_DIR
 
-\cp -pf $BINARY_DIR/trusted_rootca.pem /tmp
+if [[ "$CPU" == "ICX" ]]
+	\cp -pf $BINARY_DIR/trusted_rootca_icx_prod.pem /tmp/trusted_rootca.pem
+elif [[ "$CPU" == "ICX-Pre" ]]
+	\cp -pf $BINARY_DIR/trusted_rootca_icx_preprod.pem /tmp/trusted_rootca.pem
+else
+	echo "${red} Invalid CPU value provided in enterprise.conf ${reset}"
+	exit 1
+fi
 
 # read from environment variables file if it exists
 if [ -f ./enterprise_skc.conf ]; then
