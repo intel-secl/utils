@@ -343,8 +343,13 @@ sqvs_installer_file_src:  "{{binaries_path}}/{{sqvs_installer_name}}"
 # The name of the trusted root ca file for SGX Quote Verification Service
 sqvs_trusted_rootca_filename: trusted_rootca.pem
 
+# Accordingly, the PCK Certificate Root CA file will be used for Quote Verification
+# Default is to use the PCK Root CA Certificate for Icelake Production CPUs(ICX)
+# For Other supported CPU Icelake Pre-production CPUs(ICX-Pre), use trusted_rootca_icx_preprod.pem
+sqvs_pck_rootca_filename: trusted_rootca_icx_prod.pem
+
 # The trusted root ca file source for SGX Quote Verification Service
-sqvs_trusted_rootca_file_src: "{{binaries_path}}/{{sqvs_trusted_rootca_filename}}"
+sqvs_trusted_rootca_file_src: "{{binaries_path}}/{{sqvs_pck_rootca_filename}}"
 
 # The response signing key length for SGX Quote Verification Service
 response_signing_key_length: 3072
