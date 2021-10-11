@@ -17,7 +17,7 @@ skc_services:
 	cp sgx-verification-service/out/*.bin binaries/
 	cp sgx-verification-service/dist/linux/sqvs.env binaries/env
 	cp sgx-verification-service/dist/linux/trusted_rootca_icx_preprod.pem binaries/
-	cp sgx-verification-service/dist/linux/trusted_rootca_icx_prod.pem binaries/
+	cp sgx-verification-service/dist/linux/trusted_rootca_icx_prod.pem binaries/trusted_rootca.pem
 	cp -pf utils/build/skc-tools/skc_scripts/env/*.env binaries/env
 	cp -pf utils/build/skc-tools/skc_scripts/env/install_pgdb.sh binaries/
 	cp -pf utils/build/skc-tools/skc_scripts/install_*.sh binaries/
