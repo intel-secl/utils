@@ -62,7 +62,7 @@ popd
 AAS_URL=https://$SYSTEM_IP:$AAS_PORT/aas/v1
 CMS_URL=https://$SYSTEM_IP:$CMS_PORT/cms/v1/
 echo "Updating Populate users env ...."
-ISECL_INSTALL_COMPONENTS=SHVS,SIH,IHUB
+ISECL_INSTALL_COMPONENTS=SHVS,SIH
 sed -i "s@^\(ISECL_INSTALL_COMPONENTS\s*=\s*\).*\$@\1$ISECL_INSTALL_COMPONENTS@" ~/populate-users.env
 sed -i "s@^\(AAS_API_URL\s*=\s*\).*\$@\1$AAS_URL@" ~/populate-users.env
 
