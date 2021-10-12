@@ -15,7 +15,7 @@ install_cryptoapitoolkit()
         git clone $CTK_REPO $GIT_CLONE_SGX_CTK || exit 1
         cd $GIT_CLONE_SGX_CTK
         bash autogen.sh || exit 1
-        ./configure --with-p11-kit-path=$P11_KIT_PATH --prefix=$CTK_INSTALL --enable-dcap --enable-ephemeral-quote || exit 1
+        ./configure --with-p11-kit-path=$P11_KIT_PATH --prefix=$CTK_INSTALL --enable-dcap --enable-ephemeral-quote --disable-multiprocess-support || exit 1
 	make install || exit 1
 	popd
 	\cp -rpf $CTK_INSTALL $SKCLIB_DIR
