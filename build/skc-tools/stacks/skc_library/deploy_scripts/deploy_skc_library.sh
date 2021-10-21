@@ -49,7 +49,7 @@ install_psw_qgl()
 	$PKGMGR install -qy --nogpgcheck libsgx-uae-service libsgx-dcap-ql-devel libsgx-dcap-default-qpl-devel || exit 1
 	echo "${green} sgx psw and qgl libraries installed ${reset}"
 	sed -i "s|PCCS_URL=.*|PCCS_URL=https://$CSP_SCS_IP:$CSP_SCS_PORT/scs/sgx/certification/v1/|g" /etc/sgx_default_qcnl.conf
-	sed -i "s|USE_SECURE_CERT=.*|USE_SECURE_CERT=FALSE|g" /etc/sgx_default_qcnl.conf
+	sed -i "s|.*USE_SECURE_CERT=.*|USE_SECURE_CERT=FALSE|g" /etc/sgx_default_qcnl.conf
 	
 	#Update SCS root CA Certificate in SGX Compute node certificate store in order for  QPL to verify SCS
 	curl -k -H 'Accept:application/x-pem-file' https://$CSP_CMS_IP:$CSP_CMS_PORT/cms/v1/ca-certificates > /etc/pki/ca-trust/source/anchors/skc-lib-cms-ca.cert

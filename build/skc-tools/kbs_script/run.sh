@@ -12,7 +12,7 @@ if [ ! -z "$2" ]; then
 	    KEY_BITS=$2
         else
 	    echo "${red} Invalid Key Bit provided: please provide 2048, 3072, 4096, 7680 ${reset}"
-	    exit 1         
+	    exit 1
 	fi
 fi
 

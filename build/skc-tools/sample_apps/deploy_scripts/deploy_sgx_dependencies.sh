@@ -47,7 +47,7 @@ install_psw_qgl()
 	fi
 	echo "${green} sgx psw and qgl libraries installed ${reset}"
 	sed -i "s|PCCS_URL=.*|PCCS_URL=https://<csp-scs-ip>:<scs-port>/scs/sgx/certification/v1/|g" /etc/sgx_default_qcnl.conf
-	sed -i "s|USE_SECURE_CERT=.*|USE_SECURE_CERT=FALSE|g" /etc/sgx_default_qcnl.conf
+	sed -i "s|.*USE_SECURE_CERT=.*|USE_SECURE_CERT=FALSE|g" /etc/sgx_default_qcnl.conf
 }
 
 install_sgxssl()

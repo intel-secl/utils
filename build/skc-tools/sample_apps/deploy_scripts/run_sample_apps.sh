@@ -40,7 +40,7 @@ sed -i "s@^\(sqvs-url\s*:\s*\).*\$@\1$SQVS_URL@" $HOME_DIR/config.yml
 
 PCCS_URL=https://$SCS_IP:$SCS_PORT/scs/sgx/certification/v1/
 sed -i "s@^\(PCCS_URL\s*=\s*\).*\$@\1$PCCS_URL@" /etc/sgx_default_qcnl.conf
-sed -i "s|USE_SECURE_CERT=.*|USE_SECURE_CERT=FALSE|g" /etc/sgx_default_qcnl.conf
+sed -i "s|.*USE_SECURE_CERT=.*|USE_SECURE_CERT=FALSE|g" /etc/sgx_default_qcnl.conf
 
 source $SGX_SDK_INSTALL_PATH
 cd $HOME_DIR

@@ -260,7 +260,7 @@ crio_version: "1.21"
 # The crictl version for the corresponding crio version
 crictl_version: "1.21.0"
 
-# The OS on which crio runtime needs to be installed. Currently the below option is only 
+# The OS on which crio runtime needs to be installed. Currently the below option is only
 # required in case of debian based OS
 # Use "crio_os: xUbuntu_20.04" along with "container_runtime: crio" when deploying on Ubuntu-20.04
 # Use "crio_os: CentOS_8" along with "container_runtime: crio" when deploying on RHEL-8.4
@@ -346,7 +346,7 @@ sqvs_trusted_rootca_filename: trusted_rootca.pem
 # Accordingly, the PCK Certificate Root CA file will be used for Quote Verification
 # Default is to use the PCK Root CA Certificate for Icelake Production CPUs(ICX)
 # For Other supported CPU Icelake Pre-production CPUs(ICX-Pre), use trusted_rootca_icx_preprod.pem
-sqvs_pck_rootca_filename: trusted_rootca_icx_prod.pem
+sqvs_pck_rootca_filename: trusted_rootca_icx_preprod.pem
 
 # The trusted root ca file source for SGX Quote Verification Service
 sqvs_trusted_rootca_file_src: "{{binaries_path}}/{{sqvs_pck_rootca_filename}}"

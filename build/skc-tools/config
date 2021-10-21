@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 HOME_DIR=~/
 BINARY_DIR=$HOME_DIR/binaries
 
