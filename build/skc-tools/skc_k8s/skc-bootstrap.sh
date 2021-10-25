@@ -589,6 +589,7 @@ deploy_kbs() {
   if [ ! -f "$KMIP_CLIENT_CERT_NAME" ] && [ ! -f "$KMIP_CLIENT_KEY_NAME" ] && [ ! -f "$KMIP_ROOT_CERT_NAME" ]; then
     echo "One or more Kmip related certificates are empty"
   fi
+  cd ..
   if [ -z "$KMIP_USERNAME" ] || [ ! -f "$KMIP_PASSWORD" ]; then
       echo "Either or both values for KMIP_USERNAME and KMIP_PASSWORD are not set. Ignoring..."
       sed -i "s/KMIP_USERNAME:.*//g" secrets.yml
@@ -598,7 +599,6 @@ deploy_kbs() {
       sed -i "s/KMIP_PASSWORD:.*/KMIP_PASSWORD: $KMIP_PASSWORD/g" secrets.yml
   fi
 
-  cd ..
   sed -i "s#KMIP_CLIENT_CERT_PATH:.*#KMIP_CLIENT_CERT_PATH: $KMIP_CLIENT_CERT_PATH#g" configMap.yml
   sed -i "s#KMIP_CLIENT_KEY_PATH:.*#KMIP_CLIENT_KEY_PATH: $KMIP_CLIENT_KEY_PATH#g" configMap.yml
   sed -i "s#KMIP_ROOT_CERT_PATH:.*#KMIP_ROOT_CERT_PATH: $KMIP_ROOT_CERT_PATH#g" configMap.yml
