@@ -25,7 +25,8 @@ skc-all: sgx_agent skc_library
 	cp sgx-caching-service/dist/linux/scs.env binaries/env
 	cp sgx-verification-service/out/*.bin binaries/
 	cp sgx-verification-service/dist/linux/sqvs.env binaries/env
-	cp sgx-verification-service/dist/linux/trusted_rootca.pem binaries/
+	cp sgx-verification-service/dist/linux/trusted_rootca_icx_preprod.pem binaries/
+	cp sgx-verification-service/dist/linux/trusted_rootca_icx_prod.pem binaries/trusted_rootca.pem
 	cp sgx-hvs/out/*.bin binaries/
 	cp sgx-hvs/dist/linux/shvs.env binaries/env
 	cp utils/build/skc-tools/sgx_agent/build_scripts/sgx_agent.* binaries/
