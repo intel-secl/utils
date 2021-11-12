@@ -1,3 +1,5 @@
+# Building Container on Ubuntu OS is NOT Supported
+
 bin: app skc orchestrator
 
 sgx-stack: app_stacks skc_stacks orchestrator_stacks
