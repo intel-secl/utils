@@ -334,7 +334,6 @@ deploy_sqvs() {
   sed -i "s/CMS_TLS_CERT_SHA384:.*/CMS_TLS_CERT_SHA384: ${CMS_TLS_CERT_SHA384}/g" configMap.yml
   sed -i "s/SAN_LIST:.*/SAN_LIST: ${SQVS_CERT_SAN_LIST}/g" configMap.yml
   sed -i "s/SQVS_INCLUDE_TOKEN:.*/SQVS_INCLUDE_TOKEN: \"${SQVS_INCLUDE_TOKEN}\"/g" configMap.yml
-  sed -i "s/BEARER_TOKEN:.*/BEARER_TOKEN ${BEARER_TOKEN}/g" secrets.yml
   sed -i "s#SGX_TRUSTED_ROOT_CA_PATH:.*#SGX_TRUSTED_ROOT_CA_PATH: /tmp/${SGX_TRUSTED_ROOT_CA_FILE}#g" configMap.yml
   sed -i "s/SIGN_QUOTE_RESPONSE:.*/SIGN_QUOTE_RESPONSE: \"${SIGN_QUOTE_RESPONSE}\"/g" configMap.yml
   sed -i "s/RESPONSE_SIGNING_KEY_LENGTH:.*/RESPONSE_SIGNING_KEY_LENGTH: \"${RESPONSE_SIGNING_KEY_LENGTH}\"/g" configMap.yml

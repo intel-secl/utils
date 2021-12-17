@@ -9,18 +9,18 @@ VER=$(cat /etc/os-release | grep ^VERSION_ID | tr -d 'VERSION_ID="')
 
 # read from environment variables file if it exists
 if [ -f ./iseclpgdb.env ]; then
-	echo "Reading Database Installation variables from $(pwd)/iseclpgdb.env"
-	source ./iseclpgdb.env
-	env_file_exports=$(cat ./iseclpgdb.env | grep -E '^[A-Z0-9_]+\s*=' | cut -d = -f 1)
-	if [ -n "$env_file_exports" ]; then eval export $env_file_exports; fi
+    echo "Reading Database Installation variables from $(pwd)/iseclpgdb.env"
+    source ./iseclpgdb.env
+    env_file_exports=$(cat ./iseclpgdb.env | grep -E '^[A-Z0-9_]+\s*=' | cut -d = -f 1)
+    if [ -n "$env_file_exports" ]; then eval export $env_file_exports; fi
 fi
 
-# Variables Section. Please edit the default value as appropriate or use the iseclpgdb.env file
 DEFAULT_CERTSUBJECT="/CN=ISecl Self Sign Cert"
 DEFAULT_CIPHERSUITES="ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256"
 DEFAULT_CERT_DNS="localhost"
 DEFAULT_CERT_IP="127.0.0.1"
 DEFAULT_DB_INSTANCE_SIZE="small"
+# Variables Section. Please edit the default value as appropriate or use the iseclpgdb.env file
 
 ISECL_PGDB_IP_INTERFACES="${ISECL_PGDB_IP_INTERFACES:-localhost}"    # network interfaces to listen for connection
 ISECL_PGDB_PORT="${ISECL_PGDB_PORT:-5432}"
@@ -34,6 +34,7 @@ ISECL_PGDB_CIPHERSUITES="${ISECL_PGDB_CIPHERSUITES:-$DEFAULT_CIPHERSUITES}"
 
 ISECL_PGDB_CERT_DNS="${ISECL_PGDB_CERT_DNS:-$DEFAULT_CERT_DNS}"
 ISECL_PGDB_CERT_IP="${ISECL_PGDB_CERT_IP:-$DEFAULT_CERT_IP}"
+
 ISECL_PGDB_INSTANCE_SIZE="${ISECL_PGDB_INSTANCE_SIZE:-$DEFAULT_DB_INSTANCE_SIZE}"
 
 isecl_pgdb_max_connections=""
@@ -54,18 +55,18 @@ fi
 pgdb_cert_dns=""
 for dns in $(echo $ISECL_PGDB_CERT_DNS | tr "," "\n")
 do
-	pgdb_cert_dns=$pgdb_cert_dns"DNS:$dns,"
+    pgdb_cert_dns=$pgdb_cert_dns"DNS:$dns,"
 done
 pgdb_cert_dns=${pgdb_cert_dns::-1}
 
 pgdb_cert_ip=""
 for ip in $(echo $ISECL_PGDB_CERT_IP | tr "," "\n")
 do
-	pgdb_cert_ip=$pgdb_cert_ip"IP:$ip,"
+    pgdb_cert_ip=$pgdb_cert_ip"IP:$ip,"
 done
 pgdb_cert_ip=${pgdb_cert_ip::-1}
 
-echo "Installing postgres database version 11"
+echo "Installing postgres database version 11 and its rpm repo for RHEL 8 x86_64 ..."
 
 cd /tmp
 log_file=/dev/null
@@ -100,9 +101,9 @@ export PGPORT=$ISECL_PGDB_PORT
 # make sure that we have openssl
 openssl version
 if [ $? != 0 ]; then
-	echo "OpenSSL is not installed. Cannot create certificates needed for SSL connection to DB"
-	echo "Exiting with Error.."
-	exit 1
+    echo "OpenSSL is not installed. Cannot create certificates needed for SSL connection to DB"
+    echo "Exiting with Error.."
+    exit 1
 fi
 
 # if there is no preset database folder, set it up
@@ -124,43 +125,41 @@ if [ ! -f $PGDATA/pg_hba.conf ] ; then
 	# make certificate and key files for TLS
 	openssl req -new -x509 -days $ISECL_PGDB_CERT_VALIDITY_DAYS -newkey rsa:4096 \
 	-addext "subjectAltName = $pgdb_cert_dns, $pgdb_cert_ip" \
-	-nodes -text -out $PGDATA/server.crt -keyout $PGDATA/server.key -sha384 -subj "$ISECL_PGDB_CERTSUBJECT"
+          -nodes -text -out $PGDATA/server.crt -keyout $PGDATA/server.key -sha384 -subj "$ISECL_PGDB_CERTSUBJECT"
 
-	chmod og-rwx $PGDATA/server.key
+    chmod og-rwx $PGDATA/server.key
 
-	# Configure the Postgres database for TLS
-	mv $PGDATA/postgresql.conf $PGDATA/postgresql-original.conf
-	echo "# ISECL Postgres database configuration File\n" > $PGDATA/postgresql.conf
-	echo "# Original File moved to postgresql-original.conf" >> $PGDATA/postgresql.conf
-	echo "# If you need further configuration changes please overwrite this file with "  >> $PGDATA/postgresql.conf
-	echo "# original file and incorporate the following settings into the postgressql.conf file" >> $PGDATA/postgresql.conf
+    # Configure the Postgres database for TLS
+    mv $PGDATA/postgresql.conf $PGDATA/postgresql-original.conf
+    echo "# ISECL Postgres database configuration File\n" > $PGDATA/postgresql.conf
+    echo "# Original File moved to postgresql-original.conf" >> $PGDATA/postgresql.conf
+    echo "# If you need further configuration changes please overwrite this file with "  >> $PGDATA/postgresql.conf
+    echo "# original file and incorporate the following settings into the postgressql.conf file" >> $PGDATA/postgresql.conf
 
-	echo "listen_addresses = '$ISECL_PGDB_IP_INTERFACES'" >> $PGDATA/postgresql.conf
-	echo "port = $ISECL_PGDB_PORT" >> $PGDATA/postgresql.conf
-	echo "ssl = on" >> $PGDATA/postgresql.conf
-	echo "ssl_cert_file = 'server.crt'" >> $PGDATA/postgresql.conf
-	echo "ssl_key_file = 'server.key'" >> $PGDATA/postgresql.conf
-	echo "ssl_ciphers = '$ISECL_PGDB_CIPHERSUITES'" >> $PGDATA/postgresql.conf
-	echo "max_connections = $isecl_pgdb_max_connections" >> $PGDATA/postgresql.conf
-	echo "shared_buffers = $isecl_pgdb_shared_buffers" >> $PGDATA/postgresql.conf
+    echo "listen_addresses = '$ISECL_PGDB_IP_INTERFACES'" >> $PGDATA/postgresql.conf
+    echo "port = $ISECL_PGDB_PORT" >> $PGDATA/postgresql.conf
+    echo "ssl = on" >> $PGDATA/postgresql.conf
+    echo "ssl_cert_file = 'server.crt'" >> $PGDATA/postgresql.conf
+    echo "ssl_key_file = 'server.key'" >> $PGDATA/postgresql.conf
+    echo "ssl_ciphers = '$ISECL_PGDB_CIPHERSUITES'" >> $PGDATA/postgresql.conf
 
-	mv $PGDATA/pg_hba.conf $PGDATA/pg_hba-template.conf
-	echo "local all postgres peer" >> $PGDATA/pg_hba.conf
-	echo "local all all md5" >> $PGDATA/pg_hba.conf
-	if [ $ISECL_PGDB_ALLOW_NONSSL == "true" ]; then
-		if [ $ISECL_PGDB_SERVICEHOST != "localhost" ] && [ $ISECL_PGDB_SERVICEHOST != "127.0.0.1" ]; then
-			echo "host all all localhost md5" >> $PGDATA/pg_hba.conf
-		fi
-		echo "host all all $ISECL_PGDB_SERVICEHOST md5" >> $PGDATA/pg_hba.conf
-	else
-		if [ $ISECL_PGDB_SERVICEHOST != "localhost" ] && [ $ISECL_PGDB_SERVICEHOST != "127.0.0.1" ]; then
-			echo "hostssl all all localhost md5" >> $PGDATA/pg_hba.conf
-		fi
-		echo "# host all all $ISECL_PGDB_SERVICEHOST md5" >> $PGDATA/pg_hba.conf
-		echo "hostssl all all $ISECL_PGDB_SERVICEHOST md5" >> $PGDATA/pg_hba.conf
-		echo "hostnossl all all 0.0.0.0/0 reject" >> $PGDATA/pg_hba.conf
-	fi
-	chown -R postgres:postgres /usr/local/pgsql
+    mv $PGDATA/pg_hba.conf $PGDATA/pg_hba-template.conf
+    echo "local all postgres peer" >> $PGDATA/pg_hba.conf
+    echo "local all all md5" >> $PGDATA/pg_hba.conf
+    if [ $ISECL_PGDB_ALLOW_NONSSL == "true" ]; then
+        if [ $ISECL_PGDB_SERVICEHOST != "localhost" ] && [ $ISECL_PGDB_SERVICEHOST != "127.0.0.1" ]; then
+            echo "host all all localhost md5" >> $PGDATA/pg_hba.conf
+        fi
+	    echo "host all all $ISECL_PGDB_SERVICEHOST md5" >> $PGDATA/pg_hba.conf
+    else
+        if [ $ISECL_PGDB_SERVICEHOST != "localhost" ] && [ $ISECL_PGDB_SERVICEHOST != "127.0.0.1" ]; then
+            echo "hostssl all all localhost md5" >> $PGDATA/pg_hba.conf
+        fi
+        echo "# host all all $ISECL_PGDB_SERVICEHOST md5" >> $PGDATA/pg_hba.conf
+        echo "hostssl all all $ISECL_PGDB_SERVICEHOST md5" >> $PGDATA/pg_hba.conf
+	echo "hostnossl all all 0.0.0.0/0 reject" >> $PGDATA/pg_hba.conf
+    fi
+    chown -R postgres:postgres /usr/local/pgsql
 fi
 
 echo "Setting up systemctl for postgres database ..."

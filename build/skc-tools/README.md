@@ -16,32 +16,32 @@
 
 **Recommended HW**
 
-​	1 vCPUs 
-​	RAM: 2 GB 
-​	10 GB 
-​	One network interface with network access to all Intel® SecL-DC services 
+	1 vCPUs 
+	RAM: 2 GB 
+	10 GB 
+	One network interface with network access to all Intel® SecL-DC services 
 
 **Operating System**
 
-​	RHEL8.2 with root account access (All SKC Services run as root)
+	RHEL8.2 with root account access (All SKC Services run as root)
 
 **Disable Firewall**
 
-​	systemctl stop firewalld
+	systemctl stop firewalld
 
 **SGX Agent & SKC Library**
 
 **Hardware**
 
-​	SGX Enabled System
+	SGX Enabled System
 
 **Operating System**
 
-​	RHEL 8.2
+	RHEL 8.2
 
 **Disable Firewall**
 
-​	systemctl stop firewalld
+	systemctl stop firewalld
 
 
 ## Deployment of Services
@@ -114,22 +114,22 @@ Follow the instructions in README.install file
 
 **Configuration Update to create Keys in KBS**
 
-​	cd into kbs_scripts folder
+	cd into kbs_scripts folder
 
-​	Update System IP address in run.sh. Also update the CA_CERT with the pem file in /etc/kbs/certs/trustedca/ directory
+	Update System IP address in run.sh. Also update the CA_CERT with the pem file in /etc/kbs/certs/trustedca/ directory
 
 **Create AES Key**
 
-​	Execute the command
+	Execute the command
 
-​	./run.sh
+	./run.sh
 - Copy the key id generated
 
 **Create RSA Key**
 
-​	Execute the command
+	Execute the command
 
-​	./run.sh reg
+	./run.sh reg
 
 - copy the generated cert file to sgx machine where skc_library is deployed. Also copy the key id generated
 
@@ -170,27 +170,27 @@ ssl_certificate_key "engine:pkcs11:pkcs11:token=KMS;id=164b41ae-be61-4c7c-a027-4
 
 **SKC Configuration**
 
-​ Create keys.txt in /root folder. The keyID should match the keyID of RSA key created in KBS. Other contents should match with nginx.conf. File location should match on pkcs11-apimodule.ini;
+ Create keys.txt in /root folder. The keyID should match the keyID of RSA key created in KBS. Other contents should match with nginx.conf. File location should match on pkcs11-apimodule.ini;
 
-​	pkcs11:token=KMS;id=164b41ae-be61-4c7c-a027-4a2ab1e5e4c4;object=RSAKEY;type=private;pin-value=1234";
+	pkcs11:token=KMS;id=164b41ae-be61-4c7c-a027-4a2ab1e5e4c4;object=RSAKEY;type=private;pin-value=1234";
 
-​	**Note:** Content of this file should match with the nginx conf file
+	**Note:** Content of this file should match with the nginx conf file
 
-​	**/opt/skc/etc/pkcs11-apimodule.ini**
+	**/opt/skc/etc/pkcs11-apimodule.ini**
 
-​	**[core]**
+	**[core]**
 
-​	preload_keys=/root/keys.txt
+	preload_keys=/root/keys.txt
 
-​	keyagent_conf=/opt/skc/etc/key-agent.ini
+	keyagent_conf=/opt/skc/etc/key-agent.ini
 
-​	mode=SGX
+	mode=SGX
 
-​	debug=true
+	debug=true
 
-​	**[SGX]**
+	**[SGX]**
 
-​	module=/opt/intel/cryptoapitoolkit/lib/libp11sgx.so
+	module=/opt/intel/cryptoapitoolkit/lib/libp11sgx.so
 
 
 **Appendix**

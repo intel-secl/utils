@@ -25,9 +25,9 @@ build_sgx_agent_docker()
 	if [ "$OS" == "rhel" ]; then
 		wget -q $INTEL_SGX_STACK_REPO/intelsgxstack.repo -P ../../../../../../sgx_agent/dist/image/bin/ || exit 1
 		wget -q $DCAP_SIGNED_LIBRARIES
-		tar -xf prebuilt_dcap_1.11.tar.gz
+		tar -xf prebuilt_dcap_$DCAP_VERSION.tar.gz
 		\cp -prf psw/ ../../../../../../sgx_agent/dist/image/bin/
-		rm -rf psw/ prebuilt_dcap_1.11.tar.gz
+		rm -rf psw/ prebuilt_dcap_$DCAP_VERSION.tar.gz
 	fi
 	cd ../../../../../../sgx_agent
 	make oci-archive_stacks || exit 1
@@ -39,14 +39,11 @@ if [ "$OS" == "rhel" ]; then
 	rm -f /etc/yum.repos.d/*sgx_rpm_local_repo.repo
 fi
 
-pushd $PWD
-cd ../../../sgx_agent/build_scripts
 source build_prerequisites.sh
 if [ $? -ne 0 ]; then
         echo "${red} failed to resolve package dependencies ${reset}"
         exit
 fi
-popd
 
 pushd $PWD
 cd ../../stack_scripts
@@ -55,6 +52,7 @@ if [ $? -ne 0 ]; then
         echo "${red} sgxsdk install failed ${reset}"
         exit
 fi
+popd
 
 pushd $PWD
 cd ../../../sgx_agent/build_scripts
@@ -64,6 +62,7 @@ if [ $? -ne 0 ]; then
         exit
 fi
 popd
+
 mkdir -p $SGX_AGENT_BIN_DIR
 \cp -pf ../../../sgx_agent/build_scripts/sgx_agent/bin/libdcap_quoteprov.so.1 $SGX_AGENT_BIN_DIR
 \cp -pf ../../../sgx_agent/build_scripts/sgx_agent/bin/pck_id_retrieval_tool_enclave.signed.so $SGX_AGENT_BIN_DIR

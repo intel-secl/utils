@@ -146,6 +146,7 @@ k8s_common_services:
 	cp -r utils/build/skc-tools/sgx_agent/deploy_scripts/deployment_prerequisites.sh k8s/platform-dependencies/
 	cp utils/build/skc-tools/sample_apps/sampleapps_untar.sh k8s/sample_apps/
 	cp -r utils/build/skc-tools/skc_k8s/pre-requisites.sh k8s/manifests/
+	cp -pf utils/build/skc-tools/config k8s/manifests/
 	cp -r utils/build/skc-tools/skc_k8s/skc-bootstrap-db-services.sh k8s/manifests/skc-bootstrap-db-services.sh
 	cp -r utils/build/skc-tools/skc_k8s/sgx_agent k8s/manifests/sgx_agent
 	cp  utils/build/skc-tools/skc_library/deploy_scripts/create_roles.conf utils/build/skc-tools/skc_k8s/skc_library/resources/

@@ -19,6 +19,7 @@ PRE_REQ_PACKAGES_RHEL=(
 declare -a PRE_REQ_PACKAGES_UBUNTU
 PRE_REQ_PACKAGES_UBUNTU=(
   wget
+  curl
   git
   patch
   zip
@@ -28,7 +29,9 @@ PRE_REQ_PACKAGES_UBUNTU=(
   gcc-8
   g++-8
   build-essential
-  skopeo
+  software-properties-common
+  sudo
+  libgpg-error-dev
 )
 
 declare -a DEB_PACKAGES
@@ -36,6 +39,7 @@ DEB_PACKAGES=(
   http://us.archive.ubuntu.com/ubuntu/pool/main/i/init-system-helpers/init-system-helpers_1.57_all.deb
   http://archive.ubuntu.com/ubuntu/pool/main/t/tpm-udev/tpm-udev_0.4_all.deb
   http://us.archive.ubuntu.com/ubuntu/pool/main/t/tpm2-tss/libtss2-esys0_2.3.2-1_amd64.deb
+  http://security.ubuntu.com/ubuntu/pool/main/libg/libgcrypt20/libgcrypt20_1.8.5-5ubuntu1_amd64.deb
   http://security.ubuntu.com/ubuntu/pool/main/libg/libgcrypt20/libgcrypt20-dev_1.8.5-5ubuntu1_amd64.deb
   http://archive.ubuntu.com/ubuntu/pool/main/t/tpm2-tss/libtss2-dev_2.3.2-1_amd64.deb
 )
@@ -61,7 +65,7 @@ install_prereqs() {
   fi
 
   if [ "$OS" == "ubuntu" ]; then
-    add-apt-repository ppa:projectatomic/ppa -y
+    export DEBIAN_FRONTEND=noninteractive
     apt-get update -y
     for package in ${!PRE_REQ_PACKAGES_UBUNTU[@]}; do
       local package_name=${PRE_REQ_PACKAGES_UBUNTU[${package}]}
@@ -72,7 +76,18 @@ install_prereqs() {
         return ${return_code}
       fi
     done
+
+    # add skopeo repos for bionic and focal
+    source /etc/os-release
+    if [ "$VERSION_ID" == "18.04" -o "$VERSION_ID" == "20.04" ]; then
+      echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+      curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | sudo apt-key add -
+      apt -y update
+      apt -y install skopeo
+    fi
+
     for package in ${!DEB_PACKAGES[@]}; do
+      export DEBIAN_FRONTEND=noninteractive
       local package_name=${DEB_PACKAGES[${package}]}
       local TEMP_DEB=tempdb
       wget -O "$TEMP_DEB" ${package_name}

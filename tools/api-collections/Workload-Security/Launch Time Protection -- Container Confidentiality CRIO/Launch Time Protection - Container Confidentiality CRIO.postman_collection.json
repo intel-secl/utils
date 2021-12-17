@@ -930,34 +930,9 @@
 			"description": "After installation, the Key Broker must import the SAML and PrivacyCA certificates from any Verification\r\nServices it will trust. This provides the Key Broker a way to ensure that only attestations that come from\r\n\"known\" Verification Service. The SAML and PrivacyCA certificates needed can be found on the Verification\r\nService."
 		},
 		{
-			"name": "Encrypting an Image",
+			"name": "Encrypting and Pushing an Image to registry",
 			"item": [],
-			"description": "* Build and tag the docker image\n```shell\ndocker build <Dockerfile_path> -t <image_name>:<image_tag>\n```\n\n* Convert image to OCI format\n```shell\nskopeo copy docker-daemon:<image_name>:<image_tag> oci:<image_name>:<image_tag>\n```\n\n* Encrypt an image (this will allow the image to run only on Trusted platforms):\n```shell\nskopeo copy --encryption-key secl:any oci:<image_name>:<image_tag> oci:<encrypted_image_name>:<encrypted_image_tag>\n```\n\n* Encrypt an image with an Asset Tag (this will allow the image to run only on Trusted platforms with the specified Asset tag):\n```shell\nskopeo copy --encryption-key secl:asset_tag_key:asset_tag_value oci:<image_name>:<image_tag> oci:<encrypted_image_name>:<encrypted_image_tag>\n```\n",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Push image to registry",
-			"item": [],
-			"description": "```shell\r\nskopeo copy oci:<image_name>:<image_tag_name> <registry_type>://<image_registry>:<image_registry_port>/<image_name>:<image_tag_name>\r\n```",
+			"description": "* Build and tag the docker image\n```shell\ndocker build <Dockerfile_path> -t <image_name>:<image_tag>\n```\n\n* Convert image to OCI format\n```shell\nskopeo copy docker-daemon:<image_name>:<image_tag> oci:<image_name>:<image_tag>\n```\n\n* Encrypt an image (this will allow the image to run only on Trusted platforms):\n```shell\nOCICRYPT_KEYPROVIDER_CONFIG=/etc/wpm/ocicrypt.json skopeo copy --encryption-key provider:isecl:any oci:<image_name>:<image_tag> oci:<encrypted_image_name>:<encrypted_image_tag>\n```\n\n* Encrypt an image and push to registry (this will allow the image to run only on Trusted platforms):\n```shell\nOCICRYPT_KEYPROVIDER_CONFIG=/etc/wpm/ocicrypt.json skopeo copy --encryption-key provider:isecl:any oci:<image_name>:<image_tag> docker://<Registry-IP>:5000/<encrypted_image_name>:<encrypted_image_tag>\n```\n",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -982,7 +957,7 @@
 		{
 			"name": "Launching Encrypted Containers",
 			"item": [],
-			"description": "Cri-o allows for pulling and decryption of an encrypted container image from a container registry. When trying to pull and decrypt a container image, Cri-o has a hook that calls into the Workload Agent (WLA). The WLA will call into the Workload Service (WLS) and pass it the key URL associated with the encrypted image as well as the host's hardware UUID. These two serve as input to /keys endpoint of the WLS. The WLS initializes a HVS client in order to retrieve the host SAML report and then validates the report. If the host is trusted, the WLS will attempt to get the key. First, it will check if it's been cached alredy. If not, it will initialize a KBS client. The WLS uses this client to retrieve the key from the KBS. If the key is retrieved, it will be cached in the WLS temporarily so that the WLS will not need to requery the KBS if attempting to decrypt with the same key. The key is then passed back to the WLA as the return of the WLS's keys API. Finally, the key is returned to Cri-o, which uses the key to decrypt the container image layer by layer.\r\n\r\nContainers of the protected images can now also be launched as normal using Kubernetes pods and deployments. Encrypted images will only be accessible on hosts with a Platform Integrity Attestation report showing the host is trusted. If the Crio Container is launched on a host that is not trusted, the launch will fail, as the decryption key will not be provided.",
+				"description": "> **Note**: ocicrypt-wpm.json file to be placed in /etc/wpm/ocicrypt.json and ocicrypt-wlagent.json to be placed under /etc/ocicrypt.json in cluster worker nodes . \n\nCri-o allows for pulling and decryption of an encrypted container image from a container registry. When trying to pull and decrypt a container image, Cri-o has a hook that calls into the Workload Agent (WLA). The WLA will call into the Workload Service (WLS) and pass it the key URL associated with the encrypted image as well as the host's hardware UUID. These two serve as input to /keys endpoint of the WLS. The WLS initializes a HVS client in order to retrieve the host SAML report and then validates the report. If the host is trusted, the WLS will attempt to get the key. First, it will check if it's been cached alredy. If not, it will initialize a KBS client. The WLS uses this client to retrieve the key from the KBS. If the key is retrieved, it will be cached in the WLS temporarily so that the WLS will not need to requery the KBS if attempting to decrypt with the same key. The key is then passed back to the WLA as the return of the WLS's keys API. Finally, the key is returned to Cri-o, which uses the key to decrypt the container image layer by layer.\r\n\r\nContainers of the protected images can now also be launched as normal using Kubernetes pods and deployments. Encrypted images will only be accessible on hosts with a Platform Integrity Attestation report showing the host is trusted. If the Crio Container is launched on a host that is not trusted, the launch will fail, as the decryption key will not be provided.",
 			"event": [
 				{
 					"listen": "prerequest",

@@ -22,6 +22,7 @@ TAGENT="tagent"
 WLAGENT="wlagent"
 ISECL_SCHEDULER="isecl-k8s-scheduler"
 ISECL_CONTROLLER="isecl-k8s-controller"
+ISECL_ADMISSION_CONTROLLER="isecl-k8s-admission-controller"
 
 check_k8s_distribution() {
   if [ "$K8S_DISTRIBUTION" == "microk8s" ]; then
@@ -274,6 +275,47 @@ deploy_custom_controller() {
     echo "Exiting with error..."
     exit 1
   fi
+
+  cd $HOME_DIR
+}
+
+deploy_admission_controller() {
+
+  #K8s Admission Controller
+  echo "---------------------------------------------------------------"
+  echo "|            DEPLOY: ISECL-K8S-ADMISSION_CONTROLLER            |"
+  echo "----------------------------------------------------------------"
+
+  required_variables="K8S_CA_CERT,K8S_CA_KEY"
+  check_mandatory_variables "$ISECL_ADMISSION_CONTROLLER" $required_variables
+
+  cd k8s-admission-controller/
+
+  echo "Installing Pre-requisites"
+
+
+  # create certs
+  chmod +x scripts/create_k8s_extsched_certs.sh
+  cd scripts
+  ./create_k8s_extsched_certs.sh -n "K8S Admission Controller" -s "localhost","127.0.0.1","$K8S_CONTROL_PLANE_IP","$K8S_CONTROL_PLANE_HOSTNAME","node-tainting-webhook.isecl.svc.cluster.local","node-tainting-webhook.isecl.svc" -c "$K8S_CA_CERT" -k "$K8S_CA_KEY"
+  if [ $? -ne 0 ]; then
+    echo "Error while creating certificates for Admission Controller"
+    exit 1
+  fi
+
+  cert_dir=$(pwd)
+  TLS_CRT=$(cat $cert_dir/server.crt | base64 | tr -d '\n')
+  TLS_KEY=$(cat $cert_dir/server.key | base64 | tr -d '\n')
+
+  cd ..
+  sed -i "s/tls.crt:.*/tls.crt: $TLS_CRT/g" node-tainting-webhook-tls.yaml
+  sed -i "s/tls.key:.*/tls.key: $TLS_KEY/g" node-tainting-webhook-tls.yaml
+
+  CA_BUNDLE=$(kubectl config view --raw --minify --flatten -o jsonpath='{.clusters[].cluster.certificate-authority-data}')
+  sed -i "s/caBundle:.*/caBundle: \"$CA_BUNDLE\"/g" webhook.yml
+
+  # deploy
+  $KUBECTL kustomize . | $KUBECTL apply -f -
 
   cd $HOME_DIR
 }
@@ -535,6 +577,8 @@ deploy_tagent() {
   if [ ! -z "$TPM_OWNER_SECRET" ]; then
     sed -i "s/TPM_OWNER_SECRET:.*/TPM_OWNER_SECRET: $TPM_OWNER_SECRET/g" secrets.yml
   else
+    sed -n '/ta-credentials/{n;x;d;};x;1d;$G;p' daemonset.yml  > daemonset-tmp.yml && mv -f daemonset-tmp.yml daemonset.yml
+    sed -n '/ta-credentials/{n;x;d;};x;1d;$G;p' daemonset-suefi.yml  > daemonset-tmp.yml && mv -f daemonset-tmp.yml daemonset-suefi.yml
     sed -i "s/- secrets.yml//g" kustomization.yml
   fi
   if [ "$TA_SERVICE_MODE" == "outbound" ]; then
@@ -749,6 +793,22 @@ cleanup_isecl_scheduler() {
   cd $HOME_DIR
 }
 
+cleanup_admission_controller() {
+
+  echo "Cleaning up ISECL-K8S-ADMISSION_CONTROLLER..."
+  cd k8s-admission-controller/
+
+  $KUBECTL delete service node-tainting-webhook --namespace=isecl
+  $KUBECTL delete deploy node-tainting-webhook --namespace=isecl
+  $KUBECTL delete MutatingWebhookConfiguration node-tainting-webhook --namespace=isecl
+  $KUBECTL delete ServiceAccount node-tainting-webhook --namespace=isecl
+  $KUBECTL delete ClusterRole node-tainting-webhook
+  $KUBECTL delete ClusterRoleBinding node-tainting-webhook
+  $KUBECTL delete secret node-tainting-webhook-tls --namespace=isecl
+
+  cd $HOME_DIR
+}
+
 cleanup_hvs() {
 
   echo "Cleaning up HOST-VERIFICATION-SERVICE..."
@@ -900,7 +960,7 @@ print_help() {
   echo "    Available Options for up/down command:"
   echo "        agent      Can be one of tagent, wlagent"
   echo "        service    Can be one of cms, authservice, hvs, ihub, wls, kbs, isecl-controller, isecl-scheduler"
-  echo "        usecase    Can be one of foundational-security, workload-security, isecl-orchestration-k8s, csp, enterprise, foundational-security-control-plane"
+  echo "        usecase    Can be one of foundational-security, workload-security, isecl-orchestration-k8s, csp, enterprise, foundational-security-control-plane, admission-controller"
 }
 
 deploy_common_components() {
@@ -1002,6 +1062,9 @@ dispatch_works() {
       deploy_authservice
       deploy_kbs
       ;;
+    "admission-controller")
+      deploy_admission_controller
+      ;;
     "all")
       bootstrap
       ;;
@@ -1035,6 +1098,9 @@ dispatch_works() {
       ;;
     "isecl-scheduler")
       cleanup_isecl_scheduler
+      ;;
+    "admission-controller")
+      cleanup_admission_controller
       ;;
     "tagent")
       cleanup_tagent

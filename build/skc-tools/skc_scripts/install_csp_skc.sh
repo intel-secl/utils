@@ -40,10 +40,9 @@ if [ -f ./csp_skc.conf ]; then
 		echo "${red} please set correct values in csp_skc.conf ${reset}"
 		exit 1
 	fi
-
 	if [[ "$SCS_DB_NAME" == "$SHVS_DB_NAME" || "$AAS_DB_NAME" == "$SHVS_DB_NAME" || "$SCS_DB_NAME" == "$AAS_DB_NAME" ]]; then
 		echo "${red} SCS_DB_NAME, SHVS_DB_NAME & AAS_DB_NAME should not be same. Please change in csp_skc.conf ${reset}"
-	exit 1
+		exit 1
 	fi
 	env_file_exports=$(cat ./csp_skc.conf | grep -E '^[A-Z0-9_]+\s*=' | cut -d = -f 1)
 	if [ -n "$env_file_exports" ]; then
@@ -252,6 +251,7 @@ SHVS_URL=https://$SYSTEM_IP:$SHVS_PORT/sgx-hvs/v2
 K8S_URL=https://$K8S_IP:$K8S_PORT/
 sed -i "s@^\(SHVS_BASE_URL\s*=\s*\).*\$@\1$SHVS_URL@" ~/ihub.env
 sed -i "s@^\(KUBERNETES_URL\s*=\s*\).*\$@\1$K8S_URL@" ~/ihub.env
+sed -i "s@^\(KUBERNETES_TOKEN\s*=\s*\).*\$@\1$K8S_TOKEN@" ~/ihub.env
 if [[ "$OS" != "ubuntu" ]]; then
 	OPENSTACK_AUTH_URL=http://$OPENSTACK_IP:$OPENSTACK_AUTH_PORT/
 	OPENSTACK_PLACEMENT_URL=http://$OPENSTACK_IP:$OPENSTACK_PLACEMENT_PORT/

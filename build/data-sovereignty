@@ -42,6 +42,8 @@ k8s_common: clean $(INTEL_SECL_K8S) k8s-extensions tagent_k8s
 	cp utils/build/workload-security/k8s/isecl-k8s.env k8s/manifests/isecl-k8s.env
 	cp -r utils/build/k8s-manifests/k8s-extensions-controller k8s/manifests/
 	cp -r utils/build/k8s-manifests/k8s-extensions-scheduler k8s/manifests/
+	cp -r utils/build/k8s-manifests/k8s-admission-controller k8s/manifests/
+	cp -r utils/build/k8s-manifests/k8s-extensions-scheduler/scripts k8s/manifests/k8s-admission-controller/
 	cp -r utils/build/workload-security/k8s/ta k8s/manifests/ta
 	cp k8s-extensions/out/isecl-k8s-extensions/*.tar k8s/container-images/
 	cp intel-secl/deployments/container-archive/oci/* k8s/container-images/

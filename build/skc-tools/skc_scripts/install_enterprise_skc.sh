@@ -81,7 +81,7 @@ sed -i "s@^\(KMIP_ROOT_CERT_PATH\s*=\s*\).*\$@\1$KMIP_ROOT_CERT_PATH@" ~/kbs.env
 sed -i "s@^\(hostname\s*=\s*\).*\$@\1$SYSTEM_IP@" kbs_script/server.conf
 sed -i "s@^\(port\s*=\s*\).*\$@\1$KMIP_SERVER_PORT@" kbs_script/server.conf
 
-sed -i "s@^\(HOSTNAME_IP\s*=\s*\).*\$@\1'$SYSTEM_IP'@" kbs_script/rsa_create.py
+sed -i "s@^\(KMIP_IP\s*=\s*\).*\$@\1'$SYSTEM_IP'@" kbs_script/rsa_create.py
 sed -i "s@^\(SERVER_PORT\s*=\s*\).*\$@\1'$KMIP_SERVER_PORT'@" kbs_script/rsa_create.py
 sed -i "s@^\(CERT_PATH\s*=\s*\).*\$@\1'$KMIP_CLIENT_CERT_PATH'@" kbs_script/rsa_create.py
 sed -i "s@^\(KEY_PATH\s*=\s*\).*\$@\1'$KMIP_CLIENT_KEY_PATH'@" kbs_script/rsa_create.py
@@ -96,13 +96,12 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 popd
-echo "KMIP Server installed successfully"
 
 echo "Installing Key Broker Service...."
 ./kbs-*.bin
 kbs status > /dev/null
 if [ $? -ne 0 ]; then
-  echo "${red} Key Broker Service Installation Failed ${reset}"
-  exit 1
+	echo "${red} Key Broker Service Installation Failed ${reset}"
+	exit 1
 fi
 echo "${green} Installed Key Broker Service.... ${reset}"

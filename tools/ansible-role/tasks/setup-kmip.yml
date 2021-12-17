@@ -6,6 +6,13 @@
     mode: "u+x"
   when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio'
 
+- name: KMIP KBS | Copy config file
+  copy:
+    src: "{{binaries_path}}/config"
+    dest: "/root"
+    mode: "u+x"
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration'
+
 - name: KMIP KBS | Update Server Configuration File
   template:
     src: "server.conf.j2"

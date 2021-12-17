@@ -13,11 +13,7 @@
 
 
 - name: ISECL - POPULATE USERS | Run populate-users script
-  shell: "set -o pipefail && ./populate-users.sh 2>&1 | tee populate_users.log"
-  args:
-    chdir: /root
-    executable: /bin/bash
-
+  raw: "set -o pipefail && ./populate-users.sh 2>&1 | tee populate_users.log"
 
 - name: ISECL - POPULATE USERS | Get token for install admin user
   shell: "set -o pipefail && cat populate_users.log | grep -m 1 \"BEARER_TOKEN\" | cut -d \"=\" -f2"

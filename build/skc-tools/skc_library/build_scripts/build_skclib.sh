@@ -15,11 +15,12 @@ build_skc_library()
                 exit 1
         fi
 
+
 	\cp -pf skc_library_v*.bin $SKCLIB_BIN_DIR
 	popd
         if [[ "$OS" == "rhel" && "$VER" == "8.1" || "$VER" == "8.2" ]]; then
                 \cp -pf $LIB_DIR/engines-1.1/pkcs11.so $SKCLIB_BIN_DIR
-        elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" ]]; then
+        elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" || "$VER" == "20.04" ]]; then
                 \cp -pf $LIB_DIR/x86_64-linux-gnu/engines-1.1/pkcs11.so $SKCLIB_BIN_DIR
         fi
         \cp -pf $LIB_DIR/libp11.so.3.4.3 $SKCLIB_BIN_DIR

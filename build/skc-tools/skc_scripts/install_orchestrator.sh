@@ -90,20 +90,28 @@ sed -i "s/^\(INSTALL_ADMIN_PASSWORD\s*=\s*\).*\$/\1$INSTALL_ADMIN_PASSWORD/" ~/p
 sed -i "/GLOBAL_ADMIN_USERNAME/d" ~/populate-users.env
 sed -i "/GLOBAL_ADMIN_PASSWORD/d" ~/populate-users.env
 
+if [ $CCC_ADMIN_USERNAME != "" ] && [ $CCC_ADMIN_PASSWORD != "" ]; then
+	sed -i "s/^\(CCC_ADMIN_USERNAME\s*=\s*\).*\$/\1$CCC_ADMIN_USERNAME/" ~/populate-users.env
+	sed -i "s/^\(CCC_ADMIN_PASSWORD\s*=\s*\).*\$/\1$CCC_ADMIN_PASSWORD/" ~/populate-users.env
+else
+	sed -i "/CCC_ADMIN_USERNAME/d" ~/populate-users.env
+	sed -i "/CCC_ADMIN_PASSWORD/d" ~/populate-users.env
+fi
+
 echo "Invoking populate users script...."
 pushd $PWD
 cd ~
 ./populate-users.sh
 if [ $? -ne 0 ]; then
-	echo "${red} populate user script failed ${reset}"
-	exit 1
+  echo "${red} populate user script failed ${reset}"
+  exit 1
 fi
 
 echo "Getting AAS Admin user token...."
 INSTALL_ADMIN_TOKEN=`curl --noproxy "*" -k -X POST https://$SYSTEM_IP:$AAS_PORT/aas/v1/token -d '{"username": "'"$INSTALL_ADMIN_USERNAME"'", "password": "'"$INSTALL_ADMIN_PASSWORD"'"}'`
 if [ $? -ne 0 ]; then
-	echo "${red} could not get AAS Admin token ${reset}"
-	exit 1
+  echo "${red} could not get AAS Admin token ${reset}"
+  exit 1
 fi
 popd
 
@@ -124,8 +132,8 @@ echo "Installing SGX Host Verification Service...."
 ./shvs-*.bin
 shvs status > /dev/null
 if [ $? -ne 0 ]; then
-	echo "${red} SGX Host Verification Service Installation Failed ${reset}"
-	exit 1
+  echo "${red} SGX Host Verification Service Installation Failed ${reset}"
+  exit 1
 fi
 echo "${green} Installed SGX Host Verification Service.... ${reset}"
 
@@ -139,11 +147,12 @@ SHVS_URL=https://$SYSTEM_IP:$SHVS_PORT/sgx-hvs/v2
 K8S_URL=https://$K8S_IP:$K8S_PORT/
 sed -i "s@^\(SHVS_BASE_URL\s*=\s*\).*\$@\1$SHVS_URL@" ~/ihub.env
 sed -i "s@^\(KUBERNETES_URL\s*=\s*\).*\$@\1$K8S_URL@" ~/ihub.env
+sed -i "s@^\(KUBERNETES_TOKEN\s*=\s*\).*\$@\1$K8S_TOKEN@" ~/ihub.env
 if [[ "$OS" != "ubuntu" ]]; then
-	OPENSTACK_AUTH_URL=http://$OPENSTACK_IP:$OPENSTACK_AUTH_PORT/
-	OPENSTACK_PLACEMENT_URL=http://$OPENSTACK_IP:$OPENSTACK_PLACEMENT_PORT/
-	sed -i "s@^\(OPENSTACK_AUTH_URL\s*=\s*\).*\$@\1$OPENSTACK_AUTH_URL@" ~/ihub.env
-	sed -i "s@^\(OPENSTACK_PLACEMENT_URL\s*=\s*\).*\$@\1$OPENSTACK_PLACEMENT_URL@" ~/ihub.env
+OPENSTACK_AUTH_URL=http://$OPENSTACK_IP:$OPENSTACK_AUTH_PORT/
+OPENSTACK_PLACEMENT_URL=http://$OPENSTACK_IP:$OPENSTACK_PLACEMENT_PORT/
+sed -i "s@^\(OPENSTACK_AUTH_URL\s*=\s*\).*\$@\1$OPENSTACK_AUTH_URL@" ~/ihub.env
+sed -i "s@^\(OPENSTACK_PLACEMENT_URL\s*=\s*\).*\$@\1$OPENSTACK_PLACEMENT_URL@" ~/ihub.env
 fi
 sed -i "s@^\(TENANT\s*=\s*\).*\$@\1$TENANT@" ~/ihub.env
 
@@ -151,7 +160,7 @@ echo "Installing Integration HUB...."
 ./ihub-*.bin
 ihub status > /dev/null
 if [ $? -ne 0 ]; then
-	echo "${red} Integration HUB Installation Failed ${reset}"
-	exit 1
+  echo "${red} Integration HUB Installation Failed ${reset}"
+  exit 1
 fi
 echo "${green} Installed Integration HUB.... ${reset}"

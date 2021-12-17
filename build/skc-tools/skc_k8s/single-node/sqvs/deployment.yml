@@ -58,7 +58,9 @@ spec:
               mountPath: /var/log/sqvs/
             - mountPath: /etc/secrets/
               name: sqvs-secrets
-              readOnly: true            
+              readOnly: true
+            - name: trusted-rootca
+              mountPath: /tmp/
       volumes:
         - name: sqvs-logs-volume
           hostPath:

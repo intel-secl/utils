@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "61a11bce-cdbc-4e55-930d-7e92646d593b",
+		"_postman_id": "880bfc95-35de-440d-8a3c-24f3a428172c",
 		"name": "Application Integrity",
 		"description": "Application Integrity allows any files and folders on a Linux host system to be included in the Chain of Trust integrity measurements.  These measurements are attested by the Verification Service along with the other platform measurements, and are included in determining the host’s overall Trust status.  The measurements are performed by a measurement agent called tbootXM, which is built into initrd during Trust Agent installation.  Because initrd is included in other Trusted Computing measurements, this allows Intel® SecL-DC to carry the Chain of Trust all the way to the Linux filesystem.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -764,7 +764,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<ManifestRequest xmlns=\"lib:wml:manifests-req:1.0\">\n    <connectionString>https://{{tagent}}:{{tagentPort}}</connectionString>\n    <Manifest xmlns=\"lib:wml:manifests:1.0\" DigestAlg=\"SHA384\" Label=\"New_Software_Flavor\" Uuid=\"\">\n        <File Path=\"/opt/trustagent/bin/module_analysis_da.sh\"></File>\n    </Manifest>\n</ManifestRequest>",
+							"raw": "<ManifestRequest xmlns=\"lib:wml:manifests-req:1.0\">\n     <connectionString>https://{{tagent}}:{{tagentPort}}</connectionString>\n      <Manifest xmlns=\"lib:wml:manifests:1.0\" DigestAlg=\"SHA384\" Label=\"Sample_Label\">\n          <Dir Include=\".*\" Exclude=\"\" Path=\"/usr/local/bin\"/>\n          <File Path=\"/usr/local/bin/wget\"/>\n      </Manifest>\n</ManifestRequest>",
 							"options": {
 								"raw": {
 									"language": "xml"

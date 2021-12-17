@@ -4,6 +4,13 @@ SGX_SDK_INSTALL_PATH=/opt/intel/sgxsdk/environment
 ATTESTEDAPP_HOST=127.0.0.1
 LIB_DIR=/usr/lib64
 
+LIB_DIR=/usr/lib64
+OS=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2| xargs | tr -d '\n')
+echo $OS
+if [ $OS == "ubuntu" ]; then
+	LIB_DIR=/usr/lib
+fi
+
 # Read from environment variables file if it exists
 if [ -f ./sample_apps.conf ]; then
 	echo "Reading Installation variables from $(pwd)/out.conf"

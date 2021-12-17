@@ -24,14 +24,11 @@ if [ "$OS" == "rhel" ]; then
 	rm -f /etc/yum.repos.d/*sgx_rpm_local_repo.repo
 fi
 
-pushd $PWD
-cd ../../../sgx_agent/build_scripts
 source build_prerequisites.sh
 if [ $? -ne 0 ]; then
 	echo "${red} failed to resolve package dependencies ${reset}"
 	exit
 fi
-popd
 
 pushd $PWD
 cd ../../stack_scripts

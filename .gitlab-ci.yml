@@ -37,7 +37,6 @@ pcssimulator:
   tags:
     - go
   script:
-    - env GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
     - cd tools/skc-simulators/pcs_simulator
     - go get -u github.com/gorilla/mux
     - GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
@@ -106,10 +105,10 @@ Stylechecker:
     - merge_requests
   image: golang:1.16
   tags:
-    - k8s
+    - go
   script:
     - |
-      if [ "$(GOPROXY=direct GOSUMDB=off gofmt -l . | wc -l)"  -gt 0 ]; then
+      if [ "$(gofmt -l . | wc -l)"  -gt 0 ]; then
              exit 1
       fi
 

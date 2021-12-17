@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ab55dac0-e45a-4d98-abd6-96c48261113e",
+		"_postman_id": "8056037b-c434-4129-9cb6-9ee7b627738c",
 		"name": "SGX Discovery and Provisioning",
 		"description": "For the secrets to be provisioned securely to SGX compute nodes in public clouds, the owner of the secret needs to ensure that the secrets will be protected in SGX enclaves by performing an SGX Attestation.\r\n\r\nSGX Attestation involves provisioning SGX nodes with Platform Certification Key (PCK) certificates. PCK certificates for SGX nodes are obtained by providing the node SGX data to the Intel SGX Provisioning Certificate Service (PCS), a cloud hosted service. PCS also returns SGX collateral such as CRLs, TCB information and QE Identity.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -771,12 +771,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://{{aasEnt}}:{{aasPortEnt}}/aas/v1/token",
+							"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
 							"protocol": "https",
 							"host": [
-								"{{aasEnt}}"
+								"{{aasCsp}}"
 							],
-							"port": "{{aasPortEnt}}",
+							"port": "{{aasPortCsp}}",
 							"path": [
 								"aas",
 								"v1",
@@ -1813,15 +1813,6 @@
 												"type": "text"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"nonce\" : \"2941555676453446656564643651\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "https://{{attestedApp}}:{{attestedAppPort}}/id",
 											"protocol": "https",
