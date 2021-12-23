@@ -1,10 +1,9 @@
-TARGETS = intel-secl workload-service trust-agent
+TARGETS = intel-secl trust-agent
 
 all: clean download-eca $(TARGETS) workload-agent
 	mkdir binaries
 	cp intel-secl/deployments/installer/*.bin binaries/
 	cp intel-secl/deployments/installer/*.sh binaries/
-	cp workload-service/out/*.bin binaries/
 	cp trust-agent/out/*.bin binaries/
 	cp workload-agent/out/*.bin binaries/
 

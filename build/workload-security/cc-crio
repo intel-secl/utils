@@ -1,11 +1,10 @@
-TARGETS = intel-secl workload-service k8s-extensions trust-agent
-INTEL_SECL_K8S = authservice cms ihub kbs hvs
+TARGETS = intel-secl k8s-extensions trust-agent
+INTEL_SECL_K8S = authservice cms ihub kbs hvs wls
 
 binaries: clean download-eca $(TARGETS) workload-agent
 	mkdir binaries
 	cp intel-secl/deployments/installer/*.bin binaries/
 	cp intel-secl/deployments/installer/*.sh binaries/
-	cp workload-service/out/*.bin binaries/
 	cp trust-agent/out/*.bin binaries/
 	cp workload-agent/out/*.bin binaries/
 	cp k8s-extensions/out/isecl-k8s-extensions-v*.tar.gz binaries/
@@ -15,12 +14,10 @@ k8s: k8s_common
 	cp -r utils/build/workload-security/k8s/create-dirs-nfs.sh k8s/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/ws/* k8s/manifests/
-	cp -r workload-service/out/k8s k8s/manifests/wls
 	cp -r utils/build/workload-security/k8s/isecl-bootstrap.sh k8s/manifests/isecl-bootstrap.sh
 	mkdir -p k8s/manifests/aas/scripts
 	mv k8s/manifests/aas/populate-users k8s/manifests/aas/scripts/
 	mv k8s/manifests/aas/populate-users.env k8s/manifests/aas/scripts/
-	cp workload-service/out/*.tar k8s/container-images/
 
 k8s-aio: k8s_common
 	cp -r utils/build/k8s-manifests/db-deployments/single-node/aas-db k8s/manifests/
@@ -34,7 +31,7 @@ k8s-aio: k8s_common
 	cp intel-secl/deployments/k8s/aas/populate-users k8s/manifests/aas/scripts/
 	cp intel-secl/deployments/k8s/aas/populate-users.env k8s/manifests/aas/scripts/populate-users.env
 
-k8s_common: clean $(INTEL_SECL_K8S) wls_k8s k8s-extensions tagent_k8s wlagent_k8s wpm-installer
+k8s_common: clean $(INTEL_SECL_K8S) k8s-extensions tagent_k8s wlagent_k8s wpm-installer
 	mkdir -p k8s/binaries
 	mkdir -p k8s/container-images
 	mkdir -p k8s/manifests
@@ -51,7 +48,6 @@ k8s_common: clean $(INTEL_SECL_K8S) wls_k8s k8s-extensions tagent_k8s wlagent_k8
 	cp intel-secl/deployments/container-archive/oci/* k8s/container-images/
 	cp workload-agent/out/*.tar k8s/container-images/
 	cp trust-agent/out/*.tar k8s/container-images/
-	cp workload-service/out/*.tar k8s/container-images/
 
 tagent_k8s:
 	cd trust-agent && make oci-archive
@@ -64,9 +60,6 @@ $(INTEL_SECL_K8S):
 
 k8s-extensions:
 	cd k8s-extensions && make
-
-wls_k8s:
-	cd workload-service && make k8s
 
 wpm-installer:
 	cd intel-secl && make wpm-installer

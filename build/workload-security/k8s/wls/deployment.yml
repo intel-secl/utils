@@ -30,13 +30,13 @@ spec:
             - /bin/chown
             - -R
             - "1001"
-            - /etc/workload-service
-            - /var/log/workload-service
+            - /etc/wls
+            - /var/log/wls
           volumeMounts:
             - name: wls-config-volume
-              mountPath: /etc/workload-service
+              mountPath: /etc/wls
             - name: wls-logs-volume
-              mountPath: /var/log/workload-service
+              mountPath: /var/log/wls
       containers:
         - image: <image-name>:<image-tag>
           name: wls
@@ -51,9 +51,9 @@ spec:
             - containerPort: 5000
           volumeMounts:
             - name: wls-logs-volume
-              mountPath: /var/log/workload-service/
+              mountPath: /var/log/wls/
             - name: wls-config-volume
-              mountPath: /etc/workload-service
+              mountPath: /etc/wls
             - name: wls-db-certs
               mountPath: /etc/postgresql/
             - mountPath: /etc/secrets/
@@ -62,11 +62,11 @@ spec:
       volumes:
         - name: wls-logs-volume
           hostPath:
-            path: /var/log/workload-service/
+            path: /var/log/wls/
             type: DirectoryOrCreate
         - name: wls-config-volume
           hostPath:
-            path: /etc/workload-service/
+            path: /etc/wls/
             type: DirectoryOrCreate
         - name: wls-db-certs
           secret:
