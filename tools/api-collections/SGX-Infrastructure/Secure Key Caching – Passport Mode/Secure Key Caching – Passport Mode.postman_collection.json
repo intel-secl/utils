@@ -1,0 +1,2274 @@
+{
+	"info": {
+		"_postman_id": "d31bb409-18a6-4b58-9ef1-9959dd53b01f",
+		"name": "Secure Key Caching – Passport Mode",
+		"description": "SKC leverages the TEE Attestation Infrastructure to protect keys in an SGX enclave at rest and in use. Applications use the SKC Client -- a set of libraries -- to retrieves keys at runtime from KBS. KBS performs an SGX enclave attestation. If the attestation is successful, KBS generates a Symmetric Wrapping Key (SWK), wraps it with the enclave public key and provisions it into the enclave, which can unwrap it since it has the corresponding private key. Application can then be provisioned into the SGX enclave after being wrapped with the SWK. Application keys are therefore never exposed to any software outside of the enclave.\n\nIn Passport mode, skc-client presents Attestation token to KBS for verification. After KBS verifies attestation token, it compares the SGX attributes in attestation token against key transfer policy and releases wrapped application key to skc-client.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Verify Services",
+			"item": [
+				{
+					"name": "cmsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{cms}}"
+							],
+							"port": "{{cmsPort}}",
+							"path": [
+								"cms",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{cms}}"
+									],
+									"port": "{{cmsPort}}",
+									"path": [
+										"cms",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 05:31:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Certificate Management Service\nVersion: v5.0.0-6d8812ac\nBuild Date: 2021-11-19T05:21:57+0000\n"
+						}
+					]
+				},
+				{
+					"name": "aasVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 05:31:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v5.0.0-6d8812ac\nBuild Date: 2021-11-19T05:21:26+0000\n"
+						}
+					]
+				},
+				{
+					"name": "tcsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/version",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/version",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Dec 2021 08:45:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: TEE Caching Service\nVersion: v5.0.0-9318b18\nBuild Date: 2021-11-22T06:43:12+0000\n"
+						}
+					]
+				},
+				{
+					"name": "kbsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 05:32:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Key Broker Service\nVersion: v5.0.0-04f001d1\nBuild Date: 2021-11-22T06:37:22+0000\n"
+						}
+					]
+				},
+				{
+					"name": "qvsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{qvs}}:{{qvsPort}}/qvs/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{qvs}}"
+							],
+							"port": "{{qvsPort}}",
+							"path": [
+								"qvs",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{qvs}}:{{qvsPort}}/qvs/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{qvs}}"
+									],
+									"port": "{{qvsPort}}",
+									"path": [
+										"qvs",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Nov 2021 11:16:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Quote Verification Service\nVersion: v5.0.0-9318b18\nBuild Date: 2021-11-23T08:26:33+0000\n"
+						}
+					]
+				},
+				{
+					"name": "apsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{aps}}:{{apsPort}}/aps/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{aps}}"
+							],
+							"port": "{{apsPort}}",
+							"path": [
+								"aps",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{aps}}:{{apsPort}}/aps/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{aps}}"
+									],
+									"port": "{{apsPort}}",
+									"path": [
+										"aps",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 Nov 2021 11:10:52 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Attestation Policy Service\nVersion: v5.0.0-9318b18\nBuild Date: 2021-11-22T06:43:12+0000\n"
+						}
+					]
+				}
+			],
+			"description": "The command line option can be used to confirm that the service is up and running before proceeding to the actual use case demonstration.\n\nVerify Feature Discovery Agent:\n\n```\nfda status\n\n```",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "createGlobalAdminToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenGlobalAdminUser\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{globaladminUser}}\",\r\n    \"password\": \"{{globaladminPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{globaladminUser}}\",\r\n    \"password\": \"{{globaladminPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 05:47:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1402"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiRkRTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJLQlMiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9LHsic2VydmljZSI6IkFQUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiUVZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJUQ1MiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9XSwicGVybWlzc2lvbnMiOlt7InNlcnZpY2UiOiJBQVMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJBUFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJGRFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJLQlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJRVlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJUQ1MiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTYzODg2MzI1MiwiaWF0IjoxNjM4ODU2MDIyLCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTYzODg1NjAyMiwic3ViIjoiZ2xvYmFsX2FkbWluX3VzZXIifQ.SnhmlP9KiIPvOCn44vo9hmriwehMggwmmP-DH4vy0z2fUVQpAs4nC4EHjyJUGq-tL3u8TndbLrgwbwbustthKapCDUGlVMl6kpQjKJ1QxScqx0iemNBqHcPc90sjxjcWIJm-76GL1aQPmyWzdXe2u76jmpufCxhhMjICOE-s8XsK-DyMa_ir80b-3N2F-AxYxpzyf3wZlt_YuF3IGxazzCSxwiNs8ch-mk8F0oG79ulnA0KHWKTeTnTRSfxrrF4ziScEK_mrXe-6WrKqouoa2tEPe9Rd1EOxUKorL8DKcyz02njQhRwP1bskcwmoRA0jOLkFH1BPVsLiQwey9E-vySIBioMkScnNTxeEhOvIIvRUZonbsRV9_SaozD0QZQcPJ6J_u6Auzijg2ptmRNLgyGSIhRFra6BN2L1YyHUlDcG3O93m_8qVQWLZHZMeClcuuG3qJZ8aUW1AH2C_6Nw3UwMPkaGkD1JMTXTkLIV6Ey7nkjRpuFAECISRmHAQOkKt"
+						}
+					]
+				},
+				{
+					"name": "createCustomClaimsTokenAps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenCustomClaimsAps\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subject\": \"kbs\",\r\n    \"validity_seconds\": 31536000,\r\n    \"claims\": {\r\n        \"permissions\": [\r\n            {\r\n                \"service\": \"APS\",\r\n                \"rules\": [\r\n                    \"attestation_token:create\"\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"custom-claims-token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is required when requesting custom claims token from Authservice."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject\": \"kbs\",\r\n    \"validity_seconds\": 31536000,\r\n    \"claims\": {\r\n        \"permissions\": [\r\n            {\r\n                \"service\": \"APS\",\r\n                \"rules\": [\r\n                    \"attestation_token:create\"\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"custom-claims-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 14:47:52 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "827"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsiYXR0ZXN0YXRpb25fdG9rZW46Y3JlYXRlIl0sInNlcnZpY2UiOiJBUFMifV0sImV4cCI6MTY3MDQyNDQ3MiwiaWF0IjoxNjM4ODg4NDQyLCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTYzODg4ODQ0Miwic3ViIjoia2JzIn0.rilF6UYno6hrjSChAhEX1SUBPASHMh70SlKKfqT9LtQP_spz5FcEnM0d1YeeoNzrDq2PSsJVsvliC-RdOa-jSx0-h1do-4a_iMMpdPxxP-DGEsvJZsHGuPcrBjh9UqVXysNe6BflR-iGPT7Sv3T5JuA6qwBtlB-XS5Jx-N2H-0VNVyeYkwcKUEQ_Ww81J8n932WSZsxOH7bKFSmqUtAdxiUr7lRkJ28a_dwEaGRsyzkOvATpp1c0k3jAZMCiSNofV0YidUrA9oLMUxQhOgi-AG9KmO-YmT5LJiyl6APhFWlEWqE27QP5WV91zqxPnWnU5FEmUCR8La9gfXdJ3a_7ki7R6nywKP-9YDZ6tDWfiYexC2iHkbRwIQJMLAvf4ofVsJGpTNOI_pZGjAXjkWsJoaI1XwUuv6AfoEtP9F1keO3RGEl2c6ZvskybjypakN5x4VukC-WvcQpimJdViun0cRwXcCyGjcDukh0xL9VVlAED0wBsIaUm5PvM6vNnxPLe"
+						}
+					]
+				},
+				{
+					"name": "createFDagentLongLivedToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenFDagentLongLived\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": 86400,\n    \"claims\": {\n        \"permissions\": [\n            {\n                \"rules\": [\n                    \"platforms:push:*\",\n                    \"tcb_status:retrieve:*\"\n                ],\n                \"service\": \"TCS\"\n            },\n            {\n                \"rules\": [\n                    \"hosts:create:*\"\n                ],\n                \"service\": \"FDS\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"custom-claims-token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is required when requesting custom claims token from Authservice."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{bearerTokenGlobalAdminUser}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": 86400,\n    \"claims\": {\n        \"permissions\": [\n            {\n                \"rules\": [\n                    \"platforms:push:*\",\n                    \"tcb_status:retrieve:*\"\n                ],\n                \"service\": \"TCS\"\n            },\n            {\n                \"rules\": [\n                    \"hosts:create:*\"\n                ],\n                \"service\": \"FDS\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"custom-claims-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 07:21:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "952"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2Mzg5NDgxMTQsImlhdCI6MTYzODg2MTY4NCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2Mzg4NjE2ODQsInN1YiI6Ijg4ODg4ODg4LTg4ODctMTMxNS0wYjA4LTMzMDlhNWE1YTVhNSJ9.ephbhAcQ8VzIsuW6Mmn_xaDa2X6AKyVlGSOBzTb9-MGNZ_cOwaMa-6ZWKfNUSvYRJELKrXA0aHx5_7W_orXLTf4N2XTH8pYYkE06zTpmVsLTRAsMNk-ACyNCxDbhgR4kqIPJYgBn6OmWvPkEncO3ICYssOLc3Bawkw8-Bo8JRI1q2P33nw7lWxpjH_kM2_6emGoUey6ipifjcz5rAZLF96alWP1MlNo3l3XTUBTP4gKVM1X2WTQ9WnQjA2askuzsa11ek8zVncuaptl1vvckzqLVrvsx5iyIJggSFlJhBR81PIpN63-l7wgnl--eBapIsk-pSpheGjVruWBnHl9pgoL24OAEP3WdUFC2e0bH438wZMsNdiBp3drHLNA7Ff6sfQrDf32O1AUUmmeWe-qCTXHjydhSIuMpwxgCZrmpAQ0IwhwuXJBpbOg8Kdj6X87XYvkX64jfgTTZXgHwjxARYZi7ibgFtuWXk1THlWWixTEfin06b0zHM0gsoj35MEt6"
+						}
+					]
+				}
+			],
+			"description": "To make an API request to an Intel® SecL-DC service, an authentication token is now required. API requests must now include an Authorization header with an appropriate token:\n\n```\nAuthorization: Bearer <token>\n```\n\nThe token is issued by the AAS and will expire after a set amount of time. This token may be used with any Intel® SecL-DC service, and will carry the appropriate permissions for the role(s) assigned to the account the token was generated for.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cache Platform Info to TCS",
+			"item": [
+				{
+					"name": "cachePlatformInfo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenFDagentLongLived}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"  \n}"
+						},
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/platforms",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"platforms"
+							]
+						},
+						"description": "Retrieves the platform collateral from PCS server and stores the platform data and collateral in DB.  \nThe serialized PlatformData Go struct object represents the content of the request body.\n\n| Attribute | Description |\n| --- | --- |\n| cpu_svn | Hex-encoded string representation of security version number of the CPU. |\n| enc_ppid | Hex-encoded string representation of Provisioning ID for the processor package or the platform instance. |\n| manifest | Hex-encoded string representation of manifest. |\n| pce_id | Hex-encoded string representation of PC enclave identifier. |\n| pce_svn | Hex-encoded string representation of security version number of the PCE currently loaded on the platform. |\n| qe_id | Hex-encoded string representation of platform identifier. |\n| hardware_uuid | Host hardware-uuid. |\n\nReturns - The serialized Response Go struct object which mentions platform info is cached or not."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenFDagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"  \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/platforms",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"platforms"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 07:22:16 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"platform info already cached\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Feature Discovery Agent pushes platform information to TEE Caching Service (TCS), which uses it to get the PCK Certificate and other SGX collateral from the Intel SGX Provisioning Certification Service (PCS) and caches them locally. When a workload on the platform needs to generate an SGX Quote, it retrieves the PCK Certificate of the platform from TCS.\n\nFeature Discovery Agent makes use of the following TEE Caching Service (TCS) REST endpoint, to push SGX platform values (encrypted_ppid, pcesvn, cpusvn, qeid, pceid and manifest).",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Verify sgx Tcb Info",
+			"item": [
+				{
+					"name": "retrieveSgxTcbInfo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/tcb?fmspc={{fmspc}}",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"tcb"
+							],
+							"query": [
+								{
+									"key": "fmspc",
+									"value": "{{fmspc}}",
+									"description": "(Required) Description of the processor package or platform instance including its Family, Model, Stepping, Platform Type, and Customized SKU(if applies)."
+								}
+							]
+						},
+						"description": "Retrieves the Trusted Compute Base Information for SGX enabled platform.  \nReturns - The serialized TcbInfoResponse Go struct object that was retrieved."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/tcb?fmspc={{fmspc}}",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"tcb"
+									],
+									"query": [
+										{
+											"key": "fmspc",
+											"value": "{{fmspc}}",
+											"description": "FMSPC value of the platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "TCB-Info-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICkDCCAjagAwIBAgIUTh8n662T%2FsqPZK%2B7n3H67%2FKGwu0wCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTI2MTAzMTEyMzM0N1owbDEeMBwG%0AA1UEAwwVSW50ZWwgU0dYIFRDQiBTaWduaW5nMRowGAYDVQQKDBFJbnRlbCBDb3Jw%0Ab3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYD%0AVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOnYw9LbN%2FJmyUttXa0M%0AiBEenjPbxbR4C8MuVYxDI%2BLe8lDBLp9X4wMzCAUF%2FfI%2F31giClXp%2Fy0erLbLZjdV%0A07%2BjgbkwgbYwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0f%0ABE8wTTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2%0AaWNlcy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBROHyfr%0ArZP%2Byo9kr7ufcfrv8obC7TAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH%2FBAIwADAK%0ABggqhkjOPQQDAgNIADBFAiEA9xQeifK%2B2abQGnrAgk0hrOhdyvJQorh2cEMn4Gwr%0A4hoCIFHW5qQ9G2wBJ4GMNQqv%2FoMfbPtzmyTlaWWzwxkqM0CT%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Dec 2021 13:40:24 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1379"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tcbInfo\": {\n        \"id\": \"SGX\",\n        \"version\": 3,\n        \"issueDate\": \"2021-12-06T12:18:10Z\",\n        \"nextUpdate\": \"2022-01-05T12:18:10Z\",\n        \"fmspc\": \"10606A000000\",\n        \"pceId\": \"0000\",\n        \"tcbType\": 0,\n        \"tcbEvaluationDataNumber\": 5,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"sgxtcbcomponents\": [\n                        {\n                            \"svn\": 3\n                        },\n                        {\n                            \"svn\": 3\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        }\n                    ],\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-07-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomponents\": [\n                        {\n                            \"svn\": 2\n                        },\n                        {\n                            \"svn\": 2\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        }\n                    ],\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-05-28T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomponents\": [\n                        {\n                            \"svn\": 1\n                        },\n                        {\n                            \"svn\": 1\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        }\n                    ],\n                    \"pcesvn\": 9\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomponents\": [\n                        {\n                            \"svn\": 1\n                        },\n                        {\n                            \"svn\": 1\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        },\n                        {\n                            \"svn\": 0\n                        }\n                    ],\n                    \"pcesvn\": 0\n                },\n                \"tcbDate\": \"2020-02-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"e33ef6b38b2970242426138f2e0af23614cd7d501718818b072a26dd0f02990b94b32694b7c2208b1d55a95d081fbc39f1f9b55a6fc9b23057d91937b48c3ce1\"\n}"
+						}
+					]
+				}
+			],
+			"description": "TEE Caching Service (TCS) validates the input parameters and contacts Intel PCS Server to get all PCK certificates for this platform by providing enc_ppid and pceid as input parameters.\n\nIntel PCS Server returns a list of Platform Certification Key (PCK) Certificates for the platform along with certificate issuer chain. TCS picks any Certificate from the list of certificates and extracts the FMSPC value.\n\nUsing the FMSPC value, TCS gets the corresponding TCBInfo for the FMSPC in DB, if not found makes another API call to Intel PCS Server to get the TCBInfo structure for the platform.\n\nWith the TCBInfo structure, cpusvn, pcesvn, pceid and list of Platform Certification Key (PCK) certificates as input, TCS makes a call to PCK Certificate selection library (Part of SGX DCAP infrastructure) to get the best suited PCK certificate for the current raw TCB level.\n\nTCS updates the Platform table with the latest fmspc value along with platform values.\n\nTCS updates the PCKCert table with the new set of PCK certificates received along with corresponding tcbm value for each pck certificate.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Verify PCK Certificate",
+			"item": [
+				{
+					"name": "retrievePckCert",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"pckcert"
+							],
+							"query": [
+								{
+									"key": "encrypted_ppid",
+									"value": "{{encppid}}",
+									"description": "(Required) Hex-encoded string representation of Provisioning ID for the processor package or the platform instance."
+								},
+								{
+									"key": "cpusvn",
+									"value": "{{cpusvn}}",
+									"description": "(Required) Hex-encoded string representation of security version number of the CPU."
+								},
+								{
+									"key": "pcesvn",
+									"value": "{{pcesvn}}",
+									"description": "(Required) Hex-encoded string representation of security version number of the PCE currently loaded on the platform."
+								},
+								{
+									"key": "pceid",
+									"value": "{{pceid}}",
+									"description": "(Required) Hex-encoded string representation of PC enclave identifier."
+								},
+								{
+									"key": "qeid",
+									"value": "{{qeid}}",
+									"description": "(Required) Hex-encoded string representation of platform identifier."
+								}
+							]
+						},
+						"description": "Retrieves the Provisioning Certificate list from PCS server.  \nReturns - The best-suited Provisioning Certificate retrieved from PCS server."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"pckcert"
+									],
+									"query": [
+										{
+											"key": "encrypted_ppid",
+											"value": "{{encppid}}",
+											"description": "(Required) Hex-encoded string representation of Provisioning ID for the processor package or the platform instance."
+										},
+										{
+											"key": "cpusvn",
+											"value": "{{cpusvn}}",
+											"description": "(Required) Hex-encoded string representation of security version number of the CPU."
+										},
+										{
+											"key": "pcesvn",
+											"value": "{{pcesvn}}",
+											"description": "(Required) Hex-encoded string representation of security version number of the PCE currently loaded on the platform."
+										},
+										{
+											"key": "pceid",
+											"value": "{{pceid}}",
+											"description": "(Required) Hex-encoded string representation of PC enclave identifier."
+										},
+										{
+											"key": "qeid",
+											"value": "{{qeid}}",
+											"description": "(Required) Hex-encoded string representation of platform identifier."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/x-pem-file"
+								},
+								{
+									"key": "SGX-FMSPC",
+									"value": "10606A000000"
+								},
+								{
+									"key": "SGX-PCK-Certificate-CA-Type",
+									"value": "platform"
+								},
+								{
+									"key": "SGX-PCK-Certificate-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICmjCCAkCgAwIBAgIUWSPTp0qoY1QuOXCt4A8HK1ckKrcwCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTM0MTAzMTEyMzM0N1owcDEiMCAG%0AA1UEAwwZSW50ZWwgU0dYIFBDSyBQbGF0Zm9ybSBDQTEaMBgGA1UECgwRSW50ZWwg%0AQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYDVQQIDAJDQTEL%0AMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQwp%2BLc%2BTUBtg1H%0A%2BU8JIsMsbjHjCkTtXb8jPM6r2dhu9zIblhDZ7INfqt3Ix8XcFKD8k0NEXrkZ66qJ%0AXa1KzLIKo4G%2FMIG8MB8GA1UdIwQYMBaAFOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMFYG%0AA1UdHwRPME0wS6BJoEeGRWh0dHBzOi8vc2J4LWNlcnRpZmljYXRlcy50cnVzdGVk%0Ac2VydmljZXMuaW50ZWwuY29tL0ludGVsU0dYUm9vdENBLmRlcjAdBgNVHQ4EFgQU%0AWSPTp0qoY1QuOXCt4A8HK1ckKrcwDgYDVR0PAQH%2FBAQDAgEGMBIGA1UdEwEB%2FwQI%0AMAYBAf8CAQAwCgYIKoZIzj0EAwIDSAAwRQIhAJ1q%2BFTz%2BgUuVfBQuCgJsFrL2TTS%0Ae1aBZ53O52TjFie6AiAriPaRahUX9Oa9kGLlAchWXKT6j4RWSR50BqhrN3UT4A%3D%3D%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "SGX-TCBm",
+									"value": "020200000000000000000000000000000A00"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Dec 2021 14:00:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1772"
+								}
+							],
+							"cookie": [],
+							"body": "-----BEGIN CERTIFICATE-----\nMIIE9DCCBJugAwIBAgIVAOApN9vAqmYAo1+YnxQYCGeZJWNrMAoGCCqGSM49BAMCMHAxIjAgBgNV\nBAMMGUludGVsIFNHWCBQQ0sgUGxhdGZvcm0gQ0ExGjAYBgNVBAoMEUludGVsIENvcnBvcmF0aW9u\nMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJBgNVBAYTAlVTMB4XDTIxMTEy\nMzEyMjIxNVoXDTI4MTEyMzEyMjIxNVowcDEiMCAGA1UEAwwZSW50ZWwgU0dYIFBDSyBDZXJ0aWZp\nY2F0ZTEaMBgGA1UECgwRSW50ZWwgQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQsw\nCQYDVQQIDAJDQTELMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQvPTZCAi8A\nwQi2q1WG1qxTGrOithru88QGeCGuP2H3+tmOAQFhyjx77tmxMpy4rG9J7yUqX3u4pFvpTX30o850\no4IDEDCCAwwwHwYDVR0jBBgwFoAUWSPTp0qoY1QuOXCt4A8HK1ckKrcwbwYDVR0fBGgwZjBkoGKg\nYIZeaHR0cHM6Ly9zYnguYXBpLnRydXN0ZWRzZXJ2aWNlcy5pbnRlbC5jb20vc2d4L2NlcnRpZmlj\nYXRpb24vdjQvcGNrY3JsP2NhPXBsYXRmb3JtJmVuY29kaW5nPWRlcjAdBgNVHQ4EFgQUgnaEDVNk\n5py7hs3c+bO5VHByYd0wDgYDVR0PAQH/BAQDAgbAMAwGA1UdEwEB/wQCMAAwggI5BgkqhkiG+E0B\nDQEEggIqMIICJjAeBgoqhkiG+E0BDQEBBBBpKPlFLjDR57ezWeVQG06YMIIBYwYKKoZIhvhNAQ0B\nAjCCAVMwEAYLKoZIhvhNAQ0BAgECAQIwEAYLKoZIhvhNAQ0BAgICAQIwEAYLKoZIhvhNAQ0BAgMC\nAQAwEAYLKoZIhvhNAQ0BAgQCAQAwEAYLKoZIhvhNAQ0BAgUCAQAwEAYLKoZIhvhNAQ0BAgYCAQAw\nEAYLKoZIhvhNAQ0BAgcCAQAwEAYLKoZIhvhNAQ0BAggCAQAwEAYLKoZIhvhNAQ0BAgkCAQAwEAYL\nKoZIhvhNAQ0BAgoCAQAwEAYLKoZIhvhNAQ0BAgsCAQAwEAYLKoZIhvhNAQ0BAgwCAQAwEAYLKoZI\nhvhNAQ0BAg0CAQAwEAYLKoZIhvhNAQ0BAg4CAQAwEAYLKoZIhvhNAQ0BAg8CAQAwEAYLKoZIhvhN\nAQ0BAhACAQAwEAYLKoZIhvhNAQ0BAhECAQowHwYLKoZIhvhNAQ0BAhIEEAICAAAAAAAAAAAAAAAA\nAAAwEAYKKoZIhvhNAQ0BAwQCAAAwFAYKKoZIhvhNAQ0BBAQGEGBqAAAAMA8GCiqGSIb4TQENAQUK\nAQEwHgYKKoZIhvhNAQ0BBgQQLBL+oZQlETCFKpQT91JIATBEBgoqhkiG+E0BDQEHMDYwEAYLKoZI\nhvhNAQ0BBwEBAf8wEAYLKoZIhvhNAQ0BBwIBAQAwEAYLKoZIhvhNAQ0BBwMBAf8wCgYIKoZIzj0E\nAwIDRwAwRAIgW6C31BcAI1cIin6CysWBSUmPidv9HHFCOeFSl+FZui0CIDhGMxBCXax4wxsw1Wo8\npwkxyrV/vs7lUzUIjalt/uYP\n-----END CERTIFICATE-----"
+						}
+					]
+				}
+			],
+			"description": "We can now retrieve the Platform Certification Key (PCK) Certificate for the current raw TCB level of SGX enabled platform from the TEE Caching Service (TCS).",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Retrieve RootCA CRL",
+			"item": [
+				{
+					"name": "RetrieveRootCACRL",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/rootcacrl",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"rootcacrl"
+							]
+						},
+						"description": "Retrieves the Root CA Certificate Revocation List.  \nReturns - The hex-encoded Root CA CRL retrieved from PCS server."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/rootcacrl",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"rootcacrl"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/pkix-crl"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Dec 2021 14:02:26 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "584"
+								}
+							],
+							"cookie": [],
+							"body": "308201203081c8020101300a06082a8648ce3d0403023068311a301806035504030c11496e74656c2053475820526f6f74204341311a3018060355040a0c11496e74656c20436f72706f726174696f6e3114301206035504070c0b53616e746120436c617261310b300906035504080c024341310b3009060355040613025553170d3231313030373039313234365a170d3232313030373039313234365aa02f302d300a0603551d140403020101301f0603551d23041830168014e9e8445253365c4b189a11fc43182ca5dc208048300a06082a8648ce3d040302034700304402200edaef9ff1a4d8a0483022e052c917794683dad8fbd29a8a3ee510da07dc34f902205562d7f6f785fde4a3c551557e1c496931b26fa799b16d729c44e93f3b61fd1d"
+						}
+					]
+				}
+			],
+			"description": "We can now retrieve the RootCA CRL from QE Identity Issuer Chain.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Retrieve QE Identity",
+			"item": [
+				{
+					"name": "RetrieveQEIdentity",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/qe/identity",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"qe",
+								"identity"
+							]
+						},
+						"description": "Retrieves the Quoting Enclave Identity.  \nReturns - The serialized QeIdentityResponse Go struct object that was retrieved."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/qe/identity",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"qe",
+										"identity"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "SGX-Enclave-Identity-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICkDCCAjagAwIBAgIUTh8n662T%2FsqPZK%2B7n3H67%2FKGwu0wCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTI2MTAzMTEyMzM0N1owbDEeMBwG%0AA1UEAwwVSW50ZWwgU0dYIFRDQiBTaWduaW5nMRowGAYDVQQKDBFJbnRlbCBDb3Jw%0Ab3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYD%0AVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOnYw9LbN%2FJmyUttXa0M%0AiBEenjPbxbR4C8MuVYxDI%2BLe8lDBLp9X4wMzCAUF%2FfI%2F31giClXp%2Fy0erLbLZjdV%0A07%2BjgbkwgbYwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0f%0ABE8wTTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2%0AaWNlcy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBROHyfr%0ArZP%2Byo9kr7ufcfrv8obC7TAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH%2FBAIwADAK%0ABggqhkjOPQQDAgNIADBFAiEA9xQeifK%2B2abQGnrAgk0hrOhdyvJQorh2cEMn4Gwr%0A4hoCIFHW5qQ9G2wBJ4GMNQqv%2FoMfbPtzmyTlaWWzwxkqM0CT%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Dec 2021 14:05:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "698"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"enclaveIdentity\": {\n        \"id\": \"QE\",\n        \"version\": 2,\n        \"issueDate\": \"2021-12-06T12:02:00Z\",\n        \"nextUpdate\": \"2022-01-05T12:02:00Z\",\n        \"tcbEvaluationDataNumber\": 5,\n        \"miscselect\": \"00000000\",\n        \"miscselectMask\": \"FFFFFFFF\",\n        \"attributes\": \"11000000000000000000000000000000\",\n        \"attributesMask\": \"FBFFFFFFFFFFFFFF0000000000000000\",\n        \"mrsigner\": \"8C4F5775D796503E96137F77C68A829A0056AC8DED70140B081B094490C57BFF\",\n        \"isvprodid\": 1,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"isvsvn\": 2\n                },\n                \"tcbDate\": \"2020-07-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"isvsvn\": 1\n                },\n                \"tcbDate\": \"2018-08-15T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"ef567d0fb834860a14c6711a12c95de69b5d5aa8dbb277c939ad8a2f2ab4f2ffea6df4a623a3cff26ea04324b22276d539c8ed9d686daf053dce0190290be5b4\"\n}"
+						}
+					]
+				}
+			],
+			"description": "We can now retrieve the Quoting Enclave Identity from Intel PCS Server.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Retrieve PCK CRL",
+			"item": [
+				{
+					"name": "RetrievePCKCRL",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/pckcrl?ca=processor",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"pckcrl"
+							],
+							"query": [
+								{
+									"key": "ca",
+									"value": "processor",
+									"description": "(Required) Certification Authority. Supported CAs are \"platform\" and \"processor\""
+								}
+							]
+						},
+						"description": "Retrieves the Provisioning Certificate Revocation List.  \nReturns - The hex-encoded PCK CRL retrieved from PCS server."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/pckcrl?ca=processor",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"pckcrl"
+									],
+									"query": [
+										{
+											"key": "ca",
+											"value": "processor"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/pkix-crl"
+								},
+								{
+									"key": "SGX-PCK-CRL-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICnDCCAkKgAwIBAgIVAMHp3Hk19b3%2FLlphIQ0b13g7pUxaMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzExMjMzNDdaFw0zNDEwMzExMjMzNDdaMHExIzAh%0ABgNVBAMMGkludGVsIFNHWCBQQ0sgUHJvY2Vzc29yIENBMRowGAYDVQQKDBFJbnRl%0AbCBDb3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNB%0AMQswCQYDVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABHMzh%2FiyDU8k%0ABve82Ypt7qOEU%2B3L%2BVjYeaWsR0PKcZjNKbro%2FBKDLjFYTv%2FCy1cCxpzL5y9BOFvS%0AbXG%2Bkt1%2Booujgb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgw%0AVgYDVR0fBE8wTTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0%0AZWRzZXJ2aWNlcy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQW%0ABBTB6dx5NfW9%2Fy5aYSENG9d4O6VMWjAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2F%0ABAgwBgEB%2FwIBADAKBggqhkjOPQQDAgNIADBFAiEAxyLc3ZxBTGz9Dy6JJ4PU%2FhlX%0AWqJMzEyxXWLv3WJDGTMCIADfPlT13%2Fmr2kS5GzXOC4DtoavJ1NJMV2YJW8MQONl8%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Dec 2021 14:09:34 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "604"
+								}
+							],
+							"cookie": [],
+							"body": "3082012a3081d1020101300a06082a8648ce3d04030230713123302106035504030c1a496e74656c205347582050434b2050726f636573736f72204341311a3018060355040a0c11496e74656c20436f72706f726174696f6e3114301206035504070c0b53616e746120436c617261310b300906035504080c024341310b3009060355040613025553170d3231313230363132313831305a170d3232303130353132313831305aa02f302d300a0603551d140403020101301f0603551d23041830168014c1e9dc7935f5bdff2e5a61210d1bd7783ba54c5a300a06082a8648ce3d0403020348003045022100ff80e80f90ff4dad4666301b472e349148a510bc9b040dcab18f344cb2c6346a02200133db32968a34c97903ac472713d0e27731a26b99534b2b795de002c691a932"
+						}
+					]
+				}
+			],
+			"description": "We can now retrieve the PCK CRL from Intel PCS Server.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Refresh Platform Collaterals in TCS Database",
+			"item": [
+				{
+					"name": "refreshPlatformInfoStatus",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/refreshes?fmspc={{fmspc}}",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"refreshes"
+							],
+							"query": [
+								{
+									"key": "fmspc",
+									"value": "{{fmspc}}",
+									"description": "Comma separated fmspc values for which PCK certs needs to be refreshed."
+								}
+							]
+						},
+						"description": "Refreshes the platform collateral and stores the updated collateral in DB.  \nSupported query params are optional, if provided, only PCK certificates would be refreshed else Non-PCK collateral are refreshed.  \nReturns - The serialized Response Go struct object which mentions platform collateral are refreshed or not.  \nA valid bearer token should be provided to authorize this REST call.\n\nThe status field in the response conveys the following :  \n\"idle\" - No refresh is currently in progress.  \n\"inprogress\" - A refresh is already in progress.  \n\"toomanyrequests\" - A refresh will not be started if the last refresh was completed less 900 seconds ago.\n\nThe last-refresh.status field in the response conveys the following :  \n\"success\" - The last refresh was successfull.  \n\"failed\" - The last refresh failed."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/refreshes?fmspc={{fmspc}}",
+									"protocol": "https",
+									"host": [
+										"{{tcs}}"
+									],
+									"port": "{{tcsPort}}",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"refreshes"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "certs",
+											"description": "Type of collateral to be refreshed. Supported type is \"certs\".",
+											"disabled": true
+										},
+										{
+											"key": "fmspc",
+											"value": "{{fmspc}}",
+											"description": "Comma separated fmspc values for which PCK certs needs to be refreshed."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 07:23:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Non PCK collateral refreshed successfully\"\n}"
+						}
+					]
+				}
+			],
+			"description": "TCS provides following REST endpoints for refreshing the platform collaterals, outside of the periodic refresh cycles.\n\n$hostname:$port/tcs/v4/sgx/refreshes\n\nOn successful refresh, TCS will remember the last refresh status by creating a single entry in the DB.\n\nAn Admin can make use of this REST endpoint to force the refresh of PCK Certificates, PCK CRL, TCB info and QE Identity information. This is useful in scenarios like TCB recovery."
+		},
+		{
+			"name": "Extracting SGX Enclave values for Key Transfer Policy",
+			"item": [],
+			"description": "Values that are specific to the enclave such as sgx_enclave_issuer_anyof, sgx_enclave_measurement_anyof and sgx_enclave_issuer_product_id_anyof can be retrived using sgx_sign utility that is available as part of Intel SGX SDK.\r\n\r\nRun sgx_sign utility on the signed enclave (This command should be run on the build system).\r\n\r\n```\r\n/opt/intel/sgxsdk/bin/x64/sgx_sign dump -enclave <path to the signed enclave> -dumpfile info.txt\r\n```\r\n\r\nFor sgx_enclave_issuer_anyof, in info.txt, search for \"mrsigner->value\" . E.g mrsigner->value :\r\n\r\n```\r\nmrsigner->value: \"0x83 0xd7 0x19 0xe7 0x7d 0xea 0xca 0x14 0x70 0xf6 0xba 0xf6 0x2a 0x4d 0x77 0x43 0x03 0xc8 0x99 0xdb 0x69 0x02 0x0f 0x9c 0x70 0xee 0x1d 0xfc 0x08 0xc7 0xce 0x9e\"\r\n```\r\n\r\nRemove the whitespace and 0x characters from the above string and add it to the policy file. E.g :\r\n\r\n```\r\n\"sgx_enclave_issuer_anyof\":[\"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"]\r\n```\r\n\r\nFor sgx_enclave_measurement_anyof, in info.txt, search for metadata->enclave_css.body.enclave_hash.m . E.g metadata->enclave_css.body.enclave_hash.m :\r\n\r\n```\r\nmetadata->enclave_css.body.enclave_hash.m:\r\n0xad 0x46 0x74 0x9e 0xd4 0x1e 0xba 0xa2 0x32 0x72 0x52 0x04 0x1e 0xe7 0x46 0xd3\r\n0x79 0x1a 0x9f 0x24 0x31 0x83 0x0f 0xee 0x08 0x83 0xf7 0x99 0x3c 0xaf 0x31 0x6a\r\n```\r\n\r\nRemove the whitespace and 0x characters from the above string and add it to the policy file. E.g :\r\n\r\n```\r\n\"sgx_enclave_measurement_anyof\":[\"ad46749ed41ebaa2327252041ee746d3791a9f2431830fee0883f7993caf316a\"]\r\n```"
+		},
+		{
+			"name": "Creating RSA Keys in Key Broker Service",
+			"item": [
+				{
+					"name": "keyTransferPolicy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"keyTransferPolicyId\", pm.response.json().id)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "(Required) Content-Type header"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": "(Required) Accept header",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"965c52b57ba0e4ce7e4044a41d9563962ab023ea0eea65af4aad616888475bd5\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"key-transfer-policies"
+							]
+						},
+						"description": "Creates a key transfer policy. Transfer-Policy with only one attestation-type i.e; SGX or TDX could be created at a time.\n\nKey transfer policy can be created either by providing only list of policy-ids or only TDX/SGX attributes or both policy-ids and attributes.\n\nThe serialized KeyTransferPolicy Go struct object represents the content of the request body.\n\n| Attribute | Description |\n| --- | --- |\n| attestation_type | Array of Attestation Type identifiers that client must support to get the key. Expect client to advertise these with the key request e.g. \"SGX\", \"TDX\" (note that if key server needs to restrict technologies, then it should list only the ones that can receive the key). |\n| mrsigner | Array of measurements of SGX enclave’s code signing certificate. This is mandatory. The same issuer must be added as a trusted certificate in key server configuration settings. |\n| isvprodid | Array of (16-bit value) (ISVPRODID). This is mandatory. This is like a qualifier for the issuer so same issuer (code signing) key can sign separate products. |\n| mrenclave | Array of enclave measurements that are allowed to retrieve the key (MRENCLAVE). Expect client to have one of these measurements in the SGX quote (this supports use case of providing key only to an SGX enclave that will enforce the key usage policy locally). |\n| isvsvn | Minimum security version number required for Enclave. |\n| client_permissions | Array of permission to expect in client api key. Expect client api key to have all of these names. |\n| mrsignerseam | Array of measurements of seam module issuer. This is mandatory. |\n| mrseam | Array of measurements of seam module. This is mandatory. |\n| mrtd | Array of TD measurements. |\n| rtmr0 | Measurement extended to RTMR0. |\n| rtmr1 | Measurement extended to RTMR1. |\n| rtmr2 | Measurement extended to RTMR2. |\n| rtmr3 | Measurement extended to RTMR3. |\n| seamsvn | Minimum security version number of seam module. |\n| enforce_tcb_upto_date | Boolean value to enforce Up-To-Date TCB. |\n| policy_ids | Array of TD/Enclave Attestation Policy Ids. |"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"description": "(Required) Accept header",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"965c52b57ba0e4ce7e4044a41d9563962ab023ea0eea65af4aad616888475bd5\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"key-transfer-policies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 05:58:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "397"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"392a9c3d-b60c-4ace-944b-73c9e21d4e4c\",\n    \"created_at\": \"2021-12-07T05:58:19.054593701Z\",\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"965c52b57ba0e4ce7e4044a41d9563962ab023ea0eea65af4aad616888475bd5\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "createKeyUsingKMIPId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "(Required) Content-Type header"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": "(Required) Accept header",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_id\": \"{{keyTransferPolicyId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"keys"
+							]
+						},
+						"description": "Creates or Registers a key.\n\nThe serialized KeyRequest Go struct object represents the content of the request body.\n\n | Attribute          | Description |\n |--------------------|-------------|\n | key_information    | A json object having all the required information about a key. |\n | transfer_policy_id | Unique identifier of the transfer policy to apply to this key. |\n | label              | String to attach optionally a text description to the key, e.g. \"US Nginx key\". |\n | usage              | String to attach optionally a usage criteria for the key, e.g. \"Country:US,State:CA\". |\n\nThe serialized KeyInformation Go struct object represents the content of the key_information field.\n\n | Attribute   | Description |\n |-------------|-------------|\n | algorithm   | Encryption algorithm used to create or register key. Supported algorithms are AES, RSA and EC. |\n | key_length  | Key length used to create key. Supported key lengths are 128,192,256 bits for AES and 2048,3072,4096,7680 bits for RSA. |\n | curve_type  | Elliptic curve used to create key. Supported curves are secp256r1, secp384r1 and secp521r1. |\n | key_string  | Base64 encoded private key to be registered. Supported only if key is created locally. |\n | kmip_key_id | Unique KMIP identifier of key to be registered. Supported only if key is created on KMIP server. |\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"description": "(Required) Accept header",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_id\": \"{{keyTransferPolicyId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"keys"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 06:12:10 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "329"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"key_information\": {\n        \"id\": \"93b4edeb-b77d-4148-8403-68fabe154a7f\",\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"12\"\n    },\n    \"transfer_policy_id\": \"392a9c3d-b60c-4ace-944b-73c9e21d4e4c\",\n    \"transfer_link\": \"https://10.80.207.79:9443/kbs/v1/keys/93b4edeb-b77d-4148-8403-68fabe154a7f/transfer\",\n    \"created_at\": \"2021-12-07T06:12:10.929639625Z\"\n}"
+						}
+					]
+				}
+			],
+			"description": "**Steps to run KMIP Server**\n\nNote: Below mentioned steps are provided as script (install_pykmip.sh and pykmip.service) as part of kbs_script folder which will install KMIP Server as daemon. Refer to ‘Install KMIP Server as daemon’ section.\n\n```\n1. Install python3 and vim-common\n   # dnf -y install python3-pip vim-common (RHEL 8.2)\n   # apt -y install python3-pip vim-common (UBUNTU 18.04) \n   ln -s /usr/bin/python3 /usr/bin/python  > /dev/null 2>&1\n   ln -s /usr/bin/pip3 /usr/bin/pip  > /dev/null 2>&1\n\n2. Install pykmip\n   # pip3 install pykmip==0.9.1\n\n3. In the /etc/ directory create pykmip and policies folders\n   mkdir -p /etc/pykmip/policies\n\n4. Configure pykmip server using server.conf\n   Update hostname in the server.conf\n\n5. Copy the following to /etc/pykmip/ from kbs_script folder available under binaries directory\n   create_certificates.py, run_server.py, server.conf\n\n6. Create certificates\n   > cd /etc/pykmip\n   > python3 create_certificates.py\n\n7. Kill running KMIP Server processes and wait for 10 seconds until all the KMIP Server processes are killed. \n   > ps -ef | grep run_server.py | grep -v grep | awk '{print $2}' | xargs kill\n\n8. Run pykmip server using run_server.py script\n   > python3 run_server.py &\n\n```\n\n**Install KMIP Server as daemon**\n\n```\n1. cd into /root/binaries/kbs_script folder \n\n2. Configure pykmip server using server.conf\n   Update hostname in the server.conf\n\n3. Run the install_pykmip.sh script and KMIP server will be installed as daemon process\n   ./install_pykmip.sh\n```\n\n**Create RSA key in PyKMIP and generate certificate**\n\nNOTE: This step is required only when PyKMIP script is used as a backend KMIP server.\n\n```\n1. Update Host IP in /root/binaries/kbs_script rsa_create.py script\n2. In the kbs_script folder, Run rsa_create.py script\n    > cd /root/binaries/kbs_script\n    > python3 rsa_create.py\n\nThis script will generate “Private Key ID” and “Server certificate”, which should be provided in the kbs.conf file for “KMIP_KEY_ID” and “SERVER_CERT”.\n```\n\n**Configuration Update to create Keys in KBS**\n    \n    cd into /root/binaries/kbs_script folder\n\t\n    **To register keys with KBS KMIP**\n    \n    Update the following variables in kbs.conf:\n    \n        KMIP_KEY_ID (Private key ID registered in KMIP server)\n        \n        SERVER_CERT (Server certificate for created private key)\n\t\t\n\t\tEnterprise system IP address where CMS, AAS and KBS services are deployed\n        \n\t\tPort of CMS, AAS and KBS services deployed on enterprise system\n    \n\t    AAS admin and Enterprise admin credentials\n        \nNOTE: If KMIP_KEY_ID is not provided then RSA key register will be done with keystring.\n\nUpdate sgx_enclave_measurement_anyof value in transfer_policy_request.json with enclave measurement value obtained using sgx_sign utility. Refer to \"Extracting SGX Enclave values for Key Transfer Policy\" section.\n\n**Create RSA Key**\n\n\tExecute the command\n\t\n\t./run.sh reg\n\nCopy the generated cert file to SGX Compute node where skc_library is deployed. Also make a note of the key id generated.\n\n```\nscp <cert path> root@<SGX Compute Node>:/root/\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Configuration for NGINX testing",
+			"item": [],
+			"description": "**Note:** Below mentioned OpenSSL and NGINX configuration updates are provided as patches (nginx.patch and openssl.patch) as part of skc_library deployment script. Patch can be applied with default nginx and openssl file. In case nginx/openssl contains any external changes then refer manual step.\n\n**Apply Patch for Ubuntu**\n\nExecute the command with nginx version - nginx 1.14.0 (Ubuntu 18.04) and openssl version- Openssl 1.1.1 (Ubuntu 18.04)\n\n```\npatch -b /etc/nginx/nginx.conf < nginx_ubuntu.patch\npatch -b /etc/ssl/openssl.cnf < openssl_ubuntu.patch\n\n```\n\n**Apply Patch for Rhel**\n\nExecute the command with nginx version - nginx 1.14.1 (Rhel 8.2) and openssl version- Openssl 1.1.1g (Rhel 8.2)\n\n```\npatch -b /etc/nginx/nginx.conf < nginx.patch\npatch -b /etc/pki/tls/openssl.cnf < openssl.patch\n\n```\n\n**OpenSSL**\n\nFor UBUNTU in the /etc/ssl/openssl.cnf file, look for the below line:  \n\\[ new_oids \\]\n\nJust before the line \\[ new_oids \\], add the below section:\n\nopenssl_conf = openssl_def\n\n\\[openssl_def\\]  \nengines = engine_section  \noid_section = new_oids\n\n\\[engine_section\\]  \npkcs11 = pkcs11_section\n\n\\[pkcs11_section\\]  \nengine_id = pkcs11  \ndynamic_path =/usr/lib/x86_64-linux-gnu/engines-1.1/pkcs11.so  \nMODULE_PATH =/opt/skc/lib/libpkcs11-api.so  \ninit = 0\n\nFor RHEL update openssl configuration file /etc/pki/tls/openssl.cnf with below changes:\n\n\\[openssl_def\\]  \nengines = engine_section\n\n\\[engine_section\\]  \npkcs11 = pkcs11_section\n\n\\[pkcs11_section\\]  \nengine_id = pkcs11\n\ndynamic_path =/usr/lib64/engines-1.1/pkcs11.so\n\nMODULE_PATH =/opt/skc/lib/libpkcs11-api.so\n\ninit = 0\n\n**Nginx**\n\nUpdate nginx configuration file /etc/nginx/nginx.conf with below changes:\n\nssl_engine pkcs11;\n\nUpdate the location of certificate with the loaction where it was copied into the skc_library machine.\n\nssl_certificate \"add absolute path of crt file\";\n\nUpdate the fields(token, object and pin-value) with the values given in keys.txt for the KeyID corresponding to the certificate.\n\nssl_certificate_key \"engine:pkcs11:pkcs11:token=KMS;object=RSAKEY;pin-value=1234\";\n\n**SKC Configuration**\n\nCreate keys.txt in /root folder. This provides key preloading functionality in skc_library.\n\nAny number of keys can be added in keys.txt. Each PKCS11 URL should contain different Key ID which need to be transferred from KBS along with respective object tag for each key id specified\n\nSample PKCS11 url is as below\n\npkcs11:token=KMS;id=164b41ae-be61-4c7c-a027-4a2ab1e5e4c4;object=RSAKEY;type=private;pin-value=1234;\n\nToken, object and pin-value given in PKCS11 url entry in keys.txt should match with the one in nginx.conf.\n\nThe keyID should match the keyID of RSA key created in KBS. File location should match with preload_keys directive in pkcs11-apimodule.ini;\n\nSample /opt/skc/etc/pkcs11-apimodule.ini file for RHEL and UBUNTU\n\n```\n[core]\nkeyagent_conf=/opt/skc/etc/key-agent.ini\nmode=SGX\ndebug=true\npreload_keys=/root/keys.txt\n[SGX]\nmodule=/opt/intel/cryptoapitoolkit/lib/libp11sgx.so\n\n```\n\nNOTE: 'daemon off' should not be present in nginx.conf file.\n\nSample /opt/skc/etc/npm.ini file for RHEL and UBUNTU\n\n```\n[core]\nkbs_server=https://kbshostname:9443\nmode=passport\ndebug=true\nauth_token=AUTH_TOKEN\n[passport]\naps_server=https://apshostname:5443\naps_token=APS_TOKEN\n\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "KBS key-transfer flow",
+			"item": [
+				{
+					"name": "generateNonce",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "(Required) Content-Type header"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenCustomClaimsAps}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/jwt",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{aps}}:{{apsPort}}/aps/v1/attestation-token",
+							"protocol": "https",
+							"host": [
+								"{{aps}}"
+							],
+							"port": "{{apsPort}}",
+							"path": [
+								"aps",
+								"v1",
+								"attestation-token"
+							]
+						},
+						"description": "Performs the task of generating a nonce to be sent to attestation client for quote generation.\n\nAlso carries out quote verification operation when a quote is being passed in request."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenCustomClaimsAps}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{aps}}:{{apsPort}}/aps/v1/attestation-token",
+									"protocol": "https",
+									"host": [
+										"{{aps}}"
+									],
+									"port": "{{apsPort}}",
+									"path": [
+										"aps",
+										"v1",
+										"attestation-token"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Nonce",
+									"value": "eyJtZXNzYWdlIjoiM0JuQTVueXFGZTZiOGNYU0hiNGNsQlhlRU05eDdlazRvUmR0ajBhSUN3VWlyWjhQS1lFamJtOG9WekNwaG8xUHI4bE43VHZaSHdVTnlXZzZxSHc4NlE9PTsyMDIxLTEyLTA2IDEzOjIxOjIxLjA5MzU2OTEgKzAwMDAgVVRDIiwic2lnbmF0dXJlIjoiWDhhUW9XVzNHbENMaXF2UHRLcUFQcDlocFZreDVYbkt3aFM2aDM0WHlLVVdyOHE0dmlvOFVNSkNzUmY0UUovTUJYb3VQZmpKcEN5aGZCWlEwZUduUS9GK1hmYmZGNkpYcis4Y2Q4K0cyVm55ZDVFVllPbWZvYkF4MXp1K25neERpa0RGcEZuSzN5aGpIRlpPMjdqczNmTExiTFhtcEo5ekZxRmhBSzVqVFYvc015cnFEYTh5OXJZaEl3RzA0dXBEREFRYmlzK0pDZUlNWWVQWXBoWUZyb3NsN1dRMFdaMWpOVE9vSzcrUXYwVmFDL0F2dlZFajM5Uk9hbGhLZUlmWG4weXZIMldzUGpHemYvbGtkN3hBQU5wL1NTUHVhTEJJWlVhNWpzVzJROGlUTHpQTWZhT1cyaytoMU91c3l1ajFKMnJ4bUMxZS9mWUo0WG83bXljclVBb1FLQks0L0R6Y2QwdWdsVkpkanBkWFFPamxFOElVZnBDU1V3enlpNThNNnhhamdNVy84bkwzSDgxUllQckFmR0RqazZJVHJYTlJJUmtpQUljdjMzcC90QS9mYTdRVU95dlJUbTFoTHIxRjFpOWRzQk81OTJUcnNHQ0pXTlc0aUpJc0tISGxSZVgzWWJySm8yT3NGMzduSC9PenRrTnl2b0dpNTI1NElMUDkifQ=="
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Dec 2021 13:21:21 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "sgxVerifyQuote",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quote\": \"{{sgxQuote}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{qvs}}:{{qvsPort}}/qvs/v1/quote/sgx/verify",
+							"protocol": "https",
+							"host": [
+								"{{qvs}}"
+							],
+							"port": "{{qvsPort}}",
+							"path": [
+								"qvs",
+								"v1",
+								"quote",
+								"sgx",
+								"verify"
+							]
+						},
+						"description": "Verifies sgx quote.\nThe serialized QuoteVerificationRequest Go struct object represents the content of the request body.\n\n | Attribute | Description |\n |-----------|-------------|\n | quote     | Sgx Quote in base64 encoding. |\n\nReturns - The serialized QuoteVerificationResponse Go struct object that was retrieved.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quote\": \"{{sgxQuote}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{qvs}}:{{qvsPort}}/qvs/v1/quote/sgx/verify",
+									"protocol": "https",
+									"host": [
+										"{{qvs}}"
+									],
+									"port": "{{qvsPort}}",
+									"path": [
+										"qvs",
+										"v1",
+										"quote",
+										"sgx",
+										"verify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Dec 2021 08:11:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"collateral_expiration_status\": false,\n    \"quote_verification_result\": 2\n}"
+						}
+					]
+				}
+			],
+			"description": "In Passport model, SKC Client presents Attestation token to KBS for verification.\n\nAfter KBS verifies attestation token, it compares the SGX attributes in attestation token against key transfer policy and releases wrapped application key to SKC Client.\n\n1.  SKC Client connects to APS using https://{{aps_server}}:5443/aps/v1/attestation-token endpoint to get Nonce.\n2.  SKC Client extracts the Nonce and attestation type from response header.\n3.  SKC Client calls Crypto-api-toolkit to generate a SGX quote using nonce.\n4.  Crypto-api-toolkit generates the SGX quote (appended with enclave public key and nonce).\n5.  SKC Client connects to APS endpoint https://{{aps_server}}:5443/aps/v1/attestation-token (passing base64 encoded quote, userdata).\n6.  APS validates the SGX quote with QVS and returns a signed Attestation Token to SKC Client.\n7.  SKC Client connects back to KBS Key Transfer endpoint https://{{kbs_server}}:9443/kbs/v1/keys/{key_id}/transfer (with Attestation Token in request body).\n8.  KBS extracts TEE type, SGX attributes (MREnclave, MRSigner, ProdID) from Attestation Token and compares them against Key Transfer Policy.\n9.  KBS extracts the enclave public key from EnclaveHeldData from Attestation Token.\n10.  KBS creates a session Key (AES Key) and wraps it with the enclave public key.\n11.  KBS wraps the Application key with the session key.\n12.  KBS sends back HTTP status 200 with json response as{ WrappedKey: \"Session key wrapped with enclave public key\" WrappedSWK: \"App key wrapped with session key\"}\n13.  SKC Client caches the Attestation Token.\n14.  Next time, when a key transfer request is received in passport mode, skc-client will check if cached attestation token has expired.\n15.  If its not expired, the Attestation Token will be presented to KBS, else the above process is repeated to get new attestation token.\n    \n\nOn SGX Compute node, Execute below commands for KBS key-transfer:\n\nNote: Before initiating key transfer make sure, PYKMIP server is running.\n\n```\n    pkill nginx\n\n```\n\nRemove any existing pkcs11 token\n\n```\n    rm -rf /opt/intel/cryptoapitoolkit/tokens/*\n\n```\n\nInitiate Key transfer from KBS\n\n```\n    systemctl restart nginx\n\n```\n\nChanging group ownership and permissions of pkcs11 token\n\n```\n    chown -R root:intel /opt/intel/cryptoapitoolkit/tokens/\n\n```\n\n```\n    chmod -R 770 /opt/intel/cryptoapitoolkit/tokens/\n\n```\n\nEstablish a tls session with the nginx using the key transferred inside the enclave\n\n```\n    wget https://localhost:2443 --no-check-certificate\n\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
