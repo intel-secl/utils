@@ -76,3 +76,13 @@ if [ "$VER" == "20.04" ]; then
 elif [ "$VER" == "18.04" ]; then
 	SGX_LIBS_REPO='deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ bionic main'
 fi
+
+#TEE Attestation Configurations
+FD_AGENT_DIR=$PWD/fd_agent
+FD_AGENT_BIN_DIR=$PWD/fd_agent/bin
+P11KIT_DEV_VERSION=0.23.14-5
+SGX_VERSION_TEE=1.10.9
+SGX_URL_TEE="http://10.105.168.247/intel-sgx/sgx-dcap/${SGX_VERSION_TEE}/linux/distro/$OS_FLAVOUR-server/"
+SGX_SDK_VERSION_TEE=2.13.90.3
+DCAP_QL_VERSION_TEE=1.10.90.3-1
+DCAP_PCE_VERSION_TEE=2.13.90.3-1

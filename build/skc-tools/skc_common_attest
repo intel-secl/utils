@@ -1,0 +1,59 @@
+bin: app skc orchestration
+
+skc_services:
+	cd intel-secl && make cms-installer && make authservice-installer && make aas-manager
+	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_tee_pre_req.sh
+	cd intel-secl-tee && make qvs-installer
+	cd intel-secl-tee && make aps-installer
+	cd intel-secl-tee && make apc-installer
+	cd intel-secl-tee && make tcs-installer
+	mkdir -p binaries/env
+	cp -pf utils/build/skc-tools/config binaries/
+	cp intel-secl/deployments/installer/*.bin binaries/
+	cp intel-secl/deployments/installer/create_db.sh binaries/
+	cp intel-secl/deployments/installer/populate-users.sh binaries/
+	cp intel-secl/tools/aas-manager/populate-users.env binaries/env
+	cp intel-secl-tee/deployments/installer/*.bin binaries/
+	cp intel-secl-tee/deployments/installer/*.env binaries/env
+	cp -pf utils/build/skc-tools/skc_scripts/env/*.env binaries/env
+	cp -pf utils/build/skc-tools/skc_scripts/env/install_pgdb.sh binaries/
+	cp -pf utils/build/skc-tools/skc_scripts/install_*.sh binaries/
+	cp -pf utils/build/skc-tools/skc_scripts/*.conf binaries/
+
+attestation: clean fd_agent skc_services
+	cp utils/build/skc-tools/common_attest/fd_agent/build_scripts/fd_agent.* binaries/
+	cp utils/build/skc-tools/common_attest/fd_agent/fd_agent_untar.sh binaries/
+
+app: attestation
+	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_dcap_addtnl_preq.sh
+	cd intel-secl-tee && make sgx-agent-installer
+	cp intel-secl-tee/deployments/installer/sgx-agent-*.bin binaries/
+
+skc: attestation skc_library
+	cd intel-secl && make kbs-installer
+	cp intel-secl/deployments/installer/kbs-*.bin binaries/
+	cp -rpf utils/build/skc-tools/kbs_script/ binaries/
+	cp utils/build/skc-tools/common_attest/skc_library/build_scripts/skc_library.* binaries/
+	cp utils/build/skc-tools/skc_library/skclib_untar.sh binaries/
+
+orchestration: attestation
+	cd intel-secl && make ihub-installer
+	cd intel-secl-tee && make fds-installer
+	cd k8s-extensions && make all
+	cp intel-secl/deployments/installer/ihub-*.bin binaries/
+	cp intel-secl-tee/deployments/installer/fds-*.bin binaries/
+	cp k8s-extensions/out/isecl-k8s-extensions-*.tar.gz binaries/
+
+clean:
+	cd intel-secl && make clean
+	cd intel-secl-tee && make clean
+	cd k8s-extensions && make clean
+	rm -rf binaries/
+
+fd_agent:
+	cd utils/build/skc-tools/common_attest/fd_agent/build_scripts/ && ./fdagent_build.sh
+	
+skc_library:
+	cd utils/build/skc-tools/common_attest/skc_library/build_scripts/ && ./skc_library_build.sh
+
+.PHONY: all clean attestation app skc orchestration fd_agent skc_library skc_services
