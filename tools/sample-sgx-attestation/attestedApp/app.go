@@ -66,7 +66,6 @@ func (a *App) Run(args []string) error {
 
 		return a.startServer()
 	}
-	return nil
 }
 
 func (a *App) configuration() *common.Configuration {

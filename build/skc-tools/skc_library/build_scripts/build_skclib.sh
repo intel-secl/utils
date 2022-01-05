@@ -15,7 +15,6 @@ build_skc_library()
                 exit 1
         fi
 
-
 	\cp -pf skc_library_v*.bin $SKCLIB_BIN_DIR
 	popd
         if [[ "$OS" == "rhel" && "$VER" == "8.1" || "$VER" == "8.2" ]]; then

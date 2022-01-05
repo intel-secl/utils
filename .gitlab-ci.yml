@@ -38,8 +38,7 @@ pcssimulator:
     - go
   script:
     - cd tools/skc-simulators/pcs_simulator
-    - go get -u github.com/gorilla/mux
-    - GOOS=linux GOSUMDB=off GOPROXY=direct go mod tidy
+    - go mod tidy
     - go build ./...
 
 sgxagentsim:

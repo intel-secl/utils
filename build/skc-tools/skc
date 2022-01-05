@@ -133,7 +133,7 @@ sgx_agent_k8s_stacks:
 skc_library_k8s_stacks:
 	cd utils/build/skc-tools/stacks/skc_library/build_scripts/ && ./build_skc_docker.sh
 
-k8s_extensions:
+k8s_extensions: 
 	cd k8s-extensions && make all
 
 k8s_common_services:
