@@ -94,20 +94,9 @@ install_skc_library_bin()
 	echo "${green} skc_library modules installed ${reset}"
 }
 
-run_post_deployment_script()
-{
-	./credential_agent.sh
-	if [ $? -ne 0 ]; then
-		echo "${red} failed to run credential agent ${reset}"
-		exit 1
-	fi
-	echo "${green} skc_library deployment successful ${reset}"
-}
-
 uninstall_skc
 install_prerequisites
 install_psw_qgl
 install_sgxssl
 install_cryptoapitoolkit
 install_skc_library_bin
-run_post_deployment_script

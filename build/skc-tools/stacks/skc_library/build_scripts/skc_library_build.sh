@@ -27,7 +27,6 @@ create_skc_library_tar()
 	\cp -pf ../../../skc_library/deploy_scripts/deployment_prerequisites.sh $SKCLIB_DIR
 	\cp -pf ../../../skc_library/deploy_scripts/skc_library.conf $SKCLIB_DIR
 	\cp -pf ../../../skc_library/deploy_scripts/create_roles.conf $SKCLIB_DIR
-        \cp -pf ../../../skc_library/deploy_scripts/credential_agent.sh $SKCLIB_DIR
 	\cp -pf ../../../skc_library/deploy_scripts/README.install $SKCLIB_DIR
 	\cp -pf ../../../config $SKCLIB_DIR
 	\cp -pf ../../../skc_library/deploy_scripts/nginx.patch $SKCLIB_DIR

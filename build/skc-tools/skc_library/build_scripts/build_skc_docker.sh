@@ -59,7 +59,6 @@ build_skc_library_docker()
         \cp -prf $SKCLIB_DIR/sgxssl ../../../../../skc_library/dist/image/
         \cp -prf ../deploy_scripts/skc_library.conf ../../../../../skc_library/dist/image/
         \cp -prf $SKCLIB_BIN_DIR ../../../../../skc_library/dist/image/
-        \cp -prf ../deploy_scripts/credential_agent.sh ../../../../../skc_library/dist/image/
         \cp -prf ../../config ../../../../../skc_library/dist/image/
 	if [ "$OS" == "rhel" ]
 	then
@@ -68,7 +67,7 @@ build_skc_library_docker()
         cd ../../../../../skc_library
         mkdir -p out
         make oci-archive || exit 1
-        rm -rf dist/image/cryptoapitoolkit dist/image/sgxssl dist/image/bin dist/image/skc_library.conf dist/image/credential_agent.sh
+	rm -rf dist/image/cryptoapitoolkit dist/image/sgxssl dist/image/bin dist/image/skc_library.conf
         popd
 }
 
