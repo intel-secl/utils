@@ -12,12 +12,12 @@ install_pre_requisites()
 	elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" || "$VER" == "20.04" ]]; then
 		$PKGMGR install -y build-essential ocaml ocamlbuild automake autoconf libtool cmake perl libcppunit-dev libssl-dev || exit 1
                 wget http://archive.ubuntu.com/ubuntu/pool/main/libt/libtasn1-6/libtasn1-6_4.16.0-2_amd64.deb || exit 1
-                wget http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi8ubuntu1_3.4~20200819gead65ca871-0ubuntu3_amd64.deb || exit 1
+                wget http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi8ubuntu1_3.4~20200819gead65ca871-0ubuntu5_amd64.deb || exit 1
                 wget http://archive.ubuntu.com/ubuntu/pool/main/p/p11-kit/libp11-kit0_0.23.22-1_amd64.deb || exit 1
                 wget http://archive.ubuntu.com/ubuntu/pool/main/p/p11-kit/libp11-kit-dev_0.23.22-1_amd64.deb || exit 1
 
                 $PKGMGR install -f -y ./libtasn1-6_4.16.0-2_amd64.deb || exit 1
-                $PKGMGR install -f -y ./libffi8ubuntu1_3.4~20200819gead65ca871-0ubuntu3_amd64.deb || exit 1
+                $PKGMGR install -f -y ./libffi8ubuntu1_3.4~20200819gead65ca871-0ubuntu5_amd64.deb || exit 1
                 $PKGMGR install -f -y ./libp11-kit0_0.23.22-1_amd64.deb || exit 1
                 $PKGMGR install -f -y ./libp11-kit-dev_0.23.22-1_amd64.deb || exit 1
 
