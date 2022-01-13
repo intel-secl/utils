@@ -117,7 +117,7 @@ echo "${green} Fetching AuthService Token for Enterprise Admin ${reset}"
 
 response=`curl -s -H "Authorization: Bearer ${BEARER_TOKEN}" -H "$CONTENT_TYPE" --cacert $CACERT_PATH \
 	-H "$ACCEPT" --data @transfer_policy_request.json  -o transfer_policy_response.json -w "%{http_code}" \
-	https://$SYSTEM_IP:$KBS_PORT/v1/key-transfer-policies 2>transfer_policy_debug.log`
+	https://$SYSTEM_IP:$KBS_PORT/kbs/v1/key-transfer-policies 2>transfer_policy_debug.log`
 if [ $? -ne 0 ] || [ $response -ne 201 ]; then
 	echo "${red} Failed to Create Key Transfer Policy ${reset}"
 exit 1
@@ -167,7 +167,7 @@ fi
 
 response=`curl -s -H "Authorization: Bearer ${BEARER_TOKEN}" -H "$CONTENT_TYPE" --cacert $CACERT_PATH \
     -H "$ACCEPT" --data @key_request.json -o key_response.json -w "%{http_code}" \
-    https://$SYSTEM_IP:$KBS_PORT/v1/keys 2>key_debug.log`
+    https://$SYSTEM_IP:$KBS_PORT/kbs/v1/keys 2>key_debug.log`
 if [ $? -ne 0 ] || [ $response -ne 201 ]; then
 	echo "${red} Failed to Create a Key ${reset}"
 	exit 1
