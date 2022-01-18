@@ -1,12 +1,10 @@
-TARGETS = k8s-extensions trust-agent
-INTEL_SECL_K8S = authservice cms ihub hvs
+INTEL_SECL_K8S = authservice cms ihub hvs tagent
 
-binaries: clean download-eca $(TARGETS) intel-secl
+binaries: clean download-eca intel-secl
 	mkdir binaries
 	cp intel-secl/deployments/installer/*.bin binaries/
 	cp intel-secl/deployments/installer/*.sh binaries/
-	cp trust-agent/out/*.bin binaries/
-	cp k8s-extensions/out/isecl-k8s-extensions-v*.tar.gz binaries/
+	cp intel-secl/installer/isecl-k8s-extensions-v*.tar.gz binaries/
 	cp -r intel-secl/tools/download-tls-certs.sh binaries/
 
 k8s: k8s_common
@@ -32,7 +30,7 @@ k8s-aio: k8s_common
 	cp intel-secl/deployments/k8s/aas/populate-users k8s/manifests/aas/scripts/
 	cp intel-secl/deployments/k8s/aas/populate-users.env k8s/manifests/aas/scripts/populate-users.env
 
-k8s_common: clean $(INTEL_SECL_K8S) k8s-extensions tagent_k8s
+k8s_common: clean $(INTEL_SECL_K8S)
 	mkdir -p k8s/binaries
 	mkdir -p k8s/container-images
 	mkdir -p k8s/manifests
@@ -47,10 +45,6 @@ k8s_common: clean $(INTEL_SECL_K8S) k8s-extensions tagent_k8s
 	cp -r utils/build/workload-security/k8s/ta k8s/manifests/ta
 	cp k8s-extensions/out/isecl-k8s-extensions/*.tar k8s/container-images/
 	cp intel-secl/deployments/container-archive/oci/* k8s/container-images/
-	cp trust-agent/out/*.tar k8s/container-images/
-
-tagent_k8s:
-	cd trust-agent && make oci-archive
 
 $(INTEL_SECL_K8S):
 	cd intel-secl && make $@-k8s
@@ -59,7 +53,7 @@ k8s-extensions:
 	cd k8s-extensions && make
 
 intel-secl:
-	cd $@ && make cms-installer && make authservice-installer && make aas-manager && make download-eca && make hvs-installer && make ihub-installer
+	cd $@ && make cms-installer && make authservice-installer && make aas-manager && make download-eca && make hvs-installer && make ihub-installer && make tagent-installer && make isecl-k8s-extensions-installer
 
 clean: $(patsubst %, %-clean, $(TARGETS))
 	rm -rf binaries/
@@ -68,10 +62,7 @@ clean: $(patsubst %, %-clean, $(TARGETS))
 download-eca:
 	cd intel-secl && make download-eca && cd -
 
-$(TARGETS):
-	cd $@ && make installer
-
 %-clean:
 	cd $* && make clean
 
-.PHONY: all clean $(TARGETS) intel-secl
+.PHONY: all clean intel-secl

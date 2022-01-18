@@ -43,13 +43,12 @@ skc: attest skc_library
 	cp utils/build/skc-tools/skc_library/skclib_untar.sh binaries/
 
 orchestrator: attest
-	cd intel-secl && make ihub-installer
+	cd intel-secl && make ihub-installer && make isecl-k8s-extensions-installer
 	cd sgx-hvs && make installer
-	cd k8s-extensions && make all
 	cp intel-secl/deployments/installer/ihub-*.bin binaries/
 	cp sgx-hvs/out/*.bin binaries/
 	cp sgx-hvs/dist/linux/shvs.env binaries/env
-	cp k8s-extensions/out/isecl-k8s-extensions-*.tar.gz binaries/
+	cp intel-secl/installer/isecl-k8s-extensions-v*.tar.gz binaries/
 
 k8s-aio: k8s_common
 	cp -r utils/build/k8s-manifests/db-deployments/single-node/aas-db k8s/manifests/
@@ -103,7 +102,6 @@ clean:
 	cd sgx-verification-service && make clean
 	cd sgx_agent && make clean
 	cd sgx-hvs && make clean
-	cd k8s-extensions && make clean
 	rm -rf binaries/
 	rm -rf k8s/
 
@@ -119,7 +117,7 @@ skc_k8s:
 	cd sgx-verification-service && make k8s
 
 intel_secl_k8s:
-	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s
+	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make isecl-k8s-extensions-k8s
 
 sgx_agent_k8s:
 	cd utils/build/skc-tools/sgx_agent/build_scripts/ && ./build_sgx_agent_docker.sh
@@ -132,9 +130,6 @@ sgx_agent_k8s_stacks:
 
 skc_library_k8s_stacks:
 	cd utils/build/skc-tools/stacks/skc_library/build_scripts/ && ./build_skc_docker.sh
-
-k8s_extensions: 
-	cd k8s-extensions && make all
 
 k8s_common_services:
 	mkdir -p k8s/container-images
@@ -160,19 +155,18 @@ k8s_common_services:
 	cp -r intel-secl/deployments/container-archive/oci/*.tar k8s/container-images/
 	mkdir -p k8s/manifests/aas/scripts
 	cp -r utils/build/skc-tools/kbs_script k8s/manifests/kbs/
-	cp k8s-extensions/out/isecl-k8s-extensions/*.tar k8s/container-images/
 	cp sgx-caching-service/out/*.tar k8s/container-images/
 	cp sgx-verification-service/out/*.tar k8s/container-images/
 	cp sgx-hvs/out/*.tar k8s/container-images/
 	cp sgx_agent/out/*.tar k8s/container-images/
 	cp skc_library/out/*.tar k8s/container-images/
 
-k8s_common: clean intel_secl_k8s skc_k8s k8s_extensions sgx_agent_k8s skc_library_k8s app k8s_common_services
+k8s_common: clean intel_secl_k8s skc_k8s sgx_agent_k8s skc_library_k8s app k8s_common_services
 	cp utils/build/skc-tools/sample_apps/build_scripts/sample_apps.* k8s/sample_apps/
 	cp -r utils/build/skc-tools/sgx_agent/build_scripts/sgx_agent.* k8s/platform-dependencies/
 	cp -r utils/build/skc-tools/sgx_agent/deploy_scripts/agent_container_prereq.sh k8s/platform-dependencies/
 
-k8s_common_stacks: clean intel_secl_k8s skc_k8s k8s_extensions sgx_agent_k8s_stacks skc_library_k8s_stacks app_stacks k8s_common_services
+k8s_common_stacks: clean intel_secl_k8s skc_k8s sgx_agent_k8s_stacks skc_library_k8s_stacks app_stacks k8s_common_services
 	cp utils/build/skc-tools/stacks/sample_apps/build_scripts/sample_apps.* k8s/sample_apps/
 	cp -r utils/build/skc-tools/stacks/sgx_agent/build_scripts/sgx_agent.* k8s/platform-dependencies/
 	cp -r utils/build/skc-tools/stacks/sgx_agent/deploy_scripts/agent_container_prereq.sh k8s/platform-dependencies/
@@ -200,12 +194,12 @@ skc_stacks: attest_stacks skc_library_stacks
 	cp utils/build/skc-tools/skc_library/skclib_untar.sh binaries/
 
 orchestrator_stacks: attest_stacks
-	cd intel-secl && make ihub-installer
+	cd intel-secl && make ihub-installer && make isecl-k8s-extensions-installer
 	cd sgx-hvs && make installer
-	cd k8s-extensions && make all
 	cp intel-secl/deployments/installer/ihub-*.bin binaries/
 	cp sgx-hvs/out/*.bin binaries/
 	cp sgx-hvs/dist/linux/shvs.env binaries/env
-	cp k8s-extensions/out/isecl-k8s-extensions-*.tar.gz binaries/
+	cp intel-secl/installer/isecl-k8s-extensions-v*.tar.gz binaries/
+
 
 .PHONY: all clean attest app skc orchestrator sgx_agent skc_library skc_services attest_stacks app_stacks skc_stacks orchestrator_stacks sgx_agent_stacks skc_library_stacks

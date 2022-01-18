@@ -37,17 +37,15 @@ skc: attestation skc_library
 	cp utils/build/skc-tools/skc_library/skclib_untar.sh binaries/
 
 orchestration: attestation
-	cd intel-secl && make ihub-installer
+	cd intel-secl && make ihub-installer && make isecl-k8s-extensions-installer
 	cd intel-secl-tee && make fds-installer
-	cd k8s-extensions && make all
 	cp intel-secl/deployments/installer/ihub-*.bin binaries/
 	cp intel-secl-tee/deployments/installer/fds-*.bin binaries/
-	cp k8s-extensions/out/isecl-k8s-extensions-*.tar.gz binaries/
+	cp intel-secl/installer/isecl-k8s-extensions-v*.tar.gz binaries/
 
 clean:
 	cd intel-secl && make clean
 	cd intel-secl-tee && make clean
-	cd k8s-extensions && make clean
 	rm -rf binaries/
 
 fd_agent:

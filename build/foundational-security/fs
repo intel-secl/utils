@@ -1,11 +1,9 @@
-TARGETS = trust-agent
-INTEL_SECL_K8S = authservice cms hvs
+INTEL_SECL_K8S = authservice cms hvs tagent
 
-binaries: clean $(TARGETS) intel-secl
+binaries: clean intel-secl
 	mkdir binaries
 	cp intel-secl/deployments/installer/*.bin binaries/
 	cp intel-secl/deployments/installer/*.sh binaries/
-	cp trust-agent/out/*.bin binaries/
 
 k8s: k8s_common k8s_ta
 	cp -r intel-secl/deployments/k8s/* k8s/manifests/
@@ -23,8 +21,7 @@ k8s-aio: k8s_common k8s_ta
 	cp -r utils/build/workload-security/k8s/isecl-bootstrap.sh k8s/manifests/isecl-bootstrap.sh
 	cp -r utils/build/workload-security/k8s/hvs k8s/manifests/
 
-k8s_ta: tagent_k8s
-	cp trust-agent/out/*.tar k8s/container-images/
+k8s_ta:
 	cp -r utils/build/workload-security/k8s/ta k8s/manifests/ta
 
 k8s_common: clean $(INTEL_SECL_K8S)
@@ -41,12 +38,9 @@ k8s_common: clean $(INTEL_SECL_K8S)
 	mv k8s/manifests/aas/populate-users.env k8s/manifests/aas/scripts/
 	mv k8s/manifests/download-tls-certs.sh k8s/manifests/nats/download-nats-tls-certs.sh
 
-tagent_k8s:
-	cd trust-agent && make k8s
-
-k8s-control-plane: clean k8s_common $(TARGETS)
+k8s-control-plane: clean k8s_common
 	mkdir k8s/binaries
-	cp trust-agent/out/*.bin k8s/binaries/
+	cp intel-secl/deployments/installer/tagent*.bin binaries/
 	cp -r intel-secl/deployments/k8s/* k8s/manifests/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/ws/hvs-db k8s/manifests/
@@ -57,16 +51,9 @@ $(INTEL_SECL_K8S):
 	cd intel-secl && make $@-k8s
 
 intel-secl:
-	cd $@ && make cms-installer && make authservice-installer && make aas-manager && make download-eca && make hvs-installer && make ihub-installer
+	cd $@ && make cms-installer && make authservice-installer && make aas-manager && make download-eca && make hvs-installer && make ihub-installer && make tagent-installer
 
-clean: $(patsubst %, %-clean, $(TARGETS))
-	rm -rf binaries/
-	rm -rf k8s
+clean:
+	cd intel-secl && make clean
 
-$(TARGETS):
-	cd $@ && make installer
-
-%-clean:
-	cd $* && make clean
-
-.PHONY: all clean $(TARGETS) intel-secl
+.PHONY: all clean intel-secl
