@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "121fb891-f7d6-406a-a7cc-b097f8472454",
+		"_postman_id": "f2e76df7-f8a1-46b0-b124-068be7c85643",
 		"name": "SGX Attestation - Background Mode",
 		"description": "The TEE Attestation infrastructure provides an end to end support for registering SGX/TDX enabled hosts and provisioning them with SGX material (PCK certificates) and SGX/TDX collateral (security patches information - TCB Information - and Certificate Revocation Lists - CRLs).\n\nThe TEE Attestation infrastructure also provides support for generating SGX quotes for SGX enclaves hosted by workloads and verifying them by a remote attesting application. The remote attesting application can also use the TEE Attestation infrastructure to enforce enclave policies (like requiring a specific enclave signer).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -566,13 +566,126 @@
 					]
 				},
 				{
-					"name": "createGlobalAdminToken",
+					"name": "createGlobalAdminTokenCsp",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"bearerTokenGlobalAdminUser\", pm.response.text());"
+									"pm.environment.set(\"bearerTokenGlobalAdminUserCsp\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{globaladminUser}}\",\r\n    \"password\": \"{{globaladminPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aasCsp}}"
+							],
+							"port": "{{aasPortCsp}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{globaladminUser}}\",\r\n    \"password\": \"{{globaladminPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aasCsp}}"
+									],
+									"port": "{{aasPortCsp}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 19 Jan 2022 09:08:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1402"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjUzZTM3NWQzOGZiZmQ3MzQxM2U4YmI0N2Y0YjU5NjViMTJhZTM0OTkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiQVBTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJGRFMiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9LHsic2VydmljZSI6IktCUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiUVZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJUQ1MiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9XSwicGVybWlzc2lvbnMiOlt7InNlcnZpY2UiOiJBQVMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJBUFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJGRFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJLQlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJRVlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJUQ1MiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTY0MjU5MDUyNywiaWF0IjoxNjQyNTgzMjk3LCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTY0MjU4MzI5Nywic3ViIjoiZ2xvYmFsX2FkbWluX3VzZXIifQ.pfPLQ4_9IGBQm-U7lZCNj4UOLkTrOFnNflabpxG6NKGxENkX7f_wHe-UY7uXhapXR4bvJRZKvVKJEmoFv7MqvnOCuu-lo_efHumJpPAri4IOtKqJ9EiYDDmBMyEm2VTK4azvBwwqY-QBdo2KwVFp2d8Innh2lUQfCvZcgi5Q6yUSxKa9oQoS_eKcYh9mA9n2u4DWhu2tUxFyDLs5vsU0dcUiQBmL3b-JKkNrYuDVp06jbP0xvWMCDC5EuElSaavm9DMz8vZbuws85rEME7AC1mzfLpmaDxsucY29xNiseZTKz1EkMa_OO1vETvImoyfEdUwCAwHvF6X7bmiA_nsBeHeaa6RWixJZLg2gq6urcJf7wSt-S1uD3Cix5_Jps2pKyzVj34eQblGeOo2VIgwFNaAACumb62fms3trzsb30LvkUnR4PiUDOQS_g7hxfI21RJS5qc7xhtjpK4P89yVoSpsQCcBuXZJFkHanL_B9ARtMBLKAtsmxGUcNMy76glPA"
+						}
+					]
+				},
+				{
+					"name": "createGlobalAdminTokenEnt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenGlobalAdminUserEnt\", pm.response.text());"
 								],
 								"type": "text/javascript"
 							}
@@ -666,15 +779,15 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 07:11:45 GMT"
+									"value": "Wed, 19 Jan 2022 09:03:44 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "1402"
+									"value": "1299"
 								}
 							],
 							"cookie": [],
-							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiRkRTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJLQlMiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9LHsic2VydmljZSI6IkFQUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiUVZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJUQ1MiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9XSwicGVybWlzc2lvbnMiOlt7InNlcnZpY2UiOiJBQVMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJBUFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJGRFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJLQlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJRVlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJUQ1MiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTYzODg2ODMwNCwiaWF0IjoxNjM4ODYxMDc0LCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTYzODg2MTA3NCwic3ViIjoiZ2xvYmFsX2FkbWluX3VzZXIifQ.EBIlCjbPQKRoPV2PwzA4qaMbVPLgrKr8VGT3g-z7_sYpAUx8u0kyjEDKtpwYg1ZdXgYCZb7zo9YfMukfSyXAAu1P7xP0SMwzSo6DhDpvXn1Ywz5SqTsHRNs-FLtUmNh_yMEhlvzTekXegY6wk9OaAXK0vR1QYa_s2kH9-opqvao_NzM9jPTsQWip3jaDdtC9BuQsA2BraLXmoeCB50MPkxCxHRz5oMGykNYaUczmevewIYH2b1c-Ur5Z-yGIZ1g9r-Y6gVuUK9HMECJ8eAdQR5vsTc7v2u3sr1UJR5A2mckpVDwhAeKskQwmphY27W-eQ7VeBN01Mt1DPhkEqIRCrK8KySnqo6xCjsVljKKCCYo3d36r6sdX3I99NT2Y8mdhBXbVFfojpmvYbNVhfJ5xETekGbpV5KkCZvaXK-MSGTV890moKr12djHUIK919pLgpEIfbEVCy9r_ZcBJyAor-Z4ukz9otPtKhHP0KcrRzZj1OLVpJr_vE149ROlOE4-q"
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImI2OTM5N2Q4ZDY4OGFjMTY4NzUxNDBkZTBiMjk4N2FmYzUzZTIzZGUiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiS0JTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJBUFMiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9LHsic2VydmljZSI6IlFWUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiVENTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifV0sInBlcm1pc3Npb25zIjpbeyJzZXJ2aWNlIjoiQUFTIiwicnVsZXMiOlsiKjoqOioiXX0seyJzZXJ2aWNlIjoiQVBTIiwicnVsZXMiOlsiKjoqOioiXX0seyJzZXJ2aWNlIjoiS0JTIiwicnVsZXMiOlsiKjoqOioiXX0seyJzZXJ2aWNlIjoiUVZTIiwicnVsZXMiOlsiKjoqOioiXX0seyJzZXJ2aWNlIjoiVENTIiwicnVsZXMiOlsiKjoqOioiXX1dLCJleHAiOjE2NDI1OTAyMjQsImlhdCI6MTY0MjU4Mjk5NCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NDI1ODI5OTQsInN1YiI6Imdsb2JhbF9hZG1pbl91c2VyIn0.E8HmQGJGBECje1BCksv8xabJc6eWCRTH0LzSHillQrUnCS4L8uMCGkl5DGbJ3YdXpHcQr-MENQXWeeFWQzcyMTIlOOVYELZg3HCx_IAJueZWdfisBtjw5-Nkc0FpJDg1UkdGfjANS_Ch3SKKv2SZzZ2q8f0z5n3MV-ANEsiNcQjs8ee9HFDhn0WeNx2rIkwJpCGm3-PvaeSLe0PGfdMiyjCErGTHTPqRlgznjrMttFuCOem6f6hPjhrQWsZ_NSILFA7eqPRPi8S8-e2-LluF7jkAPcgK9oowoJjfvIKGxe_H4aF_J1Ggmv7VHHfiAKKepgbDTs7X3uaZto96XZVsoJD6IHDfdA9Nn56tJwwblTskUmRo8n8Qpjw0tW9So12JlZ9rglqFqpy1adydk3FiDc_pI8o42v_4UmbEnjQgYKHkNy5IOThsjkTY-tENX7GCJL7G_0nzkCMRcuV44LMKYbO6OujMkaGrxwLrmbJeHiZzkWdS51wZSvsS525lK8w1"
 						}
 					]
 				},
@@ -705,7 +818,7 @@
 								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer {{bearerTokenGlobalAdminUser}}"
+								"value": "Bearer {{bearerTokenGlobalAdminUserCsp}}"
 							},
 							{
 								"key": "Accept",
@@ -746,7 +859,7 @@
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}"
+										"value": "Bearer {{bearerTokenGlobalAdminUserCsp}}"
 									},
 									{
 										"key": "Accept",
@@ -782,7 +895,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 07:21:54 GMT"
+									"value": "Wed, 19 Jan 2022 09:05:18 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -790,7 +903,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2Mzg5NDgxMTQsImlhdCI6MTYzODg2MTY4NCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2Mzg4NjE2ODQsInN1YiI6Ijg4ODg4ODg4LTg4ODctMTMxNS0wYjA4LTMzMDlhNWE1YTVhNSJ9.ephbhAcQ8VzIsuW6Mmn_xaDa2X6AKyVlGSOBzTb9-MGNZ_cOwaMa-6ZWKfNUSvYRJELKrXA0aHx5_7W_orXLTf4N2XTH8pYYkE06zTpmVsLTRAsMNk-ACyNCxDbhgR4kqIPJYgBn6OmWvPkEncO3ICYssOLc3Bawkw8-Bo8JRI1q2P33nw7lWxpjH_kM2_6emGoUey6ipifjcz5rAZLF96alWP1MlNo3l3XTUBTP4gKVM1X2WTQ9WnQjA2askuzsa11ek8zVncuaptl1vvckzqLVrvsx5iyIJggSFlJhBR81PIpN63-l7wgnl--eBapIsk-pSpheGjVruWBnHl9pgoL24OAEP3WdUFC2e0bH438wZMsNdiBp3drHLNA7Ff6sfQrDf32O1AUUmmeWe-qCTXHjydhSIuMpwxgCZrmpAQ0IwhwuXJBpbOg8Kdj6X87XYvkX64jfgTTZXgHwjxARYZi7ibgFtuWXk1THlWWixTEfin06b0zHM0gsoj35MEt6"
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjUzZTM3NWQzOGZiZmQ3MzQxM2U4YmI0N2Y0YjU5NjViMTJhZTM0OTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2NDI2Njk1MTgsImlhdCI6MTY0MjU4MzA4OCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NDI1ODMwODgsInN1YiI6Ijg4ODg4ODg4LTg4ODctMWExNS0wYTA0LTJmMzJhNWE1YTVhNSJ9.c4DYsDVjgP7NW4K9wEnjM6G-WwXVbCbPyTnjAWmklnudj6l6C6a9ydc6OtoYeQWxa-EXhCOOGZWikVht6nOcFYhPfUwUNLKGRIguaJI6-DO44r_I2qP7cSbCZXyMQJ0veYygnjuGthe7SW212r55ZzS-6UryBh87UJzzIOaTbFPxGE1eF0jZK_W3lFtt_qNaw53ch1RZWuyfmN2b7WPwlfNh-hccjhYc2xgmdG1pUeY-dG64zotyTvKsRXJjrgMJEwjSIiDf9uiePyfWYOsTTcQySOK0oAaG6fj_Po2PzbTuovvChiCLx2AcT1xC3Sb6-MsQAa8DDbpqiWbtE3Fj62Huu3wTeh8axcAqyowjFbvYIodn_aUWe9ePGgdtHx_stGFyroN5geSzi7URCDWOLcrdq65IT2vLt44fCIPLSawbI8rQ-snoSsSZ8RB4hJ3E2mStSksQSANr-3AxM3RnNrCwDQK2iA2fIRJZ4Oo2J4oSKSq-M9cxMcFwZ2EHtxKW"
 						}
 					]
 				},
@@ -822,7 +935,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 								"type": "text"
 							}
 						],
@@ -868,7 +981,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 										"type": "text"
 									}
 								],
@@ -905,7 +1018,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 22 Dec 2021 10:50:14 GMT"
+									"value": "Wed, 19 Jan 2022 09:04:34 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -913,7 +1026,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3siY29udGV4dCI6Im5naW54Iiwic2VydmljZSI6IktCUyJ9XSwiZXhwIjoxNjcxNzA2MjE0LCJpYXQiOjE2NDAxNzAxODQsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjQwMTcwMTg0LCJzdWIiOiJzZ3hfdXNlciJ9.YyEKVQM3zHvYuIeymtjFgE8HyUl4hZJ6g9MfMJGAONZUHhnHviKz5ulB0Px28qm3LYFQvoAYJ5L6BvQcGx-9QRW7IHLR3HGrG0Op1x6pmbq0ssRdEg2M_7nlWooPv7EZ-KYXXJ_ayK8dhOXSyjw2Pu4zPur0ASiNUnuloyMpzE-_9WzEVNdrsA9K_qdEv6S96NasoQcj4fU7TJi4pbfc6iEtorXy5nkVVJPbXwSLC0sOE70M6maJEyldnN9sKlXNsKrDof41wMsb1CQWvaXMn1rCqrD7ybMWdkA5C3ixpUpQsSznfAzYdVBz63E4ntO0pKW_bM_frYZ19h-93FfyqNnXGQNeFUgH0_mnuR3zDeHxlIB2i8HsnhYGGYevzmefkkavpvSXX47FHNYpm5_v6Ex4KuTvKskvrYx9Lx5AreEVyvzhhOxEoVigcRun__Ai_pmageo-yPM7uXcRHh4T4GBZIFh4EpPMVa_DtV51f5oP9rCpeKsyo3zE8yaVuY41"
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImI2OTM5N2Q4ZDY4OGFjMTY4NzUxNDBkZTBiMjk4N2FmYzUzZTIzZGUiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3siY29udGV4dCI6Im5naW54Iiwic2VydmljZSI6IktCUyJ9XSwiZXhwIjoxNjc0MTE5MDc0LCJpYXQiOjE2NDI1ODMwNDQsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjQyNTgzMDQ0LCJzdWIiOiJzZ3hfdXNlciJ9.z4w4iXuHlwCAn_CfadKQt5vxtSu50m9i4MxLWk5Af3AITMZFa3MIQqDAYGzVVO3ycaXzZ0CN0ca8cpuxPWKc5vI1kdnZ11rTN1a9UEtFNwzUsk5_7l58GRM8dRLU8xpvdIeUMv5Y8z_UaB3mMttvBcezIjA5wi03CsHb7FzniXCqjdMaxWHCvezX5Jz-qslnM8LI3awGOAR4Uz-3vYZf_Wk7WV180n3m07CSlbVVX5T1I1bdW7kM2nu-Je1y7yzAWPZXHIIWLvXpAKGzO5BdIXNnFf2acnu4ILAW424kTfPhCvl229eivPZupuFvL3_TXxB8DPueAPXxfRKZIiiWMCHTqv-SMj_BRGaw9KrkWPzHPkpASN-ZIhMIqzVdWpuJyHeFEMAQLKfMJxXodleGZJrvva_hgp2YZGSjbVA_HMBUvrFrmrw_s9VW9JXuUHXnS8ABBajKTFnmFmS3t8qe0B_9cQtdIiNEcWY0_NkWho641DED-U-GFbhqlQxWEHzk"
 						}
 					]
 				}
@@ -1657,7 +1770,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"value": "Bearer {{bearerTokenGlobalAdminUserCsp}}",
 								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 								"type": "text"
 							},
@@ -1698,7 +1811,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer {{bearerTokenGlobalAdminUserCsp}}",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									},
@@ -1723,12 +1836,6 @@
 									],
 									"query": [
 										{
-											"key": "type",
-											"value": "certs",
-											"description": "Type of collateral to be refreshed. Supported type is \"certs\".",
-											"disabled": true
-										},
-										{
 											"key": "fmspc",
 											"value": "{{fmspc}}",
 											"description": "Comma separated fmspc values for which PCK certs needs to be refreshed."
@@ -1746,7 +1853,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 07:23:19 GMT"
+									"value": "Wed, 19 Jan 2022 09:05:53 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -1810,7 +1917,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									}
@@ -1858,7 +1965,7 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+												"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 												"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 												"type": "text"
 											}
@@ -1896,7 +2003,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 07 Dec 2021 05:58:19 GMT"
+											"value": "Wed, 19 Jan 2022 09:06:14 GMT"
 										},
 										{
 											"key": "Content-Length",
@@ -1904,7 +2011,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"id\": \"392a9c3d-b60c-4ace-944b-73c9e21d4e4c\",\n    \"created_at\": \"2021-12-07T05:58:19.054593701Z\",\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"d767e303208c8a274a395d58a26cd4a14372cf67291d0ab34f6f64255cfc4586\"\n            ],\n            \"isvsvn\": 0,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}"
+									"body": "{\n    \"id\": \"dd9df60c-a00e-4dee-90a6-72f96d1fc4df\",\n    \"created_at\": \"2022-01-19T09:06:14.609572384Z\",\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"d767e303208c8a274a395d58a26cd4a14372cf67291d0ab34f6f64255cfc4586\"\n            ],\n            \"isvsvn\": 0,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}"
 								}
 							]
 						},
@@ -1940,7 +2047,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									}
@@ -1988,7 +2095,7 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+												"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 												"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 												"type": "text"
 											}
@@ -2026,15 +2133,15 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 07 Dec 2021 06:12:10 GMT"
+											"value": "Wed, 19 Jan 2022 09:06:32 GMT"
 										},
 										{
 											"key": "Content-Length",
-											"value": "329"
+											"value": "330"
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"key_information\": {\n        \"id\": \"93b4edeb-b77d-4148-8403-68fabe154a7f\",\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"12\"\n    },\n    \"transfer_policy_id\": \"392a9c3d-b60c-4ace-944b-73c9e21d4e4c\",\n    \"transfer_link\": \"https://10.80.207.79:9443/kbs/v1/keys/93b4edeb-b77d-4148-8403-68fabe154a7f/transfer\",\n    \"created_at\": \"2021-12-07T06:12:10.929639625Z\"\n}"
+									"body": "{\n    \"key_information\": {\n        \"id\": \"f6042619-0b94-4bb1-9056-3928862e2891\",\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"138\"\n    },\n    \"transfer_policy_id\": \"dd9df60c-a00e-4dee-90a6-72f96d1fc4df\",\n    \"transfer_link\": \"https://10.80.207.55:9443/kbs/v1/keys/f6042619-0b94-4bb1-9056-3928862e2891/transfer\",\n    \"created_at\": \"2022-01-19T09:06:32.656271972Z\"\n}"
 								}
 							]
 						}
@@ -2066,7 +2173,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									}
@@ -2109,7 +2216,7 @@
 											},
 											{
 												"key": "Authorization",
-												"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+												"value": "Bearer {{bearerTokenGlobalAdminUserEnt}}",
 												"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 												"type": "text"
 											}
@@ -2144,7 +2251,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Tue, 07 Dec 2021 07:21:00 GMT"
+											"value": "Wed, 19 Jan 2022 09:07:11 GMT"
 										},
 										{
 											"key": "Content-Length",
