@@ -117,7 +117,7 @@ skc_k8s:
 	cd sgx-verification-service && make k8s
 
 intel_secl_k8s:
-	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make isecl-k8s-extensions-k8s
+	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make isecl-k8s-extensions-installer
 
 sgx_agent_k8s:
 	cd utils/build/skc-tools/sgx_agent/build_scripts/ && ./build_sgx_agent_docker.sh
