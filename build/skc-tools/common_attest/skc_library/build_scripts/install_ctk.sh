@@ -31,7 +31,7 @@ check_prerequisites()
         fi
 
 	if [ "$OS" == "rhel" ]; then
-                rpm -q p11-kit-devel | grep $P11KIT_DEV_VERSION
+                rpm -q p11-kit-devel | grep -e "0.23.1[4-9]-*\|0.2[3-9].[2-9][0-9]-*"
                 if [ $? -ne 0 ]; then
                         echo "${red} p11-kit-devel-$P11KIT_DEV_VERSION is required for building cryptokit ${reset}"
                         exit 1

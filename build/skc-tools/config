@@ -17,6 +17,7 @@ OS_FLAVOUR="$OS""$VER"
 if [ $OS == "rhel" ]; then
 	PKGMGR=dnf
 	LIB_DIR=/usr/lib64
+	OS_FLAVOUR="$OS"8.2
 else
 	PKGMGR=apt
 	LIB_DIR=/usr/lib
