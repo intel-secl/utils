@@ -77,8 +77,7 @@ Usecase and Playbook Support on RHEL
 | -------------------------------------------------- | ---------------- |
 | Host Attestation                                   | Yes              |
 | Data Fencing and Asset Tags                        | Yes              |
-| Trusted Workload Placement                         | Yes(partial*)    |
-| Application Integrity                              | Yes              |
+| Trusted Workload Placement                         | Yes(partial*)    |                             
 | Launch Time Protection - VM Confidentiality        | Yes(partial*)    |
 | Launch Time Protection - Container Confidentiality with CRIO runtime | Yes(partial*)    |
 | Secure Key Caching                                 | Yes              |
@@ -142,7 +141,6 @@ The following usecases are supported and the respective variables can be provide
 | Usecase                                            | Variable                                                     |
 | -------------------------------------------------- | ------------------------------------------------------------ |
 | Host Attestation                                   | `setup: host-attestation` in playbook or via `--extra-vars` as `setup=host-attestation` in CLI |
-| Application Integrity                              | `setup: application-integrity` in playbook or via `--extra-vars` as `setup=application-integrity` in CLI |
 | Data Fencing & Asset Tags                          | `setup: data-fencing` in playbook or via `--extra-vars` as `setup=data-fencing` in CLI |
 | Trusted Workload Placement - VM            | `setup: trusted-workload-placement-vm` in playbook or via `--extra-vars` as `setup=trusted-workload-placement-vm` in CLI |
 | Trusted Workload Placement - Containers            | `setup: trusted-workload-placement-containers` in playbook or via `--extra-vars` as `setup=trusted-workload-placement-containers` in CLI |
@@ -162,15 +160,6 @@ The ISecL services and scripts required w.r.t each use case is as follows. The b
 > **Note**: The DB installation done as part of this role using `Bootstrap Database` task is a local installation and not a remote DB installation.
 
 **Host Attestation**
-
-1. Certificate Management Service
-2. Bootstrap Database (scripts)
-3. Authentication & Authorization Service
-4. Populate Users (scripts)
-5. Host Verification Service
-6. Trust Agent
-
-**Application Integrity**
 
 1. Certificate Management Service
 2. Bootstrap Database (scripts)

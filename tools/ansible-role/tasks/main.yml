@@ -3,7 +3,7 @@
   when: ansible_os_family == 'RedHat'
 
 # setup: host-attestation/application-integrity and isecl_role: csp
-- name: ISECL - SETUP PREREQUISITES | Set required CSP facts for host-attestation/application-integrity usecase
+- name: ISECL - SETUP PREREQUISITES | Set required CSP facts for host-attestation usecase
   set_fact:
     cms: "{{ ansible_default_ipv4.address }}"
     cms_hostname: "{{ ansible_fqdn }}"
@@ -18,11 +18,11 @@
       - '"CSP" in groups'
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - isecl_role == 'csp'
-      - (setup == 'host-attestation' or setup == 'application-integrity')
+      - setup == 'host-attestation'
 
 
 # os: Redhat and setup: host-attestation/application-integrity and isecl_role: csp
-- name: ISECL - SETUP | Install CSP services for host-attestation/application-integrity usecase
+- name: ISECL - SETUP | Install CSP services for host-attestation usecase
   include: "{{ item }}"
   loop:
       - install_cms.yml
@@ -35,7 +35,7 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - ansible_os_family == 'RedHat'
       - isecl_role == 'csp'
-      - (setup == 'host-attestation' or setup == 'application-integrity')
+      - setup == 'host-attestation'
 
 
 # os: Redhat and setup: data-fencing & asset tags and isecl_role: csp
@@ -209,7 +209,7 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Node']) 
       - ansible_os_family == 'RedHat' 
       - isecl_role == 'node'
-      - (setup == 'host-attestation' or setup == 'application-integrity' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio' or setup == 'trusted-workload-placement-containers' or setup == 'trusted-workload-placement-vm' or setup == 'data-fencing') 
+      - (setup == 'host-attestation' or setup == 'workload-conf-vm' or setup == 'workload-conf-containers-crio' or setup == 'trusted-workload-placement-containers' or setup == 'trusted-workload-placement-vm' or setup == 'data-fencing') 
 
 
 # os: Redhat and setup: workload-conf-containers-crio and isecl_role: node

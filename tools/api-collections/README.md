@@ -10,7 +10,6 @@ One click Postman API Collections for Intel® SecL-DC use-cases.
 | Foundational Security  | Host Attestation(RHEL & VMWARE)                              | ✔️                  |
 |                        | Data Fencing  with Asset Tags(RHEL & VMWARE)                 | ✔️                  |
 |                        | Trusted Workload Placement (VM & Containers)  | ✔️ |
-|                        | Application Integrity                         | ✔️                  |
 | Launch Time Protection | VM Confidentiality                            | ✔️                  |
 |                        | Container Confidentiality with CRIO Runtime   | ✔️                  |
 | SGX Attestation Infra & Secure Key Caching | Secure Key Caching | ✔️ |
