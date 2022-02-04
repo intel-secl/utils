@@ -1,0 +1,43 @@
+Pre-requisite for the FD Agent Deployment
+==========================================
+ - SGX and FLC Enabled in BIOS
+ - RHEL 8.2/8.4 OS
+
+RHEL8 package Requirements
+==========================
+Following RHEL 8 repositories should be setup and available (/etc/yum.repos.d) to download and resolve SKC package dependencies
+	BaseOS
+	AppStream
+	CodeReady
+- Ensure CSP side server/VM IP addresses are added to the no_proxy environment variable
+
+- Turn off Firewall service or ensure that the FDS system can access the machine where FD Agent is running
+# systemctl stop firewalld
+
+- Ensure that the system date is properly setup (to PDT time) on all machines/VMs where SKC components are being installed
+	This is important, else certificate verifications will fail
+
+How to Deploy
+==============
+- To verify the checksum of the FD Agent Deployment tar file and extract it
+# ./fd_agent_untar.sh
+
+# cd fd_agent
+- Update the SGX Server IP Addresses, FD Agent user credentials and CMS_TLS_SHA value in fdagent.conf
+	To find CMS_TLA_SHA run following command on the machine where CMS is installed
+	# cms tlscertsha384
+
+- To deploy FD Agent on a SGX Enabled Server, run deploy_fd_agent.sh
+# ./deploy_fd_agent.sh
+
+Contents of the Deployment Tar file
+===================================
+- Deployment scripts:deploy_fd_agent.sh create_roles.sh and deployment_prerequisites.sh
+- Pre-filled fdagent.conf
+- Binaries/rpms/libraries in bin directory.
+
+Repo Contents
+=============
+deploy_fd_agent.sh		Main script for Deploying FD Agent on SGX enabled server
+deployment_prerequisites.sh	Install RHEL 8 packages dependencies required fro FD Agent Deployment
+fdagent.conf			Config file for updating FD Agent/CMS/AAS/FDS IP Addresses

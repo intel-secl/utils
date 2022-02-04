@@ -10,11 +10,14 @@ TAR_NAME=$(basename $FD_AGENT_DIR)
 create_fd_agent_tar()
 {
 	\cp -pf ../deploy_scripts/*.sh $FD_AGENT_DIR
+        \cp -pf ../../../sgx_agent/deploy_scripts/deployment_prerequisites.sh $FD_AGENT_DIR
+        \cp -pf ../../../sgx_agent/build_scripts/sgx_agent/bin/* $FD_AGENT_DIR/bin
 	\cp -pf ../deploy_scripts/README.install $FD_AGENT_DIR
-	\cp -pf ../deploy_scripts/agent.conf $FD_AGENT_DIR
+	\cp -pf ../deploy_scripts/fdagent.conf $FD_AGENT_DIR
 	\cp -pf ../../../config $FD_AGENT_DIR
 	tar -cf $TAR_NAME.tar -C $FD_AGENT_DIR . --remove-files
 	sha256sum $TAR_NAME.tar > $TAR_NAME.sha2
+        rm -rf ../../../sgx_agent/build_scripts/sgx_agent/
 	echo "${green} fd_agent.tar file and fd_agent.sha2 checksum file created ${reset}"
 }
 

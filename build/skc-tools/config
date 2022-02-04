@@ -17,7 +17,7 @@ OS_FLAVOUR="$OS""$VER"
 if [ $OS == "rhel" ]; then
 	PKGMGR=dnf
 	LIB_DIR=/usr/lib64
-	OS_FLAVOUR="$OS"8.2
+        OS_FLAVOUR="$OS"8.2
 else
 	PKGMGR=apt
 	LIB_DIR=/usr/lib
@@ -80,7 +80,8 @@ fi
 
 #TEE Attestation Configurations
 FD_AGENT_DIR=$PWD/fd_agent
-FD_AGENT_BIN_DIR=$PWD/fd_agent/bin
+FD_AGENT_BIN_DIR=$FD_AGENT_DIR/bin
+FD_AGENT_BIN=bin
 P11KIT_DEV_VERSION=0.23.14-5
 SGX_VERSION_TEE=1.10.9
 SGX_URL_TEE="http://10.105.168.247/intel-sgx/sgx-dcap/${SGX_VERSION_TEE}/linux/distro/$OS_FLAVOUR-server/"

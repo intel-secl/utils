@@ -15,10 +15,14 @@ skc_services:
 	cp intel-secl/tools/aas-manager/populate-users.env binaries/env
 	cp intel-secl-tee/deployments/installer/*.bin binaries/
 	cp intel-secl-tee/deployments/installer/*.env binaries/env
-	cp -pf utils/build/skc-tools/skc_scripts/env/*.env binaries/env
+	cp intel-secl/build/linux/cms/cms.env binaries/env
+	cp intel-secl/build/linux/authservice/authservice.env binaries/env
+	cp intel-secl/build/linux/kbs/kbs.env binaries/env
+	cp intel-secl/build/linux/ihub/ihub.env binaries/env
 	cp -pf utils/build/skc-tools/skc_scripts/env/install_pgdb.sh binaries/
-	cp -pf utils/build/skc-tools/skc_scripts/install_*.sh binaries/
-	cp -pf utils/build/skc-tools/skc_scripts/*.conf binaries/
+	cp -pf utils/build/skc-tools/skc_scripts/env/iseclpgdb.env binaries/env
+	cp -pf utils/build/skc-tools/common_attest/skc_scripts/install_*.sh binaries/
+	cp -pf utils/build/skc-tools/common_attest/skc_scripts/*.conf binaries/
 
 attestation: clean fd_agent skc_services
 	cp utils/build/skc-tools/common_attest/fd_agent/build_scripts/fd_agent.* binaries/

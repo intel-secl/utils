@@ -5,7 +5,6 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-SKCLIB_DIR=skc_library
 TAR_NAME=$(basename $SKCLIB_DIR)
 
 install_prerequisites()
@@ -22,9 +21,11 @@ install_prerequisites()
 
 create_skc_library_tar()
 {
-	\cp -pf ../deploy_scripts/*.sh $SKCLIB_DIR
-	\cp -pf ../deploy_scripts/skc_library.conf $SKCLIB_DIR
-	\cp -pf ../deploy_scripts/create_roles.conf $SKCLIB_DIR
+	\cp -pf ../deploy_scripts/deploy_skc_library.sh $SKCLIB_DIR
+        \cp -pf ../../../skc_library/deploy_scripts/deployment_prerequisites.sh $SKCLIB_DIR
+        \cp -pf ../../../skc_library/deploy_scripts/*.patch $SKCLIB_DIR
+	\cp -pf ../../../skc_library/deploy_scripts/skc_library.conf $SKCLIB_DIR
+	\cp -pf ../../../skc_library/deploy_scripts/create_roles.conf $SKCLIB_DIR
 	\cp -pf ../deploy_scripts/README.install $SKCLIB_DIR
 	\cp -pf ../../config $SKCLIB_DIR
 	if [[ "$OS" == "rhel" && "$VER" == "8.2" ]]; then
