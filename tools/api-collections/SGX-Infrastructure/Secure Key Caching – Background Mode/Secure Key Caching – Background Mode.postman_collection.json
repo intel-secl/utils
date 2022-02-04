@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6f21c793-d477-403c-90fe-53e6039b2228",
+		"_postman_id": "16895224-82ed-4c78-9b95-32eb952d06e8",
 		"name": "Secure Key Caching – Background Mode",
 		"description": "SKC leverages the TEE Attestation Infrastructure to protect keys in an SGX enclave at rest and in use. Applications use the SKC Client -- a set of libraries -- to retrieves keys at runtime from KBS. KBS performs an SGX enclave attestation. If the attestation is successful, KBS generates a Symmetric Wrapping Key (SWK), wraps it with the enclave public key and provisions it into the enclave, which can unwrap it since it has the corresponding private key. Application can then be provisioned into the SGX enclave after being wrapped with the SWK. Application keys are therefore never exposed to any software outside of the enclave.\n\nIn Background mode, skc-client provides SGX ECDSA quote along with nonce and enclave public key to KBS for verification. KBS attests the quote using Attestation Policy Service (APS). Upon succesful verification, APS generates an attestation token and returns it to KBS.\n\nKBS compares the SGX attributes in Attestation token against key transfer policy and releases wrapped application key to skc-client.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -2130,20 +2130,17 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
 				{
 					"name": "sgxVerifyQuote",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -2191,7 +2188,7 @@
 						{
 							"name": "Success",
 							"originalRequest": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -2244,7 +2241,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 13:30:36 GMT"
+									"value": "Fri, 04 Feb 2022 08:04:11 GMT"
 								},
 								{
 									"key": "Content-Length",

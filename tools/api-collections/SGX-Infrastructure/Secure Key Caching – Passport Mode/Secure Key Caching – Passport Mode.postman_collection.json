@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d31bb409-18a6-4b58-9ef1-9959dd53b01f",
+		"_postman_id": "6357b829-e098-4c77-94a7-745dcabc840a",
 		"name": "Secure Key Caching – Passport Mode",
 		"description": "SKC leverages the TEE Attestation Infrastructure to protect keys in an SGX enclave at rest and in use. Applications use the SKC Client -- a set of libraries -- to retrieves keys at runtime from KBS. KBS performs an SGX enclave attestation. If the attestation is successful, KBS generates a Symmetric Wrapping Key (SWK), wraps it with the enclave public key and provisions it into the enclave, which can unwrap it since it has the corresponding private key. Application can then be provisioned into the SGX enclave after being wrapped with the SWK. Application keys are therefore never exposed to any software outside of the enclave.\n\nIn Passport mode, skc-client presents Attestation token to KBS for verification. After KBS verifies attestation token, it compares the SGX attributes in attestation token against key transfer policy and releases wrapped application key to skc-client.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -2101,20 +2101,17 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
 				{
 					"name": "sgxVerifyQuote",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -2162,7 +2159,7 @@
 						{
 							"name": "Success",
 							"originalRequest": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -2215,7 +2212,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 08:11:18 GMT"
+									"value": "Fri, 04 Feb 2022 07:57:37 GMT"
 								},
 								{
 									"key": "Content-Length",

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f2e76df7-f8a1-46b0-b124-068be7c85643",
+		"_postman_id": "c6f63bca-7063-42f5-9701-d5799d20fe3e",
 		"name": "SGX Attestation - Background Mode",
 		"description": "The TEE Attestation infrastructure provides an end to end support for registering SGX/TDX enabled hosts and provisioning them with SGX material (PCK certificates) and SGX/TDX collateral (security patches information - TCB Information - and Certificate Revocation Lists - CRLs).\n\nThe TEE Attestation infrastructure also provides support for generating SGX quotes for SGX enclaves hosted by workloads and verifying them by a remote attesting application. The remote attesting application can also use the TEE Attestation infrastructure to enforce enclave policies (like requiring a specific enclave signer).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -2153,14 +2153,11 @@
 					"item": [
 						{
 							"name": "sgxVerifyQuote",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "noauth"
 								},
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -2203,7 +2200,7 @@
 								{
 									"name": "Success",
 									"originalRequest": {
-										"method": "GET",
+										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
@@ -2251,7 +2248,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 19 Jan 2022 09:07:11 GMT"
+											"value": "Fri, 04 Feb 2022 08:17:51 GMT"
 										},
 										{
 											"key": "Content-Length",
