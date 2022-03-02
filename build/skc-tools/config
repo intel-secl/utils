@@ -48,8 +48,6 @@ CTK_INSTALL=$SGX_INSTALL_DIR/cryptoapitoolkit
 P11_KIT_PATH=/usr/include/p11-kit-1/p11-kit/
 CTK_PREFIX=$SGX_INSTALL_DIR/cryptoapitoolkit
 SGXSSL_PREFIX=$SGX_INSTALL_DIR/sgxssl
-INTEL_SGX_STACK_REPO="https://download.01.org/intelsgxstack/2021-07-28/rhel"
-SGX_STACK_URL="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/distro/rhel8.2-server"
 DCAP_SIGNED_LIBRARIES="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/prebuilt_dcap_$DCAP_VERSION.tar.gz"
 
 KDIR=/lib/modules/$(uname -r)/build
