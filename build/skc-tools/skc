@@ -2,8 +2,6 @@
 
 bin: app skc orchestrator
 
-sgx-stack: app_stacks skc_stacks orchestrator_stacks
-
 skc_services:
 	cd intel-secl && make cms-installer && make authservice-installer && make aas-manager
 	cd sgx-caching-service && make installer
@@ -74,29 +72,6 @@ k8s: k8s_common
 	mv k8s/manifests/aas/populate-users k8s/manifests/aas/scripts/
 	mv k8s/manifests/aas/populate-users.env k8s/manifests/aas/scripts/
 
-k8s-aio-stacks: k8s_common_stacks
-	cp -r utils/build/k8s-manifests/db-deployments/single-node/aas-db k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/single-node/skc/* k8s/manifests/
-	cp -r utils/build/k8s-manifests/single-node/* k8s/manifests/
-	cp -r utils/build/skc-tools/skc_k8s/single-node/* k8s/manifests/
-	cp -r utils/build/skc-tools/skc_k8s/trusted_rootca_files k8s/manifests/sqvs/
-	mkdir -p k8s/manifests/aas/scripts
-	cp intel-secl/deployments/k8s/aas/populate-users k8s/manifests/aas/scripts/
-	cp intel-secl/deployments/k8s/aas/populate-users.env k8s/manifests/aas/scripts/populate-users.env
-
-k8s-stacks: k8s_common_stacks
-	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/multi-node/skc/* k8s/manifests/
-	cp -r intel-secl/deployments/k8s/* k8s/manifests/
-	cp -r utils/build/skc-tools/skc_k8s/create-skc-dirs-nfs.sh k8s/
-	cp -r sgx-caching-service/out/k8s k8s/manifests/scs
-	cp -r sgx-verification-service/out/k8s k8s/manifests/sqvs
-	cp -r utils/build/skc-tools/skc_k8s/trusted_rootca_files k8s/manifests/sqvs/
-	cp -r sgx-hvs/out/k8s k8s/manifests/shvs
-	mkdir -p k8s/manifests/aas/scripts
-	mv k8s/manifests/aas/populate-users k8s/manifests/aas/scripts/
-	mv k8s/manifests/aas/populate-users.env k8s/manifests/aas/scripts/
-
 clean:
 	cd intel-secl && make clean
 	cd sgx-caching-service && make clean
@@ -126,12 +101,6 @@ sgx_agent_k8s:
 
 skc_library_k8s:
 	cd utils/build/skc-tools/skc_library/build_scripts/ && ./build_skc_docker.sh
-
-sgx_agent_k8s_stacks:
-	cd utils/build/skc-tools/stacks/sgx_agent/build_scripts/ && ./build_sgx_agent_docker.sh
-
-skc_library_k8s_stacks:
-	cd utils/build/skc-tools/stacks/skc_library/build_scripts/ && ./build_skc_docker.sh
 
 k8s_extensions: 
 	cd k8s-extensions && make all
@@ -172,40 +141,4 @@ k8s_common: clean intel_secl_k8s skc_k8s k8s_extensions sgx_agent_k8s skc_librar
 	cp -r utils/build/skc-tools/sgx_agent/build_scripts/sgx_agent.* k8s/platform-dependencies/
 	cp -r utils/build/skc-tools/sgx_agent/deploy_scripts/agent_container_prereq.sh k8s/platform-dependencies/
 
-k8s_common_stacks: clean intel_secl_k8s skc_k8s k8s_extensions sgx_agent_k8s_stacks skc_library_k8s_stacks app_stacks k8s_common_services
-	cp utils/build/skc-tools/stacks/sample_apps/build_scripts/sample_apps.* k8s/sample_apps/
-	cp -r utils/build/skc-tools/stacks/sgx_agent/build_scripts/sgx_agent.* k8s/platform-dependencies/
-	cp -r utils/build/skc-tools/stacks/sgx_agent/deploy_scripts/agent_container_prereq.sh k8s/platform-dependencies/
-
-sgx_agent_stacks:
-	cd utils/build/skc-tools/stacks/sgx_agent/build_scripts/ && ./sgxagent_build.sh
-
-skc_library_stacks:
-	cd utils/build/skc-tools/stacks/skc_library/build_scripts/ && ./skc_library_build.sh
-
-attest_stacks: clean sgx_agent_stacks skc_services
-	cp utils/build/skc-tools/stacks/sgx_agent/build_scripts/sgx_agent.* binaries/
-	cp utils/build/skc-tools/sgx_agent/agent_untar.sh binaries/
-
-app_stacks: attest_stacks
-	cd utils/build/skc-tools/stacks/sample_apps/build_scripts/ && ./sample_apps_build.sh
-	cp utils/build/skc-tools/stacks/sample_apps/build_scripts/sample_apps.* binaries/
-	cp utils/build/skc-tools/sample_apps/sampleapps_untar.sh binaries/
-
-skc_stacks: attest_stacks skc_library_stacks
-	cd intel-secl && make kbs-installer
-	cp intel-secl/deployments/installer/kbs-*.bin binaries/
-	cp -rpf utils/build/skc-tools/kbs_script/ binaries/
-	cp utils/build/skc-tools/stacks/skc_library/build_scripts/skc_library.* binaries/
-	cp utils/build/skc-tools/skc_library/skclib_untar.sh binaries/
-
-orchestrator_stacks: attest_stacks
-	cd intel-secl && make ihub-installer
-	cd sgx-hvs && make installer
-	cd k8s-extensions && make all
-	cp intel-secl/deployments/installer/ihub-*.bin binaries/
-	cp sgx-hvs/out/*.bin binaries/
-	cp sgx-hvs/dist/linux/shvs.env binaries/env
-	cp k8s-extensions/out/isecl-k8s-extensions-*.tar.gz binaries/
-
-.PHONY: all clean attest app skc orchestrator sgx_agent skc_library skc_services attest_stacks app_stacks skc_stacks orchestrator_stacks sgx_agent_stacks skc_library_stacks
+.PHONY: all clean attest app skc orchestrator sgx_agent skc_library skc_services 
