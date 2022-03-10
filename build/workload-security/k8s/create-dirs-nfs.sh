@@ -1,8 +1,8 @@
 #!/bin/bash
 
 USER_ID=${USER_ID:-1001}
-SERVICES="cms ihub kbs"
-SERVICES_WITH_DB="wls hvs aas"
+SERVICES="cms ihub kbs wls"
+SERVICES_WITH_DB="hvs aas"
 
 services=$(eval "echo \$SERVICES")
 services_db=$(eval "echo \$SERVICES_WITH_DB")
