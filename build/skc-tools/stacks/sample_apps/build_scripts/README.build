@@ -1,0 +1,26 @@
+Pre-requisite for the Sample Apps build system
+==============================================
+ - RHEL 8.2 or UBUNTU 18.04 or UBUNTU 20.04
+ - GoLang v1.13 or greater
+ - gcc toolchain
+ - make
+ - Install Intel® SGX SDK for Linux*OS into /opt/intel/sgxsdk . Refer Intel® Software Guard Extensions (Intel® SGX) SDK for Linux* OS - Installation   guide . Please install the *-devel for Intel® SGX PSW packages as mentioned in the installation guide.
+ - Build & Install Intel® SGX SSL Library from https://github.com/intel/intel-sgx-ssl into /opt/intel/sgxssl/
+
+How to Build
+=============
+- To build Sample Apps, 
+# ./sample_apps_build.sh
+
+- This script will generate a tarball(sample_apps.tar) and checksum file(sample_apps.sha2)
+
+- Copy sample_apps.tar, sample_apps.sha2 and sampleapps_untar.sh to a directory on the deployment machine
+
+Repo Contents
+=============
+sample_apps_build.sh	 	Master build script which builds Sample Apps and its SGX dependencies
+build_prerequisites.sh 		Install RHEL or UBUNTU package dependecies required for Sample Apps build
+install_sgxsdk.sh               Downloads SGX Stack repo installs it on build machine
+install_sgxrpms.sh 		Downloads SGX PSW/QGL RPMS and installs them
+install_sgxssl.sh		Downloads Crypto Api Toolkit repo, builds sgxssl and adds it to the tar file
+build_sampleapps.sh		Downloads Sample Apps repo, builds it and adds it to the tar file
