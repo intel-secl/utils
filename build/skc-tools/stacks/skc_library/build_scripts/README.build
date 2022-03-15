@@ -1,0 +1,28 @@
+Pre-requisite for the SKC Library build system
+==============================================
+
+RHEL8 package Requirements
+==========================
+- Following RHEL 8 repositories should be setup and available (/etc/yum.repos.d) to download and resolve SKC_Library package dependencies
+	BaseOS
+	AppStream
+	CodeReady
+- $PKGMGR install git
+- Ensure that the system date is properly setup (to PDT time)
+
+How to Build
+=============
+- To build SKC Library, 
+# ./skc_library_build.sh
+- This script will generate a tarball(skc_library.tar) and checksum file(skc_library.sha2)
+- Copy skc_library.tar, skc_library.sha2 and skclib_untar.sh to a directory on the deployment machine
+
+Repo Contents
+=============
+skc_library_build.sh	 	Master build script which builds SKC Library and its SGX dependencies
+build_prerequisites.sh 		Install RHEL 8 package dependecies required for SKC Library build
+install_sgxsdk.sh               Downloads SGX Stack repo installs it on build machine
+install_sgxrpms.sh 		Downloads SGX PSW/QGL RPMS and installs them
+install_ctk.sh		 	Downloads Crypto Api Toolkit repo, builds it and adds dynamic libraries to the tar file
+build_skclib.sh			Downloads SKC_Library repo, builds it and adds it to the tar file
+build_skc_docker.sh		Build SKC Library docker image

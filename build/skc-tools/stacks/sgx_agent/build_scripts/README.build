@@ -1,0 +1,28 @@
+Pre-requisite for the SGX Agent build system
+=============================================
+
+RHEL8 package Requirements
+==========================
+- Following RHEL 8 repositories should be setup and available (/etc/yum.repos.d) to download and resolve SGX Agent package dependencies
+	BaseOS
+	AppStream
+	CodeReady
+- dnf install git
+- Ensure that the system date is properly setup (to PDT time)
+
+How to Build
+=============
+- To build SGX Agent, 
+#./sgxagent_build.sh
+- This script will generate a tarball(sgx_agent.tar) and checksum file(sgx_agent.sha2)
+- Copy sgx_agent.tar, sgx_agent.sha2 and agent_untar.sh to a directory on the deployment machine
+
+Repo Contents
+=============
+sgxagent_build.sh	 	Master build script which builds SGX Agent and its SGX dependencies
+build_prerequisites.sh 		Install RHEL 8 package dependecies required for SGX agent build
+build_pckretrieval_tool.sh 	Downloads DCAP PCKRetrieval tool and builds it adds to tar file
+install_sgxsdk.sh               Downloads SGX Stack repo installs it on build machine
+build_sgx_agent.sh 		Downloads SGX Agent repo and builds it as a golang service
+remove_pccs_connect.diff 	Patch file applied to PCKRetrieval tool to disable password check
+build_sgx_agent_docker.sh	Build SGX Agent docker image
