@@ -1,7 +1,6 @@
 #!/bin/bash
 
 reboot_countdown=5
-reboot_log=false
 
 HOME_DIRECTORY=/opt/bkc-tool
 BINARY_DIRECTORY=/opt/bkc-tool/bin
@@ -17,7 +16,6 @@ if [ ! -f $REBOOT_CTRL_FILE ]; then
 fi
 
 BKC_BINARY="$BINARY_DIRECTORY/bkc-tool.bin"
-MEASUREMENT_SCRIPT="$BINARY_DIRECTORY/module_analysis.sh"
 
 BKC_TEST_PREFIX="bkc-tests-"
 HW_TEST_PREFIX="hardware-test-"
@@ -59,11 +57,9 @@ echo $cnt > $REBOOT_CTRL_FILE
 if [ ! -f CURRENT_FLAVOR_FILE ]; then
 	echo "execute first attestation test" >> $REBOOT_LOG
 	detect_npw_acm
-	$MEASUREMENT_SCRIPT
 	$BKC_BINARY attestation &>> $CURRENT_LOG_FILE
 else
 	echo "execute attestation test" >> $REBOOT_LOG
-	$MEASUREMENT_SCRIPT
 	$BKC_BINARY attestation -c &>> $CURRENT_LOG_FILE
 	echo "bkc-tool attestation executed with return value $?" >> $REBOOT_LOG
 fi
@@ -91,8 +87,12 @@ if [ $cnt -eq "0" ]; then
 		rm -rf $ALL_TEST_CTRL_FILE
 	fi
 	echo "clean up run directory..." >> $REBOOT_LOG
-	rm -rf $RUN_DIRECTORY/*
-	# just for safty reason
+	rm -f CURRENT_FLAVOR_FILE=$RUN_DIRECTORY/flavor.json
+	rm -f CURRENT_CACERT_FILE=$RUN_DIRECTORY/ca.crt
+	rm -f CURRENT_CAKEY_FILE=$RUN_DIRECTORY/ca.key
+	rm -rf CURRENT_MANIFEST_DIR=$RUN_DIRECTORY/host-manifest
+	rm -rf CURRENT_REPORT_DIR=$RUN_DIRECTORY/trust-report
+	# just for safety reason
 	echo "disable service after 5 seconds" >> $REBOOT_LOG
 	sleep 5
 	# disable reboot service

@@ -8,11 +8,9 @@ RUN_DIRECTORY=/opt/bkc-tool/var
 
 BKC_BINARY="$BINARY_DIRECTORY/bkc-tool.bin"
 REBOOT_SCRIPT="$BINARY_DIRECTORY/reboot.sh"
-MEASUREMENT_SCRIPT="$BINARY_DIRECTORY/module_analysis.sh"
 REBOOT_SERVICE="$HOME_DIRECTORY/bkc-reboot.service"
 ALL_TEST_CTRL_FILE="$RUN_DIRECTORY/bkc_all"
 REBOOT_CTRL_FILE="$RUN_DIRECTORY/reboot_cnt"
-NPWACM_CTRL_FILE="$RUN_DIRECTORY/npw_acm"
 CURRENT_LOG_FILE="$RUN_DIRECTORY/bkc.log"
 
 HW_TEST_PREFIX="hardware-test-"
@@ -89,9 +87,12 @@ cleanup_aborted_tests() {
 		echo "logs concatinated"
 		rm -rf $ALL_TEST_CTRL_FILE
 	fi
-	echo "clean up run directory..."
-	rm -rf $RUN_DIRECTORY/*
-	# just for safty reason
+	rm -f CURRENT_FLAVOR_FILE=$RUN_DIRECTORY/flavor.json
+	rm -f CURRENT_CACERT_FILE=$RUN_DIRECTORY/ca.crt
+	rm -f CURRENT_CAKEY_FILE=$RUN_DIRECTORY/ca.key
+	rm -rf CURRENT_MANIFEST_DIR=$RUN_DIRECTORY/host-manifest
+	rm -rf CURRENT_REPORT_DIR=$RUN_DIRECTORY/trust-report
+	# just for safety reason
 	sleep 1
 	# disable reboot service
 	systemctl disable $REBOOT_SERVICE >/dev/null 2>&1
@@ -134,6 +135,8 @@ print_help() {
     echo "  Commands:"
     echo "    help|-h|--help            print help and exit"
     echo "    version                   print version and exit"
+    echo "    platform-info             get platform information of host"
+    echo "    tpm-provider              execute TPM related tests"
     echo "    hardware-test             execute hardware tests"
     echo "    attestation               execute attestation test"
     echo "      -r <integer>              reboot count"
@@ -170,6 +173,18 @@ fi
 if [ "$1" == "hardware-test" ]; then
     hw_tests
     exit $?
+fi
+
+# bkc-tool platform-info
+if [ "$1" == "platform-info" ]; then
+    $BKC_BINARY platform-info
+    exit 0
+fi
+
+# bkc-tool tpm-provider
+if [ "$1" == "tpm-provider" ]; then
+    $BKC_BINARY tpm-provider
+    exit 0
 fi
 
 # bkc-tool uninstall

@@ -5,6 +5,7 @@ mkdir -p /opt/bkc-tool/log/ca-cert
 mkdir -p /opt/bkc-tool/log/host-manifest
 mkdir -p /opt/bkc-tool/log/report
 mkdir -p /opt/bkc-tool/var
+touch /opt/bkc-tool/var/measure-log.json
 
 cp *.bin /opt/bkc-tool/bin/
 cp *.sh /opt/bkc-tool/bin/

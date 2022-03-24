@@ -6,10 +6,11 @@ package commands
 
 import (
 	"fmt"
+	"github.com/intel-secl/intel-secl-tee/v5/pkg/fda/utils"
 	"io"
 	"strings"
 
-	"intel/isecl/lib/platform-info/v3/platforminfo"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/hostinfo"
 
 	"github.com/pkg/errors"
 )
@@ -22,14 +23,13 @@ func printWithIndent(w io.Writer, i int, msg string) {
 }
 
 func PlatFormInfoTest(w io.Writer) error {
-	platformInfoStruct, err := platforminfo.GetPlatformInfo()
-	if err != nil {
-		err = errors.Wrap(err, "failed to retrieve platform info")
-		fmt.Fprintln(w, "HOST INFO...FAILED")
-		printWithIndent(w, defaultIndent, "Error: "+err.Error())
-		return err
-	}
-	fmt.Fprintln(w, "HOST INFO...PASSED")
+	platformInfoStruct := hostinfo.NewHostInfoParser().Parse()
+
+	defer func() {
+		if err := recover(); err == nil {
+			fmt.Fprintln(w, "HOST INFO...PASSED")
+		}
+	}()
 
 	// print general info
 	printWithIndent(w, defaultIndent, "OS: "+platformInfoStruct.OSName+" "+platformInfoStruct.OSVersion)
@@ -51,45 +51,67 @@ func PlatFormInfoTest(w io.Writer) error {
 			printWithIndent(w, defaultIndent, "BootGuard: Disabled")
 		}
 	}
-	if platformInfoStruct.HardwareFeatures.SUEFI != nil {
-		if platformInfoStruct.HardwareFeatures.SUEFI.Enabled {
-			printWithIndent(w, defaultIndent, "SecureUEFI: Enabled")
+	if platformInfoStruct.HardwareFeatures.UEFI != nil {
+		if platformInfoStruct.HardwareFeatures.UEFI.Enabled {
+			printWithIndent(w, defaultIndent, "UEFI: Enabled")
 		} else {
-			printWithIndent(w, defaultIndent, "SecureUEFI: Disabled")
+			printWithIndent(w, defaultIndent, "UEFI: Disabled")
 		}
 	}
-	// detect SGX
-	sgx_value := isSGXInstructionSetSuported()
-	if sgx_value == 0 {
-		printWithIndent(w, defaultIndent, "SGX: not_supported")
+
+	if platformInfoStruct.HardwareFeatures.UEFI.Meta.SecureBootEnabled == true {
+		printWithIndent(w, defaultIndent, "Secure boot: Enabled")
+	} else {
+		printWithIndent(w, defaultIndent, "Secure boot: Disabled")
 	}
-	if sgx_value == 1 {
-		printWithIndent(w, defaultIndent, "SGX: sgx_1_supported")
-	}
-	if sgx_value == 2 {
-		printWithIndent(w, defaultIndent, "SGX: sgx_2_supported")
+
+	sgxDiscoveryData, tdxDiscoveryData, _, _, err := utils.GetPlatformData()
+	if err != nil {
+		if strings.Contains(err.Error(), "SGX Extensions are not supported") {
+			printWithIndent(w, defaultIndent, "SGX: Not supported")
+		} else {
+			printWithIndent(w, defaultIndent, "Failed to get SGX/TDX platform data. "+err.Error())
+		}
+	} else {
+		if sgxDiscoveryData == nil || !sgxDiscoveryData.SgxSupported {
+			printWithIndent(w, defaultIndent, "SGX: Not supported")
+		} else {
+			if sgxDiscoveryData.SgxEnabled {
+				printWithIndent(w, defaultIndent, "SGX: Enabled")
+			} else {
+				printWithIndent(w, defaultIndent, "SGX: Disabled")
+			}
+		}
+
+		if tdxDiscoveryData == nil || !tdxDiscoveryData.TdxSupported {
+			printWithIndent(w, defaultIndent, "TDX: Not supported")
+		} else {
+			if tdxDiscoveryData.TdxEnabled {
+				printWithIndent(w, defaultIndent, "TDX: Enabled")
+			} else {
+				printWithIndent(w, defaultIndent, "TDX: Disabled")
+			}
+		}
 	}
 	return nil
 }
 
 func CheckTrustedBoot(w io.Writer) (bool, error) {
-	pInfo, err := platforminfo.GetPlatformInfo()
-	if err != nil {
-		return false, errors.Wrap(err, "failed to retrieve platform info")
-	}
-	if !pInfo.TPMEnabled {
+	pInfo := hostinfo.NewHostInfoParser().Parse()
+
+	if !pInfo.HardwareFeatures.TPM.Enabled {
 		fmt.Fprintln(w, "Trusted Boot...FAILED")
 		printWithIndent(w, defaultIndent, "TPM not enabled")
 		return false, nil
 	}
 	var txt, bootGuard, suefi, tboot bool
-	txt = pInfo.TXTEnabled
+	txt = pInfo.HardwareFeatures.TXT.Enabled
 	tboot = pInfo.TbootInstalled
 	if pInfo.HardwareFeatures.CBNT != nil {
 		bootGuard = pInfo.HardwareFeatures.CBNT.Enabled
 	}
-	if pInfo.HardwareFeatures.SUEFI != nil {
-		suefi = pInfo.HardwareFeatures.SUEFI.Enabled
+	if pInfo.HardwareFeatures.UEFI != nil {
+		suefi = pInfo.HardwareFeatures.UEFI.Enabled
 	}
 	trustedBootPass := false
 	if txt {
@@ -121,9 +143,9 @@ func CheckTrustedBoot(w io.Writer) (bool, error) {
 }
 
 func PlatFormInfoTPM() (bool, string, []string, error) {
-	pInfo, err := platforminfo.GetPlatformInfo()
-	if err != nil {
-		return false, "", nil, errors.Wrap(err, "failed to retrieve platform info")
+	pInfo := hostinfo.NewHostInfoParser().Parse()
+	if pInfo == nil || pInfo.HardwareFeatures.TPM == nil {
+		return false, "", nil, errors.New("Error getting TPM info from host")
 	}
-	return pInfo.TPMEnabled, pInfo.TPMVersion, []string{"SHA1", "SHA256"}, nil
+	return pInfo.HardwareFeatures.TPM.Enabled, pInfo.HardwareFeatures.TPM.Meta.TPMVersion, []string{"SHA1", "SHA256"}, nil
 }

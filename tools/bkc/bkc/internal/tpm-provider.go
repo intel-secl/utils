@@ -11,8 +11,8 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"intel/isecl/lib/common/v3/crypt"
-	"intel/isecl/lib/tpmprovider/v3"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/common/crypt"
+	"intel/isecl/lib/tpmprovider/v5"
 
 	"github.com/pkg/errors"
 )
@@ -21,8 +21,8 @@ var (
 	pcrList  = []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23}
 	pcrBanks = []string{"SHA1", "SHA256"}
 
-	quoteNonce = []byte("1234567890")
-	assetTag   = []byte("1234567890")
+	quoteNonce    = []byte("1234567890")
+	dummyAssetTag = []byte("1234567890")
 
 	errWrite = ioutil.Discard
 )
@@ -142,12 +142,12 @@ func tpmOwnership() bool {
 }
 
 func tpmEC() bool {
-	_, err := tpm.NvRead(tpmOwnerSecret, tpmprovider.NV_IDX_RSA_ENDORSEMENT_CERTIFICATE)
+	_, err := tpm.NvRead(tpmOwnerSecret, tpmprovider.TPM2_RH_OWNER, tpmprovider.NV_IDX_RSA_ENDORSEMENT_CERTIFICATE)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to read rsa EC from tpm nvram: "+err.Error())
 		return false
 	}
-	_, err = tpm.NvRead(tpmOwnerSecret, tpmprovider.NV_IDX_ECC_ENDORSEMENT_CERTIFICATE)
+	_, err = tpm.NvRead(tpmOwnerSecret, tpmprovider.TPM2_RH_OWNER, tpmprovider.NV_IDX_ECC_ENDORSEMENT_CERTIFICATE)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to read ecc EC from tpm nvram: "+err.Error())
 		return false
@@ -165,7 +165,7 @@ func tpmEK() bool {
 }
 
 func tpmAIK() bool {
-	err := tpm.CreateAik(tpmOwnerSecret, aikSecret)
+	err := tpm.CreateAik(tpmOwnerSecret)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to create aik: "+err.Error())
 		return false
@@ -178,8 +178,6 @@ func tpmAIK() bool {
 	return true
 }
 
-var primaryHandleCreated = false
-
 func tpmPrimaryHandle() {
 	err := tpm.CreatePrimaryHandle(tpmOwnerSecret, tpmprovider.TPM_HANDLE_PRIMARY)
 	if err != nil {
@@ -187,14 +185,17 @@ func tpmPrimaryHandle() {
 			fmt.Fprintln(errWrite, "failed to create primary handle: "+err.Error())
 		}
 	}
-	primaryHandleCreated = true
 }
 
 func tpmSigningKey() bool {
-	if !primaryHandleCreated {
+	exists, err := tpm.PublicKeyExists(tpmprovider.TPM_HANDLE_PRIMARY)
+	if err != nil {
+		fmt.Fprintln(errWrite, "error while checking existence of tpm public key"+err.Error())
+	}
+	if !exists {
 		tpmPrimaryHandle()
 	}
-	_, err := tpm.CreateSigningKey(aikSecret, aikSecret)
+	_, err = tpm.CreateSigningKey(aikSecret)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to create signing key: "+err.Error())
 		return false
@@ -203,10 +204,14 @@ func tpmSigningKey() bool {
 }
 
 func tpmBindingKey() bool {
-	if !primaryHandleCreated {
+	exists, err := tpm.PublicKeyExists(tpmprovider.TPM_HANDLE_PRIMARY)
+	if err != nil {
+		fmt.Fprintln(errWrite, "error while checking existence of tpm public key"+err.Error())
+	}
+	if !exists {
 		tpmPrimaryHandle()
 	}
-	_, err := tpm.CreateBindingKey(aikSecret, aikSecret)
+	_, err = tpm.CreateBindingKey(aikSecret)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to create binding key: "+err.Error())
 		return false
@@ -215,7 +220,7 @@ func tpmBindingKey() bool {
 }
 
 func tpmQuote() bool {
-	_, err := tpm.GetTpmQuote(aikSecret, quoteNonce, pcrBanks, pcrList)
+	_, err := tpm.GetTpmQuote(quoteNonce, pcrBanks, pcrList)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to create tpm quote: "+err.Error())
 		return false
@@ -238,12 +243,12 @@ func tpmAssetTag() bool {
 			return false
 		}
 	}
-	err = tpm.NvDefine(tpmOwnerSecret, tpmprovider.NV_IDX_ASSET_TAG, uint16(len(assetTag)))
+	err = tpm.NvDefine(tpmOwnerSecret, aikSecret, tpmprovider.NV_IDX_ASSET_TAG, uint16(len(dummyAssetTag)))
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to define asset tag: "+err.Error())
 		return false
 	}
-	err = tpm.NvWrite(tpmOwnerSecret, tpmprovider.NV_IDX_ASSET_TAG, assetTag)
+	err = tpm.NvWrite(aikSecret, tpmprovider.NV_IDX_ASSET_TAG, tpmprovider.NV_IDX_ASSET_TAG, dummyAssetTag)
 	if err != nil {
 		fmt.Fprintln(errWrite, "failed to write asset tag: "+err.Error())
 		return false

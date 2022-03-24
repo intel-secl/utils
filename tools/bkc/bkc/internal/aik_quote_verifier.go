@@ -13,12 +13,11 @@ import (
 	"encoding/binary"
 	"encoding/xml"
 	"fmt"
-	"github.com/intel-secl/intel-secl/v3/pkg/lib/flavor/constants"
 	"regexp"
 	"strconv"
 	"strings"
 
-	"github.com/intel-secl/intel-secl/v3/pkg/lib/host-connector/types"
+	"github.com/intel-secl/intel-secl/v5/pkg/model/hvs"
 	"github.com/pkg/errors"
 )
 
@@ -35,8 +34,6 @@ const (
 	MAX_PCR_BANKS             = 5
 	PCR_NUMBER_UNTAINT        = "[^0-9]"
 	PCR_VALUE_UNTAINT         = "[^0-9a-fA-F]"
-	SHA1                      = "SHA1"
-	SHA256                    = "SHA256"
 	EVENT_LOG_DIGEST_SHA1     = "com.intel.mtwilson.core.common.model.MeasurementSha1"
 	EVENT_LOG_DIGEST_SHA256   = "com.intel.mtwilson.core.common.model.MeasurementSha256"
 	EVENT_NAME                = "OpenSource.EventName"
@@ -52,7 +49,7 @@ var PCR_NUMBER_PATTERN = regexp.MustCompile("[0-9]|[0-1][0-9]|2[0-3]")
 var PCR_VALUE_PATTERN = regexp.MustCompile("[0-9a-fA-F]+")
 
 func verifyQuoteAndGetPCRManifest(decodedEventLog string, verificationNonce []byte, tpmQuoteInBytes []byte,
-	aikCertificate *x509.Certificate) (types.PcrManifest, error) {
+	aikCertificate *x509.Certificate) (hvs.PcrManifest, error) {
 
 	hashAlgPcrSizeMap := make(map[int]int)
 	hashAlgPcrSizeMap[TPM_API_ALG_ID_SHA1] = SHA1_SIZE
@@ -77,7 +74,7 @@ func verifyQuoteAndGetPCRManifest(decodedEventLog string, verificationNonce []by
 	index += 2
 	tpm2bData := tpmQuoteInBytes[index : index+int(tpm2bDataSize)]
 	if !bytes.EqualFold(tpm2bData, verificationNonce) {
-		// return types.PcrManifest{}, errors.New("util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest() Challenge " +
+		// return types.PcrManifest{}, errors.New("internal/aik_quote_verifier:verifyQuoteAndGetPCRManifest() Challenge " +
 		// 	"and received nonce does not match")
 	}
 
@@ -94,7 +91,7 @@ func verifyQuoteAndGetPCRManifest(decodedEventLog string, verificationNonce []by
 
 	pcrBankCount := binary.BigEndian.Uint32(tpmQuoteInBytes[index : index+4])
 	if pcrBankCount > MAX_PCR_BANKS {
-		return types.PcrManifest{}, errors.New("util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest() AIK Quote " +
+		return hvs.PcrManifest{}, errors.New("internal/aik_quote_verifier:verifyQuoteAndGetPCRManifest() AIK Quote " +
 			"verification failed, Number of PCR selection array in " + "the quote is greater than 5. PCRBankCount " +
 			": " + fmt.Sprint(pcrBankCount))
 	}
@@ -144,14 +141,14 @@ func verifyQuoteAndGetPCRManifest(decodedEventLog string, verificationNonce []by
 	quoteDigest := hash.Sum(nil)
 	err := rsa.VerifyPKCS1v15(aikCertificate.PublicKey.(*rsa.PublicKey), crypto.SHA256, quoteDigest, tpmtSignature)
 	if err != nil {
-		// return types.PcrManifest{}, errors.Wrap(err, "util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest() "+
+		// return types.PcrManifest{}, errors.Wrap(err, "util/aik_quote_verifier:verifyQuoteAndGetPCRManifest() "+
 		// 	"Error verifying quote digest")
 	}
 
 	pos += tpmtSignatureSize
 	pcrLen := uint16(len(tpmQuoteInBytes)) - (pos + tpmtSigIndex)
 	if pcrLen <= 0 {
-		return types.PcrManifest{}, errors.New("util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest() " +
+		return hvs.PcrManifest{}, errors.New("internal/aik_quote_verifier:verifyQuoteAndGetPCRManifest() " +
 			"AIK Quote verification failed, No PCR values included in quote")
 	}
 	pcrs := tpmtSig[pos : pos+pcrLen]
@@ -167,7 +164,7 @@ func verifyQuoteAndGetPCRManifest(decodedEventLog string, verificationNonce []by
 		if value, ok := hashAlgPcrSizeMap[int(hashAlg)]; ok {
 			pcrSize = value
 		} else {
-			return types.PcrManifest{}, errors.New("util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest()" +
+			return hvs.PcrManifest{}, errors.New("internal/aik_quote_verifier:verifyQuoteAndGetPCRManifest()" +
 				"AIK Quote verification failed, Unsupported PCR banks, hash algorithm id : %s" + strconv.Itoa(int(hashAlg)))
 		}
 		/* For each pcr bank iterate through each pcr selection array.
@@ -203,23 +200,23 @@ func verifyQuoteAndGetPCRManifest(decodedEventLog string, verificationNonce []by
 	quoteDigest = hash.Sum(nil)
 
 	if !bytes.EqualFold(quoteDigest, tpm2bDigest) {
-		return types.PcrManifest{}, errors.New("util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest() AIK Quote " +
+		return hvs.PcrManifest{}, errors.New("internal/aik_quote_verifier:verifyQuoteAndGetPCRManifest() AIK Quote " +
 			"verification failed, Digest of Concatenated PCR values does not match with PCR digest in the quote")
 	}
 	pcrManifest, err := createPCRManifest(strings.Split(buffer.String(), "\n"), decodedEventLog)
 	if err != nil {
-		return types.PcrManifest{}, errors.Wrap(err, "util/aik_quote_verifier:VerifyQuoteAndGetPCRManifest() Error "+
+		return hvs.PcrManifest{}, errors.Wrap(err, "internal/aik_quote_verifier:verifyQuoteAndGetPCRManifest() Error "+
 			"retrieving PCR manifest from quote")
 	}
 	return pcrManifest, nil
 }
 
-func createPCRManifest(pcrList []string, eventLog string) (types.PcrManifest, error) {
+func createPCRManifest(pcrList []string, eventLog string) (hvs.PcrManifest, error) {
 
-	var pcrManifest types.PcrManifest
+	var pcrManifest hvs.PcrManifest
 	var err error
-	pcrManifest.Sha256Pcrs = []types.Pcr{}
-	pcrManifest.Sha1Pcrs = []types.Pcr{}
+	pcrManifest.Sha256Pcrs = []hvs.HostManifestPcrs{}
+	pcrManifest.Sha1Pcrs = []hvs.HostManifestPcrs{}
 
 	for _, pcrString := range pcrList {
 		parts := strings.Split(strings.TrimSpace(pcrString), " ")
@@ -241,29 +238,27 @@ func createPCRManifest(pcrList []string, eventLog string) (types.PcrManifest, er
 				"\n", "")
 
 			if PCR_NUMBER_PATTERN.MatchString(pcrNumber) && PCR_VALUE_PATTERN.MatchString(pcrValue) {
-				shaAlgorithm, err := types.GetSHAAlgorithm(pcrBank)
+				shaAlgorithm, err := hvs.GetSHAAlgorithm(pcrBank)
 				if err != nil {
 					return pcrManifest, err
 				}
 
-				pcrIndex, err := types.GetPcrIndexFromString(pcrNumber)
+				pcrIndex, err := hvs.GetPcrIndexFromString(pcrNumber)
 				if err != nil {
 					return pcrManifest, err
 				}
 
-				if strings.EqualFold(pcrBank, "SHA256") {
-					pcrManifest.Sha256Pcrs = append(pcrManifest.Sha256Pcrs, types.Pcr{
-						DigestType: fmt.Sprintf(constants.PcrClassNamePrefix+"%d", 256),
-						Index:      pcrIndex,
-						Value:      pcrValue,
-						PcrBank:    shaAlgorithm,
+				if strings.EqualFold(pcrBank, SHA256) {
+					pcrManifest.Sha256Pcrs = append(pcrManifest.Sha256Pcrs, hvs.HostManifestPcrs{
+						Index:   pcrIndex,
+						Value:   pcrValue,
+						PcrBank: shaAlgorithm,
 					})
-				} else if strings.EqualFold(pcrBank, "SHA1") {
-					pcrManifest.Sha1Pcrs = append(pcrManifest.Sha1Pcrs, types.Pcr{
-						DigestType: fmt.Sprintf(constants.PcrClassNamePrefix+"%d", 1),
-						Index:      pcrIndex,
-						Value:      pcrValue,
-						PcrBank:    shaAlgorithm,
+				} else if strings.EqualFold(pcrBank, SHA1) {
+					pcrManifest.Sha1Pcrs = append(pcrManifest.Sha1Pcrs, hvs.HostManifestPcrs{
+						Index:   pcrIndex,
+						Value:   pcrValue,
+						PcrBank: shaAlgorithm,
 					})
 				}
 			} else {
@@ -272,68 +267,89 @@ func createPCRManifest(pcrList []string, eventLog string) (types.PcrManifest, er
 	}
 	pcrManifest.PcrEventLogMap, err = getPcrEventLog(eventLog)
 	if err != nil {
-		return pcrManifest, errors.Wrap(err, "util/aik_quote_verifier:createPCRManifest() Error getting PCR "+
+		return pcrManifest, errors.Wrap(err, "internal/aik_quote_verifier:createPCRManifest() Error getting PCR "+
 			"event log")
 	}
 	return pcrManifest, nil
 }
 
-func getPcrEventLog(eventLog string) (types.PcrEventLogMap, error) {
+func getPcrEventLog(eventLog string) (hvs.PcrEventLogMap, error) {
 
-	var pcrEventLogMap types.PcrEventLogMap
-	var measureLog types.MeasureLog
-	err := xml.Unmarshal([]byte(eventLog), &measureLog)
+	var pcrEventLogMap hvs.PcrEventLogMap
+	var measureLogs []hvs.TpmEventLog
+	err := xml.Unmarshal([]byte(eventLog), &measureLogs)
 	if err != nil {
-		return types.PcrEventLogMap{}, errors.Wrap(err, "util/aik_quote_verifier:getPcrEventLog() Error "+
+		return hvs.PcrEventLogMap{}, errors.Wrap(err, "internal/aik_quote_verifier:getPcrEventLog() Error "+
 			"unmarshalling measureLog")
 	}
-	for _, module := range measureLog.Txt.Modules.Module {
-		pcrEventLogMap = addPcrEntry(module, pcrEventLogMap)
+	for _, module := range measureLogs {
+		addPcrEntry(module, &pcrEventLogMap)
 	}
 	return pcrEventLogMap, nil
 }
 
-func addPcrEntry(module types.Module, eventLogMap types.PcrEventLogMap) types.PcrEventLogMap {
+func addPcrEntry(module hvs.TpmEventLog, eventLogMap *hvs.PcrEventLogMap) {
 
 	pcrFound := false
 	index := 0
-	switch module.PcrBank {
+	switch module.Pcr.Bank {
 	case SHA1:
 		for _, entry := range eventLogMap.Sha1EventLogs {
-			if entry.PcrIndex == module.PcrNumber {
+			if entry.Pcr.Index == module.Pcr.Index {
 				pcrFound = true
 				break
 			}
 			index++
 		}
-		eventLog := types.EventLog{DigestType: EVENT_LOG_DIGEST_SHA1,
-			Value: module.Value, Label: module.Name}
-		eventLog.Info = make(map[string]string)
-		eventLog.Info["ComponentName"] = module.Name
-		eventLog.Info["EventName"] = EVENT_NAME
+
 		if !pcrFound {
-			eventLogMap.Sha1EventLogs = append(eventLogMap.Sha1EventLogs, types.EventLogEntry{PcrIndex: module.PcrNumber, PcrBank: SHA1, EventLogs: []types.EventLog{eventLog}})
+			eventLogMap.Sha1EventLogs = nil
 		} else {
-			eventLogMap.Sha1EventLogs[index].EventLogs = append(eventLogMap.Sha1EventLogs[index].EventLogs, eventLog)
+			for _, events := range module.TpmEvent {
+				eventLog := hvs.EventLog{Measurement: events.Measurement,
+					Tags: events.Tags, TypeID: events.TypeID, TypeName: events.TypeName}
+
+				eventLogMap.Sha1EventLogs[index].TpmEvent = append(eventLogMap.Sha1EventLogs[index].TpmEvent, eventLog)
+			}
 		}
+
 	case SHA256:
 		for _, entry := range eventLogMap.Sha256EventLogs {
-			if entry.PcrIndex == module.PcrNumber {
+			if entry.Pcr.Index == module.Pcr.Index {
 				pcrFound = true
 				break
 			}
 			index++
 		}
-		eventLog := types.EventLog{DigestType: EVENT_LOG_DIGEST_SHA256,
-			Value: module.Value, Label: module.Name}
-		eventLog.Info = make(map[string]string)
-		eventLog.Info["ComponentName"] = module.Name
-		eventLog.Info["EventName"] = EVENT_NAME
+
 		if !pcrFound {
-			eventLogMap.Sha256EventLogs = append(eventLogMap.Sha256EventLogs, types.EventLogEntry{PcrIndex: module.PcrNumber, PcrBank: SHA256, EventLogs: []types.EventLog{eventLog}})
+			eventLogMap.Sha256EventLogs = nil
 		} else {
-			eventLogMap.Sha256EventLogs[index].EventLogs = append(eventLogMap.Sha256EventLogs[index].EventLogs, eventLog)
+			for _, events := range module.TpmEvent {
+				eventLog := hvs.EventLog{Measurement: events.Measurement,
+					Tags: events.Tags, TypeID: events.TypeID, TypeName: events.TypeName}
+				eventLogMap.Sha256EventLogs[index].TpmEvent = append(eventLogMap.Sha256EventLogs[index].TpmEvent, eventLog)
+			}
 		}
+
+	case SHA384:
+		for _, entry := range eventLogMap.Sha384EventLogs {
+			if entry.Pcr.Index == module.Pcr.Index {
+				pcrFound = true
+				break
+			}
+			index++
+		}
+
+		if !pcrFound {
+			eventLogMap.Sha384EventLogs = nil
+		} else {
+			for _, events := range module.TpmEvent {
+				eventLog := hvs.EventLog{Measurement: events.Measurement,
+					Tags: events.Tags, TypeID: events.TypeID, TypeName: events.TypeName}
+				eventLogMap.Sha384EventLogs[index].TpmEvent = append(eventLogMap.Sha384EventLogs[index].TpmEvent, eventLog)
+			}
+		}
+
 	}
-	return eventLogMap
 }

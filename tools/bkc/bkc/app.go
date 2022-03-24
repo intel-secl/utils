@@ -10,8 +10,7 @@ import (
 	"os"
 )
 
-const defaultTPMSecret = "0000000000000000000000000000000000000000"
-const defaultAIKSecret = "0000000000000000000000000000000000000000"
+const defaultSecret = "0000000000000000000000000000000000000000"
 
 type App struct {
 	RunDir string
@@ -63,10 +62,10 @@ func (app *App) Run(args []string) error {
 			return err
 		}
 		if app.TPMOwnerSecret == "" {
-			app.TPMOwnerSecret = defaultTPMSecret
+			app.TPMOwnerSecret = defaultSecret
 		}
 		if app.AIKSecret == "" {
-			app.AIKSecret = defaultAIKSecret
+			app.AIKSecret = defaultSecret
 		}
 		return app.tpmProvider()
 	case "attestation":

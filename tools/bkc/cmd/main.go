@@ -8,14 +8,14 @@ import (
 	"fmt"
 	"os"
 
-	"intel/isecl/tools/bkc/v3/bkc"
+	"intel/isecl/tools/bkc/v5/bkc"
 )
 
 const (
 	runDir  = "/opt/bkc-tool/var"
 	logFile = "/opt/bkc-tool/var/bkc.log"
 
-	eventLog = "/opt/bkc-tool/var/measureLog.xml"
+	eventLog = "/opt/bkc-tool/var/measure-log.json"
 	RamfsDir = "/opt/bkc-tool/var/ramfs"
 )
 

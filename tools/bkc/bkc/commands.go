@@ -8,7 +8,7 @@ import (
 	"os"
 	"path"
 
-	commands "intel/isecl/tools/bkc/v3/bkc/internal"
+	commands "intel/isecl/tools/bkc/v5/bkc/internal"
 
 	"github.com/pkg/errors"
 )
@@ -59,7 +59,7 @@ func (app *App) attestation(flag string) error {
 			return errors.Wrap(err, "failed to load saved attestation files")
 		}
 	}
-	if errAttest := commands.Attestation(app.logWriter(), app.TPMOwnerSecret, app.AIKSecret); errAttest != nil {
+	if errAttest := commands.Attestation(app.logWriter(), app.TPMOwnerSecret, app.AIKSecret, app.EventLogFile); errAttest != nil {
 		return errors.Wrap(errAttest, "failed to execute attestation test")
 	}
 	return nil
