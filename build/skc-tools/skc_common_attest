@@ -1,5 +1,7 @@
 bin: app skc orchestration
 
+OS := $(shell cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
+
 skc_services:
 	cd intel-secl && make cms-installer && make authservice-installer && make aas-manager
 	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_tee_pre_req.sh
@@ -47,15 +49,46 @@ orchestration: attestation
 	cp intel-secl-tee/deployments/installer/fds-*.bin binaries/
 	cp intel-secl/installer/isecl-k8s-extensions-v*.tar.gz binaries/
 
-clean:
-	cd intel-secl && make clean
-	cd intel-secl-tee && make clean
-	rm -rf binaries/
-
 fd_agent:
 	cd utils/build/skc-tools/common_attest/fd_agent/build_scripts/ && ./fdagent_build.sh
 	
 skc_library:
 	cd utils/build/skc-tools/common_attest/skc_library/build_scripts/ && ./skc_library_build.sh
+
+sgx_agent:
+	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_dcap_addtnl_preq.sh
+	cd intel-secl-tee && make sgx-agent-installer
+
+intel_secl_tee_k8s:
+	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_tee_pre_req.sh
+	cd intel-secl-tee && mkdir -p deployments/k8s
+	if [ "$(OS)" = "rhel" ]; then \
+		cd intel-secl-tee && make qvs-k8s ;\
+	fi
+	cd intel-secl-tee && make fda-k8s && make aps-k8s && make tcs-k8s && make fds-k8s && make apc-installer
+
+intel_secl_k8s:
+	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make isecl-k8s-extensions-installer
+
+skc_library_k8s:
+	cd utils/build/skc-tools/skc_library/build_scripts/ && ./build_skc_docker.sh
+
+k8s_common: clean intel_secl_k8s intel_secl_tee_k8s skc_library_k8s sgx_agent k8s_common_services
+
+k8s_common_services:
+	mkdir -p k8s/container-images
+	cp -r intel-secl/deployments/container-archive/oci/*.tar k8s/container-images/
+	cp -r intel-secl-tee/deployments/container-archive/oci/*.tar k8s/container-images/
+	cp skc_library/out/*.tar k8s/container-images/
+	cp -r intel-secl-tee/deployments/installer/*.bin k8s/container-images/
+	cp -r intel-secl-tee/deployments/installer/apc.env k8s/container-images/
+
+k8s: k8s_common
+
+clean:
+	cd intel-secl && make clean
+	cd intel-secl-tee && make clean
+	rm -rf binaries/
+	rm -rf k8s/
 
 .PHONY: all clean attestation app skc orchestration fd_agent skc_library skc_services

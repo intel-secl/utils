@@ -25,7 +25,12 @@ install_tee_pre_req()
 		popd
 		rm -rf sgx_rpm_local_repo sgx_rpm_local_repo.tgz libPCKCertSelection.so
 	elif [ "$OS" == "ubuntu" ]; then
-		echo "${red} Not implemented yet for Ubuntu OS ${reset}"
+                wget -q $SGX_URL_TEE_UB/libPCKCertSelection.so || exit 1
+                \cp -pf libPCKCertSelection.so /usr/lib/libPCKCertSelection.so
+                echo $SGX_LIBS_REPO | sudo tee /etc/$PKGMGR/sources.list.d/intel-sgx.list
+                wget -qO - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | sudo $PKGMGR-key add - || exit 1
+                $PKGMGR update -y || exit 1
+                $PKGMGR install -y libsgx-dcap-default-qpl libsgx-dcap-default-qpl-dev libsgx-dcap-quote-verify libsgx-ae-pce libsgx-ae-qve libsgx-enclave-common libsgx-urts libsgx-pce-logic libsgx-headers || exit 1
 	fi
 }
 
