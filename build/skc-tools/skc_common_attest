@@ -68,7 +68,7 @@ intel_secl_tee_k8s:
 	cd intel-secl-tee && make fda-k8s && make aps-k8s && make tcs-k8s && make fds-k8s && make apc-installer
 
 intel_secl_k8s:
-	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make isecl-k8s-extensions-installer
+	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make aas-manager-k8s && make isecl-k8s-extensions-installer
 
 skc_library_k8s:
 	cd utils/build/skc-tools/skc_library/build_scripts/ && ./build_skc_docker.sh
