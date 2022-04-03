@@ -52,8 +52,6 @@ ISECL_INSTALL_COMPONENTS=FDS,IHUB
 sed -i "s@^\(ISECL_INSTALL_COMPONENTS\s*=\s*\).*\$@\1$ISECL_INSTALL_COMPONENTS@" ~/populate-users.env
 sed -i "s@^\(AAS_API_URL\s*=\s*\).*\$@\1$AAS_URL@" ~/populate-users.env
 
-AAS_ADMIN_USERNAME=$(cat ~/authservice.env | grep ^AAS_ADMIN_USERNAME= | cut -d'=' -f2)
-AAS_ADMIN_PASSWORD=$(cat ~/authservice.env | grep ^AAS_ADMIN_PASSWORD= | cut -d'=' -f2)
 sed -i "s/^\(AAS_ADMIN_USERNAME\s*=\s*\).*\$/\1$AAS_ADMIN_USERNAME/" ~/populate-users.env
 sed -i "s/^\(AAS_ADMIN_PASSWORD\s*=\s*\).*\$/\1$AAS_ADMIN_PASSWORD/" ~/populate-users.env
 
@@ -121,7 +119,6 @@ FDS_URL=https://$SYSTEM_IP:$FDS_PORT/fds/v1
 K8S_URL=https://$K8S_IP:$K8S_PORT/
 sed -i "s@^\(FDS_BASE_URL\s*=\s*\).*\$@\1$FDS_URL@" ~/ihub.env
 sed -i "s@^\(KUBERNETES_URL\s*=\s*\).*\$@\1$K8S_URL@" ~/ihub.env
-sed -i "s@^\(TENANT\s*=\s*\).*\$@\1$TENANT@" ~/ihub.env
 sed -i '/^[^#]/ s/\(^.*HVS_BASE_URL.*$\)/#\ \1/' ~/ihub.env
 
 echo "Installing Integration HUB...."
