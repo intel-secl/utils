@@ -1,5 +1,16 @@
+SHELL:=/bin/bash
+VERSION := "v5.0.0"
+BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%SZ)
+PROXY_EXISTS := $(shell if [[ "${https_proxy}" || "${http_proxy}" ]]; then echo 1; else echo 0; fi)
+DOCKER_PROXY_FLAGS := ""
+ifeq ($(PROXY_EXISTS),1)
+        DOCKER_PROXY_FLAGS = --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy}
+else
+        undefine DOCKER_PROXY_FLAGS
+endif
+
 TARGETS = intel-secl
-INTEL_SECL_K8S = authservice cms ihub kbs hvs wls tagent wlagent
+INTEL_SECL_K8S = authservice cms ihub kbs hvs wls tagent wlagent isecl-k8s-controller isecl-k8s-scheduler admission-controller
 
 binaries: clean download-eca wpm-installer $(TARGETS)
 	mkdir binaries
@@ -7,7 +18,7 @@ binaries: clean download-eca wpm-installer $(TARGETS)
 	cp intel-secl/deployments/installer/*.sh binaries/
 	cp intel-secl/installer/isecl-k8s-extensions-v*.tar.gz binaries/
 
-k8s: k8s_common
+k8s: k8s_common init-containers
 	cp -r intel-secl/deployments/k8s/* k8s/manifests/
 	cp -r utils/build/workload-security/k8s/create-dirs-nfs.sh k8s/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
@@ -29,7 +40,7 @@ k8s-aio: k8s_common
 	cp intel-secl/deployments/k8s/aas/populate-users k8s/manifests/aas/scripts/
 	cp intel-secl/deployments/k8s/aas/populate-users.env k8s/manifests/aas/scripts/populate-users.env
 
-k8s_common: clean $(INTEL_SECL_K8S) k8s-extensions wpm-installer
+k8s_common: clean $(INTEL_SECL_K8S) wpm-installer
 	mkdir -p k8s/binaries
 	mkdir -p k8s/container-images
 	mkdir -p k8s/manifests
@@ -44,8 +55,13 @@ k8s_common: clean $(INTEL_SECL_K8S) k8s-extensions wpm-installer
 	cp intel-secl/deployments/installer/wpm-v*.bin k8s/binaries/
 	cp intel-secl/deployments/container-archive/oci/* k8s/container-images/
 
-k8s-extensions:
-	cd intel-secl && make isecl-k8s-extensions-installer
+init-containers:
+	mkdir -p  utils/tools/containers/out
+	docker build ${DOCKER_PROXY_FLAGS} -t isecl/init-wait:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/init-wait/Dockerfile .
+	skopeo copy docker-daemon:isecl/init-wait:$(VERSION) oci-archive:utils/tools/containers/out/init-wait-$(VERSION).tar
+	docker build ${DOCKER_PROXY_FLAGS} -t isecl/nats-init:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/nats/Dockerfile .
+	skopeo copy docker-daemon:isecl/nats-init:$(VERSION) oci-archive:utils/tools/containers/out/nats-init-$(VERSION).tar
+	cp -r utils/tools/containers/out/*.tar k8s/container-images/
 
 $(INTEL_SECL_K8S):
 	cd intel-secl && make $@-k8s
@@ -66,4 +82,4 @@ wpm-installer:
 %-clean:
 	cd $* && make clean
 
-.PHONY: all clean $(TARGETS)
+.PHONY: all clean $(TARGETS) init-containers

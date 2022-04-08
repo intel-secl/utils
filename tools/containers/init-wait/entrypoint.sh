@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export WAIT_INTERVAL=${WAIT_INTERVAL:-4}
-export ITERATIONS=${ITERATIONS:-20}
+export WAIT_INTERVAL=${WAIT_INTERVAL:-2}
+export ITERATIONS=${ITERATIONS:-30}
 i=0
 
 # Waits for $ITERATIONS * $WAIT_INTERVAL for any service with given API with $URL
