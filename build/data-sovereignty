@@ -9,7 +9,7 @@ else
         undefine DOCKER_PROXY_FLAGS
 endif
 
-INTEL_SECL_K8S = authservice cms ihub hvs tagent isecl-k8s-controller isecl-k8s-scheduler admission-controller
+INTEL_SECL_K8S = authservice cms ihub hvs tagent isecl-k8s-controller isecl-k8s-scheduler admission-controller aas-manager
 
 binaries: clean download-eca intel-secl
 	mkdir binaries

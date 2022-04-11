@@ -10,7 +10,7 @@ else
 endif
 
 TARGETS = intel-secl
-INTEL_SECL_K8S = authservice cms ihub kbs hvs wls tagent wlagent isecl-k8s-controller isecl-k8s-scheduler admission-controller
+INTEL_SECL_K8S = authservice cms ihub kbs hvs wls tagent wlagent isecl-k8s-controller isecl-k8s-scheduler admission-controller aas-manager
 
 binaries: clean download-eca wpm-installer $(TARGETS)
 	mkdir binaries
