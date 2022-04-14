@@ -1,0 +1,23 @@
+{
+    "subject": "<hw-uuid>",
+    "validity_seconds": <validity-secs>,
+    "claims": {
+      	"permissions": [
+		{
+			"rules": [
+				"platforms:push:*",
+				"tcb_status:retrieve:*",
+				"platform_collateral:refresh:*"
+			],
+			"service": "TCS"
+		},
+		{
+			"rules": [
+				"hosts:create:*"
+			],
+
+			"service": "FDS"
+		}
+  	]
+    }
+}

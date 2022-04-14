@@ -16,7 +16,7 @@ install_cryptoapitoolkit()
         cd $GIT_CLONE_SGX_CTK
 	sed -i "s/#define NONCE_LENGTH 32/#define NONCE_LENGTH 128/g" $GIT_CLONE_SGX_CTK/src/p11/trusted/SoftHSMv2/common/QuoteGenerationDefs.h
         bash autogen.sh || exit 1
-        ./configure --with-p11-kit-path=$P11_KIT_PATH --prefix=$CTK_INSTALL --enable-dcap --disable-ephemeral-quote --disable-multiprocess-support || exit 1
+        ./configure --with-p11-kit-path=$P11_KIT_PATH --prefix=$CTK_INSTALL --enable-dcap --disable-ephemeral-quote --disable-multiprocess-support --enable-session-key-wrap || exit 1
 	make install || exit 1
 	popd
 	\cp -rpf $CTK_INSTALL $SKCLIB_DIR

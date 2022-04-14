@@ -71,7 +71,16 @@ intel_secl_k8s:
 	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make aas-manager-k8s && make isecl-k8s-extensions-installer
 
 skc_library_k8s:
-	cd utils/build/skc-tools/skc_library/build_scripts/ && ./build_skc_docker.sh
+	mkdir -p k8s/manifests/
+	mkdir -p k8s/container-images/
+	cd utils/build/skc-tools/common_attest/skc_library/build_scripts/ && ./build_skc_docker.sh
+	cp skc_library/out/skc*.tar k8s/container-images/
+	cp -pf utils/build/skc-tools/config k8s/manifests/
+	cp -r utils/build/skc-tools/skc_library/custom-claim-token utils/build/skc-tools/skc_k8s/skc_library/resources/
+	cp -r utils/build/skc-tools/kbs_script k8s/manifests/
+	cp -r utils/build/skc-tools/skc_k8s/skc_library k8s/manifests/skc_library
+	cp -r utils/build/skc-tools/skc_k8s/skc-bootstrap.sh k8s/manifests/skc-bootstrap.sh
+	cp utils/build/skc-tools/skc_k8s/isecl-skc-k8s.env k8s/manifests/isecl-skc-k8s.env
 
 k8s_common: clean intel_secl_k8s intel_secl_tee_k8s skc_library_k8s sgx_agent k8s_common_services
 

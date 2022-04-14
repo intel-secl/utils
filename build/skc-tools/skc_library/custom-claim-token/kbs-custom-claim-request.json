@@ -1,0 +1,12 @@
+{
+    "subject": "kbs",
+    "validity_seconds": <validity-secs>,
+    "claims": {
+        "permissions": [
+            {
+                "service": "KBS",
+                "context": "nginx"
+            }
+        ]
+    }
+}

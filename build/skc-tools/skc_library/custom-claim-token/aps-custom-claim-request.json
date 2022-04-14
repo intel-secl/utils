@@ -1,0 +1,14 @@
+{
+    "subject": "kbs",
+    "validity_seconds": <validity-secs>,
+    "claims": {
+        "permissions": [
+            {
+                "service": "APS",
+                "rules": [
+                    "attestation_token:create"
+                ]
+            }
+        ]
+    }
+}
