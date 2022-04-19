@@ -63,12 +63,13 @@ install_dcap_driver()
 install_psw_qgl()
 {
 	if [ "$OS" == "rhel" ]; then
-		tar -xf $SGX_AGENT_BIN/sgx_rpm_local_repo.tgz
+		wget -q $MPA_URL/sgx_rpm_local_repo.tgz || exit 1
+		tar -xf sgx_rpm_local_repo.tgz
 		yum-config-manager --add-repo file://$PWD/sgx_rpm_local_repo || exit 1
 		$PKGMGR install -qy --nogpgcheck libsgx-dcap-ql || exit 1
 		rm -rf sgx_rpm_local_repo /etc/yum.repos.d/*sgx_rpm_local_repo.repo
 	elif [ "$OS" == "ubuntu" ]; then
-		echo $SGX_LIBS_REPO | sudo tee /etc/apt/sources.list.d/intel-sgx.list
+		echo "$SGX_LIBS_REPO" | sudo tee /etc/apt/sources.list.d/intel-sgx.list
 		wget -qO - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | sudo apt-key add -
 		$PKGMGR update -y || exit 1
 		$PKGMGR install -y libsgx-dcap-ql || exit 1

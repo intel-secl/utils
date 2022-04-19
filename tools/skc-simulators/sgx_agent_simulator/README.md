@@ -54,7 +54,7 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ```{.shell}
 git clone https://github.com/intel-secl/utils.git && cd utils
-git checkout v4.1/develop
+git checkout v4.2/develop
 cd tools/skc-simulators/sgx_agent_simulator/sgx_agent_simulator_automation/build_scripts/
 
 - To build SGX Agent Simulator,

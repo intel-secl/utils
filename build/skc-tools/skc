@@ -1,4 +1,4 @@
-# Building Container on Ubuntu OS is NOT Supported
+# Building Container is Supported only on Ubuntu OS
 
 bin: app skc orchestrator
 

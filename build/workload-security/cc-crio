@@ -1,5 +1,5 @@
 TARGETS = intel-secl workload-service k8s-extensions trust-agent
-INTEL_SECL_K8S = authservice cms ihub kbs hvs
+INTEL_SECL_K8S = authservice cms ihub kbs hvs aas-manager
 
 binaries: clean download-eca $(TARGETS) workload-agent
 	mkdir binaries
@@ -60,7 +60,7 @@ wlagent_k8s:
 	cd workload-agent && make oci-archive
 
 $(INTEL_SECL_K8S):
-	cd intel-secl && make $@-k8s
+	cd intel-secl && make download-eca && make $@-k8s
 
 k8s-extensions:
 	cd k8s-extensions && make

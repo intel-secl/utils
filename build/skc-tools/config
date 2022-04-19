@@ -63,13 +63,15 @@ SGX_AGENT_DIR=$PWD/sgx_agent
 SGX_AGENT_BIN_DIR=$SGX_AGENT_DIR/bin
 SGX_AGENT_BIN=bin
 
+
 SAMPLEAPPS_DIR=$PWD/sample_apps
 SAMPLEAPPS_BIN_DIR=$SAMPLEAPPS_DIR/bin
 
-SKCLIB_VERSION=4.1
+SKCLIB_VERSION=4.2
 SKCLIB_DIR=$PWD/skc_library
 SKCLIB_BIN_DIR=$SKCLIB_DIR/bin
 SKCLIB_BIN=bin
+SGX_AGENT_REPO_NAME=sgx_agent
 
 if [ "$VER" == "20.04" ]; then
 	SGX_LIBS_REPO='deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ focal main'

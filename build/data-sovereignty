@@ -1,5 +1,16 @@
+SHELL:=/bin/bash
+VERSION := "v4.2.0"
+BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%SZ)
+PROXY_EXISTS := $(shell if [[ "${https_proxy}" || "${http_proxy}" ]]; then echo 1; else echo 0; fi)
+DOCKER_PROXY_FLAGS := ""
+ifeq ($(PROXY_EXISTS),1)
+        DOCKER_PROXY_FLAGS = --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy}
+else
+        undefine DOCKER_PROXY_FLAGS
+endif
+
 TARGETS = k8s-extensions trust-agent
-INTEL_SECL_K8S = authservice cms ihub hvs
+INTEL_SECL_K8S = authservice cms ihub hvs aas-manager
 
 binaries: clean download-eca $(TARGETS) intel-secl
 	mkdir binaries
@@ -9,7 +20,7 @@ binaries: clean download-eca $(TARGETS) intel-secl
 	cp k8s-extensions/out/isecl-k8s-extensions-v*.tar.gz binaries/
 	cp -r intel-secl/tools/download-tls-certs.sh binaries/
 
-k8s: k8s_common
+k8s: k8s_common init-containers
 	cp -r intel-secl/deployments/k8s/* k8s/manifests/
 	cp -r utils/build/workload-security/k8s/create-dirs-nfs.sh k8s/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
@@ -53,7 +64,7 @@ tagent_k8s:
 	cd trust-agent && make oci-archive
 
 $(INTEL_SECL_K8S):
-	cd intel-secl && make $@-k8s
+	cd intel-secl && make download-eca && make $@-k8s
 
 k8s-extensions:
 	cd k8s-extensions && make
@@ -64,9 +75,18 @@ intel-secl:
 clean: $(patsubst %, %-clean, $(TARGETS))
 	rm -rf binaries/
 	rm -rf k8s
+	rm -rf utils/tools/containers/out
 
 download-eca:
 	cd intel-secl && make download-eca && cd -
+
+init-containers:
+	mkdir -p  utils/tools/containers/out
+	docker build ${DOCKER_PROXY_FLAGS} -t isecl/init-wait:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/init-wait/Dockerfile .
+	skopeo copy docker-daemon:isecl/init-wait:$(VERSION) oci-archive:utils/tools/containers/out/init-wait-$(VERSION).tar
+	docker build ${DOCKER_PROXY_FLAGS} -t isecl/nats-init:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/nats/Dockerfile .
+	skopeo copy docker-daemon:isecl/nats-init:$(VERSION) oci-archive:utils/tools/containers/out/nats-init-$(VERSION).tar
+	cp -r utils/tools/containers/out/*.tar k8s/container-images/
 
 $(TARGETS):
 	cd $@ && make installer
@@ -74,4 +94,4 @@ $(TARGETS):
 %-clean:
 	cd $* && make clean
 
-.PHONY: all clean $(TARGETS) intel-secl
+.PHONY: all clean $(TARGETS) intel-secl init-containers

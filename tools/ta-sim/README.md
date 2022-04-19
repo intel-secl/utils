@@ -13,7 +13,7 @@ Simplest way to build the Trust Agent invoke the make commands from the commandl
 ```shell
 cd tools/ta-sim
 make installer
-cp deployments/installer/ta-sim-v4.1.0.bin <target_directory>
+cp deployments/installer/ta-sim-v4.2.0.bin <target_directory>
 ```
 
 If this is the first time that you are installing the Trust Agent Simulator, a helper .env file is also provided that can be used to automate the install of the product. Copy the .env file to the home directory of the user installing the simulator. Details about environment variables are documented in go-ta-env section below.
@@ -32,7 +32,7 @@ Run the installer
 
 ```shell
 cp go-ta-sim.env ~
-./ta-sim-v4.1.0.bin
+./ta-sim-v4.2.0.bin
 ```
 
 Some of the required values will be prompted for by the installer if they are not set via the .env file. For others that are needed, the installer will error out. Please check the documentation of the .env file for setting the necessary ones.

@@ -31,7 +31,7 @@ sudo mv go /usr/local
 
 ``` {.shell}
 git clone https://github.com/intel-secl/utils.git && cd utils
-git checkout v4.1/develop
+git checkout v4.2/develop
 cd tools/skc-simulators/pcs_simulator
 ````
 

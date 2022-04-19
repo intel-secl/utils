@@ -16,8 +16,6 @@ if [ ! -z "$2" ]; then
 	fi
 fi
 
-
-
 python3 rsa_create.py $KEY_BITS > key-create-output.txt 2>&1
 
 if [ $? -ne 0 ]; then

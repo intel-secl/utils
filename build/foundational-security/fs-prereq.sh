@@ -13,7 +13,6 @@ PRE_REQ_PACKAGES_RHEL=(
   tpm2-tss-2.0.0-4.el8.x86_64
   tpm2-tss-devel.x86_64
   openssl-devel
-  skopeo
 )
 
 declare -a PRE_REQ_PACKAGES_UBUNTU
@@ -62,6 +61,13 @@ install_prereqs() {
         return ${return_code}
       fi
     done
+
+    # skopeo installation for RHEL
+    dnf -y module disable container-tools
+    dnf -y install 'dnf-command(copr)'
+    dnf -y copr enable rhcontainerbot/container-selinux
+    curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_8/devel:kubic:libcontainers:stable.repo
+    dnf -y install skopeo
   fi
 
   if [ "$OS" == "ubuntu" ]; then

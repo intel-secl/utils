@@ -1,5 +1,16 @@
+SHELL:=/bin/bash
+VERSION := "v4.2.0"
+BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%SZ)
+PROXY_EXISTS := $(shell if [[ "${https_proxy}" || "${http_proxy}" ]]; then echo 1; else echo 0; fi)
+DOCKER_PROXY_FLAGS := ""
+ifeq ($(PROXY_EXISTS),1)
+        DOCKER_PROXY_FLAGS = --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy}
+else
+        undefine DOCKER_PROXY_FLAGS
+endif
+
 TARGETS = trust-agent
-INTEL_SECL_K8S = authservice cms hvs
+INTEL_SECL_K8S = authservice cms hvs aas-manager
 
 binaries: clean $(TARGETS) intel-secl
 	mkdir binaries
@@ -7,7 +18,7 @@ binaries: clean $(TARGETS) intel-secl
 	cp intel-secl/deployments/installer/*.sh binaries/
 	cp trust-agent/out/*.bin binaries/
 
-k8s: k8s_common k8s_ta
+k8s: k8s_common k8s_ta init-containers
 	cp -r intel-secl/deployments/k8s/* k8s/manifests/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/ws/hvs-db k8s/manifests/
@@ -54,10 +65,18 @@ k8s-control-plane: clean k8s_common $(TARGETS)
 	cp utils/build/workload-security/k8s/create-dirs-nfs.sh k8s/
 
 $(INTEL_SECL_K8S):
-	cd intel-secl && make $@-k8s
+	cd intel-secl && make download-eca && make $@-k8s
 
 intel-secl:
 	cd $@ && make cms-installer && make authservice-installer && make aas-manager && make download-eca && make hvs-installer && make ihub-installer
+
+init-containers:
+	mkdir -p  utils/tools/containers/out
+	docker build ${DOCKER_PROXY_FLAGS} -t isecl/init-wait:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/init-wait/Dockerfile .
+	skopeo copy docker-daemon:isecl/init-wait:$(VERSION) oci-archive:utils/tools/containers/out/init-wait-$(VERSION).tar
+	docker build ${DOCKER_PROXY_FLAGS} -t isecl/nats-init:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/nats/Dockerfile .
+	skopeo copy docker-daemon:isecl/nats-init:$(VERSION) oci-archive:utils/tools/containers/out/nats-init-$(VERSION).tar
+	cp -r utils/tools/containers/out/*.tar k8s/container-images/
 
 clean: $(patsubst %, %-clean, $(TARGETS))
 	rm -rf binaries/

@@ -20,11 +20,11 @@ create_sgx_agent_tar()
 build_sgx_agent_docker()
 {
 	pushd $PWD
-	\cp -prf $SGX_AGENT_BIN_DIR ../../../../../sgx_agent/dist/image/
+	\cp -prf $SGX_AGENT_BIN_DIR ../../../../../$SGX_AGENT_REPO_NAME/dist/image/
 	if [ "$OS" == "rhel" ]; then
-		tar -xf ../../../../../sgx_agent/dist/image/bin/sgx_rpm_local_repo.tgz -C ../../../../../sgx_agent/dist/image/bin/
+		tar -xf ../../../../../$SGX_AGENT_REPO_NAME/dist/image/bin/sgx_rpm_local_repo.tgz -C ../../../../../$SGX_AGENT_REPO_NAME/dist/image/bin/
 	fi
-	cd ../../../../../sgx_agent
+	cd ../../../../../$SGX_AGENT_REPO_NAME
 	make oci-archive || exit 1
 	rm -rf dist/image/bin
 	popd
@@ -49,12 +49,6 @@ fi
 source install_sgxsdk.sh
 if [ $? -ne 0 ]; then
 	echo "${red} sgxsdk install failed ${reset}"
-	exit
-fi
-
-source download_sgx_psw_qgl.sh
-if [ $? -ne 0 ]; then
-	echo "${red} sgx psw, qgl rpms download failed ${reset}"
 	exit
 fi
 
