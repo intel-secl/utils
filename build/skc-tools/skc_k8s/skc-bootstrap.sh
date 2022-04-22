@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source isecl-skc-k8s.env
 if [ $? != 0 ]; then
   echo "failed to source isecl-skc-k8s.env"
@@ -47,8 +46,11 @@ deploy_SKC_library() {
   sed -i "s/\(.*\"validity_seconds\":\s\)\(.*\)/\1$TOKEN_VALIDITY_SECS,/g" ./resources/custom-claim-token/kbs-custom-claim-request.json
 
   ./resources/get_cms_ca.sh $K8S_CONTROL_PLANE_IP
-  kbs_token=$(./resources/custom-claim-token/custom-claim-token.sh kbs $K8S_CONTROL_PLANE_IP $AAS_ADMIN_USERNAME $AAS_ADMIN_PASSWORD)
-  aps_token=$(./resources/custom-claim-token/custom-claim-token.sh aps $K8S_CONTROL_PLANE_IP $AAS_ADMIN_USERNAME $AAS_ADMIN_PASSWORD)
+  ./resources/custom-claim-token/custom-claim-token.sh kbs $K8S_CONTROL_PLANE_IP $AAS_ADMIN_USERNAME $AAS_ADMIN_PASSWORD
+  ./resources/custom-claim-token/custom-claim-token.sh aps $K8S_CONTROL_PLANE_IP $AAS_ADMIN_USERNAME $AAS_ADMIN_PASSWORD
+
+  kbs_token=$(cat ./resources/custom-claim-token/kbs-custom-claim-response.json)
+  aps_token=$(cat ./resources/custom-claim-token/aps-custom-claim-response.json)
 
   if [ -z "$kbs_token" -o -z "$aps_token" ]; then
 	  echo -e "$RED APS/KBS Token Generation failed ...............$NC"
@@ -57,10 +59,11 @@ deploy_SKC_library() {
 	  exit 1
   fi
   
-  sed -i "s/auth_token=.*/auth_token=$kbs_token/" resources/npm.ini
-  sed -i "s/aps_token=.*/aps_token=$aps_token/" resources/npm.ini
+  sed -i "s#auth_token=.*#auth_token=$kbs_token#g" resources/npm.ini
+  sed -i "s#aps_token=.*#aps_token=$aps_token#g" resources/npm.ini
   sed -i "s/mode=.*/mode=$MODE/" resources/npm.ini
   popd
+
 
   pushd kbs_script
   sed -i "s/SYSTEM_IP=.*/SYSTEM_IP=$K8S_CONTROL_PLANE_IP/" kbs.conf
@@ -98,7 +101,7 @@ deploy_SKC_library() {
 
   echo $cert_path
   cp $cert_path ./skc_library/resources/nginx.crt
-  sed -i "s#\(\s\+image: \)\(.*\)#\1$SKC_LIBRARY_IMAGE_NAME:$SKC_LIBRARY_IMAGE_NAME_TAG#" skc_library/deployment.yml
+  sed -i "s#\(\s\+image: \)\(.*\)#\1$SKC_LIBRARY_IMAGE_NAME:$SKC_LIBRARY_IMAGE_TAG#" skc_library/deployment.yml
   sed -i "31s/\(\s\+- \)\(.*\)/\1\"$NODE_LABEL\"/" skc_library/deployment.yml
 
   # deploy
