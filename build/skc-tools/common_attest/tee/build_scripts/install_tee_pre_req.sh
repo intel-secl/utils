@@ -8,6 +8,10 @@ fi
 install_tee_pre_req()
 {
 	if [ "$OS" == "rhel" ]; then
+		pushd $PWD
+                cd /opt/intel/
+                wget -q $SGX_URL_TEE/libsgx_dcap_quoteverify.so.sbx || exit 1
+                popd
 		wget -q $SGX_URL_TEE/libPCKCertSelection.so || exit 1
 		\cp -pf libPCKCertSelection.so /usr/lib64/libPCKCertSelection.so
 		wget -q $SGX_URL_TEE/sgx_rpm_local_repo.tgz || exit 1
@@ -25,6 +29,10 @@ install_tee_pre_req()
 		popd
 		rm -rf sgx_rpm_local_repo sgx_rpm_local_repo.tgz libPCKCertSelection.so
 	elif [ "$OS" == "ubuntu" ]; then
+		pushd $PWD
+                cd /opt/intel/
+                wget -q $SGX_URL_TEE_UB/libsgx_dcap_quoteverify.so.sbx || exit 1
+                popd
                 wget -q $SGX_URL_TEE_UB/libPCKCertSelection.so || exit 1
                 \cp -pf libPCKCertSelection.so /usr/lib/libPCKCertSelection.so
                 echo $SGX_LIBS_REPO | sudo tee /etc/$PKGMGR/sources.list.d/intel-sgx.list
