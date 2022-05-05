@@ -34,12 +34,7 @@ clean_tmp_files() {
 	rm -r $tmp_file
 }
 
-
-deploy_SKC_library() {
-
-  echo "----------------------------------------------------"
-  echo "|      DEPLOY: SKC-LIBRARY                          |"
-  echo "----------------------------------------------------"
+update_skc_conf() {
 
   pushd skc_library
   sed -i "s/\(.*\"validity_seconds\":\s\)\(.*\)/\1$TOKEN_VALIDITY_SECS,/g" ./resources/custom-claim-token/aps-custom-claim-request.json
@@ -64,6 +59,31 @@ deploy_SKC_library() {
   sed -i "s/mode=.*/mode=$MODE/" resources/npm.ini
   popd
 
+  sed -i "s#\(\s\+image: \)\(.*\)#\1$SKC_LIBRARY_IMAGE_NAME:$SKC_LIBRARY_IMAGE_TAG#" skc_library/deployment.yml
+  sed -i "31s/\(\s\+- \)\(.*\)/\1\"$NODE_LABEL\"/" skc_library/deployment.yml
+
+}
+
+create_configmap_secrets() {
+  $KUBECTL create configmap nginx-config --from-file=skc_library/resources/nginx.conf --namespace=isecl
+  $KUBECTL create configmap kbs-key-config --from-file=skc_library/resources/keys.txt --namespace=isecl
+  $KUBECTL create configmap sgx-qcnl-config --from-file=skc_library/resources/sgx_default_qcnl.conf --namespace=isecl
+  $KUBECTL create configmap openssl-config --from-file=skc_library/resources/openssl.cnf --namespace=isecl
+  $KUBECTL create configmap pkcs11-config --from-file=skc_library/resources/pkcs11-apimodule.ini --namespace=isecl
+  $KUBECTL create configmap kbs-npm-config --from-file=skc_library/resources/npm.ini --namespace=isecl
+  $KUBECTL create configmap sgx-stm-config --from-file=skc_library/resources/sgx_stm.ini --namespace=isecl
+  $KUBECTL create secret generic cmsca-cert-secret --from-file=skc_library/resources/$CMS_ROOTCA --namespace=isecl
+  $KUBECTL create secret generic kbs-cert-secret --from-file=skc_library/resources/nginx.crt --namespace=isecl
+  $KUBECTL create configmap haproxy-hosts-config --from-file=skc_library/resources/hosts --namespace=isecl
+}
+
+deploy_SKC_library() {
+
+  echo "----------------------------------------------------"
+  echo "|      DEPLOY: SKC-LIBRARY                          |"
+  echo "----------------------------------------------------"
+
+  update_skc_conf
 
   pushd kbs_script
   sed -i "s/SYSTEM_IP=.*/SYSTEM_IP=$K8S_CONTROL_PLANE_IP/" kbs.conf
@@ -101,20 +121,9 @@ deploy_SKC_library() {
 
   echo $cert_path
   cp $cert_path ./skc_library/resources/nginx.crt
-  sed -i "s#\(\s\+image: \)\(.*\)#\1$SKC_LIBRARY_IMAGE_NAME:$SKC_LIBRARY_IMAGE_TAG#" skc_library/deployment.yml
-  sed -i "31s/\(\s\+- \)\(.*\)/\1\"$NODE_LABEL\"/" skc_library/deployment.yml
 
   # deploy
-  $KUBECTL create configmap nginx-config --from-file=skc_library/resources/nginx.conf --namespace=isecl
-  $KUBECTL create configmap kbs-key-config --from-file=skc_library/resources/keys.txt --namespace=isecl
-  $KUBECTL create configmap sgx-qcnl-config --from-file=skc_library/resources/sgx_default_qcnl.conf --namespace=isecl
-  $KUBECTL create configmap openssl-config --from-file=skc_library/resources/openssl.cnf --namespace=isecl
-  $KUBECTL create configmap pkcs11-config --from-file=skc_library/resources/pkcs11-apimodule.ini --namespace=isecl
-  $KUBECTL create configmap kbs-npm-config --from-file=skc_library/resources/npm.ini --namespace=isecl
-  $KUBECTL create configmap sgx-stm-config --from-file=skc_library/resources/sgx_stm.ini --namespace=isecl
-  $KUBECTL create secret generic cmsca-cert-secret --from-file=skc_library/resources/$CMS_ROOTCA --namespace=isecl
-  $KUBECTL create secret generic kbs-cert-secret --from-file=skc_library/resources/nginx.crt --namespace=isecl
-  $KUBECTL create configmap haproxy-hosts-config --from-file=skc_library/resources/hosts --namespace=isecl
+  create_configmap_secrets
   pushd skc_library
   $KUBECTL kustomize . | $KUBECTL apply -f -
 
@@ -141,6 +150,24 @@ deploy_SKC_library() {
 
 }
 
+launch_SKC_library() {
+
+  echo "----------------------------------------------------"
+  echo "|      DEPLOY: SKC-LIBRARY                          |"
+  echo "----------------------------------------------------"
+
+  update_skc_conf
+
+  # deploy
+  create_configmap_secrets
+  pushd skc_library
+  $KUBECTL kustomize . | $KUBECTL apply -f -
+  
+  popd
+  rm -f ./skc_library/resources/custom-claim-token/*-response.json
+  cd $HOME_DIR
+
+}
 cleanup_SKC_library() {
 
   echo "Uninstaling K8S SKC LIBRARY..."
@@ -211,9 +238,10 @@ cleanup() {
 
 #Help section
 print_help() {
-  echo "Usage: $0 [help/install/uninstall]"
+  echo "Usage: $0 [help/install/launch/uninstall]"
   echo "    help   	Print help"
   echo "    install     Install SKC Library in K8s environment"
+  echo "    launch      Launch SKC Library in K8s environment"
   echo "    uninstall   UnInstall SKC Library in K8s environment"
   echo ""
 }
@@ -227,6 +255,10 @@ dispatch_works() {
   "install")
     check_k8s_distribution
     deploy_SKC_library
+    ;;
+  "launch")
+    check_k8s_distribution
+    launch_SKC_library
     ;;
   "uninstall")
     check_k8s_distribution
