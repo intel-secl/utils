@@ -4,6 +4,10 @@ if [ $? -ne 0 ]; then
 	echo "${red} unable to read config variables ${reset}" && exit 1
 fi
 
+if [ -z $TEE_SERVER_IP ]; then
+	echo "${red} TEE_SERVER_IP value missing in ../../../config ${reset}" && exit 1
+fi
+
 install_prereqs()
 {
         if [ "$OS" == "rhel" ]; then
