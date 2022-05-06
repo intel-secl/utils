@@ -70,6 +70,16 @@ intel_secl_tee_k8s:
 intel_secl_k8s:
 	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make aas-manager-k8s && make isecl-k8s-extensions-installer
 
+skc_library_k8s_deploy:
+	mkdir -p k8s/manifests/
+	mkdir -p k8s/container-images/
+	cp -pf utils/build/skc-tools/config k8s/manifests/
+	cp -r utils/build/skc-tools/skc_library/custom-claim-token utils/build/skc-tools/skc_k8s/skc_library/resources/
+	cp -r utils/build/skc-tools/kbs_script k8s/manifests/
+	cp -r utils/build/skc-tools/skc_k8s/skc_library k8s/manifests/skc_library
+	cp -r utils/build/skc-tools/skc_k8s/skc-bootstrap.sh k8s/manifests/skc-bootstrap.sh
+	cp utils/build/skc-tools/skc_k8s/isecl-skc-k8s.env k8s/manifests/isecl-skc-k8s.env
+
 skc_library_k8s:
 	mkdir -p k8s/manifests/
 	mkdir -p k8s/container-images/
@@ -100,4 +110,4 @@ clean:
 	rm -rf binaries/
 	rm -rf k8s/
 
-.PHONY: all clean attestation app skc orchestration fd_agent skc_library skc_services
+.PHONY: all clean attestation app skc orchestration fd_agent skc_library skc_services skc_library_k8s_deploy skc_library_k8s

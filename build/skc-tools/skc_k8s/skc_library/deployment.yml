@@ -47,8 +47,6 @@ spec:
                 name: openssl-config
             - configMapRef:
                 name: pkcs11-config
-            - configMapRef:
-                name: haproxy-hosts-config
           volumeMounts:
            - mountPath: /var/log/nginx
              name: nginx-log-volume
@@ -73,9 +71,6 @@ spec:
            - mountPath: /opt/skc/etc/npm.ini
              name: kbs-npm-config-volume
              subPath: npm.ini
-           - mountPath: /etc/hosts
-             name: haproxy-hosts
-             subPath: hosts
            - mountPath: /opt/skc/store/cms-ca.cert
              name: cmsca-secret-volume
              subPath: cms-ca.cert
@@ -113,9 +108,6 @@ spec:
         - name: kbs-npm-config-volume
           configMap:
              name: kbs-npm-config
-        - name: haproxy-hosts
-          configMap:
-             name: haproxy-hosts-config
         - name: kbs-cert-secret-volume
           secret:
               secretName: kbs-cert-secret

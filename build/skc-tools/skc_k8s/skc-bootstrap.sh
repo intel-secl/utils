@@ -74,7 +74,6 @@ create_configmap_secrets() {
   $KUBECTL create configmap sgx-stm-config --from-file=skc_library/resources/sgx_stm.ini --namespace=isecl
   $KUBECTL create secret generic cmsca-cert-secret --from-file=skc_library/resources/$CMS_ROOTCA --namespace=isecl
   $KUBECTL create secret generic kbs-cert-secret --from-file=skc_library/resources/nginx.crt --namespace=isecl
-  $KUBECTL create configmap haproxy-hosts-config --from-file=skc_library/resources/hosts --namespace=isecl
 }
 
 deploy_SKC_library() {
@@ -173,7 +172,7 @@ cleanup_SKC_library() {
   echo "Uninstaling K8S SKC LIBRARY..."
   cd skc_library
   $KUBECTL delete secret kbs-cert-secret cmsca-cert-secret --namespace isecl
-  $KUBECTL delete configmap nginx-config kbs-key-config sgx-qcnl-config openssl-config pkcs11-config sgx-stm-config kbs-npm-config haproxy-hosts-config --namespace isecl
+  $KUBECTL delete configmap nginx-config kbs-key-config sgx-qcnl-config openssl-config pkcs11-config sgx-stm-config kbs-npm-config  --namespace isecl
   $KUBECTL delete deploy skclib-deployment --namespace isecl
   $KUBECTL delete svc skclib-svc --namespace isecl
   cd ../
