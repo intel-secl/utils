@@ -57,9 +57,14 @@ update_skc_conf() {
   sed -i "s#auth_token=.*#auth_token=$kbs_token#g" resources/npm.ini
   sed -i "s#aps_token=.*#aps_token=$aps_token#g" resources/npm.ini
   sed -i "s/mode=.*/mode=$MODE/" resources/npm.ini
+  sed -i "s/debug=.*/debug=$SKC_DEBUG/" resources/npm.ini
+  sed -i "s/debug=.*/debug=$SKC_DEBUG/" resources/sgx_stm.ini
   popd
 
   sed -i "s#\(\s\+image: \)\(.*\)#\1$SKC_LIBRARY_IMAGE_NAME:$SKC_LIBRARY_IMAGE_TAG#" skc_library/deployment.yml
+  if [ ! -z "$SKC_LIBRARY_IMAGE_PULL_SECRET" ] && [ "$SKC_LIBRARY_IMAGE_PULL_SECRET" != "nil" ]; then
+  sed -i "87s/\(\s\+- name: \)\(.*\)/\1$SKC_LIBRARY_IMAGE_PULL_SECRET/" skc_library/deployment.yml
+  fi
   sed -i "31s/\(\s\+- \)\(.*\)/\1\"$NODE_LABEL\"/" skc_library/deployment.yml
 
 }
@@ -97,6 +102,10 @@ deploy_SKC_library() {
   sed -i "s#^CERT_PATH\(\s\+\)\?=.*#CERT_PATH = \'$KMIP_CLIENT_CERT\'#" rsa_create.py
   sed -i "s#^KEY_PATH\(\s\+\)\?=.*#KEY_PATH = \'$KMIP_CLIENT_KEY\'#" rsa_create.py
   sed -i "s#^CA_PATH\(\s\+\)\?=.*#CA_PATH = \'$KMIP_CLIENT_ROOTCA\'#" rsa_create.py
+  sed -i "s#^\(\s\+\"mrenclave\":\s\+\?\[\"\)\(.*\)\(\"\],\)#\1$CTK_ENCLAVE_MEASUREMENT\3#" transfer_policy_request.json
+  sed -i "s#^\(\s\+\"isvprodid\":\s\+\?\[\)\(.*\)\(\],\)#\1$PROD_ID\3#" transfer_policy_request.json
+  sed -i "s#^\(\s\+\"isvsvn\":\s\+\?\)\(.*\)\(,\)#\1$ISV_SVN\3#" transfer_policy_request.json
+  sed -i "s#^\(\s\+\"enforce_tcb_upto_date\":\s\+\?\)\(.*\)#\1$TCB_UPDATE#" transfer_policy_request.json
 
   result=$(./run.sh reg)
   echo $result | tr -d '\n' > $tmp_file
