@@ -2,7 +2,7 @@ CMS_IP={{ cms }}
 AAS_IP={{ aas }}
 SCS_IP={{ scs }}
 
-{% if setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-openstack' %}
+{% if setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' %}
 SHVS_IP={{ shvs }}
 SHVS_PORT={{ shvs_port }}
 {% endif %}

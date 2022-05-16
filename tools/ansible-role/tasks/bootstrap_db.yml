@@ -97,7 +97,7 @@
   args:
     chdir: /root
     executable: /bin/bash
-  when: setup != 'secure-key-caching' and setup != 'sgx-orchestration-kubernetes' and setup != 'sgx-attestation-kubernetes' and  setup != 'sgx-orchestration-openstack' and setup != 'sgx-attestation-openstack' and setup != 'skc-no-orchestration' and setup != 'sgx-attestation-no-orchestration'
+  when: setup != 'secure-key-caching' and setup != 'sgx-orchestration-kubernetes' and setup != 'sgx-attestation-kubernetes' and setup != 'skc-no-orchestration' and setup != 'sgx-attestation-no-orchestration'
 
 - name: ISECL - BOOTSTRAP DB | Create DB for Workload Service
   shell: ./create_db.sh {{ wls_db_name }} {{ wls_db_user }} {{ wls_db_password }}
@@ -112,7 +112,7 @@
   args: 
      chdir: /root
      executable: /bin/bash
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup== 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-openstack' or setup == 'skc-no-orchestration' or setup == 'sgx-attestation-no-orchestration'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup== 'sgx-attestation-kubernetes' or setup == 'skc-no-orchestration' or setup == 'sgx-attestation-no-orchestration'
 
 
 - name: ISECL - BOOTSTRAP DB | Create DB for SGX Host Verification Service
@@ -120,5 +120,5 @@
   args:
      chdir: /root
      executable: /bin/bash
-  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup== 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup== 'sgx-attestation-openstack'
+  when: setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup== 'sgx-attestation-kubernetes'
 

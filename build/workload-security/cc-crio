@@ -64,7 +64,7 @@ init-containers:
 	cp -r utils/tools/containers/out/*.tar k8s/container-images/
 
 $(INTEL_SECL_K8S):
-	cd intel-secl && make $@-k8s
+	cd intel-secl && make download-eca && make $@-k8s
 
 clean: $(patsubst %, %-clean, $(TARGETS))
 	rm -rf binaries/

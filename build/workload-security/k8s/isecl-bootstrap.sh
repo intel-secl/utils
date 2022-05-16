@@ -293,7 +293,6 @@ deploy_admission_controller() {
 
   echo "Installing Pre-requisites"
 
-
   # create certs
   chmod +x scripts/create_k8s_extsched_certs.sh
   cd scripts

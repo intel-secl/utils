@@ -238,8 +238,8 @@
       - setup == 'workload-conf-vm'
       
 
-# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
-- name: ISECL - SETUP PREREQUISITES | Set required CSP facts for secure-key-caching/sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
+# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
+- name: ISECL - SETUP PREREQUISITES | Set required CSP facts for secure-key-caching/sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
   set_fact:
     cms: "{{ ansible_default_ipv4.address }}"
     cms_hostname: "{{ ansible_fqdn }}"
@@ -261,11 +261,11 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'csp')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-openstack')
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes')
 
 
-# os: Redhat/Ubuntu and setup: sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
-- name: ISECL - SETUP PREREQUISITES | Set required CSP facts for sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
+# os: Redhat/Ubuntu and setup: sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
+- name: ISECL - SETUP PREREQUISITES | Set required CSP facts for sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
   set_fact:
     ihub: "{{ ansible_default_ipv4.address }}"
     ihub_hostname: "{{ ansible_fqdn }}"    
@@ -280,11 +280,11 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'csp')
-      - (setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-openstack')
+      - (setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes')
 
 
-# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
-- name: ISECL - SETUP | Install CSP services for secure-key-caching/sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
+# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
+- name: ISECL - SETUP | Install CSP services for secure-key-caching/sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
   include: "{{ item }}"
   loop:
       - install_cms.yml
@@ -298,11 +298,11 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'csp')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-openstack')
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes')
 
 
-# os: Redhat/Ubuntu and setup: sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
-- name: ISECL - SETUP | Install CSP services for sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
+# os: Redhat/Ubuntu and setup: sgx-orchestration-kubernetes/sgx-attestation-kubernetes and isecl_role: csp
+- name: ISECL - SETUP | Install CSP services for sgx-orchestration-kubernetes/sgx-attestation-kubernetes usecase
   include: "{{ item }}"  
   loop:
       - install_ihub.yml
@@ -311,7 +311,7 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'csp')
-      - (setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-openstack')
+      - (setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes')
 
 
 # os: Redhat/Ubuntu and setup: skc-no-orchestration/sgx-attestation-no-orchestration and isecl_role: csp
@@ -353,7 +353,7 @@
       - (isecl_role == 'csp')
       - (setup == 'skc-no-orchestration' or setup == 'sgx-attestation-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-openstack/sgx-attestation-openstack/sgx-orchestration-kubernetes/sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: csp
+# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-kubernetes/sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: csp
 - name: ISECL - SETUP | Set fact for CMS TLS certificate
   set_fact:
     cmstlscertsha384_csp: "{{ cms_tlscertsha384 }}"
@@ -367,11 +367,11 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['CSP'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'csp')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'sgx-attestation-openstack' or setup == 'skc-no-orchestration' or setup == 'sgx-attestation-no-orchestration')
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-attestation-kubernetes' or setup == 'skc-no-orchestration' or setup == 'sgx-attestation-no-orchestration')
 
 
-# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration  and isecl_role: enterprise
-- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration  and isecl_role: enterprise
+- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration usecase
   set_fact:
     cms: "{{ ansible_default_ipv4.address }}"
     cms_hostname: "{{ ansible_fqdn }}"
@@ -394,10 +394,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Enterprise'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'enterprise')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration') 
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'skc-no-orchestration')
 
-# os: Redhat/Ubuntu and setup:  secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: enterprise
-- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration usecase
+# os: Redhat/Ubuntu and setup:  secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: enterprise
+- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration usecase
   set_fact:
     cms_enterprise: "{{ ansible_default_ipv4.address }}"
     cms_enterprise_hostname: "{{ ansible_fqdn }}"
@@ -418,10 +418,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Enterprise'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'enterprise')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration')
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'skc-no-orchestration')
 
-# os: Redhat/Ubuntu and setup:  secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: enterprise
-- name: ISECL - SETUP | Install Enterprise services for  secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration usecase
+# os: Redhat/Ubuntu and setup:  secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: enterprise
+- name: ISECL - SETUP | Install Enterprise services for  secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration usecase
   include: "{{ item }}"
   loop:
       - install_cms.yml
@@ -436,10 +436,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Enterprise'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'enterprise')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration')
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'skc-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration  and isecl_role: enterprise
-- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: sgx-attestation-kubernetes/sgx-attestation-no-orchestration  and isecl_role: enterprise
+- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
   set_fact:
     cms: "{{ ansible_default_ipv4.address }}"
     cms_hostname: "{{ ansible_fqdn }}"
@@ -460,10 +460,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Enterprise'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'enterprise')
-      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-openstack' or setup == 'sgx-attestation-no-orchestration')
+      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: enterprise
-- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: enterprise
+- name: ISECL - SETUP PREREQUISITES | Set required Enterprise facts for sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
   set_fact:
     cms_enterprise: "{{ ansible_default_ipv4.address }}"
     cms_enterprise_hostname: "{{ ansible_fqdn }}"
@@ -482,10 +482,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Enterprise'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'enterprise')
-      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-openstack' or setup == 'sgx-attestation-no-orchestration')
+      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: enterprise
-- name: ISECL - SETUP | Install Enterprise services for sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: enterprise
+- name: ISECL - SETUP | Install Enterprise services for sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
   include: "{{ item }}"
   loop:
       - install_cms.yml
@@ -499,10 +499,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Enterprise'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'enterprise')
-      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-openstack' or setup == 'sgx-attestation-no-orchestration')
+      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: node
-- name: ISECL - SETUP PREREQUISITES | Set required Node facts for secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: node
+- name: ISECL - SETUP PREREQUISITES | Set required Node facts for secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration usecase
   set_fact:
     sgx_agent: "{{ ansible_default_ipv4.address }}"
     sgx_agent_hostname: "{{ ansible_fqdn }}"    
@@ -517,10 +517,10 @@
      - (ansible_default_ipv4.address or ansible_fqdn in groups['Node'])
      - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
      - (isecl_role == 'node')
-     - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration')
+     - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'skc-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: node
-- name: ISECL - SETUP | Install Node services for secure-key-caching/sgx-orchestration-openstack/sgx-orchestration-kubernetes/skc-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration and isecl_role: node
+- name: ISECL - SETUP | Install Node services for secure-key-caching/sgx-orchestration-kubernetes/skc-no-orchestration usecase
   include: "{{ item }}"
   loop:
       - install_sgx_agent.yml
@@ -530,10 +530,10 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Node'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'node')
-      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'sgx-orchestration-openstack' or setup == 'skc-no-orchestration')
+      - (setup == 'secure-key-caching' or setup == 'sgx-orchestration-kubernetes' or setup == 'skc-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: node
-- name: ISECL - SETUP PREREQUISITES | Set required Node facts for sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: node
+- name: ISECL - SETUP PREREQUISITES | Set required Node facts for sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
   set_fact:
     sgx_agent: "{{ ansible_default_ipv4.address }}"
     sgx_agent_hostname: "{{ ansible_fqdn }}"
@@ -548,10 +548,10 @@
      - (ansible_default_ipv4.address or ansible_fqdn in groups['Node'])
      - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
      - (isecl_role == 'node')
-     - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-openstack' or setup == 'sgx-attestation-no-orchestration')
+     - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-no-orchestration')
 
-# os: Redhat/Ubuntu and setup: sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: node
-- name: ISECL - SETUP | Install Node services for sgx-attestation-openstack/sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
+# os: Redhat/Ubuntu and setup: sgx-attestation-kubernetes/sgx-attestation-no-orchestration and isecl_role: node
+- name: ISECL - SETUP | Install Node services for sgx-attestation-kubernetes/sgx-attestation-no-orchestration usecase
   include: "{{ item }}"
   loop:
       - install_sgx_agent.yml
@@ -561,5 +561,5 @@
       - (ansible_default_ipv4.address or ansible_fqdn in groups['Node'])
       - (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian')
       - (isecl_role == 'node')
-      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-openstack' or setup == 'sgx-attestation-no-orchestration')
+      - (setup == 'sgx-attestation-kubernetes' or setup == 'sgx-attestation-no-orchestration')
 

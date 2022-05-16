@@ -30,8 +30,7 @@ Requirements
 This role requires the following as pre-requisites:
 
 1. **Build Machine and Ansible Server**<br>
-   
-   - The Build machine is required to build Intel® SecL-DC repositories. More details on building repositories in [Quick Start Guide - Foundational & Workload Security](https://github.com/intel-secl/docs/blob/v4.1/develop/quick-start-guides/Quick%20Start%20Guide%20-%20Intel%C2%AE%20Security%20Libraries%20-%20Foundational%20%26%20Workload%20Security.md) and in [Quick Start Guide - Secure Key Caching](https://github.com/intel-secl/docs/blob/v4.1/develop/quick-start-guides/Quick%20Start%20Guide%20-%20Intel%C2%AE%20Security%20Libraries%20-%20Secure%20Key%20Caching.md)
+   - The Build machine is required to build Intel® SecL-DC repositories. More details on building repositories in [Quick Start Guide - Foundational & Workload Security](https://github.com/intel-secl/docs/blob/v5.0/develop/quick-start-guides/Quick%20Start%20Guide%20-%20Intel%C2%AE%20Security%20Libraries%20-%20Foundational%20%26%20Workload%20Security.md) and in [Quick Start Guide - Secure Key Caching](https://github.com/intel-secl/docs/blob/v5.0/develop/quick-start-guides/Quick%20Start%20Guide%20-%20Intel%C2%AE%20Security%20Libraries%20-%20Secure%20Key%20Caching.md)
    - The Ansible Server is required to use this role to deploy Intel® SecL-DC services based on the supported deployment   model. The Ansible server is recommended to be installed on the Build machine itself. 
    - The role has been tested with `Ansible Version 2.9.10`
    
@@ -58,7 +57,7 @@ This role requires the following as pre-requisites:
 
         > **Note:** A security bug related to UEFI Secure Boot and Grub2 modules has resulted in some modules required by tboot to not be available on RedHat 8 UEFI systems. Tboot therefore cannot be used currently on RedHat 8. A future tboot release is expected to resolve this dependency issue and restore support for UEFI mode.
 
-   b. **Secure Key Caching, SGX Attestation Kubernetes, SGX Attestation Openstack, SGX Orchestration Kubernetes, SGX Orchestration Openstack and Skc No Orchestration Usecases**
+   b. **Secure Key Caching, SGX Attestation Kubernetes, SGX Orchestration Kubernetes and Skc No Orchestration Usecases**
       * Supported Hardware: Intel® Xeon® SP products those support SGX
       * BIOS Requirements: Intel® SGX-TEM BIOS requirements are outlined in the latest Intel® SGX Platforms BIOS Writer's Guide, Intel® SGX should be enabled in BIOS menu (Intel® SGX is Disabled by default on Ice Lake), Intel® SGX BIOS requirements include exposing Flexible Launch Control menu.
       * OS Requirements (Intel® SGX does not supported on 32-bit OS): Linux RHEL 8.2 / Linux Ubuntu 18.04 / Linux Ubuntu 20.04<br>
@@ -83,8 +82,6 @@ Usecase and Playbook Support on RHEL
 | Secure Key Caching                                 | Yes              |
 | SGX Orchestration Kubernetes                                | Yes(partial*)    |
 | SGX Attestation Kubernetes                                    | Yes(partial*)    |
-| SGX Orchestration Openstack                                  | Yes(partial*)    |
-| SGX Attestation Openstack                                    | Yes(partial*)    |
 | SKC No Orchestration                               | Yes              |
 | SGX Attestation No Orchestration                   | Yes              |
    > **Note:** *partial means orchestrator installation is not bundled with the role and need to be done independently. Also, components dependent on the orchestrator like `isecl-k8s-extensions` and `integration-hub` are installed either partially or not installed
@@ -149,8 +146,6 @@ The following usecases are supported and the respective variables can be provide
 | Secure Key Caching                                 | `setup: secure-key-caching` in playbook or via `--extra-vars` as `setup=secure-key-caching`in CLI |
 | SGX Orchestration Kubernetes                      | `setup: sgx-orchestration-kubernetes` in playbook or via `--extra-vars` as `setup=sgx-orchestration-kubernetes`in CLI |
 | SGX Attestation Kubernetes                        | `setup: sgx-attestation-kubernetes` in playbook or via `--extra-vars` as `setup=sgx-attestation-kubernetes`in CLI |
-| SGX Orchestration Openstack                       | `setup: sgx-orchestration-openstack` in playbook or via `--extra-vars` as `setup=sgx-orchestration-openstack`in CLI |
-| SGX Attestation Openstack                         | `setup: sgx-attestation-openstack` in playbook or via `--extra-vars` as `setup=sgx-attestation-openstack`in CLI |
 | SKC No Orchestration                              | `setup: skc-no-orchestration` in playbook or via `--extra-vars` as `setup=skc-no-orchestration`in CLI |
 | SGX Attestation No Orchestration                  | `setup: sgx-attestation-no-orchestration` in playbook or via `--extra-vars` as `setup=sgx-attestation-no-orchestration`in CLI |
 
@@ -177,20 +172,6 @@ The ISecL services and scripts required w.r.t each use case is as follows. The b
 5. Host Verification Service
 6. Trust Agent
 
-**Trusted Workload Placement - VM**
-
-1. Certificate Management Service
-2. Bootstrap Database (scripts)
-3. Authentication & Authorization Service
-4. Populate Users (scripts)
-5. Host Verification Service
-6. Integration Hub
-7. Trust Agent
-> **Note**: `Trusted Workload Placement - VM` requires orchestrators `Openstack` and `integration-hub` to be configured to talk to Openstack. 
-    The playbook will place the `integration-hub` installer and configure the env except for `Openstack` configuration in the `ihub.env`. 
-    Once `Openstack` is installed and running, `ihub.env` can be updated for `tenant` configuration and installed. 
-    Please refer product guide for supported versions of Openstack and installation of `integration-hub`<br>
-
 **Trusted Workload Placement - Containers**
 
 1. Certificate Management Service
@@ -204,25 +185,6 @@ The ISecL services and scripts required w.r.t each use case is as follows. The b
     The playbook will place the `integration-hub` installer and configure the env except for `kubernetes` configuration in the `ihub.env`. 
     Once `kubernetes`  is installed and running, `ihub.env` can be updated for `tenant` configuration and installed. 
     Please refer product guide for supported versions of Kubernetes and installation of `integration-hub`<br>
-
-**Launch Time Protection - VM Confidentiality**
-
-1. Certificate Management Service
-2. Bootstrap Database (scripts)
-3. Authentication & Authorization Service
-4. Populate Users (scripts)
-5. Host Verification Service
-6. Workload Service
-7. Key Broker Service
-8. Workload Policy Manager
-9. Trust Agent
-10. Workload Agent
-> **Note**: `Trusted Workload Placement - VM` requires orchestrators `Openstack` and `integration-hub` to be configured to talk to Openstack. 
-    The playbook will place the `integration-hub` installer and configure the env except for `Openstack` configuration in the `ihub.env`. 
-    Once `Openstack` is installed and running, `ihub.env` can be updated for `tenant` configuration and installed. 
-    Please refer product guide for supported versions of Openstack and installation of `integration-hub`<br>
-> **Note:** In addition to this `isecl-k8s-extensions` need to be installed on Kubernetes control-plane. 
-    Please refer product guide for supported versions of orchestrator and setup details for installing `isecl-k8s-extensions`<br>
 
 **Launch Time Protection - Container Confidentiality with CRIO Runtime**
 
@@ -294,37 +256,6 @@ The ISecL services and scripts required w.r.t each use case is as follows. The b
 
 > **Note:** In addition to this `isecl-k8s-extensions` need to be installed on Kubernetes control-plane. 
     Please refer product guide for supported versions of orchestrator and setup details for installing `isecl-k8s-extensions`<br>
-
-**SGX Orchestration Openstack**
-1. Certificate Management Service
-2. Bootstrap Database (scripts)
-3. Authentication & Authorization Service
-4. SGX Caching Service
-5. SGX Host Verification Service
-6. SKC Integration Hub
-7. SGX Quote Verfication Service
-8. Key Broker Service
-9. SGX Agent
-10. SKC Library
-> **Note**: `SGX Orchestration openstack` requires `openstack` orchestrator 
-    In addition to this, it also requires the installation of `integration-hub` to talk to the orchestrator. 
-    The playbook will place the `integration-hub` installer and configure the env except for `openstack`  configuration in the `ihub.env`.  
-    Once `openstack`  is installed and running, `ihub.env` can be updated for `tenant` configuration and installed. 
-
-**SGX Attestation Openstack**
-1. Certificate Management Service
-2. Bootstrap Database (scripts)
-3. Authentication & Authorization Service
-4. SGX Caching Service
-5. SGX Host Verification Service
-6. SKC Integration Hub
-7. SGX Quote Verfication Service
-8. SGX Agent
-9. SGX Dependencies
-> **Note**: For`SGX Attestation Openstack` orchestration is optional. It requires `openstack` orchestrator.
-    In addition to this, it also requires the installation of `integration-hub` to talk to the orchestrator. 
-    The playbook will place the `integration-hub` installer and configure the env except for `openstack` configuration in the `ihub.env`.  
-    Once `openstack` is installed and running, `ihub.env` can be updated for `tenant` configuration and installed. 
 
 **SKC No Orchestration**
 1. Certificate Management Service

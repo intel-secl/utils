@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/intel-secl/intel-secl/v5/pkg/lib/common/crypt"
-	"intel/isecl/lib/tpmprovider/v5"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/tpmprovider"
 
 	"github.com/pkg/errors"
 )
@@ -108,7 +108,7 @@ func TPMProviderTest(w io.Writer, tpmSec, aikSec string) error {
 }
 
 func initTPM() error {
-	tpmFactory, err := tpmprovider.NewTpmFactory()
+	tpmFactory, err := tpmprovider.LinuxTpmFactoryProvider{}.NewTpmFactory()
 	if err != nil {
 		return errors.Wrap(err, "failed to create tpm factory")
 	}

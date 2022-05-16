@@ -15,5 +15,4 @@ replace (
 	github.com/intel-secl/intel-secl-tee/v5 => gitlab.devtools.intel.com/sst/isecl/intel-secl-tee.git/v5 v4.0/develop
 	github.com/intel-secl/intel-secl/v5 => gitlab.devtools.intel.com/sst/isecl/intel-secl.git/v5 v5.0/develop
 	github.com/vmware/govmomi => github.com/arijit8972/govmomi fix-tpm-attestation-output
-	intel/isecl/lib/tpmprovider/v5 => gitlab.devtools.intel.com/sst/isecl/lib/tpm-provider.git/v5 v5.0/develop
 )

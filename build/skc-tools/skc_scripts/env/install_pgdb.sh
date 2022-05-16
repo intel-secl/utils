@@ -66,7 +66,7 @@ do
 done
 pgdb_cert_ip=${pgdb_cert_ip::-1}
 
-echo "Installing postgres database version 11 ..."
+echo "Installing postgres database version 11 and its rpm repo for RHEL 8 x86_64 ..."
 
 cd /tmp
 log_file=/dev/null
@@ -142,8 +142,6 @@ if [ ! -f $PGDATA/pg_hba.conf ] ; then
     echo "ssl_cert_file = 'server.crt'" >> $PGDATA/postgresql.conf
     echo "ssl_key_file = 'server.key'" >> $PGDATA/postgresql.conf
     echo "ssl_ciphers = '$ISECL_PGDB_CIPHERSUITES'" >> $PGDATA/postgresql.conf
-    echo "max_connections = $isecl_pgdb_max_connections" >> $PGDATA/postgresql.conf
-    echo "shared_buffers = $isecl_pgdb_shared_buffers" >> $PGDATA/postgresql.conf
 
     mv $PGDATA/pg_hba.conf $PGDATA/pg_hba-template.conf
     echo "local all postgres peer" >> $PGDATA/pg_hba.conf

@@ -5,7 +5,7 @@
 package commands
 
 import (
-	"intel/isecl/lib/tpmprovider/v5"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/tpmprovider"
 	"os"
 )
 

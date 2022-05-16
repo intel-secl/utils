@@ -697,7 +697,7 @@
 					]
 				}
 			],
-			"description": "Host Registration creates a host record with host information in the Feature Discovery Service (FDS)database when FD Agent update SGX enablement information for the first time.\n\nIf FDS URL is configured, then FD Agent fetches the TCB Status from TCS and updates FDS with SGX platform enablement information and TCB status periodically. The platform information is made available to Kubernetes and Openstack via the SGX Hub (IHUB), which pulls it from FDS.",
+			"description": "Host Registration creates a host record with host information in the Feature Discovery Service (FDS)database when FD Agent update SGX enablement information for the first time.\n\nIf FDS URL is configured, then FD Agent fetches the TCB Status from TCS and updates FDS with SGX platform enablement information and TCB status periodically. The platform information is made available to Kubernetes via the SGX Hub (IHUB), which pulls it from FDS.",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -862,7 +862,7 @@
 					]
 				}
 			],
-			"description": "The Integration Hub (IHUB) allows to support SGX in Kubernetes and Open stack. IHUB pulls the list of hosts details from Kubernetes and then using the host information it pulls the SGX Data from Feature Discovery Service and pushes it to Kubernetes. IHUB performs these steps on a regular basis so that the most recent SGX information about nodes is reflected in Kubernetes and Openstack.\n\nThis integration allows Kubernetes and Openstack to schedule VMs and containers that need to run SGX workloads on compute nodes that support SGX. The SGX data that IHUB pushes to Kubernetes consists of SGX enabled/disabled, SGX supported/not supported, FLC enabled/not enabled, EPC memory size, TCB status up to date/not up to date and platform-data expiry time.",
+			"description": "The Integration Hub (IHUB) allows to support SGX in Kubernetes and Open stack. IHUB pulls the list of hosts details from Kubernetes and then using the host information it pulls the SGX Data from Feature Discovery Service and pushes it to Kubernetes. IHUB performs these steps on a regular basis so that the most recent SGX information about nodes is reflected in Kubernetes.\n\nThis integration allows Kubernetes and Openstack to schedule VMs and containers that need to run SGX workloads on compute nodes that support SGX. The SGX data that IHUB pushes to Kubernetes consists of SGX enabled/disabled, SGX supported/not supported, FLC enabled/not enabled, EPC memory size, TCB status up to date/not up to date and platform-data expiry time.",
 			"event": [
 				{
 					"listen": "prerequest",
