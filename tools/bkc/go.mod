@@ -12,7 +12,7 @@ require (
 )
 
 replace (
-	github.com/intel-secl/intel-secl-tee/v5 => gitlab.devtools.intel.com/sst/isecl/intel-secl-tee.git/v5 v4.0/develop
-	github.com/intel-secl/intel-secl/v5 => gitlab.devtools.intel.com/sst/isecl/intel-secl.git/v5 v5.0/develop
+	github.com/intel-secl/intel-secl-tee/v5 => github.com/intel-innersource/applications.security.isecl.intel-secl-tee/v5 v5.0/develop
+	github.com/intel-secl/intel-secl/v5 => github.com/intel-innersource/applications.security.isecl.intel-secl/v5 v5.0/develop
 	github.com/vmware/govmomi => github.com/arijit8972/govmomi fix-tpm-attestation-output
 )

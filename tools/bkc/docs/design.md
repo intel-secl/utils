@@ -291,7 +291,7 @@ The purpose of this test is to check if `platform-info` library returns desired 
 
 ![hardware-test.png](pics/hardware-test.png)
 
-[platform-info on GitLab](https://gitlab.devtools.intel.com/sst/isecl/lib/platform-info)
+[platform-info on Github Innersource](https://github.com/intel-innersource/libraries.security.isecl.platform-info)
 
 All of the listed hardware feature information can be found in `PlatformInfo` structure
 returned by function `GetPlatformInfo`
@@ -323,7 +323,7 @@ The purpose of this test is to check if Operations on TPM returns desired result
 
 ![tpm-test.png](pics/tpm-test.png)
 
-[tpm-provider on GitLab](https://gitlab.devtools.intel.com/sst/isecl/lib/tpm-provider)
+[tpm-provider on GithubInnersource](https://github.com/intel-innersource/libraries.security.isecl.tpm-provider.git)
 
 Related functions are listed as following table. All of listed functions are defined
 in interface `TpmProvider`.

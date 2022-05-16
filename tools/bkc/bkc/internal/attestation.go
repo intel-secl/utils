@@ -203,7 +203,7 @@ func createAssetTag() (*x509.Certificate, error) {
 // this function is doing things happens in function:
 //     func (ic *IntelConnector) GetHostManifestAcceptNonce(nonce string) (types.HostManifest, error)
 // written in file
-//     https://gitlab.devtools.intel.com/sst/isecl/intel-secl/-/blob/v3.1/develop/pkg/lib/host-connector/intel_host_connector.go
+//    https://github.com/intel-innersource/applications.security.isecl.intel-secl/blob/v3.1/develop/pkg/lib/host-connector/host_connector.go
 func getHostManifest(eventLogFilePath string) (*hvsModel.HostManifest, error) {
 	var hostInfo taModel.HostInfo
 	// hostManifest.HostInfo is platform info

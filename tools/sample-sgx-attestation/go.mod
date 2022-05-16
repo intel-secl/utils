@@ -9,4 +9,4 @@ require (
 	intel/isecl/lib/common/v5 v5.0.0
 )
 
-replace intel/isecl/lib/common/v5 => gitlab.devtools.intel.com/sst/isecl/lib/common.git/v5 v5.0/develop
+replace intel/isecl/lib/common/v5 => github.com/intel-innersource/libraries.security.isecl.common/v5 v5.0/develop
