@@ -2,7 +2,7 @@
 # --------------------------- CERTIFICATE MANAGEMENT SERVICE (CMS) ----------------------------------- #
 
 # The name of the binary installer as per the release tag for Certificate Management Service
-cms_installer_name: cms-v4.0.2.bin
+cms_installer_name: cms-v4.0.3.bin
 
 # The binary installer file src for Certificate Management Service
 cms_installer_file_src: "{{binaries_path}}/{{cms_installer_name}}"
@@ -101,7 +101,7 @@ shvs_db_password: shvsdbpassword
 # ---------------------------------- AUTHENTICATION AND AUTHORIZATION SERVICE -------------------------------------- #
 
 # The name of the binary installer as per the release tag for Authentication and Authorization Service
-aas_installer_name: authservice-v4.0.2.bin
+aas_installer_name: authservice-v4.0.3.bin
 
 # The binary installer file src for Authentication and Authorization Service
 aas_installer_file_src: "{{binaries_path}}/{{aas_installer_name}}"
@@ -137,7 +137,7 @@ install_admin_password: superAdminPass
 # ------------------------------------------ HOST VERIFICATION SERVICE ------------------------------------------- #
 
 # The name of the binary installer as per release tag for Host Verification Service
-hvs_installer_name: hvs-v4.0.2.bin
+hvs_installer_name: hvs-v4.0.3.bin
 
 # The binary installer file src for Host Verification Service
 hvs_installer_file_src: "{{binaries_path}}/{{hvs_installer_name}}"
@@ -155,7 +155,7 @@ hvs_service_password: vsAdminPass
 # ----------------------------------------- INTEGRATION HUB ----------------------------------------- #
 
 # The name of the binary installer as per release tag  for Integration Hub
-ihub_installer_file_name: ihub-v4.0.2.bin
+ihub_installer_file_name: ihub-v4.0.3.bin
 
 # The binary installer file source for Integration Hub
 ihub_installer_file_src: "{{binaries_path}}/{{ihub_installer_file_name}}"
@@ -178,7 +178,7 @@ ihub_instance_name: ihub
 # ---------------------------------------- WORKLOAD SERVICE ------------------------------------------ #
 
 # The name of the binary installer as per release tag for Workload Service
-wls_installer_file_name: wls-v4.0.2.bin
+wls_installer_file_name: wls-v4.0.3.bin
 
 # The binary installer file source for Workload Service
 wls_installer_file_src: "{{binaries_path}}/{{wls_installer_file_name}}"
@@ -196,7 +196,7 @@ wls_service_password: wlsAdminPass
 # ----------------------------------------- KEY BROKER SERVICE -------------------------------------- #
 
 # The name of the binary installer as per release tag for Key Broker Service
-kbs_installer_file_name: kbs-v4.0.2.bin
+kbs_installer_file_name: kbs-v4.0.3.bin
 
 # The binary installer file source for Key Broker Service
 kbs_installer_file_src: "{{binaries_path}}/{{kbs_installer_file_name}}"
@@ -239,7 +239,7 @@ docker_version: "19.03.13"
 # ---------------------------------------- WORKLOAD POLICY MANAGER ------------------------------------ #
 
 # The name of the binary installer as per release tag for Workload Policy Manager
-wpm_installer_file_name: wpm-v4.0.2.bin
+wpm_installer_file_name: wpm-v4.0.3.bin
 
 # The binary installer file source for Workload Policy Manager
 wpm_installer_file_src: "{{binaries_path}}/{{wpm_installer_file_name}}"
@@ -254,7 +254,7 @@ wpm_admin_password: wpmAdminPass
 # ---------------------------------------- TRUST AGENT ------------------------------------------- #
 
 # The name of the binary installer as per release tag for  Trust Agent
-ta_installer_file_name: trustagent-v4.0.2.bin
+ta_installer_file_name: trustagent-v4.0.3.bin
 
 # The binary installer file source for Trust Agent
 ta_installer_file_src: "{{binaries_path}}/{{ta_installer_file_name}}"
@@ -278,7 +278,7 @@ crio_file_src: "{{binaries_path}}/{{crio_installer_file_name}}"
 # --------------------------------------- WORKLOAD AGENT -------------------------------------------- #
 
 # The name of the binary installer as per release tag for Workload Agent
-wla_installer_file_name: workload-agent-v4.0.2.bin
+wla_installer_file_name: workload-agent-v4.0.3.bin
 
 # The binary installer file source for Workload Agent
 wla_installer_file_src: "{{binaries_path}}/{{wla_installer_file_name}}"
@@ -302,7 +302,7 @@ scs_admin_username: scsuser@scs
 scs_admin_password: scspassword
 
 # The name of the binary installer as per the release tag for SGX Caching Service
-scs_installer_name: scs-v4.0.2.bin
+scs_installer_name: scs-v4.0.3.bin
 
 # The binary installer file source for SGX Caching Service
 scs_installer_file_src: "{{binaries_path}}/{{scs_installer_name}}"
@@ -326,7 +326,7 @@ shvs_admin_username: shvsuser@shvs
 shvs_admin_password: shvspassword
 
 # The name of the binary installer as per the release tag for SGX Host Verification Service
-shvs_installer_name: shvs-v4.0.2.bin
+shvs_installer_name: shvs-v4.0.3.bin
 
 # The binary installer file source for SGX Host Verification Service
 shvs_installer_file_src: "{{binaries_path}}/{{shvs_installer_name}}"
@@ -344,7 +344,7 @@ sqvs_admin_username: sqvsuser@sqvs
 sqvs_admin_password: sqvspassword
 
 # The name of the binary installer as per the release tag for SGX Quote Verification Service
-sqvs_installer_name: sqvs-v4.0.2.bin
+sqvs_installer_name: sqvs-v4.0.3.bin
 
 # The binary installer file source for SGX Quote Verification Service
 sqvs_installer_file_src:  "{{binaries_path}}/{{sqvs_installer_name}}"

@@ -8,11 +8,11 @@ require (
 	github.com/sirupsen/logrus v1.4.0
 	github.com/stretchr/testify v1.3.0
 	gopkg.in/yaml.v2 v2.4.0
-	intel/isecl/lib/clients/v4 v4.0.2
-	intel/isecl/lib/common/v4 v4.0.2
+	intel/isecl/lib/clients/v4 v4.0.3
+	intel/isecl/lib/common/v4 v4.0.3
 )
 
 replace (
-	intel/isecl/lib/common/v4 => github.com/intel-secl/common/v4 v4.0.2
-	intel/isecl/lib/clients/v4 => github.com/intel-secl/clients/v4 v4.0.2 
+	intel/isecl/lib/common/v4 => github.com/intel-secl/common/v4 v4.0.3
+	intel/isecl/lib/clients/v4 => github.com/intel-secl/clients/v4 v4.0.3 
 )
