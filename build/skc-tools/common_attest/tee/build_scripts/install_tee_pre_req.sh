@@ -10,12 +10,12 @@ install_tee_pre_req()
 	if [ "$OS" == "rhel" ]; then
 		pushd $PWD
                 cd /opt/intel/
-                wget -q $SGX_URL_TEE/libsgx_dcap_quoteverify.so.sbx || exit 1
+                wget -q $SGX_URL_TEE_UB/libsgx_dcap_quoteverify.so.sbx || exit 1
                 popd
-		wget -q $SGX_URL_TEE/libPCKCertSelection.so || exit 1
+		wget -q $SGX_URL_TEE_UB/libPCKCertSelection.so || exit 1
 		\cp -pf libPCKCertSelection.so /usr/lib64/libPCKCertSelection.so
-		wget -q $SGX_URL_TEE/sgx_rpm_local_repo.tgz || exit 1
-		tar -xf sgx_rpm_local_repo.tgz || exit 1
+		wget -q $SGX_URL_TEE_UB/sgx_rpm_local_repo.tar.gz || exit 1
+		tar -xf sgx_rpm_local_repo.tar.gz || exit 1
 		pushd $PWD
 		cd sgx_rpm_local_repo/
 		rpm -ivh libsgx-dcap-default-qpl-$DCAP_QL_VERSION_TEE.el8.x86_64.rpm
@@ -27,7 +27,7 @@ install_tee_pre_req()
 		rpm -ivh libsgx-pce-logic-$DCAP_QL_VERSION_TEE.el8.x86_64.rpm
 		rpm -ivh libsgx-headers-$DCAP_PCE_VERSION_TEE.el8.x86_64.rpm
 		popd
-		rm -rf sgx_rpm_local_repo sgx_rpm_local_repo.tgz libPCKCertSelection.so
+		rm -rf sgx_rpm_local_repo sgx_rpm_local_repo.tar.gz libPCKCertSelection.so
 	elif [ "$OS" == "ubuntu" ]; then
 		pushd $PWD
                 cd /opt/intel/

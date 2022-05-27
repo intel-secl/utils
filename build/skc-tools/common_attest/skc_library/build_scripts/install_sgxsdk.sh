@@ -9,7 +9,7 @@ install_sgxsdk()
 {
 
         if [ "$OS" == "rhel" ]; then
-                wget -q $SGX_URL_TEE/sgx_linux_x64_sdk_$SGX_SDK_VERSION_TEE.bin || exit 1
+                wget -q $SGX_URL_TEE_UB/sgx_linux_x64_sdk_$SGX_SDK_VERSION_TEE.bin || exit 1
         elif [ "$OS" == "ubuntu" ]; then
                 wget -q $SGX_URL_TEE_UB/sgx_linux_x64_sdk_$SGX_SDK_VERSION_TEE.bin || exit 1
         fi

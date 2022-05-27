@@ -90,5 +90,5 @@ SGX_URL_TEE="http://${TEE_SERVER_IP}/intel-sgx/sgx-dcap/${SGX_VERSION_TEE}/linux
 # Hardcoded RHEL OS Flavor for downloading sdk and .so file, since no seperate ubuntu folder is created.
 SGX_URL_TEE_UB="http://${TEE_SERVER_IP}/intel-sgx/sgx-dcap/${SGX_VERSION_TEE}/linux/distro/rhel8.4-server"
 SGX_SDK_VERSION_TEE=2.13.91.2
-DCAP_QL_VERSION_TEE=1.10.90.3-1
-DCAP_PCE_VERSION_TEE=2.13.90.3-1
+DCAP_QL_VERSION_TEE=1.10.91.2-1
+DCAP_PCE_VERSION_TEE=2.13.91.2-1
