@@ -10,9 +10,9 @@ install_pre_requisites()
 	if [[ "$OS" == "rhel" && "$VER" == "8.1" || "$VER" == "8.2" || "$VER" == "8.4" ]]; then
 		echo "installing libgda and softhsm"
 		$PKGMGR install -qy https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm || exit 1
-		$PKGMGR install -qy https://dl.fedoraproject.org/pub/fedora/linux/releases/33/Everything/x86_64/os/Packages/s/softhsm-2.6.1-3.fc33.4.x86_64.rpm || exit 1
-		$PKGMGR install -qy https://dl.fedoraproject.org/pub/fedora/linux/releases/33/Everything/x86_64/os/Packages/l/libgda-5.2.9-6.fc33.x86_64.rpm || exit 1
-		$PKGMGR install -qy https://dl.fedoraproject.org/pub/fedora/linux/releases/33/Everything/x86_64/os/Packages/l/libgda-sqlite-5.2.9-6.fc33.x86_64.rpm || exit 1
+		$PKGMGR install -qy https://dl.fedoraproject.org/pub/fedora/linux/releases/34/Everything/x86_64/os/Packages/s/softhsm-2.6.1-5.fc34.1.x86_64.rpm || exit 1
+		$PKGMGR install -qy https://pkgs.dyn.su/el8/base/x86_64/libgda-5.2.8-4.el8.x86_64.rpm || exit 1
+		$PKGMGR install -qy https://pkgs.dyn.su/el8/base/x86_64/libgda-sqlite-5.2.8-4.el8.x86_64.rpm || exit 1
 		echo "installing devel packages"
 		$PKGMGR install -qy yum-utils tar wget gcc-c++ kernel-devel kernel-headers dkms make jq protobuf jsoncpp jsoncpp-devel || exit 1
 		\cp -rpf bin/pkcs11.so $LIB_DIR/engines-1.1/
