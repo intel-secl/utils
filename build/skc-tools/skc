@@ -96,6 +96,10 @@ k8s-stacks: k8s_common_stacks
 	mv k8s/manifests/aas/populate-users k8s/manifests/aas/scripts/
 	mv k8s/manifests/aas/populate-users.env k8s/manifests/aas/scripts/
 
+init-containers:
+	cd  utils/tools/containers/ && make init-wait
+	cp -r utils/tools/containers/init-wait/*.tar k8s/container-images/
+
 clean:
 	cd intel-secl && make clean
 	cd sgx-caching-service && make clean

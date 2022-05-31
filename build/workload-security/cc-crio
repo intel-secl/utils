@@ -1,5 +1,4 @@
 SHELL:=/bin/bash
-VERSION := "v5.0.0"
 BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%SZ)
 PROXY_EXISTS := $(shell if [[ "${https_proxy}" || "${http_proxy}" ]]; then echo 1; else echo 0; fi)
 DOCKER_PROXY_FLAGS := ""
@@ -56,12 +55,9 @@ k8s_common: clean $(INTEL_SECL_K8S) wpm-installer
 	cp intel-secl/deployments/container-archive/oci/* k8s/container-images/
 
 init-containers:
-	mkdir -p  utils/tools/containers/out
-	docker build ${DOCKER_PROXY_FLAGS} -t isecl/init-wait:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/init-wait/Dockerfile .
-	skopeo copy docker-daemon:isecl/init-wait:$(VERSION) oci-archive:utils/tools/containers/out/init-wait-$(VERSION).tar
-	docker build ${DOCKER_PROXY_FLAGS} -t isecl/nats-init:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/nats/Dockerfile .
-	skopeo copy docker-daemon:isecl/nats-init:$(VERSION) oci-archive:utils/tools/containers/out/nats-init-$(VERSION).tar
-	cp -r utils/tools/containers/out/*.tar k8s/container-images/
+	cd  utils/tools/containers/ && make all
+	cp -r utils/tools/containers/nats/*.tar k8s/container-images/
+	cp -r utils/tools/containers/init-wait/*.tar k8s/container-images/
 
 $(INTEL_SECL_K8S):
 	cd intel-secl && make download-eca && make $@-k8s
