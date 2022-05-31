@@ -60,7 +60,7 @@ k8s-aio: k8s_common
 	cp intel-secl/deployments/k8s/aas/populate-users k8s/manifests/aas/scripts/
 	cp intel-secl/deployments/k8s/aas/populate-users.env k8s/manifests/aas/scripts/populate-users.env
 
-k8s: k8s_common
+k8s: k8s_common init-containers
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
 	cp -r utils/build/k8s-manifests/db-deployments/multi-node/skc/* k8s/manifests/
 	cp -r intel-secl/deployments/k8s/* k8s/manifests/
