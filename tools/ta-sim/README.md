@@ -1,6 +1,6 @@
 # Trust Agent Simulator
 
-The Trust Agent Simulator could be used for simulating Trust Agents for performance testing of ISecl compoonents - in particular the HVS. The Trust Agent Simulator can simulate thousands of hosts in a single process. A single process hosts multiple `https servers` with one port per simulated host. Typically, you could simulate upto 25,000 hosts on a single Linux server. The number of servers and starting port number can be configured through the config file.
+The Trust Agent Simulator could be used for simulating Trust Agents for performance testing of ISecl components - in particular the HVS. The Trust Agent Simulator can simulate thousands of hosts in a single process. A single process hosts multiple `https servers` with one port per simulated host. Typically, you could simulate upto 25,000 hosts on a single Linux server. The number of servers and starting port number can be configured through the config file.
 
 ## Building from Source code
 
@@ -68,7 +68,7 @@ Once configured, the Trust Agent simulator can be used to create flavors, and re
 ```shell
 cd /opt/go-ta-simulator
 # start the simulator using the helper script. This script will set the ulimit and keep the process in the background
-./tagent-sim start
+./tagent-sim start [-u ulimit]
 # Create Flavors. In order for hosts to be trusted, it needs the software flavors as well (TA simulator does not generate software flavors). To address this problem, import flavors into HVS from a real Trust Agent which will import the necessary flavors into the "automatic" flavorgroup.
 ./ta-sim create-all-flavors
 
