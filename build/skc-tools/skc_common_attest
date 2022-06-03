@@ -60,15 +60,21 @@ sgx_agent:
 	cd intel-secl-tee && make sgx-agent-installer
 
 intel_secl_tee_k8s:
+	mkdir -p k8s/container-images/
 	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_tee_pre_req.sh
 	cd intel-secl-tee && mkdir -p deployments/k8s
 	if [ "$(OS)" = "rhel" ]; then \
 		cd intel-secl-tee && make qvs-k8s ;\
 	fi
-	cd intel-secl-tee && make fda-k8s && make aps-k8s && make tcs-k8s && make fds-k8s && make apc-installer
+	cd intel-secl-tee && make fda-k8s && make aps-k8s && make tcs-k8s && make fds-k8s && make apc-installer 
+	cp intel-secl-tee/deployments/installer/taa.env ./k8s/container-images/
 
 intel_secl_k8s:
+	mkdir -p k8s/container-images/
 	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make aas-manager-k8s && make isecl-k8s-extensions-installer
+	cp intel-secl/deployments/installer/populate-users.sh ./k8s/container-images/
+	cp intel-secl/deployments/k8s/aas/populate-users.env ./k8s/container-images/
+	 
 
 skc_library_k8s_deploy:
 	mkdir -p k8s/manifests/
