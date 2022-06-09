@@ -56,12 +56,13 @@ skc_library:
 	cd utils/build/skc-tools/common_attest/skc_library/build_scripts/ && ./skc_library_build.sh
 
 sgx_agent:
-	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_dcap_addtnl_preq.sh
 	cd intel-secl-tee && make sgx-agent-installer
+
+tdx_agent:
+	cd intel-secl-tee && make tdx-agent-installer
 
 intel_secl_tee_k8s:
 	mkdir -p k8s/container-images/
-	cd utils/build/skc-tools/common_attest/tee/build_scripts && ./install_tee_pre_req.sh
 	cd intel-secl-tee && mkdir -p deployments/k8s
 	if [ "$(OS)" = "rhel" ]; then \
 		cd intel-secl-tee && make qvs-k8s ;\
@@ -74,7 +75,6 @@ intel_secl_k8s:
 	cd intel-secl && make authservice-k8s && make cms-k8s && make ihub-k8s && make kbs-k8s && make aas-manager-k8s && make isecl-k8s-extensions-installer
 	cp intel-secl/deployments/installer/populate-users.sh ./k8s/container-images/
 	cp intel-secl/deployments/k8s/aas/populate-users.env ./k8s/container-images/
-	 
 
 skc_library_k8s_deploy:
 	mkdir -p k8s/manifests/
@@ -98,7 +98,14 @@ skc_library_k8s:
 	cp -r utils/build/skc-tools/skc_k8s/skc-bootstrap.sh k8s/manifests/skc-bootstrap.sh
 	cp utils/build/skc-tools/skc_k8s/isecl-skc-k8s.env k8s/manifests/isecl-skc-k8s.env
 
-k8s_common: clean intel_secl_k8s intel_secl_tee_k8s skc_library_k8s sgx_agent k8s_common_services
+k8s_common: clean intel_secl_k8s intel_secl_tee_k8s init-containers
+
+k8s_skc: k8s_common skc_library_k8s k8s_common_services
+    cp skc_library/out/*.tar k8s/container-images/
+
+k8s_sgx: k8s_common sgx_agent k8s_common_services
+
+k8s_tdx: k8s_common tdx_agent k8s_common_services
 
 init-containers:
 	cd  utils/tools/containers/ && make init-wait
@@ -108,11 +115,11 @@ k8s_common_services:
 	mkdir -p k8s/container-images
 	cp -r intel-secl/deployments/container-archive/oci/*.tar k8s/container-images/
 	cp -r intel-secl-tee/deployments/container-archive/oci/*.tar k8s/container-images/
-	cp skc_library/out/*.tar k8s/container-images/
 	cp -r intel-secl-tee/deployments/installer/*.bin k8s/container-images/
 	cp -r intel-secl-tee/deployments/installer/apc.env k8s/container-images/
 
-k8s: k8s_common init-containers
+k8s: k8s_common skc_library_k8s sgx_agent tdx_agent k8s_common_services
+    cp skc_library/out/*.tar k8s/container-images/
 
 clean:
 	cd intel-secl && make clean
