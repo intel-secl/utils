@@ -101,7 +101,7 @@ skc_library_k8s:
 k8s_common: clean intel_secl_k8s intel_secl_tee_k8s init-containers
 
 k8s_skc: k8s_common skc_library_k8s k8s_common_services
-    cp skc_library/out/*.tar k8s/container-images/
+	cp skc_library/out/*.tar k8s/container-images/
 
 k8s_sgx: k8s_common sgx_agent k8s_common_services
 
@@ -119,7 +119,7 @@ k8s_common_services:
 	cp -r intel-secl-tee/deployments/installer/apc.env k8s/container-images/
 
 k8s: k8s_common skc_library_k8s sgx_agent tdx_agent k8s_common_services
-    cp skc_library/out/*.tar k8s/container-images/
+	cp skc_library/out/*.tar k8s/container-images/
 
 clean:
 	cd intel-secl && make clean
