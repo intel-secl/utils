@@ -85,9 +85,6 @@ if [ "$TA_SERVICE_MODE" == "outbound" ]; then
   [ -z "$TA_HOST_ID" ] && read -p "Enter TA host ID):" TA_HOST_ID
   echo -e "NatsServers : "$NATS_SERVERS >> configuration/config.yml
   echo -e "TaHostID : "$TA_HOST_ID >> configuration/config.yml
-else
-  [ -z "$TA_IP" ] && read -p "Enter the TA ip (ex: 10.1.2.3) (Leave empty to use the default response files):" TA_IP
-  TA_URL=https://$TA_IP:$TA_PORT
 fi
 
 sed -i "s/^\(HvsApiUrl\s*:\s*\).*\$/\1https:\/\/$HVS_IP:$HVS_PORT\/hvs\/v2\//" configuration/config.yml
@@ -152,6 +149,7 @@ if [ "$TA_SERVICE_MODE" == "outbound" ] && [ -n "$NATS_SERVERS" ] && [ -n "$TA_H
 elif [ "$TA_SERVICE_MODE" == "http" ]; then
     if [ -n "$TA_IP" ]; then
       echo "Downloading data from Trust Agent in http mode..."
+      TA_URL=https://$TA_IP:$TA_PORT
       curl --noproxy "*" -H "Authorization: Bearer $TOKEN" -H "Accept:application/json" $TA_URL/v2/host -k > ./repository/host_info.json
       FILE_SIZE=`wc -c < ./repository/host_info.json`
       if [ -z "$FILE_SIZE" ] || [[ $FILE_SIZE == 0 ]]; then
