@@ -15,12 +15,12 @@ import (
 	"encoding/json"
 	"encoding/pem"
 	"fmt"
+	constants "github.com/intel-secl/intel-secl/v5/pkg/hvs/constants/verifier-rules-and-faults"
 	"io"
 	"io/ioutil"
 	"math/big"
 	"os"
 	"path"
-	"path/filepath"
 	"time"
 
 	"github.com/google/uuid"
@@ -114,6 +114,11 @@ func Attestation(w io.Writer, tpmSec, aikSec, eventLogFilePath string) error {
 		}
 		collectiveTrustReport.AddResults(r.Results)
 	}
+
+	collectiveTrustReport.HostManifest = *manifest
+	collectiveTrustReport.Trusted = collectiveTrustReport.IsTrusted()
+	collectiveTrustReport.PolicyName = constants.IntelBuilder
+
 	npwacmFound = fileExists(CheckNPWACMFile)
 	// if npw_acm detected, report can be untrusted but output is still passed
 	// as long as pcr 17 18 is the fault
@@ -287,31 +292,16 @@ func getHostManifest(eventLogFilePath string) (*hvsModel.HostManifest, error) {
 	if assetTagHashB64 == "" {
 		return nil, errors.New("asset tag hasn't be created yet")
 	}
-	// tcbMeasurments
-	var tcbMeasurements []string
-	fileInfo, err := ioutil.ReadDir(RamfsDir)
-	if err != nil {
-		return nil, err
-	}
-	for _, file := range fileInfo {
-		if filepath.Ext(file.Name()) == ".xml" {
-			xml, err := ioutil.ReadFile(RamfsDir + file.Name())
-			if err != nil {
-				return nil, errors.Wrap(err, "error reading manifest file "+file.Name())
-			}
-			tcbMeasurements = append(tcbMeasurements, string(xml))
-		}
-	}
 	hostManifest.PcrManifest = pcrManifest
+	hostManifest.HostInfo = *platformInfo
 	hostManifest.AIKCertificate = aikCertificateBase64
 	hostManifest.AssetTagDigest = assetTagHashB64
-	// binding not used for attedstation
+	// binding key certificate not used for attestation
 	hostManifest.BindingKeyCertificate = base64.StdEncoding.EncodeToString(certBytes)
-	hostManifest.MeasurementXmls = tcbMeasurements
 	return &hostManifest, nil
 }
 
-// this function creats platforms
+// this function creates platform flavor
 func generateFlavor(m *hvsModel.HostManifest, tagCert *x509.Certificate) ([]hvsModel.SignedFlavor, error) {
 	pfp, err := flavor.NewPlatformFlavorProvider(m, tagCert, nil)
 	if err != nil {

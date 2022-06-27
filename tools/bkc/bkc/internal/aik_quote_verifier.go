@@ -11,7 +11,7 @@ import (
 	"crypto/sha256"
 	"crypto/x509"
 	"encoding/binary"
-	"encoding/xml"
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -277,7 +277,7 @@ func getPcrEventLog(eventLog string) (hvs.PcrEventLogMap, error) {
 
 	var pcrEventLogMap hvs.PcrEventLogMap
 	var measureLogs []hvs.TpmEventLog
-	err := xml.Unmarshal([]byte(eventLog), &measureLogs)
+	err := json.Unmarshal([]byte(eventLog), &measureLogs)
 	if err != nil {
 		return hvs.PcrEventLogMap{}, errors.Wrap(err, "internal/aik_quote_verifier:getPcrEventLog() Error "+
 			"unmarshalling measureLog")
@@ -303,7 +303,7 @@ func addPcrEntry(module hvs.TpmEventLog, eventLogMap *hvs.PcrEventLogMap) {
 		}
 
 		if !pcrFound {
-			eventLogMap.Sha1EventLogs = nil
+			eventLogMap.Sha1EventLogs = append(eventLogMap.Sha1EventLogs, hvs.TpmEventLog{Pcr: hvs.Pcr{Index: module.Pcr.Index, Bank: SHA1}, TpmEvent: module.TpmEvent})
 		} else {
 			for _, events := range module.TpmEvent {
 				eventLog := hvs.EventLog{Measurement: events.Measurement,
@@ -323,7 +323,7 @@ func addPcrEntry(module hvs.TpmEventLog, eventLogMap *hvs.PcrEventLogMap) {
 		}
 
 		if !pcrFound {
-			eventLogMap.Sha256EventLogs = nil
+			eventLogMap.Sha256EventLogs = append(eventLogMap.Sha256EventLogs, hvs.TpmEventLog{Pcr: hvs.Pcr{Index: module.Pcr.Index, Bank: SHA256}, TpmEvent: module.TpmEvent})
 		} else {
 			for _, events := range module.TpmEvent {
 				eventLog := hvs.EventLog{Measurement: events.Measurement,
@@ -342,7 +342,7 @@ func addPcrEntry(module hvs.TpmEventLog, eventLogMap *hvs.PcrEventLogMap) {
 		}
 
 		if !pcrFound {
-			eventLogMap.Sha384EventLogs = nil
+			eventLogMap.Sha384EventLogs = append(eventLogMap.Sha384EventLogs, hvs.TpmEventLog{Pcr: hvs.Pcr{Index: module.Pcr.Index, Bank: SHA384}, TpmEvent: module.TpmEvent})
 		} else {
 			for _, events := range module.TpmEvent {
 				eventLog := hvs.EventLog{Measurement: events.Measurement,

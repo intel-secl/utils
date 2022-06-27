@@ -6,7 +6,6 @@ package commands
 
 import (
 	"github.com/intel-secl/intel-secl/v5/pkg/lib/tpmprovider"
-	"os"
 )
 
 var tpm tpmprovider.TpmProvider
@@ -17,7 +16,6 @@ var bindingKeySecret string
 
 var (
 	EventLogFile = ""
-	RamfsDir     = ""
 
 	CACertFile      = ""
 	CACertKeyFile   = ""
@@ -27,9 +25,4 @@ var (
 	SavedReportDir   = ""
 
 	CheckNPWACMFile = ""
-)
-
-var (
-	Write    = os.Stdout
-	ErrWrite = os.Stderr
 )

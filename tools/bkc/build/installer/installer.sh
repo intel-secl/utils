@@ -26,7 +26,7 @@ install_packages() {
         if [ $? -ne 0 ]; then
             echo "Installing ${package}..."
             yum -y install ${package} 
-            if [ $? -ne 0 ]; then echo_failure "Failed to install ${package} "; return 1; fi
+            if [ $? -ne 0 ]; then echo "Failed to install ${package} "; return 1; fi
         fi
     done
 }

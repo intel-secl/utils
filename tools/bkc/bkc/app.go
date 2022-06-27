@@ -19,7 +19,6 @@ type App struct {
 	AIKSecret      string
 
 	EventLogFile string
-	RamfsDir     string
 
 	ConsoleWriter io.Writer
 	LogWriter     io.Writer

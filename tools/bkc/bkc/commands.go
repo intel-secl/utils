@@ -45,7 +45,6 @@ func (app *App) tpmProvider() error {
 
 func (app *App) attestation(flag string) error {
 	commands.EventLogFile = app.EventLogFile
-	commands.RamfsDir = app.RamfsDir
 	commands.CACertFile = path.Join(app.RunDir, "ca.crt")
 	commands.CACertKeyFile = path.Join(app.RunDir, "ca.key")
 	commands.SavedFlavorFile = path.Join(app.RunDir, "flavor.json")

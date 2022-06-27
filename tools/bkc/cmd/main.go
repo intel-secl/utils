@@ -16,7 +16,6 @@ const (
 	logFile = "/opt/bkc-tool/var/bkc.log"
 
 	eventLog = "/opt/bkc-tool/var/measure-log.json"
-	RamfsDir = "/opt/bkc-tool/var/ramfs"
 )
 
 var (
@@ -29,7 +28,6 @@ func main() {
 	app := bkc.App{
 		RunDir:       runDir,
 		EventLogFile: eventLog,
-		RamfsDir:     RamfsDir,
 
 		ConsoleWriter: os.Stdout,
 		LogWriter:     os.Stdout,
