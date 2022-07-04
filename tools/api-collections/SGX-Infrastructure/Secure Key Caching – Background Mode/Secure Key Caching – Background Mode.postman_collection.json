@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "16895224-82ed-4c78-9b95-32eb952d06e8",
+		"_postman_id": "af1f3a1b-ea7a-4403-bd95-13d7d067db4f",
 		"name": "Secure Key Caching – Background Mode",
 		"description": "SKC leverages the TEE Attestation Infrastructure to protect keys in an SGX enclave at rest and in use. Applications use the SKC Client -- a set of libraries -- to retrieves keys at runtime from KBS. KBS performs an SGX enclave attestation. If the attestation is successful, KBS generates a Symmetric Wrapping Key (SWK), wraps it with the enclave public key and provisions it into the enclave, which can unwrap it since it has the corresponding private key. Application can then be provisioned into the SGX enclave after being wrapped with the SWK. Application keys are therefore never exposed to any software outside of the enclave.\n\nIn Background mode, skc-client provides SGX ECDSA quote along with nonce and enclave public key to KBS for verification. KBS attests the quote using Attestation Policy Service (APS). Upon succesful verification, APS generates an attestation token and returns it to KBS.\n\nKBS compares the SGX attributes in Attestation token against key transfer policy and releases wrapped application key to skc-client.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14863143"
 	},
 	"item": [
 		{
@@ -39,12 +40,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"raw": "https://CMS hostname or IP address:CMS port (default: 8445)/cms/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{cms}}"
+										"CMS hostname or IP address:CMS port (default"
 									],
-									"port": "{{cmsPort}}",
+									"port": " 8445)",
 									"path": [
 										"cms",
 										"v1",
@@ -108,12 +109,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -178,12 +179,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/version",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/version",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -248,12 +249,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+									"raw": "https://Key Broker Service hostname or IP address:Key Broker Service  port (default: 9443)/kbs/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{kbs}}"
+										"Key Broker Service hostname or IP address:Key Broker Service  port (default"
 									],
-									"port": "{{kbsPort}}",
+									"port": " 9443)",
 									"path": [
 										"kbs",
 										"v1",
@@ -317,12 +318,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{qvs}}:{{qvsPort}}/qvs/v1/version",
+									"raw": "https://QVS hostname or IP address:QVS port (default: 12000)/qvs/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{qvs}}"
+										"QVS hostname or IP address:QVS port (default"
 									],
-									"port": "{{qvsPort}}",
+									"port": " 12000)",
 									"path": [
 										"qvs",
 										"v1",
@@ -386,12 +387,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{aps}}:{{apsPort}}/aps/v1/version",
+									"raw": "https://APS hostname or IP address:APS port (default: 5443)/aps/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{aps}}"
+										"APS hostname or IP address:APS port (default"
 									],
-									"port": "{{apsPort}}",
+									"port": " 5443)",
 									"path": [
 										"aps",
 										"v1",
@@ -524,7 +525,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"{{globaladminUser}}\",\r\n    \"password\": \"{{globaladminPass}}\"\r\n}",
+									"raw": "{\r\n    \"username\": \"Global Admin User\",\r\n    \"password\": \"Global Admin Password\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -532,12 +533,12 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/token",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -564,6 +565,119 @@
 							],
 							"cookie": [],
 							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiRkRTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJLQlMiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9LHsic2VydmljZSI6IkFQUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiUVZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJUQ1MiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9XSwicGVybWlzc2lvbnMiOlt7InNlcnZpY2UiOiJBQVMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJBUFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJGRFMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJLQlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJRVlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJUQ1MiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTYzODg2MzI1MiwiaWF0IjoxNjM4ODU2MDIyLCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTYzODg1NjAyMiwic3ViIjoiZ2xvYmFsX2FkbWluX3VzZXIifQ.SnhmlP9KiIPvOCn44vo9hmriwehMggwmmP-DH4vy0z2fUVQpAs4nC4EHjyJUGq-tL3u8TndbLrgwbwbustthKapCDUGlVMl6kpQjKJ1QxScqx0iemNBqHcPc90sjxjcWIJm-76GL1aQPmyWzdXe2u76jmpufCxhhMjICOE-s8XsK-DyMa_ir80b-3N2F-AxYxpzyf3wZlt_YuF3IGxazzCSxwiNs8ch-mk8F0oG79ulnA0KHWKTeTnTRSfxrrF4ziScEK_mrXe-6WrKqouoa2tEPe9Rd1EOxUKorL8DKcyz02njQhRwP1bskcwmoRA0jOLkFH1BPVsLiQwey9E-vySIBioMkScnNTxeEhOvIIvRUZonbsRV9_SaozD0QZQcPJ6J_u6Auzijg2ptmRNLgyGSIhRFra6BN2L1YyHUlDcG3O93m_8qVQWLZHZMeClcuuG3qJZ8aUW1AH2C_6Nw3UwMPkaGkD1JMTXTkLIV6Ey7nkjRpuFAECISRmHAQOkKt"
+						}
+					]
+				},
+				{
+					"name": "createAasAdminToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenAasAdminUser\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{AasadminUser}}\",\r\n    \"password\": \"{{AasadminPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"AAS Admin User\",\r\n    \"password\": \"AAS Admin Password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"Auth service hostname or IP address:Auth service port (default"
+									],
+									"port": " 8444)",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Jun 2022 11:07:25 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1464"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjBmYTY4ODQ4MWYwZWU4YjVkNTE0ZWRjNGNlNDgzYzhiZWE4YjhiY2QiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlJvbGVNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJSb2xlTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbIio6KjoqIiwiY3VzdG9tX2NsYWltczpjcmVhdGUiLCJyb2xlczpjcmVhdGU6KiIsInJvbGVzOmRlbGV0ZToqIiwicm9sZXM6cmV0cmlldmU6KiIsInJvbGVzOnNlYXJjaDoqIiwidXNlcl9yb2xlczpjcmVhdGU6KiIsInVzZXJfcm9sZXM6ZGVsZXRlOioiLCJ1c2VyX3JvbGVzOnJldHJpZXZlOioiLCJ1c2VyX3JvbGVzOnNlYXJjaDoqIiwidXNlcnM6Y3JlYXRlOioiLCJ1c2VyczpkZWxldGU6KiIsInVzZXJzOnJldHJpZXZlOioiLCJ1c2VyczpzZWFyY2g6KiIsInVzZXJzOnN0b3JlOioiXX1dLCJleHAiOjE2NTUyOTg0NDUsImlhdCI6MTY1NTI5MTIxNSwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NTUyOTEyMTUsInN1YiI6ImFhc0FkbWluVXNlciJ9.QS21G8hPzoT_yUNTSKi1NbrEzCg5D4K-DYXgtOaMLoZngBYTDDibHoOEzyUqGCzdNZYbNIMSZ9sjhBOF0vwazFpSbj4ecVMo06OIvpBMrGLwz0jiFWwtOk9o0VKqvGrpSof5JdVzClH9Td8oWzkuo38Juo9gFCoSfj_-u-8Cs5rXPHUTTk8CZJFPLOlQ2jFvG7Mqp27adrZxPX5D-aL-F-J93D7mgxeTgKlMLq123st6Q3jnozEBeARTNREz0PZLb5SwjOgOss3QEyssSch3xz8vLFbrzAlIr5oTVLZYcrP0QKMPavsA3WulPRdoMxknEsH2P0Utgqbyzep079BwdT-WQiOqHwzZWfU9LcjZNS6BZRme8VqZWbgy8HqKFaPgln9xz9qbZzcnSC9buBjgw1ukeWumuN09xlnV9t_dLEYKopq3jlIj1vHKMfISJVWmdfAECuI0TprHI5aX2QQDVGaOJBgLOJX1V8i7sA8uaWlOQi395oyade_mVIhWd4xr"
 						}
 					]
 				},
@@ -595,13 +709,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"value": "Bearer {{bearerTokenAasAdminUser}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"subject\": \"sgx_user\",\r\n    \"validity_seconds\": 31536000,\r\n    \"claims\": {\r\n        \"permissions\": [\r\n            {\r\n                \"service\": \"KBS\",\r\n                \"context\": \"nginx\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"raw": "{\r\n    \"subject\": \"{{CustomClaimsKbsSubject}}\",\r\n    \"validity_seconds\": 31536000,\r\n    \"claims\": {\r\n        \"permissions\": [\r\n            {\r\n                \"service\": \"KBS\",\r\n                \"context\": \"nginx\"\r\n            }\r\n        ]\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -641,13 +755,13 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer {{bearerTokenAasAdminUser}}",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"subject\": \"sgx_user\",\r\n    \"validity_seconds\": 31536000,\r\n    \"claims\": {\r\n        \"permissions\": [\r\n            {\r\n                \"service\": \"KBS\",\r\n                \"context\": \"nginx\"\r\n            }\r\n        ]\r\n    }\r\n}",
+									"raw": "{\r\n    \"subject\": \"{{CustomClaimsKbsSubject}}\",\r\n    \"validity_seconds\": 31536000,\r\n    \"claims\": {\r\n        \"permissions\": [\r\n            {\r\n                \"service\": \"KBS\",\r\n                \"context\": \"nginx\"\r\n            }\r\n        ]\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -677,16 +791,20 @@
 									"value": "application/jwt"
 								},
 								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 13:30:01 GMT"
+									"value": "Wed, 29 Jun 2022 04:03:55 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "802"
+									"value": "808"
 								}
 							],
 							"cookie": [],
-							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3siY29udGV4dCI6Im5naW54Iiwic2VydmljZSI6IktCUyJ9XSwiZXhwIjoxNjcwNDE5ODAxLCJpYXQiOjE2Mzg4ODM3NzEsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjM4ODgzNzcxLCJzdWIiOiJrYnMifQ.G_9vNjLzEYOFvknVbZNMQOtdtULrvoiuztF9IxsXXFyjJoFMxeI-BB4vRYTbLFFFPX4V9fsOoIu1YgMWyWoWdFdqtIBLPsGQQy1vrUcstaev3LEhweDDNCFZ0XhSaKItfWMur_CtSUJI7MHxhpesQF4uLXOkvQiQMUjFUsinaEvBNP9Ts8G0eeSnu7aF75DJecQADZKB5B4ZgoOtolI64NSSdW-mHWWJVWnowwzEsZ_B_jLIOiOIbdS3JWmkCqbFzln04Qfmd4WDJ0siEFR0Z0glV2Fy5k0AtAoMKM9C_LK_VHAvCrl8eBH18T277KW0DsYJI5Ys95c4OnavXzCtK7R6DQ6J-g3YNIAFoxOk9_1vw_tmoncbdlyZWxqaMfbKltU_LuxOuMXVHHGGzmDOG9pxuXVIa8yEzBvOFA0T9ACpdLfZg4aMkQZV1gy8eVcbJ16QpNTbB1fJNcCDwERgx-qAqsDoDmdZkNpNDRY-rz6kiQIhUmLE70589O7shUez"
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjgyMGZhMWQxZTEyMDY2YWJlOWZkODU1NDQ5ZGJmMjc3YWY0ODdmZjUiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3siY29udGV4dCI6Im5naW54Iiwic2VydmljZSI6IktCUyJ9XSwiZXhwIjoxNjg4MDExNDM1LCJpYXQiOjE2NTY0NzU0MDUsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjU2NDc1NDA1LCJzdWIiOiJzZ3hfdXNlciJ9.iXqX5mj8DwHAC7ERaShbphfdR-cVlGkrxcyrSnWxKjPIkenbvxIe2uAYXP925XaAQdlvif1okjzohp8uxKjYNOhTjTJz0srRXLwFVzhAUixTrE2t3xDne3K9Ub2KJ5JTFVG5x3z3TOKLT3JvYq7ccN6TfUnq67vEDfOM9rEFF15I5QxXbRr1mNcGGV4TbtStZw9L-S30Ug1AliYy9QMgPNwnDUX6rI7S25w2HCot6j6LH_Vr8kY2w4oVOhwzPhwOBzKLolu5mJRf8SVJlM8uAE1YXpszlBS_wB1uzRINZd_4_dIT_3Q7PmTqAy3lSJdu5oAkezqUU1OHyNc5fCLetlBgZt5O2eA78hlvYNMSlXVUq8StUgZ0oa37OrVyLn3Hupwe2WIa2t2wJhC6mQ5EYfC1THFTJhzZTO6h17fq4gtIfG5H16Om2vArZekcSxICyXipu0KjefMBZiS3cTYb3ApOZ-GV_Vj6wUav0VOdldJHcVDHGeGSQhGYXHs46TDu"
 						}
 					]
 				},
@@ -717,7 +835,7 @@
 								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer {{bearerTokenGlobalAdminUser}}"
+								"value": "Bearer {{bearerTokenAasAdminUser}}"
 							},
 							{
 								"key": "Accept",
@@ -752,15 +870,13 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
+										"value": "application/json"
 									},
 									{
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}"
+										"value": "Bearer AAS Admin Bearer Token"
 									},
 									{
 										"key": "Accept",
@@ -770,20 +886,15 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": 86400,\n    \"claims\": {\n        \"permissions\": [\n            {\n                \"rules\": [\n                    \"platforms:push:*\",\n                    \"tcb_status:retrieve:*\"\n                ],\n                \"service\": \"TCS\"\n            },\n            {\n                \"rules\": [\n                    \"hosts:create:*\"\n                ],\n                \"service\": \"FDS\"\n            }\n        ]\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"raw": "{\n    \"subject\": \"Host Hardware Uuid\",\n    \"validity_seconds\": 86400,\n    \"claims\": {\n        \"permissions\": [\n            {\n                \"rules\": [\n                    \"platforms:push:*\",\n                    \"tcb_status:retrieve:*\"\n                ],\n                \"service\": \"TCS\"\n            },\n            {\n                \"rules\": [\n                    \"hosts:create:*\"\n                ],\n                \"service\": \"FDS\"\n            }\n        ]\n    }\n}"
 								},
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/custom-claims-token",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -800,8 +911,12 @@
 									"value": "application/jwt"
 								},
 								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 07:21:54 GMT"
+									"value": "Wed, 15 Jun 2022 11:08:38 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -809,7 +924,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2Mzg5NDgxMTQsImlhdCI6MTYzODg2MTY4NCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2Mzg4NjE2ODQsInN1YiI6Ijg4ODg4ODg4LTg4ODctMTMxNS0wYjA4LTMzMDlhNWE1YTVhNSJ9.ephbhAcQ8VzIsuW6Mmn_xaDa2X6AKyVlGSOBzTb9-MGNZ_cOwaMa-6ZWKfNUSvYRJELKrXA0aHx5_7W_orXLTf4N2XTH8pYYkE06zTpmVsLTRAsMNk-ACyNCxDbhgR4kqIPJYgBn6OmWvPkEncO3ICYssOLc3Bawkw8-Bo8JRI1q2P33nw7lWxpjH_kM2_6emGoUey6ipifjcz5rAZLF96alWP1MlNo3l3XTUBTP4gKVM1X2WTQ9WnQjA2askuzsa11ek8zVncuaptl1vvckzqLVrvsx5iyIJggSFlJhBR81PIpN63-l7wgnl--eBapIsk-pSpheGjVruWBnHl9pgoL24OAEP3WdUFC2e0bH438wZMsNdiBp3drHLNA7Ff6sfQrDf32O1AUUmmeWe-qCTXHjydhSIuMpwxgCZrmpAQ0IwhwuXJBpbOg8Kdj6X87XYvkX64jfgTTZXgHwjxARYZi7ibgFtuWXk1THlWWixTEfin06b0zHM0gsoj35MEt6"
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjBmYTY4ODQ4MWYwZWU4YjVkNTE0ZWRjNGNlNDgzYzhiZWE4YjhiY2QiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2NTUzNzc3MTgsImlhdCI6MTY1NTI5MTI4OCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NTUyOTEyODgsInN1YiI6Ijg4ODg4ODg4LTg4ODctMDQ2Mi0wNjEwLTI0MzZhNWE1YTVhNSJ9.snhGgcCRPS9Lsd1MSsBVCokHuItoutpTsqqcwly-LlpzvVSHAtBJYuBqRB2_xFwyC2-wIGUbtjTzIGNazuR3AimkYmal_xxcdPJM9hmUaWHgVbyosFrLq-qhCxm5soispCX8LGvrLa35FnAX1ZXwwg2IAXRdP9Vc7OBH7aWCI9ZzdYc_MGMmDgNBgkRooy5oD1jEECANeF51_I3XSW7uGQE3am-TeGjXP85AM5iz1jVws3IkdMlrRz01T9Fa7pkdjLPUW51WF1w2FMSKE2vG4_O8ELJVbmx_ittpkFna4zhZDPDIBrExLKPnG4pyLa0F1ErT1MWctF5uugLgBA6vM1omCxkXkVvqyudq7pbOGFwAfhyMv16JW93eNYwgPL2BVQtQiwf8yrmWu9AKfTktPx0qKVJ-swUDQmpBx4_jBFn3otpq3Dg4iO_Ent9hJ0pUPIzQqxMFygo-gzmcIWWAVwyhTSAAZSMD5VZV0H1Gj_OxH9bzbuTobU_hGD5649Nm"
 						}
 					]
 				}
@@ -891,7 +1006,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenFDagentLongLived}}",
+										"value": "Bearer Bearer Token for Feature Discovery Agent user (set automatically)",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									},
@@ -909,7 +1024,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"  \n}",
+									"raw": "{\n    \"cpu_svn\": \"CPU SVN of the platform\",\n    \"enc_ppid\": \"Encrypted Platform Provisioning ID\",\n    \"manifest\": \"SGX Platform Manifest\",\n    \"pce_id\": \"PCE ID of the platform\",\n    \"pce_svn\": \"PCE SVN of the platform\",\n    \"qe_id\": \"Quoting Enclave ID specific to a platform\",\n    \"hardware_uuid\": \"Host Hardware Uuid\"  \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -917,12 +1032,12 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/platforms",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/platforms",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1029,12 +1144,12 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/tcb?fmspc={{fmspc}}",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/tcb?fmspc=FMSPC value of the platform",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1044,7 +1159,7 @@
 									"query": [
 										{
 											"key": "fmspc",
-											"value": "{{fmspc}}",
+											"value": "FMSPC value of the platform",
 											"description": "FMSPC value of the platform."
 										}
 									]
@@ -1160,12 +1275,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/pckcert?encrypted_ppid=Encrypted Platform Provisioning ID&cpusvn=CPU SVN of the platform&pcesvn=PCE SVN of the platform&pceid=PCE ID of the platform&qeid=Quoting Enclave ID specific to a platform",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1175,27 +1290,27 @@
 									"query": [
 										{
 											"key": "encrypted_ppid",
-											"value": "{{encppid}}",
+											"value": "Encrypted Platform Provisioning ID",
 											"description": "(Required) Hex-encoded string representation of Provisioning ID for the processor package or the platform instance."
 										},
 										{
 											"key": "cpusvn",
-											"value": "{{cpusvn}}",
+											"value": "CPU SVN of the platform",
 											"description": "(Required) Hex-encoded string representation of security version number of the CPU."
 										},
 										{
 											"key": "pcesvn",
-											"value": "{{pcesvn}}",
+											"value": "PCE SVN of the platform",
 											"description": "(Required) Hex-encoded string representation of security version number of the PCE currently loaded on the platform."
 										},
 										{
 											"key": "pceid",
-											"value": "{{pceid}}",
+											"value": "PCE ID of the platform",
 											"description": "(Required) Hex-encoded string representation of PC enclave identifier."
 										},
 										{
 											"key": "qeid",
-											"value": "{{qeid}}",
+											"value": "Quoting Enclave ID specific to a platform",
 											"description": "(Required) Hex-encoded string representation of platform identifier."
 										}
 									]
@@ -1296,12 +1411,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/rootcacrl",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/rootcacrl",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1390,12 +1505,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/qe/identity",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/qe/identity",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1498,12 +1613,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/pckcrl?ca=processor",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/pckcrl?ca=processor",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1571,12 +1686,12 @@
 			"name": "Refresh Platform Collaterals in TCS Database",
 			"item": [
 				{
-					"name": "refreshPlatformInfoStatus",
+					"name": "refreshNonPCKCollaterals",
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
@@ -1617,11 +1732,11 @@
 						{
 							"name": "Success",
 							"originalRequest": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer Bearer Token for Global Admin user (set automatically)",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									},
@@ -1632,12 +1747,12 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/refreshes?fmspc={{fmspc}}",
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/refreshes?fmspc=FMSPC value of the platform",
 									"protocol": "https",
 									"host": [
-										"{{tcs}}"
+										"TCS hostname or IP address:TCS port (default"
 									],
-									"port": "{{tcsPort}}",
+									"port": " 9000)",
 									"path": [
 										"tcs",
 										"v4",
@@ -1646,14 +1761,8 @@
 									],
 									"query": [
 										{
-											"key": "type",
-											"value": "certs",
-											"description": "Type of collateral to be refreshed. Supported type is \"certs\".",
-											"disabled": true
-										},
-										{
 											"key": "fmspc",
-											"value": "{{fmspc}}",
+											"value": "FMSPC value of the platform",
 											"description": "Comma separated fmspc values for which PCK certs needs to be refreshed."
 										}
 									]
@@ -1669,7 +1778,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 07:23:19 GMT"
+									"value": "Wed, 15 Jun 2022 11:09:48 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -1678,6 +1787,109 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"Non PCK collateral refreshed successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "refreshPckCerts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{tcs}}:{{tcsPort}}/tcs/v4/sgx/refreshes?type=certs",
+							"protocol": "https",
+							"host": [
+								"{{tcs}}"
+							],
+							"port": "{{tcsPort}}",
+							"path": [
+								"tcs",
+								"v4",
+								"sgx",
+								"refreshes"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "certs"
+								}
+							]
+						},
+						"description": "Refreshes the platform collateral and stores the updated collateral in DB.  \nSupported query params are optional, if provided, only PCK certificates would be refreshed else Non-PCK collateral are refreshed.  \nReturns - The serialized Response Go struct object which mentions platform collateral are refreshed or not.  \nA valid bearer token should be provided to authorize this REST call.\n\nThe status field in the response conveys the following :  \n\"idle\" - No refresh is currently in progress.  \n\"inprogress\" - A refresh is already in progress.  \n\"toomanyrequests\" - A refresh will not be started if the last refresh was completed less 900 seconds ago.\n\nThe last-refresh.status field in the response conveys the following :  \n\"success\" - The last refresh was successfull.  \n\"failed\" - The last refresh failed."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer Bearer Token for Global Admin user (set automatically)",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://TCS hostname or IP address:TCS port (default: 9000)/tcs/v4/sgx/refreshes?type=certs",
+									"protocol": "https",
+									"host": [
+										"TCS hostname or IP address:TCS port (default"
+									],
+									"port": " 9000)",
+									"path": [
+										"tcs",
+										"v4",
+										"sgx",
+										"refreshes"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "certs"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Jun 2022 06:39:05 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"Success\",\n    \"message\": \"PCK Certificates refreshed successfully\"\n}"
 						}
 					]
 				}
@@ -1693,7 +1905,7 @@
 			"name": "Creating RSA Keys in Key Broker Service",
 			"item": [
 				{
-					"name": "keyTransferPolicy",
+					"name": "CreatekeyTransferPolicy",
 					"event": [
 						{
 							"listen": "test",
@@ -1732,7 +1944,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"965c52b57ba0e4ce7e4044a41d9563962ab023ea0eea65af4aad616888475bd5\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}",
+							"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"{{MRSigner}}\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"{{MREnclave}}\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1780,7 +1992,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"965c52b57ba0e4ce7e4044a41d9563962ab023ea0eea65af4aad616888475bd5\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}",
+									"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"{{MRSigner}}\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"{{MREnclave}}\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1811,15 +2023,15 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 07 Dec 2021 05:58:19 GMT"
+									"value": "Wed, 29 Jun 2022 04:04:58 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "397"
+									"value": "443"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"392a9c3d-b60c-4ace-944b-73c9e21d4e4c\",\n    \"created_at\": \"2021-12-07T05:58:19.054593701Z\",\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"965c52b57ba0e4ce7e4044a41d9563962ab023ea0eea65af4aad616888475bd5\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}"
+							"body": "{\n    \"id\": \"2783b253-e6e8-4c9e-b0ef-8714951a782e\",\n    \"created_at\": \"2022-06-29T04:04:58.933688883Z\",\n    \"updated_at\": \"2022-06-29T04:04:58.933688883Z\",\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"7bac8b6f55d1d25bc7046141d7df6d8303bf8f8d6534afe555bb8a7cd64699d6\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    }\n}"
 						}
 					]
 				},
@@ -1903,14 +2115,14 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer Bearer Token for Global Admin user (set automatically)",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_id\": \"{{keyTransferPolicyId}}\"\n}",
+									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"Unique KMIP identifier of key to be registered\"\n    },\n    \"transfer_policy_id\": \"Key Transfer Policy ID (set automatically)\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1918,12 +2130,12 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+									"raw": "https://Key Broker Service hostname or IP address:Key Broker Service  port (default: 9443)/kbs/v1/keys",
 									"protocol": "https",
 									"host": [
-										"{{kbs}}"
+										"Key Broker Service hostname or IP address:Key Broker Service  port (default"
 									],
-									"port": "{{kbsPort}}",
+									"port": " 9443)",
 									"path": [
 										"kbs",
 										"v1",
@@ -2093,12 +2305,12 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys/{{keyId}}/transfer",
+									"raw": "https://Key Broker Service hostname or IP address:Key Broker Service  port (default: 9443)/kbs/v1/keys/{{keyId}}/transfer",
 									"protocol": "https",
 									"host": [
-										"{{kbs}}"
+										"Key Broker Service hostname or IP address:Key Broker Service  port (default"
 									],
-									"port": "{{kbsPort}}",
+									"port": " 9443)",
 									"path": [
 										"kbs",
 										"v1",
@@ -2201,14 +2413,14 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer Bearer Token for Global Admin user (set automatically)",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"quote\": \"{{sgxQuote}}\"\r\n}",
+									"raw": "{\r\n    \"quote\": \"Base64 URL encoded SGX Quote\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2216,12 +2428,12 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{qvs}}:{{qvsPort}}/qvs/v1/quote/sgx/verify",
+									"raw": "https://QVS hostname or IP address:QVS port (default: 12000)/qvs/v1/quote/sgx/verify",
 									"protocol": "https",
 									"host": [
-										"{{qvs}}"
+										"QVS hostname or IP address:QVS port (default"
 									],
-									"port": "{{qvsPort}}",
+									"port": " 12000)",
 									"path": [
 										"qvs",
 										"v1",

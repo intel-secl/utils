@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "cc2e32d0-16be-4745-a083-89f215260191",
+		"_postman_id": "b1045127-3343-4510-b758-f5ba1a7bdf04",
 		"name": "Secure Aware Orchestration",
 		"description": "The TEE Attestation infrastructure provides an end to end support for registering SGX/TDX enabled hosts and provisioning them with SGX material (PCK certificates) and SGX/TDX collateral (security patches information - TCB Information - and Certificate Revocation Lists - CRLs).\n\nThe TEE Attestation infrastructure also provides support for generating SGX quotes for SGX enclaves hosted by workloads and verifying them by a remote attesting application. The remote attesting application can also use the TEE Attestation infrastructure to enforce enclave policies (like requiring a specific enclave signer).",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14863143"
 	},
 	"item": [
 		{
@@ -39,12 +40,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"raw": "https://CMS hostname or IP address:CMS port (default: 8445)/cms/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{cms}}"
+										"CMS hostname or IP address:CMS port (default"
 									],
-									"port": "{{cmsPort}}",
+									"port": " 8445)",
 									"path": [
 										"cms",
 										"v1",
@@ -108,12 +109,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -177,12 +178,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{fds}}:{{fdsPort}}/fds/v1/version",
+									"raw": "https://FDS hostname or IP address:FDS port (default: 13000)/fds/v1/version",
 									"protocol": "https",
 									"host": [
-										"{{fds}}"
+										"FDS hostname or IP address:FDS port (default"
 									],
-									"port": "{{fdsPort}}",
+									"port": " 13000)",
 									"path": [
 										"fds",
 										"v1",
@@ -311,15 +312,15 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"{{cccAdminUser}}\",\n    \"password\": \"{{cccAdminUserPass}}\"\n}"
+									"raw": "{\n    \"username\": \"CCC Admin username\",\n    \"password\": \"CCC Admin user password\"\n}"
 								},
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/token",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -346,6 +347,117 @@
 							],
 							"cookie": [],
 							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbImN1c3RvbV9jbGFpbXM6Y3JlYXRlIl19XSwiZXhwIjoxNjM5NjYyNDIzLCJpYXQiOjE2Mzk2NTUxOTMsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjM5NjU1MTkzLCJzdWIiOiJjY2NfYWRtaW4ifQ.Oe4jiW7sZVIA8uZSlp4unxnX3jzUTULmk2L5LpF2d-gYkf8jku6xEc_svY6Yy0lBwJRZvQEvE6zFLJZPipuQF1g188PDvS3wkTX1bkFOtfSDK8u2dc2hXQND44V3LG-N8p2jweLpMFSzjil4eTdW04K0W2cnAUiMAxxdroUFFcqvfCGjfvHn1SOosC06wPrjxImQ3DV66DVInVUeI5FD2SxgituV3TiJAvSh1M856JWqhXzNXRdTn7wBpUdNI1uXZeW_cwX5y0wqfmFbGCGCJdr6umP9JGYcvfdwmrOB373hpeSUF4anmwt6pKih1y9HzKJWwXNXYJdz0Plz8-ZSLuXbPZ8FMek58Kp4Oft-F9YP0g4X474wRpWY68ygx50gy5qlGwY0CucELpvU5dj9Z6Y59azz9p0brHFi_JpcullwfgkDOizv7dSVvuWDjs98U2_U409Wkd9OULnY5iZs7qWyYB4wo-YQFpDpF1PGxrYO3QrF6mp7brLvjhpZAD4H"
+						}
+					]
+				},
+				{
+					"name": "createAasAdminToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenAasAdmin\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{AasadminUser}}\",\n    \"password\": \"{{AasadminPass}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice registered users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{AasadminUser}}\",\n    \"password\": \"{{AasadminPass}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Jun 2022 07:03:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1464"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjJjZDM3MWVkMjYyZjQxMDczY2JiMTExOTdmM2E5OTM5MzYwMGViZDEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlJvbGVNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJSb2xlTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbIio6KjoqIiwiY3VzdG9tX2NsYWltczpjcmVhdGUiLCJyb2xlczpjcmVhdGU6KiIsInJvbGVzOmRlbGV0ZToqIiwicm9sZXM6cmV0cmlldmU6KiIsInJvbGVzOnNlYXJjaDoqIiwidXNlcl9yb2xlczpjcmVhdGU6KiIsInVzZXJfcm9sZXM6ZGVsZXRlOioiLCJ1c2VyX3JvbGVzOnJldHJpZXZlOioiLCJ1c2VyX3JvbGVzOnNlYXJjaDoqIiwidXNlcnM6Y3JlYXRlOioiLCJ1c2VyczpkZWxldGU6KiIsInVzZXJzOnJldHJpZXZlOioiLCJ1c2VyczpzZWFyY2g6KiIsInVzZXJzOnN0b3JlOioiXX1dLCJleHAiOjE2NTU4MDIyMTMsImlhdCI6MTY1NTc5NDk4MywiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NTU3OTQ5ODMsInN1YiI6ImFhc0FkbWluVXNlciJ9.RFoL1dKpXTayHWGK5C-gYybVvg_x8fQZpoxYcQSENNlrpc1b8lpwoyypTfejTq30pQ-lTtbxK5ejXLDzMCJHhJj2Ad00lOp_1D2GI3Fr4noWCi4DyVr58647lJNbEtLAl2d2hiqc0V_t6HDSQHJNHUVpFfUO7McGcXEPwKro5pLl53zWEZ4AVIulg2nUoIU4lM-rn6So-Gik7MMjkHsQhO8yV4sgWUVK_rvqRBC_I60s6R5BsQ_ZP5WT_krL-2oZ8fRnME3Cl8AddFZyKPZXokGNdWjx9qE1tJYBatAHwg6p5dsPdXP6c8VI6QAJQ0rP0MT6lncSvk0GfIHJpvQarM_FDUUB1dsIfs_juQYhArYqCekKHmPaA42oXHNSvP7okGDh6TPlJnB8lHhb7_4y3vG1qJVlyapIbwHrh0waUw-zfeIHAc1sTTjHvPe74maV9X8twaSygpTeL2m24gwUtW1zVERcuS1_XNT9H2fOBK_qTEHBSxM0ZRxAx9iemuox"
 						}
 					]
 				},
@@ -419,7 +531,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"{{globaladminUser}}\",\r\n    \"password\": \"{{globaladminPass}}\"\r\n}",
+									"raw": "{\r\n    \"username\": \"Global Admin User\",\r\n    \"password\": \"Global Admin password\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -427,12 +539,12 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/token",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -486,15 +598,15 @@
 								"value": "application/json"
 							},
 							{
-								"key": "Authorization",
-								"value": "Bearer {{bearerTokenGlobalAdminUser}}",
 								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
-								"type": "text"
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{bearerTokenAasAdmin}}"
 							},
 							{
 								"key": "Accept",
-								"value": "application/jwt",
-								"type": "text"
+								"type": "text",
+								"value": "application/jwt"
 							}
 						],
 						"body": {
@@ -524,38 +636,31 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
+										"value": "application/json"
 									},
 									{
-										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
-										"type": "text"
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer Bearer Token for AAS Admin User"
 									},
 									{
 										"key": "Accept",
-										"value": "application/jwt",
-										"type": "text"
+										"type": "text",
+										"value": "application/jwt"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": 86400,\n    \"claims\": {\n        \"permissions\": [\n            {\n                \"rules\": [\n                    \"platforms:push:*\",\n                    \"tcb_status:retrieve:*\"\n                ],\n                \"service\": \"TCS\"\n            },\n            {\n                \"rules\": [\n                    \"hosts:create:*\"\n                ],\n                \"service\": \"FDS\"\n            }\n        ]\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									"raw": "{\n    \"subject\": \"Host Hardware Uuid\",\n    \"validity_seconds\": 86400,\n    \"claims\": {\n        \"permissions\": [\n            {\n                \"rules\": [\n                    \"platforms:push:*\",\n                    \"tcb_status:retrieve:*\"\n                ],\n                \"service\": \"TCS\"\n            },\n            {\n                \"rules\": [\n                    \"hosts:create:*\"\n                ],\n                \"service\": \"FDS\"\n            }\n        ]\n    }\n}"
 								},
 								"url": {
-									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+									"raw": "https://Auth service hostname or IP address:Auth service port (default: 8444)/aas/v1/custom-claims-token",
 									"protocol": "https",
 									"host": [
-										"{{aas}}"
+										"Auth service hostname or IP address:Auth service port (default"
 									],
-									"port": "{{aasPort}}",
+									"port": " 8444)",
 									"path": [
 										"aas",
 										"v1",
@@ -572,8 +677,12 @@
 									"value": "application/jwt"
 								},
 								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
 									"key": "Date",
-									"value": "Thu, 16 Dec 2021 11:48:25 GMT"
+									"value": "Mon, 20 Jun 2022 14:26:02 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -581,7 +690,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjhiNzEyYTJlZmM3OTQxZjk4NjFiOTJmZDI2NmM1NThkMjM1OTBiOTkiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2Mzk3NDE3MDUsImlhdCI6MTYzOTY1NTI3NSwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2Mzk2NTUyNzUsInN1YiI6Ijg4ODg4ODg4LTg4ODctMTMxNS0wYjA4LTMzMDlhNWE1YTVhNSJ9.BY61NB0zKJxugkU0dT2su7hT5LNeWy4Dv9BFirUZGrKSU-dPzrtkwilp11OzSxE8vNjREv-hz9rm7Qd7z9qHgskXKFKbnqp5PGhnRElxkUXhfLgLpJ-b8C7ENioNGywLeJmmyZySplElLI6pSNu-0BSznPw4L0ayCuyZqkG8dr0AHm4DtL96ApBuE5ArtpJIkRhGETaMxr4y-gNViKhC_AWNHdeSCwYh8NEaMW7qwBDjcyngjEOWUVzTNaYBnHZc0zEzNCAKGkPM8ipW3ZjKkrCLHJ4b5lWm0soPngl5DSAjqwiVDJt0MZg_iWuPN4tCs4UJPsE6HVQysL0I0NyqEgp76tjoiKLOl2pePXxHl3EOvphdDKu2bLT00Q8GiCuGOi_C9oCpJw_MQU8qD66Rn5PhNfya8TO3LJj4gvrk3Km9Pd_qVnnrwDT56AjEJi7XzSvcMfouJilZpYTLPGbCC4YSt-1lgYXPDrnl6nZvs3GPV-EMwEBnsDhz__txJ2V4"
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImYwZDg0NWQ1ODBlZjM5NWU1ZjljNDUxODY4NGZjYTE2Y2ZmMWIzNmMiLCJ0eXAiOiJKV1QifQ.eyJwZXJtaXNzaW9ucyI6W3sicnVsZXMiOlsicGxhdGZvcm1zOnB1c2g6KiIsInRjYl9zdGF0dXM6cmV0cmlldmU6KiJdLCJzZXJ2aWNlIjoiVENTIn0seyJydWxlcyI6WyJob3N0czpjcmVhdGU6KiJdLCJzZXJ2aWNlIjoiRkRTIn1dLCJleHAiOjE2NTU4MjE1NjIsImlhdCI6MTY1NTczNTEzMiwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NTU3MzUxMzIsInN1YiI6Ijg4ODg4ODg4LTg4ODctMDQ2Mi0wNjEwLTI0MWFhNWE1YTVhNSJ9.jIHhtmC5vc-0cu9WunN2Y8EIRJvRooJfL9GKAHAvjE7BJDaZDkZxCJJdzP78p5EsK56TcgVcedTkO95DhT3hr9h5wVlevl1lTA67ga048kbUuSgQfML_aKpZk1jsvRU7WlA16W2tktYcNv15rqhFhXsvHULtWs8D6Be3a_pCAOwr8ycq35t8hKmM29x_ffIvO6pGWlAPQbnu0c_Lm6RIj4YS0FooT6RUJpGvfaZm6Q8NbWXjqFN7YQeDVYtuXyMn2pfFw6h-grbnVwtkA-KJr2JtT6Si2phqxXBA6hbafjUMdxZEVPWYLDI-HejYB12VMmWECTTeAVSzuFX8uu30Gpsv73Jz-WFBcpU6UVpSrFIguqJqr3T5txqVP2p_fppwHOfTcrZNXkDuUNOYKActqISLVwzYBJWpbruY-n-a14RqAc3tFDQAtZhNI3Nu4FSbnU9zaAVHfa74TyB5O58Cz_oJuxMIpnIjOBhmnPBOB5pxJ0Vwo8TSdPWYJz2l5dy_"
 						}
 					]
 				}
@@ -642,7 +751,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenFDagentLongLived}}",
+										"value": "Bearer Bearer Token for Feature Discovery Agent user (set automatically)",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									},
@@ -658,15 +767,15 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"host_info\": {\n        \"hardware_features\": {\n            \"SGX\": {\n                \"enabled\": {{sgxEnabled}},\n                \"meta\": {\n                    \"epc_offset\": \"{{epcOffset}}\",\n                    \"epc_size\": \"{{epcSize}}\",\n                    \"flc_enabled\": {{flcEnabled}},\n                    \"integrity_enabled\": false,\n                    \"tcb_upto_date\": \"{{tcbStatus}}\"\n                }\n            }\n        },\n        \"hardware_uuid\": \"{{hostHardwareUuid}}\"\n    },\n    \"host_name\": \"{{agentHostName}}\"\n}"
+									"raw": "{\n    \"host_info\": {\n        \"hardware_features\": {\n            \"SGX\": {\n                \"enabled\": True if sgx is enabled,\n                \"meta\": {\n                    \"epc_offset\": \"EPC Start Address\",\n                    \"epc_size\": \"Size of EPC\",\n                    \"flc_enabled\": True if flc is enabled,\n                    \"integrity_enabled\": false,\n                    \"tcb_upto_date\": \"Status of TCB fetched from TCS\"\n                }\n            }\n        },\n        \"hardware_uuid\": \"Host Hardware UUID\"\n    },\n    \"host_name\": \"Feature Discovery Agent hostname\"\n}"
 								},
 								"url": {
-									"raw": "https://{{fds}}:{{fdsPort}}/fds/v1/hosts",
+									"raw": "https://FDS hostname or IP address:FDS port (default: 13000)/fds/v1/hosts",
 									"protocol": "https",
 									"host": [
-										"{{fds}}"
+										"FDS hostname or IP address:FDS port (default"
 									],
-									"port": "{{fdsPort}}",
+									"port": " 13000)",
 									"path": [
 										"fds",
 										"v1",
@@ -815,7 +924,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{bearerTokenGlobalAdminUser}}",
+										"value": "Bearer Bearer Token for Global Admin user (set automatically)",
 										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
 										"type": "text"
 									},
@@ -826,12 +935,12 @@
 									}
 								],
 								"url": {
-									"raw": "https://{{fds}}:{{fdsPort}}/fds/v1/hosts",
+									"raw": "https://FDS hostname or IP address:FDS port (default: 13000)/fds/v1/hosts",
 									"protocol": "https",
 									"host": [
-										"{{fds}}"
+										"FDS hostname or IP address:FDS port (default"
 									],
-									"port": "{{fdsPort}}",
+									"port": " 13000)",
 									"path": [
 										"fds",
 										"v1",
