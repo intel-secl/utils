@@ -193,6 +193,7 @@ install_pckretrieval_tool()
 		cp /opt/intel/sgx-pck-id-retrieval-tool/PCKIDRetrievalTool /usr/bin/
 		cp /opt/intel/sgx-pck-id-retrieval-tool/libsgx_id_enclave.signed.so /usr/bin/
 		cp /opt/intel/sgx-pck-id-retrieval-tool/libsgx_pce.signed.so /usr/bin/
+		sed -i 's/^\(PCCS_URL.*\)/#\1/g' /opt/intel/sgx-pck-id-retrieval-tool/network_setting.conf
                 rm -rf sgx_rpm_local_repo sgx_rpm_local_repo.tar.gz /etc/yum.repos.d/*sgx_rpm_local_repo.repo
         elif [ "$OS" == "ubuntu" ]; then
 		rm -rf $GIT_CLONE_PATH
