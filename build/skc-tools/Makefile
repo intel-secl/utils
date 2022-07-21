@@ -100,8 +100,10 @@ skc_library_k8s:
 
 k8s_common: clean intel_secl_k8s intel_secl_tee_k8s init-containers
 
-k8s_skc: k8s_common skc_library_k8s k8s_common_services
+k8s_skc: k8s_common skc_library_k8s k8s_common_services sgx_agent tdx_agent
 	cp skc_library/out/*.tar k8s/container-images/
+	cp intel-secl-tee/deployments/installer/sgx-agent-*.bin k8s/container-images
+	cp intel-secl-tee/deployments/installer/tdx-agent-*.bin k8s/container-images
 
 k8s_sgx: k8s_common sgx_agent k8s_common_services
 
