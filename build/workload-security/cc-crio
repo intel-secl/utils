@@ -58,6 +58,7 @@ init-containers:
 	cd  utils/tools/containers/ && make all
 	cp -r utils/tools/containers/nats/*.tar k8s/container-images/
 	cp -r utils/tools/containers/init-wait/*.tar k8s/container-images/
+	cp -r utils/tools/containers/db-version-upgrade/*.tar k8s/container-images/
 
 $(INTEL_SECL_K8S):
 	cd intel-secl && make download-eca && make $@-k8s
