@@ -1,1 +1,0 @@
-pkcs11:token=KMS;id=<KBS KEY ID>;object=RSAKEY;type=private;pin-value=1234;

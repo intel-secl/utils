@@ -7,14 +7,11 @@ One click Postman API Collections for Intel® SecL-DC use-cases.
 
 | Use case               | Sub-Usecase                                   | API Collection     |
 | ---------------------- | --------------------------------------------- | ------------------ |
-| Foundational Security  | Host Attestation(RHEL & VMWARE)                              | ✔️                  |
-|                        | Data Fencing  with Asset Tags(RHEL & VMWARE)                 | ✔️                  |
-|                        | Trusted Workload Placement (VM & Containers)  | ✔️ |
-| Launch Time Protection | VM Confidentiality                            | ✔️                  |
-|                        | Container Confidentiality with CRIO Runtime   | ✔️                  |
-| SGX Attestation Infra & Secure Key Caching | Secure Key Caching | ✔️ |
-|  | SGX Discovery & Provisioning | ✔️ |
-|  | SGX Discovery, Provisioning & Orchestration | ✔️ |
+| Foundational Security  | Host Attestation(RHEL & VMWARE)               | ✔️               |
+|                        | Data Fencing  with Asset Tags(RHEL & VMWARE)  | ✔️               |
+|                        | Trusted Workload Placement (VM & Containers)  | ✔️               |
+| Launch Time Protection | Container Confidentiality with CRIO Runtime   | ✔️               |
+
 
 > **Note: ** `Foundational Security - Host Attestation` is a pre-requisite for all usecases beyond Host Attestation. E.g: For working with `Launch Time Protection - VM Confidentiality` , Host Attestation flow must be run as a pre-req before trying VM Confidentiality
 
