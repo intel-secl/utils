@@ -1,0 +1,67 @@
+--- openssl_nginx_docs/nginx.conf	2021-12-09 23:51:18.436022237 -0800
++++ /etc/nginx/nginx.conf	2021-12-17 08:25:03.319658255 -0800
+@@ -3,6 +3,8 @@
+ pid /run/nginx.pid;
+ include /etc/nginx/modules-enabled/*.conf;
+ 
++ssl_engine pkcs11;
++
+ events {
+ 	worker_connections 768;
+ 	# multi_accept on;
+@@ -60,6 +62,56 @@
+ 
+ 	include /etc/nginx/conf.d/*.conf;
+ 	include /etc/nginx/sites-enabled/*;
++
++    server {
++        listen       8080 default_server;
++        listen       [::]:8080 default_server;
++        server_name  _;
++        root         /usr/share/nginx/html;
++
++        # Load configuration files for the default server block.
++        include /etc/nginx/default.d/*.conf;
++
++        location / {
++        }
++
++        error_page 404 /404.html;
++            location = /40x.html {
++        }
++
++        error_page 500 502 503 504 /50x.html;
++            location = /50x.html {
++        }
++    }
++
++    server {
++        listen       2443 ssl http2 default_server;
++        listen       [::]:2443 ssl http2 default_server;
++        server_name  _;
++        root         /usr/share/nginx/html;
++
++        ssl_certificate "/root/2056a4d7-cd6a-4b2f-b426-ab6db26a589f.crt";
++        ssl_certificate_key "engine:pkcs11:pkcs11:token=KMS;object=RSAKEY;pin-value=1234";
++        ssl_session_cache shared:SSL:1m;
++        ssl_session_timeout 10m;
++	ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
++	ssl_prefer_server_ciphers on;
++
++        # Load configuration files for the default server block.
++        include /etc/nginx/default.d/*.conf;
++
++        location / {
++        }
++
++        error_page 404 /404.html;
++            location = /40x.html {
++        }
++
++        error_page 500 502 503 504 /50x.html;
++            location = /50x.html {
++        }
++    }
+ }
+ 
+ 

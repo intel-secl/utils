@@ -1,0 +1,33 @@
+Pre-requisite for the SGX Agent build system
+=============================================
+Build in supported in both rhel 8.4 and ubuntu 20.04
+
+RHEL8 package Requirements 
+==========================
+- Following RHEL 8 repositories should be setup and available (/etc/yum.repos.d) to download and resolve SGX Agent package dependencies
+	BaseOS
+	AppStream
+	CodeReady
+- dnf install git
+- Ensure that the system date is properly setup (to PDT time)
+
+How to Build
+=============
+- To build SGX Agent, 
+- repo init -u  https://github.com/intel-secl/build-manifest.git -b refs/tags/v5.0.0 -m manifest/skc.xml
+- repo sync
+- make sgx_agent_k8s 
+- sgx-agent container image will be generated. Use: `docker images` to list 
+
+Repo Contents
+=============
+sgxagent_build.sh	 	Master build script which builds SGX Agent and its SGX dependencies
+build_prerequisites.sh 		Install RHEL 8 package dependecies required for SGX agent build
+download_dcap_driver.sh 	Download SGX dcap driver pre-built binary and adds to the tar file
+install_sgxsdk.sh 		Downloads SGX SDK pre-built binary and installs it on build machine
+download_sgx_psw_qgl.sh 	Downloads SGX PSW/QGL RPMS and adds it to tar file
+download_mpa_uefi_rpm.sh 	Downloads Multipackage Agent UEFI RPM and adds it to tar file
+build_pckretrieval_tool.sh 	Downloads DCAP PCKRetrieval tool and builds it adds to tar file
+build_sgx_agent.sh 		Downloads SGX Agent repo and builds it as a golang service
+remove_pccs_connect.diff 	Patch file applied to PCKRetrieval tool to disable password check
+build_sgx_agent_docker.sh	Build SGX Agent docker image

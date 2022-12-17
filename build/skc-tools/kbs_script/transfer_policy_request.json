@@ -1,0 +1,14 @@
+{
+  "attestation_type": ["SGX"],
+  "sgx": {
+    "attributes": {
+      "mrsigner": ["cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f"],
+      "isvprodid": [0],
+      "mrenclave": ["ed9140f6fc7c24cd4cdc6a6da2fccea49ff24f4f912fe1af867125ed890c083a"],
+      "isvsvn": 1,
+      "client_permissions": ["nginx", "USA"],
+      "enforce_tcb_upto_date": false
+    }
+  },
+  "cert_issuer": ["CMS TLS Client CA"]
+}

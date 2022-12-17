@@ -1,0 +1,21 @@
+Pre-requisite for the SKC Library build system
+==============================================
+- Build is only supported in ubunto 20.04
+
+How to Build
+=============
+- To build SKC Library, 
+- repo init -u  https://github.com/intel-secl/build-manifest.git -b refs/tags/v5.0.0 -m manifest/skc.xml
+- repo sync
+- make skc_library_k8s 
+- Skc Library container image will be generated. Use: `docker images` to list 
+
+Repo Contents
+=============
+skc_library_build.sh	Master build script which builds SKC Library and its SGX dependencies
+build_prerequisites.sh  To Install prerequisites for build
+install_sgxsdk.sh 		Downloads SGX SDK pre-built binary and installs it on build machine
+install_sgxrpms.sh 		Downloads SGX PSW/QGL RPMS and installs them
+install_ctk.sh		 	Downloads Crypto Api Toolkit repo, builds it and adds dynamic libraries to the tar file
+build_skclib.sh			Downloads SKC_Library repo, builds it and adds it to the tar file
+build_skc_docker.sh		Build SKC Library docker image

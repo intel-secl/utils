@@ -22,7 +22,7 @@ galaxy_info:
   platforms:
   - name: Red Hat Enterprise Linux
     versions:
-    - 8.2
+    - 8.4
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is a keyword that describes

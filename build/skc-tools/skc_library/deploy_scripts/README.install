@@ -1,0 +1,20 @@
+Pre-requisite for the SKC Library Deployment
+============================================
+ - SGX Enabled in BIOS
+ - Ubuntu 20.04 OS
+
+How to Deploy
+=============
+- Please ensure the SGX Agent is already deployed first  on the same machine, where SKC Library is being deployed. for SGX Agent deployment instructions,
+  refer to product guide
+
+- Follow product guide: key-transfer flow validation.md for skc library deployment
+
+Repo Contents
+=============
+deploy_skc_library.sh		Main script for Deploying SKC Library on SGX enabled Server
+deployment_prerequisites.sh	Install packages dependencies required for SKC Library Deployment
+skc_library_create_roles.sh	Script to create SKC Library user and roles with AAS and fetching TLS Client Cert from CMS
+skc_library.conf		Config file to provide Enterprise/CSP IP address and skc_library user credentials
+openssl.patch 			openssl.cnf patch file to add pkcs11 engine support to openssl
+nginx.patch 			nginx.conf patch file to add HTTPS PKCS11 block

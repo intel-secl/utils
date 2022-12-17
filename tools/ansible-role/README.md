@@ -37,10 +37,10 @@ This role requires the following as pre-requisites:
 2. **Repositories and OS**<br>
 
    * **Foundational and Workload Security Usecases**
-     * `RHEL 8.3` OS
+     * `RHEL 8.4` OS
      * Repositories to be enabled are `rhel-8-for-x86_64-appstream-rpms` and `rhel-8-for-x86_64-baseos-rpms`<br>
    * **Secure Key Caching**
-     * `RHEL 8.2` OS / `Ubuntu 18.04` OS / `Ubuntu 20.04` OS
+     * `RHEL 8.4` OS / `Ubuntu 20.04` OS
      * Repositories to be enabled for RHEL OS are `rhel-8-for-x86_64-appstream-rpms` and `rhel-8-for-x86_64-baseos-rpms` and `codeready-builder-for-rhel-8-x86_64-rpms`<br>
 
 3. **User Access**<br>
@@ -60,7 +60,7 @@ This role requires the following as pre-requisites:
    b. **Secure Key Caching, SGX Attestation Kubernetes, SGX Orchestration Kubernetes and Skc No Orchestration Usecases**
       * Supported Hardware: Intel® Xeon® SP products those support SGX
       * BIOS Requirements: Intel® SGX-TEM BIOS requirements are outlined in the latest Intel® SGX Platforms BIOS Writer's Guide, Intel® SGX should be enabled in BIOS menu (Intel® SGX is Disabled by default on Ice Lake), Intel® SGX BIOS requirements include exposing Flexible Launch Control menu.
-      * OS Requirements (Intel® SGX does not supported on 32-bit OS): Linux RHEL 8.2 / Linux Ubuntu 18.04 / Linux Ubuntu 20.04<br>
+      * OS Requirements (Intel® SGX does not supported on 32-bit OS): Linux RHEL 8.4 / Linux Ubuntu 20.04<br>
 
 Dependencies
 ------------

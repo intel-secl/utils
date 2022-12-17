@@ -1,0 +1,28 @@
+Pre-requisite for the SGX Agent Deployment
+==========================================
+ - SGX and FLC Enabled in BIOS
+ - RHEL 8.4 or Ubuntu 20.04
+
+RHEL8 package Requirements
+==========================
+Following RHEL 8 repositories should be setup and available (/etc/yum.repos.d) to download and resolve SKC package dependencies
+	BaseOS
+	AppStream
+	CodeReady
+- Ensure CSP side server/VM IP addresses are added to the no_proxy environment variable
+
+- Turn off Firewall service or ensure that the SHVS system can access the machine where SGX Agent is running
+# systemctl stop firewalld
+
+- Ensure that the system date is properly setup (to PDT time) on all machines/VMs where SKC components are being installed
+	This is important, else certificate verifications will fail
+
+How to Deploy
+==============
+- Follow the helm deployment instruction in product guide
+
+Repo Contents
+=============
+deploy_sgx_agent.sh		Main script for Deploying SGX Agent on SGX enabled server
+deployment_prerequisites.sh	Install RHEL 8 packages dependencies required fro SGX Agent Deployment
+agent.conf			Config file for updating SGX Agent/CMS/AAS/SHVS IP Addresses

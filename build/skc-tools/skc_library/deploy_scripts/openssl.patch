@@ -1,0 +1,36 @@
+--- openssl.cnf.orig	2021-03-25 09:44:11.000000000 -0700
++++ openssl.cnf	2021-06-16 09:10:46.045963660 -0700
+@@ -13,7 +13,6 @@ HOME			= .
+ 
+ # Extra OBJECT IDENTIFIER info:
+ #oid_file		= $ENV::HOME/.oid
+-oid_section		= new_oids
+ 
+ # To use this configuration file with the "-extfile" option of the
+ # "openssl x509" utility, name here the section containing the
+@@ -24,12 +23,22 @@ oid_section		= new_oids
+ 
+ # Load default TLS policy configuration
+ 
+-openssl_conf = default_modules
+-
+-[ default_modules ]
++openssl_conf = openssl_def
+ 
++[ openssl_def ]
++engines = engine_section
++oid_section = new_oids
+ ssl_conf = ssl_module
+ 
++[ engine_section ]
++pkcs11 = pkcs11_section
++
++[ pkcs11_section ]
++engine_id = pkcs11
++dynamic_path =/usr/lib64/engines-1.1/pkcs11.so
++MODULE_PATH =/opt/skc/lib/libpkcs11-api.so
++init = 0
++ 
+ [ ssl_module ]
+ 
+ system_default = crypto_policy

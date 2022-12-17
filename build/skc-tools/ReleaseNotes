@@ -1,0 +1,12 @@
+Features in this Release
+------------------------
+- Secure Key caching
+- Support and validation with Nginx workload
+- SGX Attestation for Key Protection 
+- SGX Discovery
+
+Known Issues
+------------
+
+Workarounds
+-----------

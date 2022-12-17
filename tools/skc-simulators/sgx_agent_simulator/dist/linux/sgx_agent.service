@@ -1,0 +1,16 @@
+[Unit]
+Description=SGX Agent Service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/sgx_agent run
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutStartSec=0
+Restart=on-failure
+PermissionsStartOnly=true
+RuntimeDirectory=sgx_agent
+RuntimeDirectoryMode=0775
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,1979 @@
+{
+	"info": {
+		"_postman_id": "bbd152af-9a84-4453-beff-ba08270157ec",
+		"name": "SGX Discovery, Provisioning and Orchestration",
+		"description": "For the secrets to be provisioned securely to SGX compute node on public cloud, the owner of the secret would like to ensure that the node is secure and trustworthy.\r\n\r\nSGX attestation infrastructure involves providing Platform Certification Key (PCK) certificates as part of the attestation report. To fetch the PCK certificates for a platform, platform needs to provide the platform SGX values to the Intel PCS server hosted on the internet. In addition, PCS server also provides other platform collaterals like PCK CRL, TCB Information, QE Identity Information for a platform.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Verify Services",
+			"item": [
+				{
+					"name": "cmsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{cms}}"
+							],
+							"port": "{{cmsPort}}",
+							"path": [
+								"cms",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{cms}}"
+									],
+									"port": "{{cmsPort}}",
+									"path": [
+										"cms",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:57:24 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Certificate Management Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:40+0000\n"
+						}
+					]
+				},
+				{
+					"name": "aasVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:57:43 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:31+0000\n"
+						}
+					]
+				},
+				{
+					"name": "scsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:58:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: SGX Caching Service\nVersion: v4.0.0-ee8da06\nBuild Date: 2021-07-20T08:49:13+0000\n"
+						}
+					]
+				},
+				{
+					"name": "shvsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{shvs}}:{{shvsPort}}/sgx-hvs/v2/version",
+							"protocol": "https",
+							"host": [
+								"{{shvs}}"
+							],
+							"port": "{{shvsPort}}",
+							"path": [
+								"sgx-hvs",
+								"v2",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{shvs}}:{{shvsPort}}/sgx-hvs/v2/version",
+									"protocol": "https",
+									"host": [
+										"{{shvs}}"
+									],
+									"port": "{{shvsPort}}",
+									"path": [
+										"sgx-hvs",
+										"v2",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Aug 2021 09:58:24 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: SGX Host Verification Service\nVersion: v4.0.0-73b3b1d\nBuild Date: 2021-07-20T08:49:50+0000\n"
+						}
+					]
+				}
+			],
+			"description": "The command line option can be used to confirm that the services are up and running before proceeding to the actual use case demonstration.\n\nVerify SGX Agent:\n\n```\nsgx_agent status\n```\n\nVerify Integration Hub (IHUB):\n\n```\nihub status\n```",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "createCccAdminToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenCccAdmin\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{cccAdminUser}}\",\n    \"password\": \"{{cccAdminUserPass}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API\nrequests. Bearer token Authorization is not required when requesting token for Authservice\nregistered users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{cccAdminUser}}\",\n    \"password\": \"{{cccAdminUserPass}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 Mar 2021 07:13:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "883"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjUxNTcxYmZmYjdhNDY1NTIyNzZmNWVkZjU2NWJlZDdkZmU3ZTkzZTEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbImN1c3RvbV9jbGFpbXM6Y3JlYXRlIl19XSwiZXhwIjoxNjE1NDU0MDMwLCJpYXQiOjE2MTU0NDY4MDAsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwic3ViIjoiY3NwX2FkbWluIn0.csnHZ6GVHyiYQutZbBB7751u6jBL4w-wPM6KKWLeoLP4mlbVEceCoJSv6iFhI9jg99XehW4H2Zcto0sS4Zt0D0exXzP98dhkI9WhkdAiR6m2_-Mn3ypeYygQ40m8UdMw_D2hsPbyzLQgq3-cMa0jkgahzrHQRK6UT_YcEBIy5KRObbl9UWzUqKJdeqCSBt_gxN1JP5XMSdOGodW84hPXU4puSMFHtm3qQ1dTLmuFcOQQDALhBWKhGBxMYBXpb2F7BX8PEhoL0SHrldSc21HphCrY9fcPlkA7R__d8tRSKgdtaA4mQiS0akkIPJHkug0b5-DlRIseK5Z6RhcjmhjJtMBjyX5W_Jsbvg_L3_LQ8wtxy-EKn9y_SIrlizW9tmi8vEVkpSXTb5z-6P0RQs2E9rdULFL_HmxYj-W6wKj23U4HKk60eKP43pZaN4K4SNoonx8UtlYCeEeC4Td_SyUWwhAj1uK4wlTfrB98HqWhJX_vwEQ53QgglmcH3aqG06t4"
+						}
+					]
+				},
+				{
+					"name": "createSagentLongLivedToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenSagentLongLived\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenCccAdmin}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/jwt",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": {{validity}},\n    \"claims\": {\n        \"roles\": [\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataUpdater\"\n            },\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataReader\"\n            },\n            {\n                \"service\": \"SHVS\",\n                \"name\": \"HostDataUpdater\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"custom-claims-token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API\nrequests. Bearer token Authorization is required when requesting custom claims token\nfrom Authservice."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenCccAdmin}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/jwt",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": {{validity}},\n    \"claims\": {\n        \"roles\": [\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataUpdater\"\n            },\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataReader\"\n            },\n            {\n                \"service\": \"SHVS\",\n                \"name\": \"HostDataUpdater\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"custom-claims-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 Mar 2021 10:40:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "939"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjUxNTcxYmZmYjdhNDY1NTIyNzZmNWVkZjU2NWJlZDdkZmU3ZTkzZTEiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sibmFtZSI6Ikhvc3REYXRhVXBkYXRlciIsInNlcnZpY2UiOiJTQ1MifSx7Im5hbWUiOiJIb3N0RGF0YVJlYWRlciIsInNlcnZpY2UiOiJTQ1MifSx7Im5hbWUiOiJIb3N0RGF0YVVwZGF0ZXIiLCJzZXJ2aWNlIjoiU0hWUyJ9XSwiZXhwIjoxNjE1NDk1MjQ5LCJpYXQiOjE2MTU0NTkyMTksImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwic3ViIjoiODg4ODg4ODgtODg4Ny0wZjE1LTAxMTEtMTcxZWE1YTVhNWE1In0.ka-Ge5fFDPk6wERab7RHdZuZbJLjWjQe3trsv-D_eoOtWg4Ov5OyI3Albx8-WLBbMRGZWxqym3wtT8_l3vr8SxzM6cL005ZAjHSueb-jctCbPFv0ak-u5SsGi6nIlFLl2D9RWX_S0bORZSwVVgoc2VkLIYXgaJGwjPNY1c97gwteTGIJiA_HoooPd1QvKRMBjKS2Sl0krgq70gx_mysRNWg3y6gQWCGcudzLjo2PdkgpPDd9f20Yzk9bukztCGdPOTQq4HjFkGWNbPPI_M9uBFdFzxjag_qK0_Aj-NU6QnGWyAZWfrK2tzrAASTHJCQ9o7UDIpIDMKnrJNfOQkn6SqmbEasdBp_iguxyh8tVCnlQO-13wV8r0ZjMI5wG9ASQmDubSrtm1KcDjrFbzMq7AQd8R8-hstlK5w1qNRiguxarato_jqY0JpV0wVH7Sc8bUPrWC9iH3HTScu1LTRkBP6R_K4k69M47K3OqmheH7mYt3xO5EGyPbfsC1cKaaAXs"
+						}
+					]
+				},
+				{
+					"name": "createIhubToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenIhub\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{ihubUser}}\",\n    \"password\": \"{{ihubUserPass}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API \nrequests. Bearer token Authorization is not required when requesting token for Authservice \nadmin user. Authservice admin user bearer token should be provided in Authorization header \nwhen requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{sagentUser}}\",\n    \"password\": \"{{sagentUserPass}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Sep 2020 08:24:39 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1004"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjY0OGNlZjM1Mzk4ZGVjMGEwNDUwODM5NzgzNWEzMGU4M2I2YmRkYWQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049U0dYX0FHRU5UIFRMUyBDZXJ0aWZpY2F0ZTtTQU49MTAuMjE5LjEzOC42MztDRVJUVFlQRT1UTFMifSx7InNlcnZpY2UiOiJTSFZTIiwibmFtZSI6Ikhvc3RSZWdpc3RyYXRpb24ifSx7InNlcnZpY2UiOiJTR1hfQUdFTlQiLCJuYW1lIjoiSG9zdERhdGFSZWFkZXIifV0sImV4cCI6MTYwMDUwMzg3OSwiaWF0IjoxNjAwMzMxMDQ5LCJpc3MiOiJBQVMgSldUIElzc3VlciIsInN1YiI6InNneF9hZ2VudCJ9.eH1DbpvmQSjnqrWgn91FlxJ_t2Aqn09yPOI8BLunADEJP2o4BeNQbQqnfawm0QMMH7RQOHosLaeKprtjMwGHuav2Mm__BQZ0VGzd9eEKfrNIffcvuPphR3OkDY3RAaOvFfxNczR_80WRCjO4odFsMnRS7EYGAt2JvoFVb2K2Pmk_J0UXbozmynsFkxUJwsNqmlSVkYAbo4knB87v5FsgOm73Z2UQFXONdQSLmrCNHyeOoDOgnCfzsyx1yORVbz5LfIGHxsIo495efQgYDP4NOMp9XWJnwfzcFXnOnxzgorhy0kdozqKfxDRPhXJppVCL27EKpnBrdnr6dvj7hdWPJ4ytoIZRo9HQwBEzi84g87RRa9jyrYWqTpqUC3MaNmvrHees0X-Or93dUgn2gQbzmvFsRbHa0bTTKrQeDR2Y6S6MJxVtS-DkOl88XoTm9I2ZoRDXpS-qAJmqSOtYTqLovnURrcBox_5fGTmC4oymxyW0a0DPmZ1eCFu1zpUHcE74"
+						}
+					]
+				},
+				{
+					"name": "createScsToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenScs\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{scsUser}}\",\n    \"password\": \"{{scsUserPass}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API \nrequests. Bearer token Authorization is not required when requesting token for Authservice \nadmin user. Authservice admin user bearer token should be provided in Authorization header \nwhen requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{scsUser}}\",\n    \"password\": \"{{scsUserPass}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 31 Aug 2021 14:17:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "787"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImQ5MTZjOGE5OTQyN2I1ZTRkMDRjNzc2ZjU1NGVhZjlmZmYyMDBhZGYiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IlNDUyIsIm5hbWUiOiJDYWNoZU1hbmFnZXIifV0sImV4cCI6MTYzMDQyNjY1MCwiaWF0IjoxNjMwNDE5NDIwLCJpc3MiOiJBQVMgSldUIElzc3VlciIsInN1YiI6InNjc3VzZXJAc2NzIn0.Sz1nM3teqDw_uPNlhLaatRgg3cc5KUDXJTkwaLPtFn2DPQ98z408LbZcXWrgAQysQvL0cHHJIApr0f9BNZZkbZihanxmmE1N7Gzt2czTOEnb78pgFLnE1KVgrhkdH8fi6anoA7xjWP7xqA8c08lseeMyuJK-4DpWQFIfUrHJvGk0H8S4vS3tQktRUyAFkTwKq6t_gCjAkQ1Jk30kJcQAZRLqaCtocL8khq0ElDU7vFRTiQl55xbcDAD9YegQeda4ZDvDmu5JgK8wHBdJZltB90VwxR9K36w8ITcqYIzXnApdgmjl5Dt2WkhWpOjISjcy6zYBoEz1PuKy6IEasdpbAZC83Jc1FLvujRbvF3j6PryfR3LWxc6JBzAE-4QeRtpHbXS9JM2SvYkd6GP0ETzArXU8ZfNe25N5CsaUU1J-hBp-9_ez39vv4RWbxHaSHTvCLdMMg--Cb9ZQh-BOaN6ySugJlrzsHaNSqNsD2AS9XX2dan-MVE490DgDauZIbXo9"
+						}
+					]
+				}
+			],
+			"description": "To make an API request to an Intel® SecL-DC service, an authentication\r\ntoken is now required. API requests must now include an Authorization\r\nheader with an appropriate token:\r\n\r\n```\r\nAuthorization: Bearer <token>\r\n```\r\n\r\nThe token is issued by the AAS and will expire after a set amount of time.\r\nThis token may be used with any Intel® SecL-DC service, and will carry the\r\nappropriate permissions for the role(s) assigned to the account the token was\r\ngenerated for."
+		},
+		{
+			"name": "Push Platform Information to SGX CS",
+			"item": [
+				{
+					"name": "pushPlatformInfo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenSagentLongLived}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/platforms",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"platforms"
+							]
+						},
+						"description": "SGX Agent uses this API to push the platform values (such as enc_ppi, pceid, cpisvn, pcesvn, qeid, hardware UUID and manifest) to SCS.\nA valid bearer token should be provided to authorize this REST call."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenSagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/platforms",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"platforms"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Feb 2021 10:23:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Status\": \"Success\",\n    \"Message\": \"platform data pushed to scs\"\n}"
+						}
+					]
+				}
+			],
+			"description": "SGX Agent pushes platform information to SGX Caching Service (SCS), which uses it to get the PCK Certificate and other SGX collateral from the Intel SGX Provisioning Certification Service (PCS) and caches them locally. When a workload on the platform needs to generate an SGX Quote, it retrieves the PCK Certificate of the platform from SCS.\r\n\r\nSGX Agent makes use of the following SGX Caching Service (SCS) REST endpoint, to push SGX platform values (encrypted_ppid, pcesvn, cpusvn, qeid, pceid and manifest).\r\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Verify TCB Info",
+			"item": [
+				{
+					"name": "tcbInfo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcb?fmspc={{fmpsc}}",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"tcb"
+							],
+							"query": [
+								{
+									"key": "fmspc",
+									"value": "{{fmpsc}}",
+									"description": "FMSPC value of the platform."
+								}
+							]
+						},
+						"description": "Retrieves the Trusted Computing Base (TCB) information for all TCB levels of the SGX enabled platform \nwith the provided FMPSC value.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcb?fmspc={{fmpsc}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"tcb"
+									],
+									"query": [
+										{
+											"key": "fmspc",
+											"value": "{{fmpsc}}",
+											"description": "FMSPC value of the platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "SGX-TCB-Info-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICkDCCAjagAwIBAgIUTh8n662T%2FsqPZK%2B7n3H67%2FKGwu0wCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzUwMloXDTI2MTAzMTEyMzUwMlowbDEeMBwG%0AA1UEAwwVSW50ZWwgU0dYIFRDQiBTaWduaW5nMRowGAYDVQQKDBFJbnRlbCBDb3Jw%0Ab3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYD%0AVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOnYw9LbN%2FJmyUttXa0M%0AiBEenjPbxbR4C8MuVYxDI%2BLe8lDBLp9X4wMzCAUF%2FfI%2F31giClXp%2Fy0erLbLZjdV%0A07%2BjgbkwgbYwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0f%0ABE8wTTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2%0AaWNlcy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuY3JsMB0GA1UdDgQWBBROHyfr%0ArZP%2Byo9kr7ufcfrv8obC7TAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH%2FBAIwADAK%0ABggqhkjOPQQDAgNIADBFAiEAxhkJ8vcmucFrENPm9AZbfDHL1VBv2U%2Be6QkYmPyK%0Ahh0CIFMjBrlJNQYhSgU5hwinXHvgcFNZ%2Bn5%2BoHf6RNb7OlY7%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuY3JsMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEA0RWrsGrGlDp76l9LQjt%2BzMqQZPB%2F2YuuueFU%0AgN9AdkMCIQDo9ANUhcStABChR6rlVoBo6MQ6QumCnk%2BpdGBEy8%2FsQg%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 31 Aug 2020 22:20:07 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1525"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tcbInfo\": {\n        \"version\": 2,\n        \"issueDate\": \"2020-08-31T14:00:05Z\",\n        \"nextUpdate\": \"2020-09-30T14:00:05Z\",\n        \"fmspc\": \"20606a000000\",\n        \"pceId\": \"0000\",\n        \"tcbType\": 0,\n        \"tcbEvaluationDataNumber\": 5,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 2,\n                    \"sgxtcbcomp02svn\": 2,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-05-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 9\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 0\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"f6d3720de2bda91036db982552e816d341ce33f9966958e1bdc402eee9ccb7dbc21b980e35adf084d86be05d0170748e9e81a744f08b63a5b6eeb2df583ac731\"\n}"
+						}
+					]
+				}
+			],
+			"description": "SGX Caching Service (SCS) validates the input parameters and contacts Intel PCS Server to get all PCK certificates for this platform by providing enc_ppid and pceid as input parameters.\r\n\r\nIntel PCS Server returns a list of Platform Certification Key (PCK) Certificates for the platform along with certificate issuer chain. SCS picks any Certificate from the list of certificates and extracts the FMSPC value.\r\n\r\nUsing the FMSPC value, SCS gets the corresponding TCBInfo for the FMSPC in DB, if not found makes another API call to Intel PCS Server to get the TCBInfo structure for the platform.\r\n\r\nWith the TCBInfo structure, cpusvn, pcesvn, pceid and list of Platform Certification Key (PCK) certificates as input, SCS makes a call to PCK Certificate selection library (Part of SGX DCAP infrastructure) to get the best suited PCK certificate for the current raw TCB level.\r\n\r\nSCS updates the Platform table with the latest fmspc value along with platform values.\r\n\r\nSCS updates the PCKCert table with the new set of PCK certificates received along with corresponding tcbm value for each pck certificate.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Refresh Platform Collaterals in SCS Database",
+			"item": [
+				{
+					"name": "refreshPlatformInfoStatus",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenScs}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"refreshes"
+							]
+						},
+						"description": "This API is used to refresh the platform collaterals stored in the SGX Caching Service (SCS) database,\noutside of the periodic refresh cycles. An Admin can make use of this REST endpoint to force the refresh of\nPCK Certificates, PCK CRL, TCB info and QE Identity information. This is useful in scenarios like TCB recovery.\nA valid bearer token should be provided to authorize this REST call.\n\n\nThe status field in the response conveys the following  :\n    \"idle\" - No refresh is currently in progress.\n    \"inprogress\" - A refresh is already in progress.\n    \"toomanyrequests\" - A refresh will not be started if the last refresh was completed less 900 seconds ago.\n\nThe last-refresh.status field in the response conveys the following  :\n    \"success\" - The last refresh was successfull.\n    \"failed\" - The last refresh failed.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenScs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"refreshes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Aug 2021 11:29:03 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"idle\",\n    \"last-refresh\": {\n        \"completed-at\": \"2021-08-30T11:28:08.586295Z\",\n        \"status\": \"success\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "refreshPlatformInfoStart",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenScs}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"refreshes"
+							]
+						},
+						"description": "This API is used to refresh the PCK certificates and platform collaterals stored in the SGX Caching Service (SCS) database,\noutside of the periodic refresh cycles. An Admin can make use of this REST endpoint to force the refresh of\nPCK Certificates, PCK CRL, TCB info and QE Identity information. This is useful in scenarios like TCB recovery.\nA valid bearer token should be provided to authorize this REST call.\n\nThe status field in the response conveys the following states.\n    \"started\" - A new refresh is started.\n    \"inprogress\" - A refresh is already in progress.\n    \"toomanyrequests\" - A refresh will not be started if the last refresh was completed less 900 seconds.\n\nThe last-refresh.status field in the response conveys the following states.\n    \"success\" - The last refresh was successfull.\n    \"failed\" - The last refresh failed.\nIf there is no record of previous refresh, last-refresh field will not be populated.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenScs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"refreshes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Aug 2021 11:28:06 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"started\",\n    \"last-refresh\": {\n        \"completed-at\": \"2021-08-30T10:14:15.628737Z\",\n        \"status\": \"success\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "SCS provides following REST endpoints for refreshing the platform collaterals, outside of the periodic refresh cycles. \n\n$hostname:$port/scs/sgx/platforminfo/refresh\n\nOn successful refresh, SCS will remember the last refresh status by creating a single entry in the DB.\n\nAn Admin can make use of this REST endpoint to force the refresh of PCK Certificates, PCK CRL, TCB info and QE Identity information. This is useful in scenarios like TCB recovery."
+		},
+		{
+			"name": "Verify PCK Certificate",
+			"item": [
+				{
+					"name": "pckCertificate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/x-pem-file",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"pckcert"
+							],
+							"query": [
+								{
+									"key": "encrypted_ppid",
+									"value": "{{encppid}}",
+									"description": "Encrypted Platform Provisioning ID."
+								},
+								{
+									"key": "cpusvn",
+									"value": "{{cpusvn}}",
+									"description": "CPU SVN of the platform."
+								},
+								{
+									"key": "pcesvn",
+									"value": "{{pcesvn}}",
+									"description": "PCE SVN of the platform."
+								},
+								{
+									"key": "pceid",
+									"value": "{{pceid}}",
+									"description": "PCE ID of the platform."
+								},
+								{
+									"key": "qeid",
+									"value": "{{qeid}}",
+									"description": "Quoting Enclave ID specific to a platform."
+								}
+							]
+						},
+						"description": "Retrieves the Platform Certification Key (PCK) Certificate for the current TCB level of SGX enabled platform \nwith the provided platform values.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-pem-file",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"pckcert"
+									],
+									"query": [
+										{
+											"key": "encrypted_ppid",
+											"value": "{{encppid}}",
+											"description": "Encrypted Platform Provisioning ID."
+										},
+										{
+											"key": "cpusvn",
+											"value": "{{cpusvn}}",
+											"description": "CPU SVN of the platform."
+										},
+										{
+											"key": "pcesvn",
+											"value": "{{pcesvn}}",
+											"description": "PCE SVN of the platform."
+										},
+										{
+											"key": "pceid",
+											"value": "{{pceid}}",
+											"description": "PCE ID of the platform."
+										},
+										{
+											"key": "qeid",
+											"value": "{{qeid}}",
+											"description": "Quoting Enclave ID specific to a platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/x-pem-file"
+								},
+								{
+									"key": "sgx-pck-certificate-issuer-chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICmzCCAkCgAwIBAgIUWSPTp0qoY1QuOXCt4A8HK1ckKrcwCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzQzMVoXDTM0MTAzMTEyMzQzMVowcDEiMCAG%0AA1UEAwwZSW50ZWwgU0dYIFBDSyBQbGF0Zm9ybSBDQTEaMBgGA1UECgwRSW50ZWwg%0AQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYDVQQIDAJDQTEL%0AMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQwp%2BLc%2BTUBtg1H%0A%2BU8JIsMsbjHjCkTtXb8jPM6r2dhu9zIblhDZ7INfqt3Ix8XcFKD8k0NEXrkZ66qJ%0AXa1KzLIKo4G%2FMIG8MB8GA1UdIwQYMBaAFOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMFYG%0AA1UdHwRPME0wS6BJoEeGRWh0dHBzOi8vc2J4LWNlcnRpZmljYXRlcy50cnVzdGVk%0Ac2VydmljZXMuaW50ZWwuY29tL0ludGVsU0dYUm9vdENBLmNybDAdBgNVHQ4EFgQU%0AWSPTp0qoY1QuOXCt4A8HK1ckKrcwDgYDVR0PAQH%2FBAQDAgEGMBIGA1UdEwEB%2FwQI%0AMAYBAf8CAQAwCgYIKoZIzj0EAwIDSQAwRgIhAIRoXu3Y45VF9aCiK0Z2K6EQKCtC%0ArxTTiZ4JYbEyfBGsAiEAiVoYmxF7K%2FSoqIjff1zG0%2FLiv%2FRIOR%2FQBJ5%2Bd88HAYI%3D%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuY3JsMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEA0RWrsGrGlDp76l9LQjt%2BzMqQZPB%2F2YuuueFU%0AgN9AdkMCIQDo9ANUhcStABChR6rlVoBo6MQ6QumCnk%2BpdGBEy8%2FsQg%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "sgx-tcbm",
+									"value": "020200000000000000000000000000000A00"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 31 Aug 2020 22:23:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1756"
+								}
+							],
+							"cookie": [],
+							"body": "-----BEGIN CERTIFICATE-----\nMIIE5jCCBI2gAwIBAgIUREp9Y6te5RUApptRo1iJYgqHIWwwCgYIKoZIzj0EAwIwcDEiMCAGA1UE\nAwwZSW50ZWwgU0dYIFBDSyBQbGF0Zm9ybSBDQTEaMBgGA1UECgwRSW50ZWwgQ29ycG9yYXRpb24x\nFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYDVQQIDAJDQTELMAkGA1UEBhMCVVMwHhcNMjAwODMx\nMTQwMDA0WhcNMjcwODMxMTQwMDA0WjBwMSIwIAYDVQQDDBlJbnRlbCBTR1ggUENLIENlcnRpZmlj\nYXRlMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJ\nBgNVBAgMAkNBMQswCQYDVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABDnwRZCe/kjZ\ng8RqXcfa1b1VYGmMYb+iNIygZXONuG48cW90myE7bzRoc9iUfLfCzK0KwQtzkv/SDdZIWjCaz9aj\nggMDMIIC/zAfBgNVHSMEGDAWgBRZI9OnSqhjVC45cK3gDwcrVyQqtzBiBgNVHR8EWzBZMFegVaBT\nhlFodHRwczovL3NieC5hcGkudHJ1c3RlZHNlcnZpY2VzLmludGVsLmNvbS9zZ3gvY2VydGlmaWNh\ndGlvbi92My9wY2tjcmw/Y2E9cGxhdGZvcm0wHQYDVR0OBBYEFDukc1cCVg8XF9c6bbUN2gveuT1K\nMA4GA1UdDwEB/wQEAwIGwDAMBgNVHRMBAf8EAjAAMIICOQYJKoZIhvhNAQ0BBIICKjCCAiYwHgYK\nKoZIhvhNAQ0BAQQQOgs1S+PfrqacSaRqIbH+xzCCAWMGCiqGSIb4TQENAQIwggFTMBAGCyqGSIb4\nTQENAQIBAgECMBAGCyqGSIb4TQENAQICAgECMBAGCyqGSIb4TQENAQIDAgEAMBAGCyqGSIb4TQEN\nAQIEAgEAMBAGCyqGSIb4TQENAQIFAgEAMBAGCyqGSIb4TQENAQIGAgEAMBAGCyqGSIb4TQENAQIH\nAgEAMBAGCyqGSIb4TQENAQIIAgEAMBAGCyqGSIb4TQENAQIJAgEAMBAGCyqGSIb4TQENAQIKAgEA\nMBAGCyqGSIb4TQENAQILAgEAMBAGCyqGSIb4TQENAQIMAgEAMBAGCyqGSIb4TQENAQINAgEAMBAG\nCyqGSIb4TQENAQIOAgEAMBAGCyqGSIb4TQENAQIPAgEAMBAGCyqGSIb4TQENAQIQAgEAMBAGCyqG\nSIb4TQENAQIRAgEKMB8GCyqGSIb4TQENAQISBBACAgAAAAAAAAAAAAAAAAAAMBAGCiqGSIb4TQEN\nAQMEAgAAMBQGCiqGSIb4TQENAQQEBiBgagAAADAPBgoqhkiG+E0BDQEFCgEBMB4GCiqGSIb4TQEN\nAQYEEABfaRGZkBoPH0P0yzB1FCgwRAYKKoZIhvhNAQ0BBzA2MBAGCyqGSIb4TQENAQcBAQH/MBAG\nCyqGSIb4TQENAQcCAQEAMBAGCyqGSIb4TQENAQcDAQH/MAoGCCqGSM49BAMCA0cAMEQCIGJZIPqf\nVL5e2vCYD1DGYKjufru6iXKJoAdDyOQTXgdIAiBfHkTCZLMoVjLGnDLNKiZ5TSp6ceNYSksLfVcF\nQU6p7g==\n-----END CERTIFICATE-----"
+						}
+					]
+				}
+			],
+			"description": "We can now retrieve the Platform Certification Key (PCK) Certificate for the current raw TCB level of SGX enabled platform from the SGX Caching Service (SCS).",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Verify TCB Status is UpToDate",
+			"item": [
+				{
+					"name": "tcbStatus",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenSagentLongLived}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcbstatus?qeid={{qeid}}&pceid={{pceid}}",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"tcbstatus"
+							],
+							"query": [
+								{
+									"key": "qeid",
+									"value": "{{qeid}}",
+									"description": "Quoting Enclave ID specific to a platform."
+								},
+								{
+									"key": "pceid",
+									"value": "{{pceid}}",
+									"description": "PCE ID of the platform."
+								}
+							]
+						},
+						"description": "This API is used by SGX Agent to determine the TCB up-to-date status of a platform.\nA valid bearer token should be provided to authorize this REST call.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenSagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcbstatus?qeid={{qeid}}&pceid={{pceid}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"tcbstatus"
+									],
+									"query": [
+										{
+											"key": "qeid",
+											"value": "{{qeid}}",
+											"description": "Quoting Enclave ID specific to a platform."
+										},
+										{
+											"key": "pceid",
+											"value": "{{pceid}}",
+											"description": "PCE ID of the platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Feb 2021 10:29:48 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Status\": \"true\",\n    \"Message\": \"TCB Status is UpToDate\"\n}"
+						}
+					]
+				}
+			],
+			"description": "SGX Caching Service (SCS) provides a REST Endpoint for determining TCB uptodate status. This API will be used by SGX Host Verification Service (SHVS) to make decision on the TCB level status of a platform before provisioning secrets.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Push Host Information to SHVS",
+			"item": [
+				{
+					"name": "pushHostInfo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenSagentLongLived}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"host_name\": \"{{agentHostName}}\",\n    \"description\": \"Demo\",\n    \"uuid\": \"{{hostHardwareUuid}}\",\n    \"sgx_supported\": {{sgxSupported}},\n    \"sgx_enabled\": {{sgxEnabled}},\n    \"flc_enabled\": {{flcEnabled}},\n    \"epc_offset\": \"{{epcOffset}}\",\n    \"epc_size\": \"{{epcSize}}\",\n    \"tcb_upToDate\": {{tcbStatus}}\n}"
+						},
+						"url": {
+							"raw": "https://{{shvs}}:{{shvsPort}}/sgx-hvs/v2/hosts",
+							"protocol": "https",
+							"host": [
+								"{{shvs}}"
+							],
+							"port": "{{shvsPort}}",
+							"path": [
+								"sgx-hvs",
+								"v2",
+								"hosts"
+							]
+						},
+						"description": "Agent pushes the platform enablement info and TCB status to SHVS at regular Interval\nA valid bearer token is required to authorize this REST call.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenSagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"host_name\": \"{{agentHostName}}\",\n    \"description\": \"Demo\",\n    \"uuid\": \"{{hostHardwareUuid}}\",\n    \"sgx_supported\": {{sgxSupported}},\n    \"sgx_enabled\": {{sgxEnabled}},\n    \"flc_enabled\": {{flcEnabled}},\n    \"epc_offset\": \"{{epcOffset}}\",\n    \"epc_size\": \"{{epcSize}}\",\n    \"tcb_upToDate\": {{tcbStatus}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{shvs}}:{{shvsPort}}/sgx-hvs/v2/hosts",
+									"protocol": "https",
+									"host": [
+										"{{shvs}}"
+									],
+									"port": "{{shvsPort}}",
+									"path": [
+										"sgx-hvs",
+										"v2",
+										"hosts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Feb 2021 12:02:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "111"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Id\": \"8d92241e-cd61-4475-8446-3c5f92fc89a7\",\n    \"Status\": \"Created\",\n    \"Message\": \"SGX Host Data Updated Successfully\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Host Registration creates a host record with host information in the SGX Host Verification Service (SHVS)database when SGX Agent update SGX enablement information for the first time.\r\n\r\nIf SHVS URL is configured, then SGX Agent fetches the TCB Status from SCS and updates SHVS with SGX platform enablement information and TCB status periodically. The platform information is made available to Kubernetes and Openstack via the SGX Hub (IHUB), which pulls it from SHVS.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Integration with Orchestrator ",
+			"item": [
+				{
+					"name": "Configure Kubernetes Pods to Require Matching Attributes",
+					"item": [],
+					"description": "Verify that the worker nodes have had their SGX platform data attributes populated: \n\n```kubectl get nodes --show-labels```\n\nThe output should show the SGX-Enabled and any other platform information applied to all of the registered Worker Nodes.\n\nNow create a pod_config.yaml (say for nginx container) containing the matchExpression policy\nrequirements in root directory on master node.\n\n```yaml\nkind: Pod   \n  metadata:     \n  name: nginx       \n  labels:         \n    name: nginx    \nspec:   \n  affinity:     \n    nodeAffinity:       \n      requiredDuringSchedulingIgnoredDuringExecution:         \n        nodeSelectorTerms:           \n          - matchExpressions:                \n\t         - key: SGX-Enabled                \n\t           operator: In                 \n\t\t       values:                    \n\t\t         - \"true\"\n  containers:       \n    - name: nginx         \n      image: nginx           \n\t  ports:    \n        - containerPort: 80\n```\n",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Launching a Kubernetes Pod on a Compliant Worker Node",
+					"item": [],
+					"description": "Below is a sample command for the Kubernetes Master to launch a Pod:\r\n\r\n```kubectl create -f pod_config.yaml```\r\n\r\nWe can verify that the Master Node CRDs contain attributes successfully pushed from the Integration Hub:\r\n\r\n```kubectl get crds kubectl get -o json hostattributes.isecl.intel.com```\r\n\r\nWe can list the Worker Nodes and their labels:\r\n\r\n```kubectl get nodes --show-labels```\r\n\r\nFinally, we can list the running Pods to confirm that the Pod launched and is running on a compliant Worker Node:\r\n\r\n```kubectl get pods```",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "OpenStack  Setup and Associate Traits",
+					"item": [
+						{
+							"name": "Associate Traits",
+							"item": [],
+							"description": "* List the set of resources mapped to the Openstack\n```\n  openstack resource provider list\n```\n* Set the required traits for SGX Hosts\n```\n  #For example 'cirros' image can be used for the instances\n  openstack image set --property trait:CUSTOM_ISECL_SGX_ENABLED_TRUE=required <image name>\n```\n* Veiw the Traits that has been set:\n```\n  #The trait should be set and assinged to the respective image successfully. For example 'cirros' image can be used for the instances \n   openstack image show <image name>\n```\n* Verify the trait is enabled for the SGX Host:\n```\n  openstack resource provider trait list <uuid of the host which the openstack resoruce provider lists>\n\n  #SGX Supported, SGX TCB upto Date, SGX FLC enabled, SGX EPC size attritubes of the SGX host for which the 'required' trait set to TRUE or FALSE is displayed. For example,if required trait is set as TRUE:\n  \n  CUSTOM_ISECL_SGX_ENABLED_TRUE\n  CUSTOM_ISECL_SGX_SUPPORTED_TRUE\n  CUSTOM_ISECL_SGX_TCBUPTODATE_FALSE\n  CUSTOM_ISECL_SGX_FLC_ENABLED_TRUE\n  CUSTOM_ISECL_SGX_EPC_SIZE_2_0_GB\n\n  For example, if the required trait is set as FALSE\n  CUSTOM_ISECL_SGX_ENABLED_FALSE\n  CUSTOM_ISECL_SGX_SUPPORTED_TRUE\n  CUSTOM_ISECL_SGX_TCBUPTODATE_FALSE\n  CUSTOM_ISECL_SGX_FLC_ENABLED_FALSE\n  CUSTOM_ISECL_SGX_EPC_SIZE_0_B\n```",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Create  The Instances",
+							"item": [],
+							"description": "* Create the instances\r\n```\r\n  openstack server create --flavor tiny --image <image name> --net vmnet <vm instance name>\r\n\r\n  Instances should be created and the status should be \"Active\". Instance should be launched successfully.\r\n  openstack server list\r\n```\r\n Note : To unset the trait, use the following CLI commands:\r\n```\r\n openstack image unset --property trait:CUSTOM_ISECL_SGX_ENABLED_TRUE <image name>\r\n\r\n openstack image unset --property trait:CUSTOM_ISECL_SGX_ENABLED_FALSE <image name>\r\n```",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"description": "OpenStack can now use “Traits” to provide qualitative data about Nova Compute hosts to establish Trait requirements. The Integration Hub continually pushes SGX data to the OpenStack Traits resources. This means OpenStack scheduler natively supports workload scheduling incorporating SGX Host information, including SGX enabled/disabled, SGX supported/not supported, FLC enabled/not enabled, EPC memory size, TCB status up to date/not. The OpenStack Placement Service will automatically attempt to place images with Trait requirements on compute nodes that have those Traits.\n\nNOTE: \n\nThis control only applies to instances launched using the OpenStack scheduler, and the Traits functions will not affect manually-launched instances where a specific Compute Node is defined (since this does not use the scheduler at all). Intel SecL-DC uses existing OpenStack interfaces and does not modify OpenStack code.  The data center owner or OpenStack administrator is responsible for the security of the OpenStack workload scheduling process in general, and Intel recommends following published OpenStack security best practices.\n\nSetting Image Traits:\n\nImage Traits define the policy for which Traits are required for that instance to be launched on a Nova Compute node. By setting these Traits to “required” the OpenStack scheduler will require the same Traits to be present on a Nova Compute node in order to launch instances. To set the Image Traits for Intel SecL-DC, a specific naming convention is used. This naming convention will match the Traits that the Integration Hub will automatically push to OpenStack. Two types of Traits are currently supported – one Trait is used to require that the Compute Node must be SGX supported and the other Trait is used to require specific SGXkey/value pairs.",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "platformData",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenIhub}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{shvs}}:{{shvsPort}}/sgx-hvs/v2/platform-data?HostName={{agentHostName}}",
+							"protocol": "https",
+							"host": [
+								"{{shvs}}"
+							],
+							"port": "{{shvsPort}}",
+							"path": [
+								"sgx-hvs",
+								"v2",
+								"platform-data"
+							],
+							"query": [
+								{
+									"key": "HostName",
+									"value": "{{agentHostName}}",
+									"description": "Name of the host."
+								},
+								{
+									"key": "numberOfMinutes",
+									"value": "<string>",
+									"description": "Results returned will be restricted to between the current time and number of minutes prior.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Retrieves the platform data of the host based on the provided filter criteria from the SHVS database.\nA valid bearer token is required to authorize this REST call.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenIhub}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{shvs}}:{{shvsPort}}/sgx-hvs/v2/platform-data?HostName={{agentHostName}}",
+									"protocol": "https",
+									"host": [
+										"{{shvs}}"
+									],
+									"port": "{{shvsPort}}",
+									"path": [
+										"sgx-hvs",
+										"v2",
+										"platform-data"
+									],
+									"query": [
+										{
+											"key": "numberOfMinutes",
+											"value": "<string>",
+											"description": "Results returned will be restricted to between the current time and number of minutes prior.",
+											"disabled": true
+										},
+										{
+											"key": "HostName",
+											"value": "{{agentHostName}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Feb 2021 11:40:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "191"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"epc_size\": \"2.0 GB\",\n        \"flc_enabled\": true,\n        \"host_id\": \"8d92241e-cd61-4475-8446-3c5f92fc89a7\",\n        \"sgx_enabled\": true,\n        \"sgx_supported\": true,\n        \"tcb_upToDate\": true,\n        \"validTo\": \"2021-02-16T11:44:07.785441Z\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "The Integration Hub (IHUB) allows to support SGX in Kubernetes and Open stack. IHUB pulls the list of hosts details from Kubernetes and then using the host information it pulls the SGX Data from SGX Host Verification Service and pushes it to Kubernetes. IHUB performs these steps on a regular basis so that the most recent SGX information about nodes is reflected in Kubernetes and Openstack. This integration allows Kubernetes and Openstack to schedule VMs and containers that need to run SGX workloads on compute nodes that support SGX. The SGX data that IHUB pushes to Kubernetes consists of SGX enabled/disabled, SGX supported/not supported, FLC enabled/not enabled, EPC memory size, TCB status up to date/not up to date and platform-data expiry time.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

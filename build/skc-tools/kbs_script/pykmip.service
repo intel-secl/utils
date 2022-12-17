@@ -1,0 +1,16 @@
+[Unit]
+Description=PYKMIP SERVER
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /etc/pykmip/run_server.py
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutStartSec=0
+Restart=on-failure
+PermissionsStartOnly=true
+RuntimeDirectory=pykmip
+RuntimeDirectoryMode=0775
+
+[Install]
+WantedBy=multi-user.target

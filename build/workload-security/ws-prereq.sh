@@ -162,7 +162,7 @@ install_prereq_skopeo() {
   elif [ "$OS" == "ubuntu" ]; then
     export DEBIAN_FRONTEND=noninteractive
     source /etc/os-release
-    if [ "$VERSION_ID" == "18.04" -o "$VERSION_ID" == "20.04" ]; then
+    if [ "$VERSION_ID" == "20.04" ]; then
       echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
       curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | sudo apt-key add -
       apt-get -y update

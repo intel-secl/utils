@@ -1,0 +1,135 @@
+# Copyright (C) 2022  Intel Corporation
+# SPDX-License-Identifier: BSD-3-Clause
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skclib-deployment
+  namespace: isecl
+  labels:
+    env: demo
+    app: skclib
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skclib
+  template:
+    metadata:
+      labels:
+        app: skclib
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.type
+                    operator: In
+                    values:
+                      - "SGX-ENABLED"
+      containers:
+        - name: skc-lib
+          image: 
+          imagePullPolicy: Always
+          ports:
+           - containerPort: 8080
+           - containerPort: 2443
+          envFrom:
+            - configMapRef:
+                name: skc-lib-config
+            - configMapRef:
+                name: nginx-config
+            - configMapRef:
+                name: kbs-key-config
+            - configMapRef:
+                name: sgx-qcnl-config
+            - configMapRef:
+                name: openssl-config
+            - configMapRef:
+                name: pkcs11-config
+            - configMapRef:
+                name: haproxy-hosts-config
+          volumeMounts:
+           - mountPath: /var/log/nginx
+             name: nginx-log-volume
+           - mountPath: /skc_library.conf
+             name: skclib-config-volume
+             subPath: skc_library.conf
+           - mountPath: /etc/nginx/nginx.conf
+             name: nginx-config-volume
+             subPath: nginx.conf
+           - mountPath: /root/keys.txt
+             name: kms-key-volume
+             subPath: keys.txt
+           - mountPath: /etc/sgx_default_qcnl.conf
+             name: sgx-qcnl-config
+             subPath: sgx_default_qcnl.conf
+           - mountPath: /etc/pki/tls/openssl.cnf
+             name: openssl-config-volume
+             subPath: openssl.cnf
+           - mountPath: /opt/skc/etc/pkcs11-apimodule.ini
+             name: pkcs11-config-volume
+             subPath: pkcs11-apimodule.ini
+             readOnly: false
+           - mountPath: /opt/skc/etc/sgx_stm.ini
+             name: sgx-stm-config-volume
+             subPath: sgx_stm.ini
+             readOnly: false
+           - mountPath: /opt/skc/etc/kms_npm.ini
+             name: kms-npm-config-volume
+             subPath: kms_npm.ini
+             readOnly: false
+           - mountPath: /etc/hosts
+             name: haproxy-hosts
+             subPath: hosts
+           - mountPath: /root/<kbs public certificate>.crt
+             name: kbs-cert-secret-volume
+             subPath: <kbs public certificate>.crt
+             readOnly: true
+           - name: sagent-sgx-device
+             mountPath: /dev/sgx/
+          securityContext:
+             privileged: true
+      imagePullSecrets:
+      - name: <image-pull-secret>
+      volumes:
+        - hostPath:
+             path: /var/log/nginx
+          name: nginx-log-volume
+        - name: skclib-config-volume
+          configMap:
+             name: skc-lib-config
+        - name: nginx-config-volume
+          configMap:
+             name: nginx-config
+        - name: kms-key-volume
+          configMap:
+             name: kbs-key-config
+        - name: sgx-qcnl-config
+          configMap:
+             name: sgx-qcnl-config
+        - name: openssl-config-volume
+          configMap:
+             name: openssl-config
+        - name: pkcs11-config-volume
+          configMap:
+             name: pkcs11-config
+        - name: sgx-stm-config-volume
+          configMap:
+             name: sgx-stm-config
+        - name: kms-npm-config-volume
+          configMap:
+             name: kms-npm-config
+        - name: haproxy-hosts
+          configMap:
+             name: haproxy-hosts-config
+        - name: kbs-cert-secret-volume
+          secret:
+              secretName: kbs-cert-secret
+        - name: sagent-sgx-device
+          hostPath:
+            path: /dev/sgx/
+            type: DirectoryOrCreate
+

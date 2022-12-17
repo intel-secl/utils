@@ -1,4 +1,4 @@
-image: golang:1.16
+image: golang:1.18.8
 
 before_script:
   - git config --global http.proxy ${HTTP_PROXY}
@@ -87,7 +87,7 @@ sample-sgx-attestation:
     - source /opt/intel/sgxsdk/environment
     - cd /root && wget -q https://github.com/intel/intel-sgx-ssl/archive/refs/tags/lin_2.13_1.1.1i.zip && unzip lin_2.13_1.1.1i.zip
     - cd /root/intel-sgx-ssl-lin_2.13_1.1.1i/openssl_source && wget -q  https://www.openssl.org/source/openssl-1.1.1k.tar.gz && cd ../Linux && make all >/dev/null && make install > /dev/null
-    - wget -q https://golang.org/dl/go1.16.7.linux-amd64.tar.gz && tar -xzf go1.16.7.linux-amd64.tar.gz -C /usr/local/
+    - wget -q https://golang.org/dl/go1.18.8.linux-amd64.tar.gz && tar -xzf go1.18.8.linux-amd64.tar.gz -C /usr/local/
     - ln -sf /usr/local/go/bin/* /usr/bin/
     - git config --global http.proxy ${HTTP_PROXY}
     - git config --global https.proxy ${HTTPS_PROXY}
@@ -102,7 +102,7 @@ Stylechecker:
   stage: scan
   only:
     - merge_requests
-  image: golang:1.16
+  image: golang:1.18.8
   tags:
     - go
   script:
