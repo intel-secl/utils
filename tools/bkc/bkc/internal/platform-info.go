@@ -6,7 +6,6 @@ package commands
 
 import (
 	"fmt"
-	"github.com/intel-secl/intel-secl-tee/v5/pkg/fda/utils"
 	"io"
 	"strings"
 

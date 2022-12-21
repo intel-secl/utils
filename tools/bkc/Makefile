@@ -1,7 +1,7 @@
 GITTAG := $(shell git describe --tags --abbrev=0 2> /dev/null)
 GITCOMMIT := $(shell git describe --always)
 GITCOMMITDATE := $(shell git log -1 --date=short --pretty=format:%cd)
-VERSION := "v5.0.0"
+VERSION := "v5.1.0"
 BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%S%z)
 BUILDDATE_FILENAME := $(shell TZ=UTC date +%Y-%m-%dT%H-%M-%S)
 

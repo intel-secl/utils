@@ -14,7 +14,7 @@ RHEL8 package Requirements
 How to Build
 =============
 - To build SGX Agent, 
-- repo init -u  https://github.com/intel-secl/build-manifest.git -b refs/tags/v5.0.0 -m manifest/skc.xml
+- repo init -u  https://github.com/intel-secl/build-manifest.git -b refs/tags/v5.1.0 -m manifest/skc.xml
 - repo sync
 - make sgx_agent_k8s 
 - sgx-agent container image will be generated. Use: `docker images` to list 
