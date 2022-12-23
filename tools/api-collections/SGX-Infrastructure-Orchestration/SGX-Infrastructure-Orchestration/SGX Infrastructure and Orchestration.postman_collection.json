@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "bbd152af-9a84-4453-beff-ba08270157ec",
-		"name": "SGX Discovery, Provisioning and Orchestration",
+		"_postman_id": "009afd6c-ac32-4d43-bf30-9d5faa91ae43",
+		"name": "SGX Infrastructure and Orchestration",
 		"description": "For the secrets to be provisioned securely to SGX compute node on public cloud, the owner of the secret would like to ensure that the node is secure and trustworthy.\r\n\r\nSGX attestation infrastructure involves providing Platform Certification Key (PCK) certificates as part of the attestation report. To fetch the PCK certificates for a platform, platform needs to provide the platform SGX values to the Intel PCS server hosted on the internet. In addition, PCS server also provides other platform collaterals like PCK CRL, TCB Information, QE Identity Information for a platform.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,7 +34,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "cmsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -62,11 +62,11 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:57:24 GMT"
+									"value": "Thu, 22 Dec 2022 13:31:17 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "106"
+									"value": "107"
 								},
 								{
 									"key": "Content-Type",
@@ -74,7 +74,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: Certificate Management Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:40+0000\n"
+							"body": "Service Name: Certificate Management Service\nVersion: v5.1.0-c473648d\nBuild Date: 2022-12-21T00:55:53+0000\n"
 						}
 					]
 				},
@@ -103,7 +103,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "aasVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -131,11 +131,11 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:57:43 GMT"
+									"value": "Thu, 22 Dec 2022 13:31:49 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "116"
+									"value": "117"
 								},
 								{
 									"key": "Content-Type",
@@ -143,7 +143,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: Authentication and Authorization Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:31+0000\n"
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v5.1.0-c473648d\nBuild Date: 2022-12-21T00:54:31+0000\n"
 						}
 					]
 				},
@@ -174,7 +174,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "scsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -204,7 +204,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:58:12 GMT"
+									"value": "Thu, 22 Dec 2022 13:31:57 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -216,7 +216,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: SGX Caching Service\nVersion: v4.0.0-ee8da06\nBuild Date: 2021-07-20T08:49:13+0000\n"
+							"body": "Service Name: SGX Caching Service\nVersion: v5.1.0-97689d5\nBuild Date: 2022-12-21T18:05:47+0000\n"
 						}
 					]
 				},
@@ -245,7 +245,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "shvsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -273,7 +273,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:58:24 GMT"
+									"value": "Thu, 22 Dec 2022 13:32:06 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -285,7 +285,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: SGX Host Verification Service\nVersion: v4.0.0-73b3b1d\nBuild Date: 2021-07-20T08:49:50+0000\n"
+							"body": "Service Name: SGX Host Verification Service\nVersion: v5.1.0-bccd94b\nBuild Date: 2022-12-21T01:04:26+0000\n"
 						}
 					]
 				}
@@ -367,6 +367,59 @@
 						"description": "Creates a new bearer token that can be used in the Authorization header for other API\nrequests. Bearer token Authorization is not required when requesting token for Authservice\nregistered users."
 					},
 					"response": [
+						{
+							"name": "createCccAdminToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{cccAdminUser}}\",\n    \"password\": \"{{cccAdminUserPass}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:32:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1464"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlJvbGVNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJSb2xlTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbIio6KjoqIiwiY3VzdG9tX2NsYWltczpjcmVhdGUiLCJyb2xlczpjcmVhdGU6KiIsInJvbGVzOmRlbGV0ZToqIiwicm9sZXM6cmV0cmlldmU6KiIsInJvbGVzOnNlYXJjaDoqIiwidXNlcl9yb2xlczpjcmVhdGU6KiIsInVzZXJfcm9sZXM6ZGVsZXRlOioiLCJ1c2VyX3JvbGVzOnJldHJpZXZlOioiLCJ1c2VyX3JvbGVzOnNlYXJjaDoqIiwidXNlcnM6Y3JlYXRlOioiLCJ1c2VyczpkZWxldGU6KiIsInVzZXJzOnJldHJpZXZlOioiLCJ1c2VyczpzZWFyY2g6KiIsInVzZXJzOnN0b3JlOioiXX1dLCJleHAiOjE2NzE3MjMxMzcsImlhdCI6MTY3MTcxNTkwNywiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NzE3MTU5MDcsInN1YiI6ImFhc0FkbWluVXNlciJ9.1tfCmRQ1NJzCoCAa-kRzL0CYY8S2FceucJxhaRAGJKA9YGy5yz0Mcd9MxcCYrLlExbgOM8EymG3EHvot2dQZiXWIyPt-4WwAZEEfMVmLQeuWva66hCIjdWeRQwxtAN4Dd5tC8gCHE4_NyuhxVa5qpXPUO9LFmNeTKjwWb99pU9_eEI-5L_pCb3Vjc1J4JByI4xTGr2DNWo7pX_qMv1WH5bhL49ac9yk7o3p1KeDx37xqY_yHp0RB7QE_LCnwOHNtUZQaZ3rrqci7SdSuxS3xTqXkaZ9XiXkahoRv_1VBKxIzvEzdv8ZszhyWO2ZUkuWXMmm-lpfuLXK465VksiSFj8zWIOLzmofFlpnLVDrhqRunl0WeH7XKKX_128h02drDeLBoFwVm4gw_2qxqC7QsRcJvhyvTbRJWbXQjdTGRscM6PUxsNFuhm0I5TBsBVmHhm6JEWtwG4DUP66MOm0K11SPY14C2dMivxgQl57b1OFd6c6a39q2qVV0MxwKpWtVY"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -484,6 +537,69 @@
 						"description": "Creates a new bearer token that can be used in the Authorization header for other API\nrequests. Bearer token Authorization is required when requesting custom claims token\nfrom Authservice."
 					},
 					"response": [
+						{
+							"name": "createSagentLongLivedToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenCccAdmin}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/jwt",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": {{validity}},\n    \"claims\": {\n        \"roles\": [\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataUpdater\"\n            },\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataReader\"\n            },\n            {\n                \"service\": \"SHVS\",\n                \"name\": \"HostDataUpdater\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/custom-claims-token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"custom-claims-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:32:25 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "962"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sibmFtZSI6Ikhvc3REYXRhVXBkYXRlciIsInNlcnZpY2UiOiJTQ1MifSx7Im5hbWUiOiJIb3N0RGF0YVJlYWRlciIsInNlcnZpY2UiOiJTQ1MifSx7Im5hbWUiOiJIb3N0RGF0YVVwZGF0ZXIiLCJzZXJ2aWNlIjoiU0hWUyJ9XSwiZXhwIjoxNjc0MzA3OTQ1LCJpYXQiOjE2NzE3MTU5MTUsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjcxNzE1OTE1LCJzdWIiOiI4ODg4ODg4OC04ODg3LTAxNjItMDEwNC0yNjFkYTVhNWE1YTUifQ.RN_fGb-X3L6DQCD92wzM1ybcOQF9KNvntfM7xSfLH_vN4L0X8tXRCPaNYN6Lf5-WGkA6wB-qcgbJUobgblsziBrPAsdTUjl9clWowq4XcVYyx4Wza84qEew4F4UH4f3VCbMyVMb9PBCPC7g3GG3Coz5MBuOXEWja7RrIke8rlLO-uAjRNX7HiG6sIfnwxK4KnYCTikMI3gJGyWFLtRZ6NRcINnu7uWIYK8eGa7CVmUfQs60NmeOS6gM2Tl4I3-nz7vpjwtLsdeqVKOTQRTLsh46hH5NziYqcyOr4bBz_YgVslZGM58AFfEv6-zAP-u_fp8IaURsLoo3COm1rjc--TkBKp1VbulQeuiskoiL14O0sI-BkXTY7zhMi8eGuFs_qDvwhCuvCluVfW57hQy1DEpKiaRNtdrW_DZrtWpkzjfWsV5ONPkd4Zf1ilyUxPKAJ8G_qG6cDImAuzUHmSNceHXkz2FzL2BczSfOUmUAhqBWq0SFApbTSO6IYgDDZ2cc7"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -660,6 +776,59 @@
 							],
 							"cookie": [],
 							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjY0OGNlZjM1Mzk4ZGVjMGEwNDUwODM5NzgzNWEzMGU4M2I2YmRkYWQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049U0dYX0FHRU5UIFRMUyBDZXJ0aWZpY2F0ZTtTQU49MTAuMjE5LjEzOC42MztDRVJUVFlQRT1UTFMifSx7InNlcnZpY2UiOiJTSFZTIiwibmFtZSI6Ikhvc3RSZWdpc3RyYXRpb24ifSx7InNlcnZpY2UiOiJTR1hfQUdFTlQiLCJuYW1lIjoiSG9zdERhdGFSZWFkZXIifV0sImV4cCI6MTYwMDUwMzg3OSwiaWF0IjoxNjAwMzMxMDQ5LCJpc3MiOiJBQVMgSldUIElzc3VlciIsInN1YiI6InNneF9hZ2VudCJ9.eH1DbpvmQSjnqrWgn91FlxJ_t2Aqn09yPOI8BLunADEJP2o4BeNQbQqnfawm0QMMH7RQOHosLaeKprtjMwGHuav2Mm__BQZ0VGzd9eEKfrNIffcvuPphR3OkDY3RAaOvFfxNczR_80WRCjO4odFsMnRS7EYGAt2JvoFVb2K2Pmk_J0UXbozmynsFkxUJwsNqmlSVkYAbo4knB87v5FsgOm73Z2UQFXONdQSLmrCNHyeOoDOgnCfzsyx1yORVbz5LfIGHxsIo495efQgYDP4NOMp9XWJnwfzcFXnOnxzgorhy0kdozqKfxDRPhXJppVCL27EKpnBrdnr6dvj7hdWPJ4ytoIZRo9HQwBEzi84g87RRa9jyrYWqTpqUC3MaNmvrHees0X-Or93dUgn2gQbzmvFsRbHa0bTTKrQeDR2Y6S6MJxVtS-DkOl88XoTm9I2ZoRDXpS-qAJmqSOtYTqLovnURrcBox_5fGTmC4oymxyW0a0DPmZ1eCFu1zpUHcE74"
+						},
+						{
+							"name": "createIhubToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{ihubUser}}\",\n    \"password\": \"{{ihubUserPass}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:32:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1058"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkhWUyIsIm5hbWUiOiJSZXBvcnRTZWFyY2hlciJ9LHsic2VydmljZSI6IlNIVlMiLCJuYW1lIjoiSG9zdHNMaXN0UmVhZGVyIn0seyJzZXJ2aWNlIjoiU0hWUyIsIm5hbWUiOiJIb3N0RGF0YVJlYWRlciJ9XSwicGVybWlzc2lvbnMiOlt7InNlcnZpY2UiOiJIVlMiLCJydWxlcyI6WyJyZXBvcnRzOnNlYXJjaDoqIl19LHsic2VydmljZSI6IlNIVlMiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTY3MTcyMzE1MywiaWF0IjoxNjcxNzE1OTIzLCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTY3MTcxNTkyMywic3ViIjoiaWh1YlVzZXIifQ.qqyNlZKkOY0_IDd8OW7c3NtoI_NEnvO2GrNgsyhxMySF4kFUZVdnUxTDDKKpJni_ghZQZlKXkGERb3aCVbU0JS9GjsUWfwUrlVHtC1SOjC0G6DHLENcvc1G1aSyI9qFGEDHpmMnG0NVfgDgIJv2_FpIUl_uBgsMDu5Opzu3_OLKbGDGVuqaMgMN2mX3ivQDMCq_9KpvY22nx3GZALt8FJRLS0uMzYBqmOM6cbfdocOlwPElVYHosTeMO-_5I5O4RNNEjYA88Dn-BPYW0ybGdiWmlKEATbDG2Ngn1-im32M_0xARDyEDDAqplyJYTi86zjwibXG_Y_IdpSqUJ8H1jxcokpmR6AFy0YU5OtGCuSoIrrCM5PbeNSAcTMoN01NKZamikWaE_N7TE3JJTciu_h--bY-G0TzEUx99hufvYapV8YdHe7AmyuEwH0fYWwjRItFNsf-AsudA5W_uTREaKBQJEXqPWERDcR_5guKfYGKgY5xwnF_q_z7lJQvPIj2GQ"
 						}
 					]
 				},
@@ -712,6 +881,59 @@
 						"description": "Creates a new bearer token that can be used in the Authorization header for other API \nrequests. Bearer token Authorization is not required when requesting token for Authservice \nadmin user. Authservice admin user bearer token should be provided in Authorization header \nwhen requesting bearer token for other users."
 					},
 					"response": [
+						{
+							"name": "createScsToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{scsUser}}\",\n    \"password\": \"{{scsUserPass}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:33:44 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "999"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049U0NTIFRMUyBDZXJ0aWZpY2F0ZTtTQU49KjtjZXJ0VHlwZT1UTFMifSx7InNlcnZpY2UiOiJTQ1MiLCJuYW1lIjoiQ2FjaGVNYW5hZ2VyIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IlNDUyIsInJ1bGVzIjpbIio6KjoqIl19XSwiZXhwIjoxNjcxNzIzMjI0LCJpYXQiOjE2NzE3MTU5OTQsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjcxNzE1OTk0LCJzdWIiOiJzY3N1c2VyIn0.rsi1pIIG_p4yyODwzhR7vwv91Q-9f8syY53TxJdl43YybhRk1K9U4K_QsUPkVzdmFvmNdmTr8vHyQ-rI5IFWZMMrKjao0h6a37cXd6T9BEZtOzfdg4szbyRrlxb2-9o72mq9rDjkwj0XRN7moXw7IDhfIP-Z1NUgQ_rbRSb6GFO1ZdkSQR-OmfZYFgTlqwhkYw8ea-DyRn7gKEd6BLQQnGFqHSeqTOqMrknYoctegNZR1Z67I93jAD8uEaU7lCxIBMnjsqN8ALPC62TL_npkop8iTJ9sLhwOPOWTFtcN6Uda_aRbN8Yq0D18m2FCyZip7qGmckCQTnfYNs7bfrIkS2XkjxfO_W0ykCF79ChjU1FRk942owfUpJgzjuaeLqMru0AQVqur0tS69lUaGsmuqeJ0OLIsaaQkB5S0-JdOaoK9-FurzqW3Asi72AZL2_eN5F3aQqa91fv0cV3fKfvqdduKWsuLMywUPEsBhI4UWIwNrpDt410up92MitDwZbEV"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -886,6 +1108,67 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"Status\": \"Success\",\n    \"Message\": \"platform data pushed to scs\"\n}"
+						},
+						{
+							"name": "pushPlatformInfo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenSagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/platforms",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"platforms"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:33:55 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Status\": \"Success\",\n    \"Message\": \"platform info already cached\"\n}"
 						}
 					]
 				}
@@ -1011,6 +1294,64 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"tcbInfo\": {\n        \"version\": 2,\n        \"issueDate\": \"2020-08-31T14:00:05Z\",\n        \"nextUpdate\": \"2020-09-30T14:00:05Z\",\n        \"fmspc\": \"20606a000000\",\n        \"pceId\": \"0000\",\n        \"tcbType\": 0,\n        \"tcbEvaluationDataNumber\": 5,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 2,\n                    \"sgxtcbcomp02svn\": 2,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-05-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 9\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 0\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"f6d3720de2bda91036db982552e816d341ce33f9966958e1bdc402eee9ccb7dbc21b980e35adf084d86be05d0170748e9e81a744f08b63a5b6eeb2df583ac731\"\n}"
+						},
+						{
+							"name": "tcbInfo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcb?fmspc={{fmpsc}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"tcb"
+									],
+									"query": [
+										{
+											"key": "fmspc",
+											"value": "{{fmpsc}}",
+											"description": "FMSPC value of the platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "SGX-TCB-Info-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICkDCCAjagAwIBAgIUTh8n662T%2FsqPZK%2B7n3H67%2FKGwu0wCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTI2MTAzMTEyMzM0N1owbDEeMBwG%0AA1UEAwwVSW50ZWwgU0dYIFRDQiBTaWduaW5nMRowGAYDVQQKDBFJbnRlbCBDb3Jw%0Ab3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYD%0AVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOnYw9LbN%2FJmyUttXa0M%0AiBEenjPbxbR4C8MuVYxDI%2BLe8lDBLp9X4wMzCAUF%2FfI%2F31giClXp%2Fy0erLbLZjdV%0A07%2BjgbkwgbYwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0f%0ABE8wTTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2%0AaWNlcy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBROHyfr%0ArZP%2Byo9kr7ufcfrv8obC7TAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH%2FBAIwADAK%0ABggqhkjOPQQDAgNIADBFAiEA9xQeifK%2B2abQGnrAgk0hrOhdyvJQorh2cEMn4Gwr%0A4hoCIFHW5qQ9G2wBJ4GMNQqv%2FoMfbPtzmyTlaWWzwxkqM0CT%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:34:07 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tcbInfo\": {\n        \"version\": 2,\n        \"issueDate\": \"2022-12-22T12:28:23Z\",\n        \"nextUpdate\": \"2023-01-21T12:28:23Z\",\n        \"fmspc\": \"20606a000000\",\n        \"pceId\": \"0000\",\n        \"tcbType\": 0,\n        \"tcbEvaluationDataNumber\": 5,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 4,\n                    \"sgxtcbcomp02svn\": 4,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-07-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 3,\n                    \"sgxtcbcomp02svn\": 3,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-06-28T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 2,\n                    \"sgxtcbcomp02svn\": 2,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-05-28T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 9\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 0\n                },\n                \"tcbDate\": \"2020-02-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"9bdee24e3d23291661c5dbe07ce66870c54b1207c59ebcaf72d2af6eaa3b4c6d1e74a1c1b5faadbb3ddb4f56999ed9edd3a968087e57e30245c66137bde5db20\"\n}"
 						}
 					]
 				}
@@ -1130,6 +1471,59 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"idle\",\n    \"last-refresh\": {\n        \"completed-at\": \"2021-08-30T11:28:08.586295Z\",\n        \"status\": \"success\"\n    }\n}"
+						},
+						{
+							"name": "refreshPlatformInfoStatus",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenScs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"refreshes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:34:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"idle\",\n    \"last-refresh\": {\n        \"completed-at\": \"2022-12-22T12:44:23.093301Z\",\n        \"status\": \"success\"\n    }\n}"
 						}
 					]
 				},
@@ -1176,6 +1570,64 @@
 						"description": "This API is used to refresh the PCK certificates and platform collaterals stored in the SGX Caching Service (SCS) database,\noutside of the periodic refresh cycles. An Admin can make use of this REST endpoint to force the refresh of\nPCK Certificates, PCK CRL, TCB info and QE Identity information. This is useful in scenarios like TCB recovery.\nA valid bearer token should be provided to authorize this REST call.\n\nThe status field in the response conveys the following states.\n    \"started\" - A new refresh is started.\n    \"inprogress\" - A refresh is already in progress.\n    \"toomanyrequests\" - A refresh will not be started if the last refresh was completed less 900 seconds.\n\nThe last-refresh.status field in the response conveys the following states.\n    \"success\" - The last refresh was successfull.\n    \"failed\" - The last refresh failed.\nIf there is no record of previous refresh, last-refresh field will not be populated.\n"
 					},
 					"response": [
+						{
+							"name": "refreshPlatformInfoStart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenScs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"refreshes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:34:26 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"started\",\n    \"last-refresh\": {\n        \"completed-at\": \"2022-12-22T12:44:23.093301Z\",\n        \"status\": \"success\"\n    }\n}"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -1301,6 +1753,88 @@
 						"description": "Retrieves the Platform Certification Key (PCK) Certificate for the current TCB level of SGX enabled platform \nwith the provided platform values.\n"
 					},
 					"response": [
+						{
+							"name": "pckCertificate",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-pem-file",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"pckcert"
+									],
+									"query": [
+										{
+											"key": "encrypted_ppid",
+											"value": "{{encppid}}",
+											"description": "Encrypted Platform Provisioning ID."
+										},
+										{
+											"key": "cpusvn",
+											"value": "{{cpusvn}}",
+											"description": "CPU SVN of the platform."
+										},
+										{
+											"key": "pcesvn",
+											"value": "{{pcesvn}}",
+											"description": "PCE SVN of the platform."
+										},
+										{
+											"key": "pceid",
+											"value": "{{pceid}}",
+											"description": "PCE ID of the platform."
+										},
+										{
+											"key": "qeid",
+											"value": "{{qeid}}",
+											"description": "Quoting Enclave ID specific to a platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/x-pem-file"
+								},
+								{
+									"key": "sgx-pck-certificate-issuer-chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICmjCCAkCgAwIBAgIUWSPTp0qoY1QuOXCt4A8HK1ckKrcwCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTM0MTAzMTEyMzM0N1owcDEiMCAG%0AA1UEAwwZSW50ZWwgU0dYIFBDSyBQbGF0Zm9ybSBDQTEaMBgGA1UECgwRSW50ZWwg%0AQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYDVQQIDAJDQTEL%0AMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQwp%2BLc%2BTUBtg1H%0A%2BU8JIsMsbjHjCkTtXb8jPM6r2dhu9zIblhDZ7INfqt3Ix8XcFKD8k0NEXrkZ66qJ%0AXa1KzLIKo4G%2FMIG8MB8GA1UdIwQYMBaAFOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMFYG%0AA1UdHwRPME0wS6BJoEeGRWh0dHBzOi8vc2J4LWNlcnRpZmljYXRlcy50cnVzdGVk%0Ac2VydmljZXMuaW50ZWwuY29tL0ludGVsU0dYUm9vdENBLmRlcjAdBgNVHQ4EFgQU%0AWSPTp0qoY1QuOXCt4A8HK1ckKrcwDgYDVR0PAQH%2FBAQDAgEGMBIGA1UdEwEB%2FwQI%0AMAYBAf8CAQAwCgYIKoZIzj0EAwIDSAAwRQIhAJ1q%2BFTz%2BgUuVfBQuCgJsFrL2TTS%0Ae1aBZ53O52TjFie6AiAriPaRahUX9Oa9kGLlAchWXKT6j4RWSR50BqhrN3UT4A%3D%3D%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "sgx-tcbm",
+									"value": "030300000000000000000000000000000A00"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:34:36 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1777"
+								}
+							],
+							"cookie": [],
+							"body": "-----BEGIN CERTIFICATE-----\nMIIE9DCCBJugAwIBAgIVAKR1Zfle8XCE7KKjg+3OgGUXOjF7MAoGCCqGSM49BAMC\nMHAxIjAgBgNVBAMMGUludGVsIFNHWCBQQ0sgUGxhdGZvcm0gQ0ExGjAYBgNVBAoM\nEUludGVsIENvcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UE\nCAwCQ0ExCzAJBgNVBAYTAlVTMB4XDTIyMTIyMjEzMTkyN1oXDTI5MTIyMjEzMTky\nN1owcDEiMCAGA1UEAwwZSW50ZWwgU0dYIFBDSyBDZXJ0aWZpY2F0ZTEaMBgGA1UE\nCgwRSW50ZWwgQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYD\nVQQIDAJDQTELMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATh\n4dLL/KZt0grBnyO7W+6r07niobUuEXUlBiqLbX2su8ZFEepZ2HX54nfDb3cQXP/a\nMF0P1dDteWPPHqO/ZeDbo4IDEDCCAwwwHwYDVR0jBBgwFoAUWSPTp0qoY1QuOXCt\n4A8HK1ckKrcwbwYDVR0fBGgwZjBkoGKgYIZeaHR0cHM6Ly9zYnguYXBpLnRydXN0\nZWRzZXJ2aWNlcy5pbnRlbC5jb20vc2d4L2NlcnRpZmljYXRpb24vdjMvcGNrY3Js\nP2NhPXBsYXRmb3JtJmVuY29kaW5nPWRlcjAdBgNVHQ4EFgQUzraIU7ki/5lsK4Jw\nU5EnB7T0en8wDgYDVR0PAQH/BAQDAgbAMAwGA1UdEwEB/wQCMAAwggI5BgkqhkiG\n+E0BDQEEggIqMIICJjAeBgoqhkiG+E0BDQEBBBD8hEZwl2zgTZQaMLVg8+wrMIIB\nYwYKKoZIhvhNAQ0BAjCCAVMwEAYLKoZIhvhNAQ0BAgECAQMwEAYLKoZIhvhNAQ0B\nAgICAQMwEAYLKoZIhvhNAQ0BAgMCAQAwEAYLKoZIhvhNAQ0BAgQCAQAwEAYLKoZI\nhvhNAQ0BAgUCAQAwEAYLKoZIhvhNAQ0BAgYCAQAwEAYLKoZIhvhNAQ0BAgcCAQAw\nEAYLKoZIhvhNAQ0BAggCAQAwEAYLKoZIhvhNAQ0BAgkCAQAwEAYLKoZIhvhNAQ0B\nAgoCAQAwEAYLKoZIhvhNAQ0BAgsCAQAwEAYLKoZIhvhNAQ0BAgwCAQAwEAYLKoZI\nhvhNAQ0BAg0CAQAwEAYLKoZIhvhNAQ0BAg4CAQAwEAYLKoZIhvhNAQ0BAg8CAQAw\nEAYLKoZIhvhNAQ0BAhACAQAwEAYLKoZIhvhNAQ0BAhECAQowHwYLKoZIhvhNAQ0B\nAhIEEAMDAAAAAAAAAAAAAAAAAAAwEAYKKoZIhvhNAQ0BAwQCAAAwFAYKKoZIhvhN\nAQ0BBAQGEGBqAAAAMA8GCiqGSIb4TQENAQUKAQEwHgYKKoZIhvhNAQ0BBgQQLZyt\nNzhDCSE2EASC05iIBzBEBgoqhkiG+E0BDQEHMDYwEAYLKoZIhvhNAQ0BBwEBAf8w\nEAYLKoZIhvhNAQ0BBwIBAQAwEAYLKoZIhvhNAQ0BBwMBAf8wCgYIKoZIzj0EAwID\nRwAwRAIgZZBMb+UE94MkVasxL5/le3cRBSF+/lY5abFlvp9ATKsCIAvfsXtpVq+G\neRjT5pnQ0FbiPWQz5kSMShyifvIVJrXo\n-----END CERTIFICATE-----\n"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -1462,6 +1996,71 @@
 					},
 					"response": [
 						{
+							"name": "tcbStatus",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenSagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcbstatus?qeid={{qeid}}&pceid={{pceid}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"tcbstatus"
+									],
+									"query": [
+										{
+											"key": "qeid",
+											"value": "{{qeid}}",
+											"description": "Quoting Enclave ID specific to a platform."
+										},
+										{
+											"key": "pceid",
+											"value": "{{pceid}}",
+											"description": "PCE ID of the platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 13:34:48 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Status\": \"true\",\n    \"Message\": \"TCB Status is UpToDate\"\n}"
+						},
+						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "GET",
@@ -1558,7 +2157,14 @@
 					"name": "pushHostInfo",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerTokenSagentLongLived}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [

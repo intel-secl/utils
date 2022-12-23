@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "8056037b-c434-4129-9cb6-9ee7b627738c",
-		"name": "SGX Discovery and Provisioning",
+		"_postman_id": "e0ca1526-5bba-4e87-9f80-d9a8a598f212",
+		"name": "SGX Orchestration",
 		"description": "For the secrets to be provisioned securely to SGX compute nodes in public clouds, the owner of the secret needs to ensure that the secrets will be protected in SGX enclaves by performing an SGX Attestation.\r\n\r\nSGX Attestation involves provisioning SGX nodes with Platform Certification Key (PCK) certificates. PCK certificates for SGX nodes are obtained by providing the node SGX data to the Intel SGX Provisioning Certificate Service (PCS), a cloud hosted service. PCS also returns SGX collateral such as CRLs, TCB information and QE Identity.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,7 +34,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "cmsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -62,11 +62,11 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:52:38 GMT"
+									"value": "Thu, 22 Dec 2022 12:39:38 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "106"
+									"value": "107"
 								},
 								{
 									"key": "Content-Type",
@@ -74,7 +74,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: Certificate Management Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:40+0000\n"
+							"body": "Service Name: Certificate Management Service\nVersion: v5.1.0-c473648d\nBuild Date: 2022-12-21T00:55:53+0000\n"
 						}
 					]
 				},
@@ -105,7 +105,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "scsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -135,7 +135,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:53:10 GMT"
+									"value": "Thu, 22 Dec 2022 12:39:50 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -147,7 +147,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: SGX Caching Service\nVersion: v4.0.0-ee8da06\nBuild Date: 2021-07-20T08:49:13+0000\n"
+							"body": "Service Name: SGX Caching Service\nVersion: v5.1.0-97689d5\nBuild Date: 2022-12-21T18:05:47+0000\n"
 						}
 					]
 				},
@@ -176,7 +176,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "aasVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -204,11 +204,11 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:52:57 GMT"
+									"value": "Thu, 22 Dec 2022 12:40:06 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "116"
+									"value": "117"
 								},
 								{
 									"key": "Content-Type",
@@ -216,7 +216,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: Authentication and Authorization Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:48:31+0000\n"
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v5.1.0-c473648d\nBuild Date: 2022-12-21T00:54:31+0000\n"
 						}
 					]
 				},
@@ -245,7 +245,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "kbsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -273,11 +273,11 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:53:23 GMT"
+									"value": "Thu, 22 Dec 2022 12:40:17 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "94"
+									"value": "95"
 								},
 								{
 									"key": "Content-Type",
@@ -285,7 +285,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: Key Broker Service\nVersion: v4.0.0-f653c8d\nBuild Date: 2021-07-20T08:49:04+0000\n"
+							"body": "Service Name: Key Broker Service\nVersion: v5.1.0-baf31add\nBuild Date: 2022-12-21T12:28:36+0000\n"
 						}
 					]
 				},
@@ -314,7 +314,7 @@
 					},
 					"response": [
 						{
-							"name": "Success",
+							"name": "sqvsVersion",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -342,7 +342,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 04 Aug 2021 09:53:40 GMT"
+									"value": "Thu, 22 Dec 2022 12:40:29 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -354,7 +354,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Service Name: SGX Quote Verification Service\nVersion: v4.0.0-e181d6d\nBuild Date: 2021-07-20T08:49:57+0000\n"
+							"body": "Service Name: SGX Quote Verification Service\nVersion: v5.1.0-0b7b7f0\nBuild Date: 2022-12-21T01:04:53+0000\n"
 						}
 					]
 				}
@@ -436,6 +436,59 @@
 						"description": "Creates a new bearer token that can be used in the Authorization header for other API\nrequests. Bearer token Authorization is not required when requesting token for Authservice\nregistered users."
 					},
 					"response": [
+						{
+							"name": "createCccAdminToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{cccAdminUser}}\",\n    \"password\": \"{{cccAdminUserPass}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aasCsp}}"
+									],
+									"port": "{{aasPortCsp}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:40:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1464"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlJvbGVNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJSb2xlTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbIio6KjoqIiwiY3VzdG9tX2NsYWltczpjcmVhdGUiLCJyb2xlczpjcmVhdGU6KiIsInJvbGVzOmRlbGV0ZToqIiwicm9sZXM6cmV0cmlldmU6KiIsInJvbGVzOnNlYXJjaDoqIiwidXNlcl9yb2xlczpjcmVhdGU6KiIsInVzZXJfcm9sZXM6ZGVsZXRlOioiLCJ1c2VyX3JvbGVzOnJldHJpZXZlOioiLCJ1c2VyX3JvbGVzOnNlYXJjaDoqIiwidXNlcnM6Y3JlYXRlOioiLCJ1c2VyczpkZWxldGU6KiIsInVzZXJzOnJldHJpZXZlOioiLCJ1c2VyczpzZWFyY2g6KiIsInVzZXJzOnN0b3JlOioiXX1dLCJleHAiOjE2NzE3MjAwNDYsImlhdCI6MTY3MTcxMjgxNiwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NzE3MTI4MTYsInN1YiI6ImFhc0FkbWluVXNlciJ9.DMxl32wIVG-1KNvr3Hasq9GSm7ayhX9ageno3l8j7gp4yFOD3mgOtHhIoI22xIQD5E644wNpYktPR5KDGYQECN2KxHk_CzMmTUCHZyllN8aUj0rikpdtoVwThcAjny3oPq7bjpItqIX1LAEwUOAGm9HYTouH-bMw_4rJ-yi2MZ-kVMnho6dZsv5kGY9b6tgmcYP3mK8og70CC7C34-eLs91lwaf0hXbQalkf7PgEpTZG0G2-YpePeBtX9Nt9JR3nEbUzB3yLN_TKFTSZRyRq5QKgDoT5HY-AsemVYk60U0C_TS0wj5mfex6wTYwYI_J-Ohhw6EVQ6_E35T76RuWltz3Ti3liU-d38eM8wPMZMd8dHMez-j7kXcMsuAVh7euztDIycaD_p3pbfm3frBGPPqCbRgLaxHdI6oqoaIA_KaaBrVWRAjE_bWxjBh2Ul2jBQosWi8OzueYbnSbR5bG6NsNfAY4ff2xb_UoCllER-dAAvStpAUiM6jQf0-s75LiF"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -554,6 +607,69 @@
 					},
 					"response": [
 						{
+							"name": "createSagentLongLivedToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{bearerTokenCccAdmin}}"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"subject\": \"{{hostHardwareUuid}}\",\n    \"validity_seconds\": {{validity}},\n    \"claims\": {\n        \"roles\": [\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataUpdater\"\n            },\n            {\n                \"service\": \"SCS\",\n                \"name\": \"HostDataReader\"\n            },\n            {\n                \"service\": \"SHVS\",\n                \"name\": \"HostDataUpdater\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/custom-claims-token",
+									"protocol": "https",
+									"host": [
+										"{{aasCsp}}"
+									],
+									"port": "{{aasPortCsp}}",
+									"path": [
+										"aas",
+										"v1",
+										"custom-claims-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:42:00 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "962"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sibmFtZSI6Ikhvc3REYXRhVXBkYXRlciIsInNlcnZpY2UiOiJTQ1MifSx7Im5hbWUiOiJIb3N0RGF0YVJlYWRlciIsInNlcnZpY2UiOiJTQ1MifSx7Im5hbWUiOiJIb3N0RGF0YVVwZGF0ZXIiLCJzZXJ2aWNlIjoiU0hWUyJ9XSwiZXhwIjoxNjc0MzA0OTIwLCJpYXQiOjE2NzE3MTI4OTAsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjcxNzEyODkwLCJzdWIiOiI4ODg4ODg4OC04ODg3LTAxNjItMDEwNC0yNjFkYTVhNWE1YTUifQ.Kty1BScrk1zefaszo1MAlYaTUMARDC1qMmZVRECmcI6lIPwG-uFb9TRV2CFhs2AZ1PRQiqegiTTfOQ0ysrFFxKT8u7ocy9QKV11cPOSBtjDZJpR9SOigp7QZLHDsEP9pMXe2IlDDQvEZ_eAc32cMSx28PMzCogd9CSGdabG1Q8ccjMo5JEcdmceOD1_zQAwMWnicL8Hdl4W1v5gYtSGMTvnh1CxWnHXjV2HJNvusaCAr0hnc8sTBrdfRCb2MJ10kOBWqV0cCYHLUci-vjiXM1saLEXVYRfLBvqLTM7ngtVVHP7RDTyyD1NgX8Bbo9dXwP_S6WO_GU6hbJ02KSdHohKgn6IZoqhn559KQ9kvto1HR2LTCURrkY6LvJoxSRiQv4rBBFBhGYTZfJmAxPreYnF10-05k5HwN59QWBE2qZZh-R_w44swWWSr_gmR2-c9Ex7GrTBDFYGTPHBDJet0BNsWFzvn-8Dh1y5_46rswNr_HRmXWCoT6_d4yNfDxyaUK"
+						},
+						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "POST",
@@ -650,7 +766,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"{{kbsUser}}\",\r\n    \"password\": \"{{kbsUserPass}}\"\r\n}",
+							"raw": "{\r\n    \"username\": \"kbsServiceUser\",\r\n    \"password\": \"kbsServicePassword\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -673,6 +789,65 @@
 						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
 					},
 					"response": [
+						{
+							"name": "createKbsToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{kbsUser}}\",\r\n    \"password\": \"{{kbsUserPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aasEnt}}:{{aasPortEnt}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aasEnt}}"
+									],
+									"port": "{{aasPortEnt}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:42:09 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1202"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IktCUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiU0NTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJTSFZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJTUVZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifV0sInBlcm1pc3Npb25zIjpbeyJzZXJ2aWNlIjoiS0JTIiwicnVsZXMiOlsiKjoqOioiXX0seyJzZXJ2aWNlIjoiU0NTIiwicnVsZXMiOlsiKjoqOioiXX0seyJzZXJ2aWNlIjoiU0hWUyIsInJ1bGVzIjpbIio6KjoqIl19LHsic2VydmljZSI6IlNRVlMiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTY3MTcyMDEyOSwiaWF0IjoxNjcxNzEyODk5LCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTY3MTcxMjg5OSwic3ViIjoiZ2xvYmFsX2FkbWluX3VzZXIifQ.HYUVyTYioZt9jUcBcSn3xNYrfktem5Z5Ncub_8ATuJFJ-xpsMzdHLGYrOJoQDmz8IrRmro7i37OOSLKBkjwLlZZMsGefOFnRh8mtCDQX2o5zM5VLusKl1MnR-gYT97K4TqjxhaG6HidQho9kS66BYMx4OgFedpdIzZviYDGutoCXvKql1BrtjePOgWL0SaiaFBBp_2vw5eW0GfjddR5ROyOnl9Hx3PmVuvfmde1-3DTgbq-8o2TdYoaepUQC_8_u4gp0SF0Klsfo9YdF0DLnPCWbF45rRoSiDGSx9FKruoFircI5NJbf6chcjfWqQCdjIVUstpxL8XtUz_UjnFtGdgg_Ye_MTYu8M7yY48C9JtpSUhRmqfrjqWPOXGPv9lWk4qi5-EJrdiSckOSdR4W8Lu2Hb3Wr84cRbmmeVq1DnPFR2p_fSyDo3Uo5hhuIsjBZhfB0aHqdU2a6DQ363O9oJY7Nl_d7B0Y5Qfonwyp0aDnftk2qhBLOm9m7ey5dKOl7"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -787,6 +962,237 @@
 					},
 					"response": [
 						{
+							"name": "createScsToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{scsUser}}\",\r\n    \"password\": \"{{scsUserPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aasCsp}}"
+									],
+									"port": "{{aasPortCsp}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:42:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "999"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049U0NTIFRMUyBDZXJ0aWZpY2F0ZTtTQU49KjtjZXJ0VHlwZT1UTFMifSx7InNlcnZpY2UiOiJTQ1MiLCJuYW1lIjoiQ2FjaGVNYW5hZ2VyIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IlNDUyIsInJ1bGVzIjpbIio6KjoqIl19XSwiZXhwIjoxNjcxNzIwMTQxLCJpYXQiOjE2NzE3MTI5MTEsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjcxNzEyOTExLCJzdWIiOiJzY3N1c2VyIn0.arc2cIVZkCetTqTnN0GxyHdKqqsP4r1KcgEfaQ3CI4IsV4SWeFK7oA4YZXrG8DGuebDEkX7xsd_O_joESZj5S3VmKmRtgoI2pQDDHXpnFs7kQP4zGO7rcAt6ZTAmwS-NjJ00Y7NwScy_-c3TkXo-7MYt0h_mrlwungG47Hjgu9pcrFPvVT3EqO5vcstxBhdbwQGTBwudIRcaXSOyQrp3cbKMo_QRizcl4lPY_XiSdXTtIomBxtE_0kPgaOCX4dB3NTGXIiHmvSIawGhx8mLZFm1Xw3qEGTLXcT41wwNNc6AYkuE1ZKLJNYk7P6fxUevpIUxTwQXHar5h4oxdlSx13SGpP9zh8dihVNK-bXDJwL6L9hY_hA5ea4o3rPNAcL3GTeK8QVthy6cRGdSJ5xtzTh8bCuEZjLJc2nJf3Zafxq0epmwEpjgfpLqj_IZ1piN1KaXWTWLLT09Skt6mbNkVbbZu4O0kRWp75yGcAkXAVXNlHDfUQ0xdNJPIQdrcJYaW"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{scsUser}}\",\r\n    \"password\": \"{{scsUserPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aasEnt}}:{{aasPortEnt}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aasEnt}}"
+									],
+									"port": "{{aasPortEnt}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Aug 2021 13:27:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "787"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImYyZTY1YWViZTBhZTIwNDVkY2YzNWEzZDAyYWVjZWY5YmI2MGRiYTkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IlNDUyIsIm5hbWUiOiJDYWNoZU1hbmFnZXIifV0sImV4cCI6MTYzMDMzNzIzOSwiaWF0IjoxNjMwMzMwMDA5LCJpc3MiOiJBQVMgSldUIElzc3VlciIsInN1YiI6InNjc3VzZXJAc2NzIn0.a_F9-QsN-sepZiQE5Mi16EpbLgdfBZjFm9V-TcOD8vvsYM1q4iREsFqTxzvrwI-VUQmYXeV8MLl6Cvyy5kPHNsB_7AKB2oFgXqdyjGomKT8ru3KMKz7C2PznbNmz1G_FxEUg9jliX6DJSMdyzvof44tNkhSC2x4grK5EexqYjLyXHC3sixqJF8gYUV4vHiD-AZ3xAilFgWa8QsfKsc62qhNwsGbSZkdE5lIbtWVbvb4jbaC8QoN3jf6okH16adMaV_0SfdJMAwQM39ViViIjDlt7OQptY1yTzHrqMjXnEM8U8l_YEe50AspiYm5ZluP3BBGGaElhW2c4TqH9y8Mfw2XT0n3efk7yooaR93vRqV0irJpXgHhyQusUlHV3WfI_-R5BLZynlXwPB-DnmX-ITIG2wtVLJj_FbDjvZo6Vp56G5dGqnCoPuxRojSkQRABN5JlzlChAcK_ZyHc6uJzCXreCQH-eQOAZ9wJ26pVZRyP7-15fUKcv7DKg9jnd74zr"
+						}
+					]
+				},
+				{
+					"name": "createSqvsToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenSqvs\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{sqvsUser}}\",\r\n    \"password\": \"{{sqvsUserPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aasCsp}}"
+							],
+							"port": "{{aasPortCsp}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "createScsToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{scsUser}}\",\r\n    \"password\": \"{{scsUserPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aasCsp}}:{{aasPortCsp}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aasCsp}}"
+									],
+									"port": "{{aasPortCsp}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:42:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "999"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImVjMzAzMzY3YjhlZmE1MjE1ZmQyNjUxMTcyZDJjMDQ5ZWExOWFlOGIiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049U0NTIFRMUyBDZXJ0aWZpY2F0ZTtTQU49KjtjZXJ0VHlwZT1UTFMifSx7InNlcnZpY2UiOiJTQ1MiLCJuYW1lIjoiQ2FjaGVNYW5hZ2VyIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IlNDUyIsInJ1bGVzIjpbIio6KjoqIl19XSwiZXhwIjoxNjcxNzIwMTQxLCJpYXQiOjE2NzE3MTI5MTEsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwibmJmIjoxNjcxNzEyOTExLCJzdWIiOiJzY3N1c2VyIn0.arc2cIVZkCetTqTnN0GxyHdKqqsP4r1KcgEfaQ3CI4IsV4SWeFK7oA4YZXrG8DGuebDEkX7xsd_O_joESZj5S3VmKmRtgoI2pQDDHXpnFs7kQP4zGO7rcAt6ZTAmwS-NjJ00Y7NwScy_-c3TkXo-7MYt0h_mrlwungG47Hjgu9pcrFPvVT3EqO5vcstxBhdbwQGTBwudIRcaXSOyQrp3cbKMo_QRizcl4lPY_XiSdXTtIomBxtE_0kPgaOCX4dB3NTGXIiHmvSIawGhx8mLZFm1Xw3qEGTLXcT41wwNNc6AYkuE1ZKLJNYk7P6fxUevpIUxTwQXHar5h4oxdlSx13SGpP9zh8dihVNK-bXDJwL6L9hY_hA5ea4o3rPNAcL3GTeK8QVthy6cRGdSJ5xtzTh8bCuEZjLJc2nJf3Zafxq0epmwEpjgfpLqj_IZ1piN1KaXWTWLLT09Skt6mbNkVbbZu4O0kRWp75yGcAkXAVXNlHDfUQ0xdNJPIQdrcJYaW"
+						},
+						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "POST",
@@ -879,7 +1285,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"  \n}"
+							"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"\n}"
 						},
 						"url": {
 							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/platforms",
@@ -966,6 +1372,67 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"Status\": \"Success\",\n    \"Message\": \"platform data pushed to scs\"\n}"
+						},
+						{
+							"name": "pushPlatformInfo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenSagentLongLived}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cpu_svn\": \"{{cpusvn}}\",\n    \"enc_ppid\": \"{{encppid}}\",\n    \"manifest\": \"{{manifest}}\",\n    \"pce_id\": \"{{pceid}}\",\n    \"pce_svn\": \"{{pcesvn}}\",\n    \"qe_id\": \"{{qeid}}\",\n    \"hardware_uuid\": \"{{hostHardwareUuid}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/platforms",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"platforms"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:43:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Status\": \"Created\",\n    \"Message\": \"platform data pushed to scs\"\n}"
 						}
 					]
 				}
@@ -1091,6 +1558,64 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"tcbInfo\": {\n        \"version\": 2,\n        \"issueDate\": \"2020-08-31T14:00:05Z\",\n        \"nextUpdate\": \"2020-09-30T14:00:05Z\",\n        \"fmspc\": \"20606a000000\",\n        \"pceId\": \"0000\",\n        \"tcbType\": 0,\n        \"tcbEvaluationDataNumber\": 5,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 2,\n                    \"sgxtcbcomp02svn\": 2,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-05-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 9\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 0\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"f6d3720de2bda91036db982552e816d341ce33f9966958e1bdc402eee9ccb7dbc21b980e35adf084d86be05d0170748e9e81a744f08b63a5b6eeb2df583ac731\"\n}"
+						},
+						{
+							"name": "tcbInfo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/tcb?fmspc={{fmpsc}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"tcb"
+									],
+									"query": [
+										{
+											"key": "fmspc",
+											"value": "{{fmpsc}}",
+											"description": "FMSPC value of the platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "SGX-TCB-Info-Issuer-Chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICkDCCAjagAwIBAgIUTh8n662T%2FsqPZK%2B7n3H67%2FKGwu0wCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTI2MTAzMTEyMzM0N1owbDEeMBwG%0AA1UEAwwVSW50ZWwgU0dYIFRDQiBTaWduaW5nMRowGAYDVQQKDBFJbnRlbCBDb3Jw%0Ab3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYD%0AVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOnYw9LbN%2FJmyUttXa0M%0AiBEenjPbxbR4C8MuVYxDI%2BLe8lDBLp9X4wMzCAUF%2FfI%2F31giClXp%2Fy0erLbLZjdV%0A07%2BjgbkwgbYwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0f%0ABE8wTTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2%0AaWNlcy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBROHyfr%0ArZP%2Byo9kr7ufcfrv8obC7TAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH%2FBAIwADAK%0ABggqhkjOPQQDAgNIADBFAiEA9xQeifK%2B2abQGnrAgk0hrOhdyvJQorh2cEMn4Gwr%0A4hoCIFHW5qQ9G2wBJ4GMNQqv%2FoMfbPtzmyTlaWWzwxkqM0CT%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:43:24 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tcbInfo\": {\n        \"version\": 2,\n        \"issueDate\": \"2022-12-22T12:28:23Z\",\n        \"nextUpdate\": \"2023-01-21T12:28:23Z\",\n        \"fmspc\": \"20606a000000\",\n        \"pceId\": \"0000\",\n        \"tcbType\": 0,\n        \"tcbEvaluationDataNumber\": 5,\n        \"tcbLevels\": [\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 4,\n                    \"sgxtcbcomp02svn\": 4,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-07-28T00:00:00Z\",\n                \"tcbStatus\": \"UpToDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 3,\n                    \"sgxtcbcomp02svn\": 3,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-06-28T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 2,\n                    \"sgxtcbcomp02svn\": 2,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 10\n                },\n                \"tcbDate\": \"2020-05-28T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 9\n                },\n                \"tcbDate\": \"2020-03-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            },\n            {\n                \"tcb\": {\n                    \"sgxtcbcomp01svn\": 1,\n                    \"sgxtcbcomp02svn\": 1,\n                    \"sgxtcbcomp03svn\": 0,\n                    \"sgxtcbcomp04svn\": 0,\n                    \"sgxtcbcomp05svn\": 0,\n                    \"sgxtcbcomp06svn\": 0,\n                    \"sgxtcbcomp07svn\": 0,\n                    \"sgxtcbcomp08svn\": 0,\n                    \"sgxtcbcomp09svn\": 0,\n                    \"sgxtcbcomp10svn\": 0,\n                    \"sgxtcbcomp11svn\": 0,\n                    \"sgxtcbcomp12svn\": 0,\n                    \"sgxtcbcomp13svn\": 0,\n                    \"sgxtcbcomp14svn\": 0,\n                    \"sgxtcbcomp15svn\": 0,\n                    \"sgxtcbcomp16svn\": 0,\n                    \"pcesvn\": 0\n                },\n                \"tcbDate\": \"2020-02-22T00:00:00Z\",\n                \"tcbStatus\": \"OutOfDate\"\n            }\n        ]\n    },\n    \"signature\": \"9bdee24e3d23291661c5dbe07ce66870c54b1207c59ebcaf72d2af6eaa3b4c6d1e74a1c1b5faadbb3ddb4f56999ed9edd3a968087e57e30245c66137bde5db20\"\n}"
 						}
 					]
 				}
@@ -1260,6 +1785,88 @@
 							],
 							"cookie": [],
 							"body": "-----BEGIN CERTIFICATE-----\nMIIE5jCCBI2gAwIBAgIUREp9Y6te5RUApptRo1iJYgqHIWwwCgYIKoZIzj0EAwIwcDEiMCAGA1UE\nAwwZSW50ZWwgU0dYIFBDSyBQbGF0Zm9ybSBDQTEaMBgGA1UECgwRSW50ZWwgQ29ycG9yYXRpb24x\nFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYDVQQIDAJDQTELMAkGA1UEBhMCVVMwHhcNMjAwODMx\nMTQwMDA0WhcNMjcwODMxMTQwMDA0WjBwMSIwIAYDVQQDDBlJbnRlbCBTR1ggUENLIENlcnRpZmlj\nYXRlMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJ\nBgNVBAgMAkNBMQswCQYDVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABDnwRZCe/kjZ\ng8RqXcfa1b1VYGmMYb+iNIygZXONuG48cW90myE7bzRoc9iUfLfCzK0KwQtzkv/SDdZIWjCaz9aj\nggMDMIIC/zAfBgNVHSMEGDAWgBRZI9OnSqhjVC45cK3gDwcrVyQqtzBiBgNVHR8EWzBZMFegVaBT\nhlFodHRwczovL3NieC5hcGkudHJ1c3RlZHNlcnZpY2VzLmludGVsLmNvbS9zZ3gvY2VydGlmaWNh\ndGlvbi92My9wY2tjcmw/Y2E9cGxhdGZvcm0wHQYDVR0OBBYEFDukc1cCVg8XF9c6bbUN2gveuT1K\nMA4GA1UdDwEB/wQEAwIGwDAMBgNVHRMBAf8EAjAAMIICOQYJKoZIhvhNAQ0BBIICKjCCAiYwHgYK\nKoZIhvhNAQ0BAQQQOgs1S+PfrqacSaRqIbH+xzCCAWMGCiqGSIb4TQENAQIwggFTMBAGCyqGSIb4\nTQENAQIBAgECMBAGCyqGSIb4TQENAQICAgECMBAGCyqGSIb4TQENAQIDAgEAMBAGCyqGSIb4TQEN\nAQIEAgEAMBAGCyqGSIb4TQENAQIFAgEAMBAGCyqGSIb4TQENAQIGAgEAMBAGCyqGSIb4TQENAQIH\nAgEAMBAGCyqGSIb4TQENAQIIAgEAMBAGCyqGSIb4TQENAQIJAgEAMBAGCyqGSIb4TQENAQIKAgEA\nMBAGCyqGSIb4TQENAQILAgEAMBAGCyqGSIb4TQENAQIMAgEAMBAGCyqGSIb4TQENAQINAgEAMBAG\nCyqGSIb4TQENAQIOAgEAMBAGCyqGSIb4TQENAQIPAgEAMBAGCyqGSIb4TQENAQIQAgEAMBAGCyqG\nSIb4TQENAQIRAgEKMB8GCyqGSIb4TQENAQISBBACAgAAAAAAAAAAAAAAAAAAMBAGCiqGSIb4TQEN\nAQMEAgAAMBQGCiqGSIb4TQENAQQEBiBgagAAADAPBgoqhkiG+E0BDQEFCgEBMB4GCiqGSIb4TQEN\nAQYEEABfaRGZkBoPH0P0yzB1FCgwRAYKKoZIhvhNAQ0BBzA2MBAGCyqGSIb4TQENAQcBAQH/MBAG\nCyqGSIb4TQENAQcCAQEAMBAGCyqGSIb4TQENAQcDAQH/MAoGCCqGSM49BAMCA0cAMEQCIGJZIPqf\nVL5e2vCYD1DGYKjufru6iXKJoAdDyOQTXgdIAiBfHkTCZLMoVjLGnDLNKiZ5TSp6ceNYSksLfVcF\nQU6p7g==\n-----END CERTIFICATE-----"
+						},
+						{
+							"name": "pckCertificate",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/x-pem-file",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/pckcert?encrypted_ppid={{encppid}}&cpusvn={{cpusvn}}&pcesvn={{pcesvn}}&pceid={{pceid}}&qeid={{qeid}}",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"pckcert"
+									],
+									"query": [
+										{
+											"key": "encrypted_ppid",
+											"value": "{{encppid}}",
+											"description": "Encrypted Platform Provisioning ID."
+										},
+										{
+											"key": "cpusvn",
+											"value": "{{cpusvn}}",
+											"description": "CPU SVN of the platform."
+										},
+										{
+											"key": "pcesvn",
+											"value": "{{pcesvn}}",
+											"description": "PCE SVN of the platform."
+										},
+										{
+											"key": "pceid",
+											"value": "{{pceid}}",
+											"description": "PCE ID of the platform."
+										},
+										{
+											"key": "qeid",
+											"value": "{{qeid}}",
+											"description": "Quoting Enclave ID specific to a platform."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/x-pem-file"
+								},
+								{
+									"key": "sgx-pck-certificate-issuer-chain",
+									"value": "-----BEGIN%20CERTIFICATE-----%0AMIICmjCCAkCgAwIBAgIUWSPTp0qoY1QuOXCt4A8HK1ckKrcwCgYIKoZIzj0EAwIw%0AaDEaMBgGA1UEAwwRSW50ZWwgU0dYIFJvb3QgQ0ExGjAYBgNVBAoMEUludGVsIENv%0AcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UECAwCQ0ExCzAJ%0ABgNVBAYTAlVTMB4XDTE5MTAzMTEyMzM0N1oXDTM0MTAzMTEyMzM0N1owcDEiMCAG%0AA1UEAwwZSW50ZWwgU0dYIFBDSyBQbGF0Zm9ybSBDQTEaMBgGA1UECgwRSW50ZWwg%0AQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYDVQQIDAJDQTEL%0AMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQwp%2BLc%2BTUBtg1H%0A%2BU8JIsMsbjHjCkTtXb8jPM6r2dhu9zIblhDZ7INfqt3Ix8XcFKD8k0NEXrkZ66qJ%0AXa1KzLIKo4G%2FMIG8MB8GA1UdIwQYMBaAFOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMFYG%0AA1UdHwRPME0wS6BJoEeGRWh0dHBzOi8vc2J4LWNlcnRpZmljYXRlcy50cnVzdGVk%0Ac2VydmljZXMuaW50ZWwuY29tL0ludGVsU0dYUm9vdENBLmRlcjAdBgNVHQ4EFgQU%0AWSPTp0qoY1QuOXCt4A8HK1ckKrcwDgYDVR0PAQH%2FBAQDAgEGMBIGA1UdEwEB%2FwQI%0AMAYBAf8CAQAwCgYIKoZIzj0EAwIDSAAwRQIhAJ1q%2BFTz%2BgUuVfBQuCgJsFrL2TTS%0Ae1aBZ53O52TjFie6AiAriPaRahUX9Oa9kGLlAchWXKT6j4RWSR50BqhrN3UT4A%3D%3D%0A-----END%20CERTIFICATE-----%0A-----BEGIN%20CERTIFICATE-----%0AMIIClDCCAjmgAwIBAgIVAOnoRFJTNlxLGJoR%2FEMYLKXcIIBIMAoGCCqGSM49BAMC%0AMGgxGjAYBgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBD%0Ab3Jwb3JhdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQsw%0ACQYDVQQGEwJVUzAeFw0xOTEwMzEwOTQ5MjFaFw00OTEyMzEyMzU5NTlaMGgxGjAY%0ABgNVBAMMEUludGVsIFNHWCBSb290IENBMRowGAYDVQQKDBFJbnRlbCBDb3Jwb3Jh%0AdGlvbjEUMBIGA1UEBwwLU2FudGEgQ2xhcmExCzAJBgNVBAgMAkNBMQswCQYDVQQG%0AEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE%2F6D%2F1WHNrWwPmNMIyBKMW5%0AJ6JzMsjo6xP2vkK1cdZGb1PGRP%2FC%2F8ECgiDkmklmzwLzLi%2B000m7LLrtKJA3oC2j%0Agb8wgbwwHwYDVR0jBBgwFoAU6ehEUlM2XEsYmhH8QxgspdwggEgwVgYDVR0fBE8w%0ATTBLoEmgR4ZFaHR0cHM6Ly9zYngtY2VydGlmaWNhdGVzLnRydXN0ZWRzZXJ2aWNl%0Acy5pbnRlbC5jb20vSW50ZWxTR1hSb290Q0EuZGVyMB0GA1UdDgQWBBTp6ERSUzZc%0ASxiaEfxDGCyl3CCASDAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH%2FBAgwBgEB%2FwIB%0AATAKBggqhkjOPQQDAgNJADBGAiEAzw9zdUiUHPMUd0C4mx41jlFZkrM3y5f1lgnV%0AO7FbjOoCIQCoGtUmT4cXt7V%2BySHbJ8Hob9AanpvXNH1ER%2B%2FgZF%2BopQ%3D%3D%0A-----END%20CERTIFICATE-----%0A"
+								},
+								{
+									"key": "sgx-tcbm",
+									"value": "030300000000000000000000000000000A00"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:43:48 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1777"
+								}
+							],
+							"cookie": [],
+							"body": "-----BEGIN CERTIFICATE-----\nMIIE9DCCBJugAwIBAgIVAKR1Zfle8XCE7KKjg+3OgGUXOjF7MAoGCCqGSM49BAMC\nMHAxIjAgBgNVBAMMGUludGVsIFNHWCBQQ0sgUGxhdGZvcm0gQ0ExGjAYBgNVBAoM\nEUludGVsIENvcnBvcmF0aW9uMRQwEgYDVQQHDAtTYW50YSBDbGFyYTELMAkGA1UE\nCAwCQ0ExCzAJBgNVBAYTAlVTMB4XDTIyMTIyMjEyMjgwMVoXDTI5MTIyMjEyMjgw\nMVowcDEiMCAGA1UEAwwZSW50ZWwgU0dYIFBDSyBDZXJ0aWZpY2F0ZTEaMBgGA1UE\nCgwRSW50ZWwgQ29ycG9yYXRpb24xFDASBgNVBAcMC1NhbnRhIENsYXJhMQswCQYD\nVQQIDAJDQTELMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATh\n4dLL/KZt0grBnyO7W+6r07niobUuEXUlBiqLbX2su8ZFEepZ2HX54nfDb3cQXP/a\nMF0P1dDteWPPHqO/ZeDbo4IDEDCCAwwwHwYDVR0jBBgwFoAUWSPTp0qoY1QuOXCt\n4A8HK1ckKrcwbwYDVR0fBGgwZjBkoGKgYIZeaHR0cHM6Ly9zYnguYXBpLnRydXN0\nZWRzZXJ2aWNlcy5pbnRlbC5jb20vc2d4L2NlcnRpZmljYXRpb24vdjMvcGNrY3Js\nP2NhPXBsYXRmb3JtJmVuY29kaW5nPWRlcjAdBgNVHQ4EFgQUzraIU7ki/5lsK4Jw\nU5EnB7T0en8wDgYDVR0PAQH/BAQDAgbAMAwGA1UdEwEB/wQCMAAwggI5BgkqhkiG\n+E0BDQEEggIqMIICJjAeBgoqhkiG+E0BDQEBBBD8hEZwl2zgTZQaMLVg8+wrMIIB\nYwYKKoZIhvhNAQ0BAjCCAVMwEAYLKoZIhvhNAQ0BAgECAQMwEAYLKoZIhvhNAQ0B\nAgICAQMwEAYLKoZIhvhNAQ0BAgMCAQAwEAYLKoZIhvhNAQ0BAgQCAQAwEAYLKoZI\nhvhNAQ0BAgUCAQAwEAYLKoZIhvhNAQ0BAgYCAQAwEAYLKoZIhvhNAQ0BAgcCAQAw\nEAYLKoZIhvhNAQ0BAggCAQAwEAYLKoZIhvhNAQ0BAgkCAQAwEAYLKoZIhvhNAQ0B\nAgoCAQAwEAYLKoZIhvhNAQ0BAgsCAQAwEAYLKoZIhvhNAQ0BAgwCAQAwEAYLKoZI\nhvhNAQ0BAg0CAQAwEAYLKoZIhvhNAQ0BAg4CAQAwEAYLKoZIhvhNAQ0BAg8CAQAw\nEAYLKoZIhvhNAQ0BAhACAQAwEAYLKoZIhvhNAQ0BAhECAQowHwYLKoZIhvhNAQ0B\nAhIEEAMDAAAAAAAAAAAAAAAAAAAwEAYKKoZIhvhNAQ0BAwQCAAAwFAYKKoZIhvhN\nAQ0BBAQGEGBqAAAAMA8GCiqGSIb4TQENAQUKAQEwHgYKKoZIhvhNAQ0BBgQQLZyt\nNzhDCSE2EASC05iIBzBEBgoqhkiG+E0BDQEHMDYwEAYLKoZIhvhNAQ0BBwEBAf8w\nEAYLKoZIhvhNAQ0BBwIBAQAwEAYLKoZIhvhNAQ0BBwMBAf8wCgYIKoZIzj0EAwID\nRwAwRAIgHFlD2XUCBqhZH9YPdCI69Vz0EafIFAw8X8zgBcoaXz0CIFr1SEMrMuNC\n+6x3NRf49vTzendYAHUAJY3DEiTHphM/\n-----END CERTIFICATE-----\n"
 						}
 					]
 				}
@@ -1379,6 +1986,59 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": \"idle\",\n    \"last-refresh\": {\n        \"completed-at\": \"2021-08-30T11:28:08.586295Z\",\n        \"status\": \"success\"\n    }\n}"
+						},
+						{
+							"name": "refreshPlatformInfoStatus",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenScs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"refreshes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:44:02 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "17"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"idle\"\n}"
 						}
 					]
 				},
@@ -1425,6 +2085,64 @@
 						"description": "This API is used to refresh the PCK certificates and platform collaterals stored in the SGX Caching Service (SCS) database,\noutside of the periodic refresh cycles. An Admin can make use of this REST endpoint to force the refresh of\nPCK Certificates, PCK CRL, TCB info and QE Identity information. This is useful in scenarios like TCB recovery.\nA valid bearer token should be provided to authorize this REST call.\n\nThe status field in the response conveys the following states.\n    \"started\" - A new refresh is started.\n    \"inprogress\" - A refresh is already in progress.\n    \"toomanyrequests\" - A refresh will not be started if the last refresh was completed less 900 seconds.\n\nThe last-refresh.status field in the response conveys the following states.\n    \"success\" - The last refresh was successfull.\n    \"failed\" - The last refresh failed.\nIf there is no record of previous refresh, last-refresh field will not be populated.\n"
 					},
 					"response": [
+						{
+							"name": "refreshPlatformInfoStart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenScs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/refreshes",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"refreshes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 12:44:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"started\"\n}"
+						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -1526,7 +2244,14 @@
 									"name": "sgxVerifyQuote",
 									"request": {
 										"auth": {
-											"type": "noauth"
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{bearerTokenKbs}}",
+													"type": "string"
+												}
+											]
 										},
 										"method": "POST",
 										"header": [
@@ -1566,6 +2291,69 @@
 										"description": "Verifies the SGX ECDSA quote provided in the request body.\nQuote verifier requests SGX Quote Verification Service (SQVS) to verify quote.\nSQVS parses the quote, verifies all the parameters in the quote and returns the response.\n"
 									},
 									"response": [
+										{
+											"name": "sgxVerifyQuote",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer {{bearerTokenKbs}}",
+														"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"quote\": \"AwACAAAAAAAGAAsAk5pyM/ecTKmUCg2zlX8GB1obJ5fsdDPnqdQKnQySLq8AAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAACQRv4RMZIqKxheSPQ+Pc+dHNEUmWv8x8+P7sOH3TXh2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAKDtqek5bBMZRqfK0bQkYtKolooktdT+kXCjZXrDzYKTkXgC8UPM1QHeMxQCbeHdZ6o5igkRoZRYW3GuWCYui43pgRaXXbd2MT6X0ze8XzF3hSdjqPO77qTq9UFAilX1a6/gO87m25OTrJoH1L+/puPi463SpCq+QXjGm7NqQEG8AgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAFxgaTuTglIDbWPPgJ2tBdKqHc0aTg3f+RFRMLraJCY+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyDi60vm5l2dlHVt1Z7oFyIIUp62D5NZh2HewYoKELGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANYQn/wjmyNhTRju1HFZR6bTRkPCNGSr7EWR7PVE2v12HznKjxP1FYsjBc5gheh1XFscxrpfqQr9od8SCObzUKSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBS0xmb3lxSno1WC9DNWZ4VThoZ252aUJnTlRFTUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJeE1EZ3kKTmpBMk1qTXhPRm9YRFRJNE1EZ3lOakEyTWpNeE9Gb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVFWZXoxbCtKR1MKclNYay9oc29MR0owT3ZZTnJsbGhOZW8zVXFDWW50OU9CWG5MMEsveVVaUVdKOHRnVHRUZ0RFTGE4T0FzdGFTMlo0SDM1TWVuMWlwSgpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVRTEcxYXRRNAplSFJTdTg0UjhCd1U3NFR0V3Fvd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBREU4UENSZzR1VTg2MGtDOXNaNzRrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFKaXAvdnVvT1VycjYzbUJrOEVncjFEQkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQU0vMmhGNno3aE5GaDdRVmhxYzVjZEFWYUtXamRPVjllK1ZIaUxMamNNZUlBaUVBcW9ueVoxYllyeGh1WThMZQpDYnloemgyUE1iYWFlTEdrVU9nUFlpR0lHSGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}"
+												},
+												"url": {
+													"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/sgx_qv_verify_quote",
+													"protocol": "https",
+													"host": [
+														"{{sqvs}}"
+													],
+													"port": "{{sqvsPort}}",
+													"path": [
+														"svs",
+														"v1",
+														"sgx_qv_verify_quote"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=63072000; includeSubDomains"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 22 Dec 2022 13:00:29 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "348"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"reportData\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n    \"Message\": \"SGX_QL_QV_RESULT_OK\",\n    \"EnclaveIssuer\": \"d412a4f07ef83892a5915fb2ab584be31e186e5a4f95ab5f6950fd4eb8694d7b\",\n    \"EnclaveMeasurement\": \"2411bf844c648a8ac617923d0f8f73e7473445265aff31f3e3fbb0e1f74d7876\",\n    \"EnclaveIssuerProdID\": \"00\",\n    \"IsvSvn\": \"00\",\n    \"TcbLevel\": \"OutOfDate\"\n}"
+										},
 										{
 											"name": "Success",
 											"originalRequest": {
@@ -1664,7 +2452,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"quote\": \"<string>\",\n    \"userData\": \"<string>\",\n    \"nonce\": \"<string>\",\n    \"challenge\": \"<string>\"\n}"
+											"raw": "{\n         \"quote\": \"AwACAAAAAAAFAAoAk5pyM/ecTKmUCg2zlX8GB1ePHvTyaJq7KWtZvEB5i5QAAAAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAADnAAAAAAAAAK1GdJ7UHrqiMnJSBB7nRtN5Gp8kMYMP7giD95k8rzFqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACD1xnnferKFHD2uvYqTXdDA8iZ22kCD5xw7h38CMfOngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU850rHdoyZhtjHHze/xDF6e/hNwogmoRd40iZZB/v+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1BAAAGp1IMlI7P+lVMltAJ3xTyeLmrqsZgK/0WBajiIPqCrhxAagIIu0l+QPoAuYmEmHm4oBrgjHhUspUmzqguHHofFM5sfwb/QU4hRFUhtwVAno0GAfyGz8nHVy64xAtRNnv7Vvk/GjislKD73UamghpdNaH5pz0/u5JhOp37YoDNVfAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAGDYWvKL6NHECgjZiwCdX4rME4Sjhc9GCADkeHkdGpecAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADNWDh6dvJehw5sQSZBtNlOVBGafQaMeOQkvnxUAIAuYgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhguSX/JsCRh+Rjbg+dTLhT3/rzHPoMboaUH2fSWNyk7h+hUPh2QloKd8slEi8ZPnXYzzhcYXqTUXwlGHkr3nkiAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAGwOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlEQ0NCSnFnQXdJQkFnSVVkK3p1Yi94WlhaSVZtd0d6MXFDUzBVcG9sNlF3Q2dZSUtvWkl6ajBFQXdJd2NERWlNQ0FHQTFVRQpBd3daU1c1MFpXd2dVMGRZSUZCRFN5QlFiR0YwWm05eWJTQkRRVEVhTUJnR0ExVUVDZ3dSU1c1MFpXd2dRMjl5Y0c5eVlYUnBiMjR4CkZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3Q1FZRFZRUUlEQUpEUVRFTE1Ba0dBMVVFQmhNQ1ZWTXdIaGNOTWpFd016QTUKTURZek5USTJXaGNOTWpnd016QTVNRFl6TlRJMldqQndNU0l3SUFZRFZRUUREQmxKYm5SbGJDQlRSMWdnVUVOTElFTmxjblJwWm1sagpZWFJsTVJvd0dBWURWUVFLREJGSmJuUmxiQ0JEYjNKd2IzSmhkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKCkJnTlZCQWdNQWtOQk1Rc3dDUVlEVlFRR0V3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCTXhuYWJ0c0VxRlUKblNvVE50Y0kraG1xQlA3eXcvR2FldlllS3UzTVNsc21ZQVloc0RuNWNTczRObFNabkJWQ1F4NU9XaWpHNTUrZUd3QTJzWHRCZ2VhagpnZ01RTUlJREREQWZCZ05WSFNNRUdEQVdnQlJaSTlPblNxaGpWQzQ1Y0szZ0R3Y3JWeVFxdHpCdkJnTlZIUjhFYURCbU1HU2dZcUJnCmhsNW9kSFJ3Y3pvdkwzTmllQzVoY0drdWRISjFjM1JsWkhObGNuWnBZMlZ6TG1sdWRHVnNMbU52YlM5elozZ3ZZMlZ5ZEdsbWFXTmgKZEdsdmJpOTJNeTl3WTJ0amNtdy9ZMkU5Y0d4aGRHWnZjbTBtWlc1amIyUnBibWM5WkdWeU1CMEdBMVVkRGdRV0JCU2lMS2JLVHFNSgpvSHd2K01iRjQ2NmNsUGNQWXpBT0JnTlZIUThCQWY4RUJBTUNCc0F3REFZRFZSMFRBUUgvQkFJd0FEQ0NBamtHQ1NxR1NJYjRUUUVOCkFRU0NBaW93Z2dJbU1CNEdDaXFHU0liNFRRRU5BUUVFRUNDdm84ait5MGZBb2pFZVRMeExiZGd3Z2dGakJnb3Foa2lHK0UwQkRRRUMKTUlJQlV6QVFCZ3NxaGtpRytFMEJEUUVDQVFJQkFqQVFCZ3NxaGtpRytFMEJEUUVDQWdJQkFqQVFCZ3NxaGtpRytFMEJEUUVDQXdJQgpBREFRQmdzcWhraUcrRTBCRFFFQ0JBSUJBREFRQmdzcWhraUcrRTBCRFFFQ0JRSUJBREFRQmdzcWhraUcrRTBCRFFFQ0JnSUJBREFRCkJnc3Foa2lHK0UwQkRRRUNCd0lCQURBUUJnc3Foa2lHK0UwQkRRRUNDQUlCQURBUUJnc3Foa2lHK0UwQkRRRUNDUUlCQURBUUJnc3EKaGtpRytFMEJEUUVDQ2dJQkFEQVFCZ3NxaGtpRytFMEJEUUVDQ3dJQkFEQVFCZ3NxaGtpRytFMEJEUUVDREFJQkFEQVFCZ3NxaGtpRworRTBCRFFFQ0RRSUJBREFRQmdzcWhraUcrRTBCRFFFQ0RnSUJBREFRQmdzcWhraUcrRTBCRFFFQ0R3SUJBREFRQmdzcWhraUcrRTBCCkRRRUNFQUlCQURBUUJnc3Foa2lHK0UwQkRRRUNFUUlCQ2pBZkJnc3Foa2lHK0UwQkRRRUNFZ1FRQWdJQUFBQUFBQUFBQUFBQUFBQUEKQURBUUJnb3Foa2lHK0UwQkRRRURCQUlBQURBVUJnb3Foa2lHK0UwQkRRRUVCQVlRWUdvQUFBQXdEd1lLS29aSWh2aE5BUTBCQlFvQgpBVEFlQmdvcWhraUcrRTBCRFFFR0JCQWFnNUxzb1dnaS9QRFJNT3JwNVhzaE1FUUdDaXFHU0liNFRRRU5BUWN3TmpBUUJnc3Foa2lHCitFMEJEUUVIQVFFQi96QVFCZ3NxaGtpRytFMEJEUUVIQWdFQkFEQVFCZ3NxaGtpRytFMEJEUUVIQXdFQi96QUtCZ2dxaGtqT1BRUUQKQWdOSUFEQkZBaUVBcTVzK2hhWHlaRisxVE5CUVVhRExNaTBlN204V2JOTGhRNm54MHphY3NvUUNJQS9aRjIxVk9EMTdCdHcwcHBHTwp3REF5VC9LOEJiMTZ3SjhDTU1FWVljcUEKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLS0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlDbWpDQ0FrQ2dBd0lCQWdJVVdTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dDZ1lJS29aSXpqMEVBd0l3CmFERWFNQmdHQTFVRUF3d1JTVzUwWld3Z1UwZFlJRkp2YjNRZ1EwRXhHakFZQmdOVkJBb01FVWx1ZEdWc0lFTnYKY25CdmNtRjBhVzl1TVJRd0VnWURWUVFIREF0VFlXNTBZU0JEYkdGeVlURUxNQWtHQTFVRUNBd0NRMEV4Q3pBSgpCZ05WQkFZVEFsVlRNQjRYRFRFNU1UQXpNVEV5TXpNME4xb1hEVE0wTVRBek1URXlNek0wTjFvd2NERWlNQ0FHCkExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QlFiR0YwWm05eWJTQkRRVEVhTUJnR0ExVUVDZ3dSU1c1MFpXd2cKUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3Q1FZRFZRUUlEQUpEUVRFTApNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVF3cCtMYytUVUJ0ZzFICitVOEpJc01zYmpIakNrVHRYYjhqUE02cjJkaHU5eklibGhEWjdJTmZxdDNJeDhYY0ZLRDhrME5FWHJrWjY2cUoKWGExS3pMSUtvNEcvTUlHOE1COEdBMVVkSXdRWU1CYUFGT25vUkZKVE5seExHSm9SL0VNWUxLWGNJSUJJTUZZRwpBMVVkSHdSUE1FMHdTNkJKb0VlR1JXaDBkSEJ6T2k4dmMySjRMV05sY25ScFptbGpZWFJsY3k1MGNuVnpkR1ZrCmMyVnlkbWxqWlhNdWFXNTBaV3d1WTI5dEwwbHVkR1ZzVTBkWVVtOXZkRU5CTG1SbGNqQWRCZ05WSFE0RUZnUVUKV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd0RnWURWUjBQQVFIL0JBUURBZ0VHTUJJR0ExVWRFd0VCL3dRSQpNQVlCQWY4Q0FRQXdDZ1lJS29aSXpqMEVBd0lEU0FBd1JRSWhBSjFxK0ZUeitnVXVWZkJRdUNnSnNGckwyVFRTCmUxYUJaNTNPNTJUakZpZTZBaUFyaVBhUmFoVVg5T2E5a0dMbEFjaFdYS1Q2ajRSV1NSNTBCcWhyTjNVVDRBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQotLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ2xEQ0NBam1nQXdJQkFnSVZBT25vUkZKVE5seExHSm9SL0VNWUxLWGNJSUJJTUFvR0NDcUdTTTQ5QkFNQwpNR2d4R2pBWUJnTlZCQU1NRVVsdWRHVnNJRk5IV0NCU2IyOTBJRU5CTVJvd0dBWURWUVFLREJGSmJuUmxiQ0JECmIzSndiM0poZEdsdmJqRVVNQklHQTFVRUJ3d0xVMkZ1ZEdFZ1EyeGhjbUV4Q3pBSkJnTlZCQWdNQWtOQk1Rc3cKQ1FZRFZRUUdFd0pWVXpBZUZ3MHhPVEV3TXpFd09UUTVNakZhRncwME9URXlNekV5TXpVNU5UbGFNR2d4R2pBWQpCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRGIzSndiM0poCmRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3Q1FZRFZRUUcKRXdKVlV6QlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJFLzZELzFXSE5yV3dQbU5NSXlCS01XNQpKNkp6TXNqbzZ4UDJ2a0sxY2RaR2IxUEdSUC9DLzhFQ2dpRGtta2xtendMekxpKzAwMG03TExydEtKQTNvQzJqCmdiOHdnYnd3SHdZRFZSMGpCQmd3Rm9BVTZlaEVVbE0yWEVzWW1oSDhReGdzcGR3Z2dFZ3dWZ1lEVlIwZkJFOHcKVFRCTG9FbWdSNFpGYUhSMGNITTZMeTl6WW5ndFkyVnlkR2xtYVdOaGRHVnpMblJ5ZFhOMFpXUnpaWEoyYVdObApjeTVwYm5SbGJDNWpiMjB2U1c1MFpXeFRSMWhTYjI5MFEwRXVaR1Z5TUIwR0ExVWREZ1FXQkJUcDZFUlNVelpjClN4aWFFZnhER0N5bDNDQ0FTREFPQmdOVkhROEJBZjhFQkFNQ0FRWXdFZ1lEVlIwVEFRSC9CQWd3QmdFQi93SUIKQVRBS0JnZ3Foa2pPUFFRREFnTkpBREJHQWlFQXp3OXpkVWlVSFBNVWQwQzRteDQxamxGWmtyTTN5NWYxbGduVgpPN0Ziak9vQ0lRQ29HdFVtVDRjWHQ3Vit5U0hiSjhIb2I5QWFucHZYTkgxRVIrL2daRitvcFE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\",\n         \"userData\": \"AQABAInMt78RXOI5qbKUWPDKQVxS7sLuuR2oZaRdloO9yuuzg01MvfRboZ6UtYpzdx9dgeWG4w1MEC6av3dos3bMD/yc+YCiYm6nPSHeSG9C4dg9QZxGa4aQ53uBUn4vmOr6u7IFddsKlvUIynkVHM8TZzv8rvjVA7oz8efCiz6gTk64DBv+PClyFwjEUeZmkdu99ouDjWwJ3ajeMm9R5VbBTYDRiJQ0vmG1oMU3ezdrDqezE0U9hyywZLIFICa1hn7FC8n6NYfombkTJ8tVIeld2Ac3OzJTADmzdqxPwRWKePOgIbO+eibB+thgMt6hSk3vX2qp7nj6iFAir+di/C92ZVb1iRbtvXx9/fW92fsTKiGy/8Cj/Vw7tOs+e2Z9xKzkL74c2Vdf0dkJtzKpB0ISrwkS4da/MDZda/AEN4EnLfiN+LWWMAzdz1jE3dzPtrf69gO0SdE+zzVc9K9FuCJRfKvTrmyXiAAgO9eZXaRnmmAsfzY9SysfC0jI+/WdPofehw==\",\n          \"challenge\": \"DJ4m0A9eBwTUuuiJOwi5ALgyMP5X99KH+afqF6qjn0ImiA2ej8LnNgV377sdsS17JRkHJWzJbucmHufcuRtpfA==\"\n        }"
 										},
 										"url": {
 											"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v2/sgx_qv_verify_quote",
@@ -1747,6 +2535,69 @@
 											],
 											"cookie": [],
 											"body": "{\n    \"quoteData\":\"<Base 64 encoded JSON>\",\n    \"signature\": \"<Digital Signature of the content of response field>\",\n    \"certificateChain\": \"<Chain of leaf and intermediate certs>\"\n}"
+										},
+										{
+											"name": "sgxVerifyQuoteAndSign",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"type": "text",
+														"value": "application/json"
+													},
+													{
+														"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+														"key": "Authorization",
+														"type": "text",
+														"value": "Bearer {{bearerTokenKbs}}"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n         \"quote\": \"AwACAAAAAAAFAAoAk5pyM/ecTKmUCg2zlX8GB1ePHvTyaJq7KWtZvEB5i5QAAAAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAADnAAAAAAAAAK1GdJ7UHrqiMnJSBB7nRtN5Gp8kMYMP7giD95k8rzFqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACD1xnnferKFHD2uvYqTXdDA8iZ22kCD5xw7h38CMfOngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU850rHdoyZhtjHHze/xDF6e/hNwogmoRd40iZZB/v+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1BAAAGp1IMlI7P+lVMltAJ3xTyeLmrqsZgK/0WBajiIPqCrhxAagIIu0l+QPoAuYmEmHm4oBrgjHhUspUmzqguHHofFM5sfwb/QU4hRFUhtwVAno0GAfyGz8nHVy64xAtRNnv7Vvk/GjislKD73UamghpdNaH5pz0/u5JhOp37YoDNVfAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAGDYWvKL6NHECgjZiwCdX4rME4Sjhc9GCADkeHkdGpecAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADNWDh6dvJehw5sQSZBtNlOVBGafQaMeOQkvnxUAIAuYgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhguSX/JsCRh+Rjbg+dTLhT3/rzHPoMboaUH2fSWNyk7h+hUPh2QloKd8slEi8ZPnXYzzhcYXqTUXwlGHkr3nkiAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAGwOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlEQ0NCSnFnQXdJQkFnSVVkK3p1Yi94WlhaSVZtd0d6MXFDUzBVcG9sNlF3Q2dZSUtvWkl6ajBFQXdJd2NERWlNQ0FHQTFVRQpBd3daU1c1MFpXd2dVMGRZSUZCRFN5QlFiR0YwWm05eWJTQkRRVEVhTUJnR0ExVUVDZ3dSU1c1MFpXd2dRMjl5Y0c5eVlYUnBiMjR4CkZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3Q1FZRFZRUUlEQUpEUVRFTE1Ba0dBMVVFQmhNQ1ZWTXdIaGNOTWpFd016QTUKTURZek5USTJXaGNOTWpnd016QTVNRFl6TlRJMldqQndNU0l3SUFZRFZRUUREQmxKYm5SbGJDQlRSMWdnVUVOTElFTmxjblJwWm1sagpZWFJsTVJvd0dBWURWUVFLREJGSmJuUmxiQ0JEYjNKd2IzSmhkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKCkJnTlZCQWdNQWtOQk1Rc3dDUVlEVlFRR0V3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCTXhuYWJ0c0VxRlUKblNvVE50Y0kraG1xQlA3eXcvR2FldlllS3UzTVNsc21ZQVloc0RuNWNTczRObFNabkJWQ1F4NU9XaWpHNTUrZUd3QTJzWHRCZ2VhagpnZ01RTUlJREREQWZCZ05WSFNNRUdEQVdnQlJaSTlPblNxaGpWQzQ1Y0szZ0R3Y3JWeVFxdHpCdkJnTlZIUjhFYURCbU1HU2dZcUJnCmhsNW9kSFJ3Y3pvdkwzTmllQzVoY0drdWRISjFjM1JsWkhObGNuWnBZMlZ6TG1sdWRHVnNMbU52YlM5elozZ3ZZMlZ5ZEdsbWFXTmgKZEdsdmJpOTJNeTl3WTJ0amNtdy9ZMkU5Y0d4aGRHWnZjbTBtWlc1amIyUnBibWM5WkdWeU1CMEdBMVVkRGdRV0JCU2lMS2JLVHFNSgpvSHd2K01iRjQ2NmNsUGNQWXpBT0JnTlZIUThCQWY4RUJBTUNCc0F3REFZRFZSMFRBUUgvQkFJd0FEQ0NBamtHQ1NxR1NJYjRUUUVOCkFRU0NBaW93Z2dJbU1CNEdDaXFHU0liNFRRRU5BUUVFRUNDdm84ait5MGZBb2pFZVRMeExiZGd3Z2dGakJnb3Foa2lHK0UwQkRRRUMKTUlJQlV6QVFCZ3NxaGtpRytFMEJEUUVDQVFJQkFqQVFCZ3NxaGtpRytFMEJEUUVDQWdJQkFqQVFCZ3NxaGtpRytFMEJEUUVDQXdJQgpBREFRQmdzcWhraUcrRTBCRFFFQ0JBSUJBREFRQmdzcWhraUcrRTBCRFFFQ0JRSUJBREFRQmdzcWhraUcrRTBCRFFFQ0JnSUJBREFRCkJnc3Foa2lHK0UwQkRRRUNCd0lCQURBUUJnc3Foa2lHK0UwQkRRRUNDQUlCQURBUUJnc3Foa2lHK0UwQkRRRUNDUUlCQURBUUJnc3EKaGtpRytFMEJEUUVDQ2dJQkFEQVFCZ3NxaGtpRytFMEJEUUVDQ3dJQkFEQVFCZ3NxaGtpRytFMEJEUUVDREFJQkFEQVFCZ3NxaGtpRworRTBCRFFFQ0RRSUJBREFRQmdzcWhraUcrRTBCRFFFQ0RnSUJBREFRQmdzcWhraUcrRTBCRFFFQ0R3SUJBREFRQmdzcWhraUcrRTBCCkRRRUNFQUlCQURBUUJnc3Foa2lHK0UwQkRRRUNFUUlCQ2pBZkJnc3Foa2lHK0UwQkRRRUNFZ1FRQWdJQUFBQUFBQUFBQUFBQUFBQUEKQURBUUJnb3Foa2lHK0UwQkRRRURCQUlBQURBVUJnb3Foa2lHK0UwQkRRRUVCQVlRWUdvQUFBQXdEd1lLS29aSWh2aE5BUTBCQlFvQgpBVEFlQmdvcWhraUcrRTBCRFFFR0JCQWFnNUxzb1dnaS9QRFJNT3JwNVhzaE1FUUdDaXFHU0liNFRRRU5BUWN3TmpBUUJnc3Foa2lHCitFMEJEUUVIQVFFQi96QVFCZ3NxaGtpRytFMEJEUUVIQWdFQkFEQVFCZ3NxaGtpRytFMEJEUUVIQXdFQi96QUtCZ2dxaGtqT1BRUUQKQWdOSUFEQkZBaUVBcTVzK2hhWHlaRisxVE5CUVVhRExNaTBlN204V2JOTGhRNm54MHphY3NvUUNJQS9aRjIxVk9EMTdCdHcwcHBHTwp3REF5VC9LOEJiMTZ3SjhDTU1FWVljcUEKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLS0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlDbWpDQ0FrQ2dBd0lCQWdJVVdTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dDZ1lJS29aSXpqMEVBd0l3CmFERWFNQmdHQTFVRUF3d1JTVzUwWld3Z1UwZFlJRkp2YjNRZ1EwRXhHakFZQmdOVkJBb01FVWx1ZEdWc0lFTnYKY25CdmNtRjBhVzl1TVJRd0VnWURWUVFIREF0VFlXNTBZU0JEYkdGeVlURUxNQWtHQTFVRUNBd0NRMEV4Q3pBSgpCZ05WQkFZVEFsVlRNQjRYRFRFNU1UQXpNVEV5TXpNME4xb1hEVE0wTVRBek1URXlNek0wTjFvd2NERWlNQ0FHCkExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QlFiR0YwWm05eWJTQkRRVEVhTUJnR0ExVUVDZ3dSU1c1MFpXd2cKUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3Q1FZRFZRUUlEQUpEUVRFTApNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVF3cCtMYytUVUJ0ZzFICitVOEpJc01zYmpIakNrVHRYYjhqUE02cjJkaHU5eklibGhEWjdJTmZxdDNJeDhYY0ZLRDhrME5FWHJrWjY2cUoKWGExS3pMSUtvNEcvTUlHOE1COEdBMVVkSXdRWU1CYUFGT25vUkZKVE5seExHSm9SL0VNWUxLWGNJSUJJTUZZRwpBMVVkSHdSUE1FMHdTNkJKb0VlR1JXaDBkSEJ6T2k4dmMySjRMV05sY25ScFptbGpZWFJsY3k1MGNuVnpkR1ZrCmMyVnlkbWxqWlhNdWFXNTBaV3d1WTI5dEwwbHVkR1ZzVTBkWVVtOXZkRU5CTG1SbGNqQWRCZ05WSFE0RUZnUVUKV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd0RnWURWUjBQQVFIL0JBUURBZ0VHTUJJR0ExVWRFd0VCL3dRSQpNQVlCQWY4Q0FRQXdDZ1lJS29aSXpqMEVBd0lEU0FBd1JRSWhBSjFxK0ZUeitnVXVWZkJRdUNnSnNGckwyVFRTCmUxYUJaNTNPNTJUakZpZTZBaUFyaVBhUmFoVVg5T2E5a0dMbEFjaFdYS1Q2ajRSV1NSNTBCcWhyTjNVVDRBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQotLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ2xEQ0NBam1nQXdJQkFnSVZBT25vUkZKVE5seExHSm9SL0VNWUxLWGNJSUJJTUFvR0NDcUdTTTQ5QkFNQwpNR2d4R2pBWUJnTlZCQU1NRVVsdWRHVnNJRk5IV0NCU2IyOTBJRU5CTVJvd0dBWURWUVFLREJGSmJuUmxiQ0JECmIzSndiM0poZEdsdmJqRVVNQklHQTFVRUJ3d0xVMkZ1ZEdFZ1EyeGhjbUV4Q3pBSkJnTlZCQWdNQWtOQk1Rc3cKQ1FZRFZRUUdFd0pWVXpBZUZ3MHhPVEV3TXpFd09UUTVNakZhRncwME9URXlNekV5TXpVNU5UbGFNR2d4R2pBWQpCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRGIzSndiM0poCmRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3Q1FZRFZRUUcKRXdKVlV6QlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJFLzZELzFXSE5yV3dQbU5NSXlCS01XNQpKNkp6TXNqbzZ4UDJ2a0sxY2RaR2IxUEdSUC9DLzhFQ2dpRGtta2xtendMekxpKzAwMG03TExydEtKQTNvQzJqCmdiOHdnYnd3SHdZRFZSMGpCQmd3Rm9BVTZlaEVVbE0yWEVzWW1oSDhReGdzcGR3Z2dFZ3dWZ1lEVlIwZkJFOHcKVFRCTG9FbWdSNFpGYUhSMGNITTZMeTl6WW5ndFkyVnlkR2xtYVdOaGRHVnpMblJ5ZFhOMFpXUnpaWEoyYVdObApjeTVwYm5SbGJDNWpiMjB2U1c1MFpXeFRSMWhTYjI5MFEwRXVaR1Z5TUIwR0ExVWREZ1FXQkJUcDZFUlNVelpjClN4aWFFZnhER0N5bDNDQ0FTREFPQmdOVkhROEJBZjhFQkFNQ0FRWXdFZ1lEVlIwVEFRSC9CQWd3QmdFQi93SUIKQVRBS0JnZ3Foa2pPUFFRREFnTkpBREJHQWlFQXp3OXpkVWlVSFBNVWQwQzRteDQxamxGWmtyTTN5NWYxbGduVgpPN0Ziak9vQ0lRQ29HdFVtVDRjWHQ3Vit5U0hiSjhIb2I5QWFucHZYTkgxRVIrL2daRitvcFE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\",\n         \"userData\": \"AQABAInMt78RXOI5qbKUWPDKQVxS7sLuuR2oZaRdloO9yuuzg01MvfRboZ6UtYpzdx9dgeWG4w1MEC6av3dos3bMD/yc+YCiYm6nPSHeSG9C4dg9QZxGa4aQ53uBUn4vmOr6u7IFddsKlvUIynkVHM8TZzv8rvjVA7oz8efCiz6gTk64DBv+PClyFwjEUeZmkdu99ouDjWwJ3ajeMm9R5VbBTYDRiJQ0vmG1oMU3ezdrDqezE0U9hyywZLIFICa1hn7FC8n6NYfombkTJ8tVIeld2Ac3OzJTADmzdqxPwRWKePOgIbO+eibB+thgMt6hSk3vX2qp7nj6iFAir+di/C92ZVb1iRbtvXx9/fW92fsTKiGy/8Cj/Vw7tOs+e2Z9xKzkL74c2Vdf0dkJtzKpB0ISrwkS4da/MDZda/AEN4EnLfiN+LWWMAzdz1jE3dzPtrf69gO0SdE+zzVc9K9FuCJRfKvTrmyXiAAgO9eZXaRnmmAsfzY9SysfC0jI+/WdPofehw==\",\n          \"challenge\": \"DJ4m0A9eBwTUuuiJOwi5ALgyMP5X99KH+afqF6qjn0ImiA2ej8LnNgV377sdsS17JRkHJWzJbucmHufcuRtpfA==\"\n        }"
+												},
+												"url": {
+													"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v2/sgx_qv_verify_quote",
+													"protocol": "https",
+													"host": [
+														"{{sqvs}}"
+													],
+													"port": "{{sqvsPort}}",
+													"path": [
+														"svs",
+														"v2",
+														"sgx_qv_verify_quote"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=63072000; includeSubDomains"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 22 Dec 2022 13:04:02 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "385"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"quoteData\": {\n        \"ReportData\": \"14f39d2b1dda32661b631c7cdeff10c5e9efe1370a209a845de34899641feff8\",\n        \"UserDataMatch\": \"true\",\n        \"Message\": \"SGX_QL_QV_RESULT_OK\",\n        \"EnclaveIssuer\": \"83d719e77deaca1470f6baf62a4d774303c899db69020f9c70ee1dfc08c7ce9e\",\n        \"EnclaveMeasurement\": \"ad46749ed41ebaa2327252041ee746d3791a9f2431830fee0883f7993caf316a\",\n        \"EnclaveIssuerProdID\": \"00\",\n        \"IsvSvn\": \"00\",\n        \"TcbLevel\": \"OutOfDate\"\n    }\n}"
 										}
 									]
 								}
