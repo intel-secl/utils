@@ -1,5 +1,4 @@
 SHELL:=/bin/bash
-VERSION := "v4.2.0"
 BUILDDATE := $(shell TZ=UTC date +%Y-%m-%dT%H:%M:%SZ)
 PROXY_EXISTS := $(shell if [[ "${https_proxy}" || "${http_proxy}" ]]; then echo 1; else echo 0; fi)
 DOCKER_PROXY_FLAGS := ""
@@ -9,83 +8,30 @@ else
         undefine DOCKER_PROXY_FLAGS
 endif
 
-TARGETS = trust-agent
-INTEL_SECL_K8S = authservice cms hvs aas-manager
+TARGETS = authservice cms hvs tagent aas-manager
 
-binaries: clean $(TARGETS) intel-secl
-	mkdir binaries
-	cp intel-secl/deployments/installer/*.bin binaries/
-	cp intel-secl/deployments/installer/*.sh binaries/
-	cp trust-agent/out/*.bin binaries/
+all: clean k8s
 
-k8s: k8s_common k8s_ta init-containers
-	cp -r intel-secl/deployments/k8s/* k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/multi-node/ws/hvs-db k8s/manifests/
-	cp -r utils/build/workload-security/k8s/isecl-bootstrap.sh k8s/manifests/isecl-bootstrap.sh
-	cp utils/build/workload-security/k8s/create-dirs-nfs.sh k8s/
-
-k8s-aio: k8s_common k8s_ta
-	cp -r utils/build/k8s-manifests/db-deployments/single-node/aas-db k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/single-node/ws/hvs-db k8s/manifests/
-	cp utils/build/workload-security/k8s/pre-requisites.sh k8s/manifests/
-	cp -r utils/build/k8s-manifests/single-node/aas k8s/manifests/
-	cp -r utils/build/k8s-manifests/single-node/cms k8s/manifests/
-	cp -r utils/build/workload-security/k8s/isecl-bootstrap.sh k8s/manifests/isecl-bootstrap.sh
-	cp -r utils/build/workload-security/k8s/hvs k8s/manifests/
-
-k8s_ta: tagent_k8s
-	cp trust-agent/out/*.tar k8s/container-images/
-	cp -r utils/build/workload-security/k8s/ta k8s/manifests/ta
-
-k8s_common: clean $(INTEL_SECL_K8S)
-	mkdir -p k8s/container-images
-	mkdir -p k8s/manifests
-	cp -r utils/build/workload-security/k8s/pre-requisites.sh k8s/manifests/
-	cp -r utils/build/workload-security/k8s/isecl-bootstrap-db-services.sh k8s/manifests/isecl-bootstrap-db-services.sh
-	cp utils/build/workload-security/k8s/isecl-k8s.env k8s/manifests/isecl-k8s.env
-	cp -r utils/build/workload-security/k8s/nats k8s/manifests/nats
+k8s: common init-containers $(TARGETS)
 	cp intel-secl/deployments/container-archive/oci/* k8s/container-images/
-	cp -r intel-secl/deployments/k8s/* k8s/manifests/
-	mkdir -p k8s/manifests/aas/scripts
-	mv k8s/manifests/aas/populate-users k8s/manifests/aas/scripts/
-	mv k8s/manifests/aas/populate-users.env k8s/manifests/aas/scripts/
-	mv k8s/manifests/download-tls-certs.sh k8s/manifests/nats/download-nats-tls-certs.sh
 
-tagent_k8s:
-	cd trust-agent && make k8s
-
-k8s-control-plane: clean k8s_common $(TARGETS)
-	mkdir k8s/binaries
-	cp trust-agent/out/*.bin k8s/binaries/
-	cp -r intel-secl/deployments/k8s/* k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/multi-node/aas-db k8s/manifests/
-	cp -r utils/build/k8s-manifests/db-deployments/multi-node/ws/hvs-db k8s/manifests/
-	cp -r utils/build/workload-security/k8s/isecl-bootstrap.sh k8s/manifests/isecl-bootstrap.sh
-	cp utils/build/workload-security/k8s/create-dirs-nfs.sh k8s/
-
-$(INTEL_SECL_K8S):
-	cd intel-secl && make download-eca && make $@-k8s
-
-intel-secl:
-	cd $@ && make cms-installer && make authservice-installer && make aas-manager && make download-eca && make hvs-installer && make ihub-installer
+common: download-eca
+	mkdir -p k8s/container-images
 
 init-containers:
-	mkdir -p  utils/tools/containers/out
-	docker build ${DOCKER_PROXY_FLAGS} -t isecl/init-wait:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/init-wait/Dockerfile .
-	skopeo copy docker-daemon:isecl/init-wait:$(VERSION) oci-archive:utils/tools/containers/out/init-wait-$(VERSION).tar
-	docker build ${DOCKER_PROXY_FLAGS} -t isecl/nats-init:$(VERSION) --label org.label-schema.build-date=$(BUILDDATE) -f utils/tools/containers/nats/Dockerfile .
-	skopeo copy docker-daemon:isecl/nats-init:$(VERSION) oci-archive:utils/tools/containers/out/nats-init-$(VERSION).tar
-	cp -r utils/tools/containers/out/*.tar k8s/container-images/
-
-clean: $(patsubst %, %-clean, $(TARGETS))
-	rm -rf binaries/
-	rm -rf k8s
+	cd  utils/tools/containers/ && make all
+	cp -r utils/tools/containers/nats/*.tar k8s/container-images/
+	cp -r utils/tools/containers/init-wait/*.tar k8s/container-images/
+	cp -r utils/tools/containers/db-version-upgrade/*.tar k8s/container-images/
 
 $(TARGETS):
-	cd $@ && make installer
+	cd intel-secl && make $@-k8s
 
-%-clean:
-	cd $* && make clean
+download-eca:
+	cd intel-secl && make download-eca && cd -
 
-.PHONY: all clean $(TARGETS) intel-secl
+clean:
+	cd intel-secl && make clean
+	rm -rf k8s
+
+.PHONY: all clean intel-secl $(TARGETS)

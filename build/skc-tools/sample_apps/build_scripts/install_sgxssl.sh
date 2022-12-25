@@ -19,12 +19,12 @@ install_sgxssl()
 
         cd $GIT_CLONE_SGXSSL/Linux
         make sgxssl_no_mitigation
-        if [[ "$OS" == "rhel" &&  "$VER" == "8.2" || "$VER" == "8.4" ]]; then
+        if [[ "$OS" == "rhel" && "$VER" == "8.4" ]]; then
                 make install || exit 1
-        elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" || "$VER" == "20.04" ]]; then
+        elif [[ "$OS" == "ubuntu" && "$VER" == "20.04" ]]; then
                 sudo make install
         else
-                echo "Unsupported OS. Please use RHEL 8.2/8.4 or Ubuntu 18.04/20.04"
+                echo "Unsupported OS. Please use RHEL 8.4 or Ubuntu 20.04"
                 exit 1
         fi
         popd

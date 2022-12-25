@@ -1,0 +1,3 @@
+policy_module(`isecl', 1.0.0)
+type isecl_t;
+files_type(isecl_t)

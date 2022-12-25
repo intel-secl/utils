@@ -1,4 +1,4 @@
-# Copyright (C) 2021  Intel Corporation
+# Copyright (C) 2022  Intel Corporation
 # SPDX-License-Identifier: BSD-3-Clause
 
 ---
@@ -31,7 +31,7 @@ spec:
                       - "SGX-ENABLED"
       containers:
         - name: skc-lib
-          image: <image-name>:<image-tag>
+          image: 
           imagePullPolicy: Always
           ports:
            - containerPort: 8080
@@ -72,12 +72,15 @@ spec:
            - mountPath: /opt/skc/etc/pkcs11-apimodule.ini
              name: pkcs11-config-volume
              subPath: pkcs11-apimodule.ini
+             readOnly: false
            - mountPath: /opt/skc/etc/sgx_stm.ini
              name: sgx-stm-config-volume
              subPath: sgx_stm.ini
+             readOnly: false
            - mountPath: /opt/skc/etc/kms_npm.ini
              name: kms-npm-config-volume
              subPath: kms_npm.ini
+             readOnly: false
            - mountPath: /etc/hosts
              name: haproxy-hosts
              subPath: hosts
@@ -89,6 +92,8 @@ spec:
              mountPath: /dev/sgx/
           securityContext:
              privileged: true
+      imagePullSecrets:
+      - name: <image-pull-secret>
       volumes:
         - hostPath:
              path: /var/log/nginx

@@ -146,6 +146,7 @@ K8S_URL=https://$K8S_IP:$K8S_PORT/
 sed -i "s@^\(SHVS_BASE_URL\s*=\s*\).*\$@\1$SHVS_URL@" ~/ihub.env
 sed -i "s@^\(KUBERNETES_URL\s*=\s*\).*\$@\1$K8S_URL@" ~/ihub.env
 sed -i "s@^\(KUBERNETES_TOKEN\s*=\s*\).*\$@\1$K8S_TOKEN@" ~/ihub.env
+sed -i "s@^\(TENANT\s*=\s*\).*\$@\1$TENANT@" ~/ihub.env
 
 echo "Installing Integration HUB...."
 ./ihub-*.bin

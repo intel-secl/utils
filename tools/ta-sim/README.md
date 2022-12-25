@@ -1,19 +1,19 @@
 # Trust Agent Simulator
 
-The Trust Agent Simulator could be used for simulating Trust Agents for performance testing of ISecl compoonents - in particular the HVS. The Trust Agent Simulator can simulate thousands of hosts in a single process. A single process hosts multiple `https servers` with one port per simulated host. Typically, you could simulate upto 25,000 hosts on a single Linux server. The number of servers and starting port number can be configured through the config file.
+The Trust Agent Simulator could be used for simulating Trust Agents for performance testing of ISecl components - in particular the HVS. The Trust Agent Simulator can simulate thousands of hosts in a single process. A single process hosts multiple `https servers` with one port per simulated host. Typically, you could simulate upto 25,000 hosts on a single Linux server. The number of servers and starting port number can be configured through the config file.
 
 ## Building from Source code
 
 The Trust Agent Simulator is written in Go and the only tool that is needed for building it is Go
 
-- Requires Go Version 1.14 or later
+- Requires Go Version 1.18 or later
 
 Simplest way to build the Trust Agent invoke the make commands from the commandline. This will produce an installer that will be located in deployments/installer/
 
 ```shell
 cd tools/ta-sim
 make installer
-cp deployments/installer/ta-sim-v4.2.0.bin <target_directory>
+cp deployments/installer/ta-sim-v5.1.0.bin <target_directory>
 ```
 
 If this is the first time that you are installing the Trust Agent Simulator, a helper .env file is also provided that can be used to automate the install of the product. Copy the .env file to the home directory of the user installing the simulator. Details about environment variables are documented in go-ta-env section below.
@@ -32,7 +32,7 @@ Run the installer
 
 ```shell
 cp go-ta-sim.env ~
-./ta-sim-v4.2.0.bin
+./ta-sim-v5.1.0.bin
 ```
 
 Some of the required values will be prompted for by the installer if they are not set via the .env file. For others that are needed, the installer will error out. Please check the documentation of the .env file for setting the necessary ones.
@@ -68,7 +68,7 @@ Once configured, the Trust Agent simulator can be used to create flavors, and re
 ```shell
 cd /opt/go-ta-simulator
 # start the simulator using the helper script. This script will set the ulimit and keep the process in the background
-./tagent-sim start
+./tagent-sim start [-u ulimit]
 # Create Flavors. In order for hosts to be trusted, it needs the software flavors as well (TA simulator does not generate software flavors). To address this problem, import flavors into HVS from a real Trust Agent which will import the necessary flavors into the "automatic" flavorgroup.
 ./ta-sim create-all-flavors
 

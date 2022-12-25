@@ -11,7 +11,7 @@
 
 ## System Requirements
 
-- RHEL 8.2
+- RHEL 8.4
 - Epel 8 Repo
 - Proxy settings if applicable
 - SHVS should be up and running
@@ -21,7 +21,7 @@
 - git
 - makeself
 - docker
-- Go 1.16.7
+- Go 1.18.8
 
 # Step By Step Build Instructions
 
@@ -33,15 +33,15 @@
 sudo dnf install -y git wget makeself docker
 ```
 
-### Install `go 1.16.7`
+### Install `go 1.18.8`
 
-The `Certificate Management Service` requires Go version 1.14 that has support for `go modules`. The build was validated with version 1.16.7 version of `go`. It is recommended that you use a newer version of `go`
+The `Certificate Management Service` requires Go version 1.18.8 that has support for `go modules`. The build was validated with version 1.18.8 version of `go`. It is recommended that you use a newer version of `go`
 
-- but please keep in mind that the product has been validated with 1.16.7 and newer versions of `go` may introduce compatibility issues. You can use the following to install `go`.
+- but please keep in mind that the product has been validated with 1.18.8 and newer versions of `go` may introduce compatibility issues. You can use the following to install `go`.
 
 ```{.shell}
-wget https://dl.google.com/go/go1.16.7.linux-amd64.tar.gz
-tar -xzf go1.16.7.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.18.8.linux-amd64.tar.gz
+tar -xzf go1.18.8.linux-amd64.tar.gz
 sudo mv go /usr/local
 export GOROOT=/usr/local/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH

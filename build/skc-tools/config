@@ -26,18 +26,18 @@ USR_BIN_DIR=/usr/bin
 USR_SBIN_DIR=/usr/sbin/
 USR_LOCALBIN_DIR=/usr/local/bin
 
-SGX_VERSION=2.15.1
-SGX_SDK_VERSION=2.15.101.1
+SGX_VERSION=2.17
+SGX_SDK_VERSION=2.17.100.3
 SGX_DRIVER_VERSION=1.41
-DCAP_VERSION=1.12.1
-SGX_DCAP_TAG=DCAP_1.12.1
-MP_RPM_VER=1.12.101.1-1
-OPENSSL_VERSION=1.1.1l
+DCAP_VERSION=1.14
+SGX_DCAP_TAG=DCAP_1.14
+MP_RPM_VER=1.14.100.3
+OPENSSL_VERSION=1.1.1s
 SGX_URL="https://download.01.org/intel-sgx/sgx-linux/${SGX_VERSION}/distro/$OS_FLAVOUR-server"
 LINUX_SGX_REPO="https://github.com/intel/linux-sgx.git"
 SGX_DCAP_REPO="https://github.com/intel/SGXDataCenterAttestationPrimitives.git"
 SGX_SSL_REPO="https://github.com/intel/intel-sgx-ssl.git"
-MPA_URL="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/tools/SGXMultiPackageAgent/$OS_FLAVOUR-server"
+MPA_URL="https://download.01.org/intel-sgx/sgx-dcap/$DCAP_VERSION/linux/distro/$OS_FLAVOUR-server"
 CTK_REPO="https://github.com/intel/crypto-api-toolkit.git"
 GIT_CLONE_PATH=/tmp/sgx
 SGX_INSTALL_DIR=/opt/intel
@@ -63,11 +63,10 @@ SGX_AGENT_DIR=$PWD/sgx_agent
 SGX_AGENT_BIN_DIR=$SGX_AGENT_DIR/bin
 SGX_AGENT_BIN=bin
 
-
 SAMPLEAPPS_DIR=$PWD/sample_apps
 SAMPLEAPPS_BIN_DIR=$SAMPLEAPPS_DIR/bin
 
-SKCLIB_VERSION=4.2
+SKCLIB_VERSION=5.1
 SKCLIB_DIR=$PWD/skc_library
 SKCLIB_BIN_DIR=$SKCLIB_DIR/bin
 SKCLIB_BIN=bin
@@ -75,6 +74,4 @@ SGX_AGENT_REPO_NAME=sgx_agent
 
 if [ "$VER" == "20.04" ]; then
 	SGX_LIBS_REPO='deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ focal main'
-elif [ "$VER" == "18.04" ]; then
-	SGX_LIBS_REPO='deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu/ bionic main'
 fi

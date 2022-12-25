@@ -12,7 +12,7 @@ Primary objective of PCS simulator is to simulate the PCS Service behavior for p
 
 ## Software requirements
 
-- Go 1.16.7
+- Go 1.18.8
 
 # Step By Step Build Instructions
 
@@ -25,8 +25,8 @@ sudo systemctl stop firewalld
 ```
 
 ````{.shell}
-wget https://dl.google.com/go/go1.16.7.linux-amd64.tar.gz
-tar -xzf go1.16.7.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.18.8.linux-amd64.tar.gz
+tar -xzf go1.18.8.linux-amd64.tar.gz
 sudo mv go /usr/local
 
 ``` {.shell}

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/intel-secl/sample-sgx-attestation/v4/attestedApp/version"
+	"github.com/intel-secl/sample-sgx-attestation/v5/attestedApp/version"
 )
 
 const helpStr = `Usage:

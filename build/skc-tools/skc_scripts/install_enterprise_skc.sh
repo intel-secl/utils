@@ -25,6 +25,8 @@ echo "Updating Populate users env ...."
 ISECL_INSTALL_COMPONENTS=SKBS
 sed -i "s@^\(ISECL_INSTALL_COMPONENTS\s*=\s*\).*\$@\1$ISECL_INSTALL_COMPONENTS@" ~/populate-users.env
 sed -i "s@^\(KBS_CERT_SAN_LIST\s*=\s*\).*\$@\1$SYSTEM_SAN@" ~/populate-users.env
+KBS_SERVICE_USERNAME=$(cat ~/kbs.env | grep ^KBS_SERVICE_USERNAME= | cut -d'=' -f2)
+KBS_SERVICE_PASSWORD=$(cat ~/kbs.env | grep ^KBS_SERVICE_PASSWORD= | cut -d'=' -f2)
 sed -i "s/^\(KBS_SERVICE_USERNAME\s*=\s*\).*\$/\1$KBS_SERVICE_USERNAME/" ~/populate-users.env
 sed -i "s/^\(KBS_SERVICE_PASSWORD\s*=\s*\).*\$/\1$KBS_SERVICE_PASSWORD/" ~/populate-users.env
 

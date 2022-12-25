@@ -8,15 +8,14 @@ import (
 	"fmt"
 	"os"
 
-	"intel/isecl/tools/bkc/v3/bkc"
+	"intel/isecl/tools/bkc/v5/bkc"
 )
 
 const (
 	runDir  = "/opt/bkc-tool/var"
 	logFile = "/opt/bkc-tool/var/bkc.log"
 
-	eventLog = "/opt/bkc-tool/var/measureLog.xml"
-	RamfsDir = "/opt/bkc-tool/var/ramfs"
+	eventLog = "/opt/bkc-tool/var/measure-log.json"
 )
 
 var (
@@ -29,7 +28,6 @@ func main() {
 	app := bkc.App{
 		RunDir:       runDir,
 		EventLogFile: eventLog,
-		RamfsDir:     RamfsDir,
 
 		ConsoleWriter: os.Stdout,
 		LogWriter:     os.Stdout,

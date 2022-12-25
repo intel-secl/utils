@@ -1,7 +1,7 @@
 Pre-requisite for the SGX Agent Simulator Deployment
 ==========================================
  - SGX and FLC Enabled in BIOS
- - RHEL 8.2 OS
+ - RHEL 8.4 OS
 
 RHEL8 package Requirements
 ==========================

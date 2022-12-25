@@ -24,10 +24,10 @@ create_skc_library_tar()
 	\cp -pf ../deploy_scripts/create_roles.conf $SKCLIB_DIR
 	\cp -pf ../deploy_scripts/README.install $SKCLIB_DIR
 	\cp -pf ../../config $SKCLIB_DIR
-	if [[ "$OS" == "rhel" && "$VER" == "8.2" ]]; then
-	        \cp -pf ../deploy_scripts/nginx.patch $SKCLIB_DIR
-	        \cp -pf ../deploy_scripts/openssl.patch $SKCLIB_DIR
-        elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" || "$VER" == "20.04" ]]; then
+	if [[ "$OS" == "rhel" && "$VER" == "8.4" ]]; then
+			echo "${red} Unsupported OS. Please use Ubuntu 20.04 ${reset}"
+			exit 1
+        elif [[ "$OS" == "ubuntu" && "$VER" == "20.04" ]]; then
 	        \cp -pf ../deploy_scripts/nginx_ubuntu.patch $SKCLIB_DIR
 	        \cp -pf ../deploy_scripts/openssl_ubuntu.patch $SKCLIB_DIR
         fi
@@ -75,7 +75,8 @@ build_skc_library()
 rm -rf $SKCLIB_DIR
 
 if [ "$OS" == "rhel" ]; then
-	rm -f /etc/yum.repos.d/*sgx_rpm_local_repo.repo
+	echo "${red} Unsupported OS. Please use Ubuntu 20.04 ${reset}"
+	exit 1
 fi
 
 install_prerequisites

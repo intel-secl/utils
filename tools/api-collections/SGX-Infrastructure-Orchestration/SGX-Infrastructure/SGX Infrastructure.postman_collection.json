@@ -1,0 +1,1751 @@
+{
+	"info": {
+		"_postman_id": "b99e945f-9a37-422b-bd55-e8d91d20f460",
+		"name": "SGX Infrastructure",
+		"description": "Key Protection is implemented by the SKC Client -- a set of libraries - which must be linked with a\ntenant workload, like Nginx, deployed in a CSP environment and the Key Broker Service (KBS)\ndeployed in the tenant's enterprise environment. The SKC Client retrieves the keys needed by the\nworkload from KBS after proving that the key can be protected in an SGX enclave.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Verify Services",
+			"item": [
+				{
+					"name": "cmsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{cms}}"
+							],
+							"port": "{{cmsPort}}",
+							"path": [
+								"cms",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "cmsVersion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{cms}}:{{cmsPort}}/cms/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{cms}}"
+									],
+									"port": "{{cmsPort}}",
+									"path": [
+										"cms",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:25:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Certificate Management Service\nVersion: v5.1.0-c473648d\nBuild Date: 2022-12-21T00:55:53+0000\n"
+						}
+					]
+				},
+				{
+					"name": "aasVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "aasVersion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:25:42 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Authentication and Authorization Service\nVersion: v5.1.0-c473648d\nBuild Date: 2022-12-21T00:54:31+0000\n"
+						}
+						]
+				},
+				{
+					"name": "scsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{scs}}"
+							],
+							"port": "{{scsPort}}",
+							"path": [
+								"scs",
+								"sgx",
+								"certification",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "scsVersion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{scs}}:{{scsPort}}/scs/sgx/certification/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{scs}}"
+									],
+									"port": "{{scsPort}}",
+									"path": [
+										"scs",
+										"sgx",
+										"certification",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:25:55 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: SGX Caching Service\nVersion: v5.1.0-97689d5\nBuild Date: 2022-12-21T18:05:47+0000\n"
+						}
+					]
+				},
+				{
+					"name": "kbsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "kbsVersion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:23:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: Key Broker Service\nVersion: v5.1.0-baf31add\nBuild Date: 2022-12-21T12:28:36+0000\n"
+						}
+					]
+				},
+				{
+					"name": "sqvsVersion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/version",
+							"protocol": "https",
+							"host": [
+								"{{sqvs}}"
+							],
+							"port": "{{sqvsPort}}",
+							"path": [
+								"svs",
+								"v1",
+								"version"
+							]
+						},
+						"description": "GetVersion is used to get the version of the application.\nReturns - The version of the application.\n"
+					},
+					"response": [
+						{
+							"name": "sqvsVersion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/version",
+									"protocol": "https",
+									"host": [
+										"{{sqvs}}"
+									],
+									"port": "{{sqvsPort}}",
+									"path": [
+										"svs",
+										"v1",
+										"version"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:26:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "Service Name: SGX Quote Verification Service\nVersion: v5.1.0-0b7b7f0\nBuild Date: 2022-12-21T01:04:53+0000\n"
+						}
+					]
+				}
+			],
+			"description": "The command line option can be used to confirm that the service is up and running before proceeding to the actual use case demonstration.\n\nVerify SGX Agent:\n\n```\nsgx_agent status\n```",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "createKbsToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenKbs\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{kbsUser}}\",\r\n    \"password\": \"{{kbsPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/jwt",
+										"type": "text"
+									},
+									{
+										"key": "Content-Transfer-Encoding",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{kbsUser}}\",\r\n    \"password\": \"{{kbsPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Sep 2020 13:14:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "843"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6ImExMGFkYzJmNjA0OTg3NTRlYzExZjExNGQ0MDE3ZDI5ZDBjZmFiOWUiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IktNUyIsIm5hbWUiOiJLZXlDUlVEIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IktNUyIsInJ1bGVzIjpbIio6KjoqIl19XSwiZXhwIjoxNTk5ODMwMDczLCJpYXQiOjE1OTk2NTcyNDMsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwic3ViIjoiRVR1c2VyIn0.hNOT_2JXJ0x9xx9XUULLYtDQLFn_Z8FeyXC85_EJ5Ha5Z0yTSz_noD_c_EHE-RZYzYcncCa_0JKboQb7YuU7tO4zQEF4OsxQkHkaIvgNoxChRskY4UDSfQgJImM9YGFWF3iLAavlJPJ0K7IorCFSYajABi1try4XND0tDDo7ah8GPszLtFwpKLCb9-_C6r-_JlbNUGYy_P9gq4IgPaC7lisr46id-sCBgNd-a8Z6Pf55mcPcJVqWIay7EWirSF9qo3cZLtUJ_aHs-38z1qZXJpJklD7AVhPR-MQdwiyturDe57wUC5-XrF2UKiZ4sWSe3YNcVKrwTNiXk0FC2WC5mNOoFV7Rr294zLyrXeF_xThtViqdReT5C7SWuAvng37y52nPUL1S4tBbsH7zqYl1o8hityZAlaYVGb_0dw1eklUXkYfW-KzKcfJRt2PJ9fVE-bkBFkWPyoJv10Gt7eiufxIlJBM8bo1itPaxboOUH4BCZfXlkwICOx5T0W6CbtYo"
+						},
+						{
+							"name": "createKbsToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{kbsUser}}\",\r\n    \"password\": \"{{kbsPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:26:31 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjA5YTRhNTMwODNiNWNlNWQzNzczYTc5YWM4YWFkOTQ5NDE4NTdmODQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IktCUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiU0NTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJTSFZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJTUVZTIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifSx7InNlcnZpY2UiOiJBQVMiLCJuYW1lIjoiQWRtaW5pc3RyYXRvciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJSb2xlTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJVc2VyTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJVc2VyUm9sZU1hbmFnZXIifSx7InNlcnZpY2UiOiJBQVMiLCJuYW1lIjoiQ3VzdG9tQ2xhaW1zQ3JlYXRvciJ9LHsic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049S0JTIFRMUyBDZXJ0aWZpY2F0ZTtTQU49a2JzLmlzZWNsLnN2Yy5jbHVzdGVyLmxvY2FsLDEwLjE2NS41OS40MztjZXJ0VHlwZT1UTFMifSx7InNlcnZpY2UiOiJTUVZTIiwibmFtZSI6IlF1b3RlVmVyaWZpZXIifSx7InNlcnZpY2UiOiJDTVMiLCJuYW1lIjoiQ2VydEFwcHJvdmVyIiwiY29udGV4dCI6IkNOPVNRVlMgVExTIENlcnRpZmljYXRlO1NBTj0qO2NlcnRUeXBlPVRMUyJ9LHsic2VydmljZSI6IkNNUyIsIm5hbWUiOiJDZXJ0QXBwcm92ZXIiLCJjb250ZXh0IjoiQ049U1FWUyBRVkwgUmVzcG9uc2UgU2lnbmluZyBDZXJ0aWZpY2F0ZTtTQU49KjtjZXJ0VHlwZT1UTFMifSx7InNlcnZpY2UiOiJDTVMiLCJuYW1lIjoiQ2VydEFwcHJvdmVyIiwiY29udGV4dCI6IkNOPVNIVlMgVExTIENlcnRpZmljYXRlO1NBTj0qO2NlcnRUeXBlPVRMUyJ9LHsic2VydmljZSI6IlNIVlMiLCJuYW1lIjoiSG9zdExpc3RNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQ01TIiwibmFtZSI6IkNlcnRBcHByb3ZlciIsImNvbnRleHQiOiJDTj1TQ1MgVExTIENlcnRpZmljYXRlO1NBTj0qO2NlcnRUeXBlPVRMUyJ9LHsic2VydmljZSI6IlNDUyIsIm5hbWUiOiJDYWNoZU1hbmFnZXIifSx7InNlcnZpY2UiOiJDTVMiLCJuYW1lIjoiQ2VydEFwcHJvdmVyIiwiY29udGV4dCI6IkNOPUludGVncmF0aW9uIEh1YiBUTFMgQ2VydGlmaWNhdGU7U0FOPWlodWIuaXNlY2wuc3ZjLmNsdXN0ZXIubG9jYWw7Y2VydFR5cGU9VExTIn0seyJzZXJ2aWNlIjoiSFZTIiwibmFtZSI6IlJlcG9ydFNlYXJjaGVyIn0seyJzZXJ2aWNlIjoiU0hWUyIsIm5hbWUiOiJIb3N0c0xpc3RSZWFkZXIifSx7InNlcnZpY2UiOiJTSFZTIiwibmFtZSI6Ikhvc3REYXRhUmVhZGVyIn0seyJzZXJ2aWNlIjoiU0hWUyIsIm5hbWUiOiJIb3N0RGF0YVVwZGF0ZXIifSx7InNlcnZpY2UiOiJTQ1MiLCJuYW1lIjoiSG9zdERhdGFVcGRhdGVyIn0seyJzZXJ2aWNlIjoiU0NTIiwibmFtZSI6Ikhvc3REYXRhUmVhZGVyIn0seyJzZXJ2aWNlIjoiU0hWUyIsIm5hbWUiOiJIb3N0c0xpc3RSZWFkZXIiLCJjb250ZXh0IjoiQ049U0hWUyBUTFMgQ2VydGlmaWNhdGU7U0FOPSo7Y2VydFR5cGU9VExTIn0seyJzZXJ2aWNlIjoiU0hWUyIsIm5hbWUiOiJIb3N0RGF0YVJlYWRlciIsImNvbnRleHQiOiJDTj1TSFZTIFRMUyBDZXJ0aWZpY2F0ZTtTQU49KjtjZXJ0VHlwZT1UTFMifV0sInBlcm1pc3Npb25zIjpbeyJzZXJ2aWNlIjoiQUFTIiwicnVsZXMiOlsiKjoqOioiLCJjdXN0b21fY2xhaW1zOmNyZWF0ZSIsInJvbGVzOmNyZWF0ZToqIiwicm9sZXM6ZGVsZXRlOioiLCJyb2xlczpyZXRyaWV2ZToqIiwicm9sZXM6c2VhcmNoOioiLCJ1c2VyX3JvbGVzOmNyZWF0ZToqIiwidXNlcl9yb2xlczpkZWxldGU6KiIsInVzZXJfcm9sZXM6cmV0cmlldmU6KiIsInVzZXJfcm9sZXM6c2VhcmNoOioiLCJ1c2VyczpjcmVhdGU6KiIsInVzZXJzOmRlbGV0ZToqIiwidXNlcnM6cmV0cmlldmU6KiIsInVzZXJzOnNlYXJjaDoqIiwidXNlcnM6c3RvcmU6KiJdfSx7InNlcnZpY2UiOiJIVlMiLCJydWxlcyI6WyJyZXBvcnRzOnNlYXJjaDoqIl19LHsic2VydmljZSI6IktCUyIsInJ1bGVzIjpbIio6KjoqIl19LHsic2VydmljZSI6IlNDUyIsInJ1bGVzIjpbIio6KjoqIl19LHsic2VydmljZSI6IlNIVlMiLCJydWxlcyI6WyIqOio6KiJdfSx7InNlcnZpY2UiOiJTSFZTIiwiY29udGV4dCI6IkNOPVNIVlMgVExTIENlcnRpZmljYXRlO1NBTj0qO2NlcnRUeXBlPVRMUyIsInJ1bGVzIjpbIio6KjoqIl19LHsic2VydmljZSI6IlNRVlMiLCJydWxlcyI6WyIqOio6KiJdfV0sImV4cCI6MTY3MTcwMTE5MSwiaWF0IjoxNjcxNjkzOTYxLCJpc3MiOiJBQVMgSldUIElzc3VlciIsIm5iZiI6MTY3MTY5Mzk2MSwic3ViIjoiZ2xvYmFsX2FkbWluX3VzZXIifQ.mAj6QtYYWuAyUVhHumab7sumWt8bbf7DKcQzIRHOlYMVUD2z1BA8DW_ywN3UuZ0AG3aT1TNrzarHr9aDVyNXEBD9L-IuzjJdbuSLe4PVGs0dv7ZB82F2t3nW_-dSO_LpuGEg0gy-XW009FOTSiyrx9HDlrrGxaxFE8YEELcJC6TbQfx41ytkT2UVuBIAHgYKYG41oOPzuYeGYYsKhjaBzmhvtcLKD_em_5P5b8TY874GhHm_LQ1mW-7JlwOg3siT0fqkBk3DKFR30GGHvcAsDjSARz5LxrGf58mLtJ5Vlm95EROboIbIUrWFBAeUG16AifuH2G10QId6uLZk3luzicGmk1ksXpOlyJfK8wIY1TOmZzpk8fyUG1yV3d5i3YnOlXfbVYLBPxinEhfeTdxZ45zv75h9Ucy7Ch7uRtzET1CPCjzedXUGmHiXs7WV8zk8FhyCKOCqIOV8NLpa4VgZ9ORQdV9uo8AXXmZrFcf1eKdH9gaZpVIiqV9DrA4cSFPS"
+						}
+					]
+				},
+				{
+					"name": "createEaToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bearerTokenEa\", pm.response.text());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/jwt"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{eaUser}}\",\r\n    \"password\": \"{{eaPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+							"protocol": "https",
+							"host": [
+								"{{aas}}"
+							],
+							"port": "{{aasPort}}",
+							"path": [
+								"aas",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Creates a new bearer token that can be used in the Authorization header for other API requests. Bearer token Authorization is not required when requesting token for Authservice admin user. Authservice admin user bearer token should be provided in Authorization header when requesting bearer token for other users."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{eaUser}}\",\r\n    \"password\": \"{{eaPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Nov 2020 06:27:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "843"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjVmMzMzMjQxZDhmNWUxMTY0OTY5MTYxOGUyNzg2NDFmNzNkMGQyNTYiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IktCUyIsIm5hbWUiOiJLZXlDUlVEIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IktCUyIsInJ1bGVzIjpbIio6KjoqIl19XSwiZXhwIjoxNjA1OTQwMDY3LCJpYXQiOjE2MDU3NjcyMzcsImlzcyI6IkFBUyBKV1QgSXNzdWVyIiwic3ViIjoiRUFkbWluIn0.S5RPoX_6z9u4mHLwxqiRUxvn6q6gKgGUf5qeBc6NsP3a4aZUGDKUnGbyIasWlRpeB6LbUX-XtU6XQ2HSUDt5Fg2bvtXDJE-rs_7AsSDWDrIhuEy4IVF-IB2N3VJjn1o9GSqC8m8AZE3pQ6006R2cVst9ma3xhC4JsQIsIHvzM9I4U1Bm8LTN4CdjjFmK9h7s6_WvF8VPSSaL2rF2iCjey06Rq5gTu6QdEDCOsLTREaRPN5308_8zecJNOkxS_J6BuAFbL15fuvpA07nyzmxNJ8DepWvuH0-GmEoR6ezJHQ54C6zWNVT6uIedFKlKkUQq4jnanSMaGCBJdD6oJZIcHPvkv7Rin_vaIzmEh1_qsBvOd0-3FVJKPUn2uW0NeLB-faOXKmrlMszhTGuOGmkyEAIaf-fo69hXDRp5cN6wdMXjkqCR1GCOkZQZsCFFt9cBJvVRCJt77sq4ty8rC_gtplSIWXF5Db1sZ3DcjOapGyQoksFm2lq0j1Dtwjj1-smo"
+						},
+						{
+							"name": "createEaToken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/jwt"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{eaUser}}\",\r\n    \"password\": \"{{eaPass}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{aas}}:{{aasPort}}/aas/v1/token",
+									"protocol": "https",
+									"host": [
+										"{{aas}}"
+									],
+									"port": "{{aasPort}}",
+									"path": [
+										"aas",
+										"v1",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "jwt",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/jwt"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:26:38 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1464"
+								}
+							],
+							"cookie": [],
+							"body": "eyJhbGciOiJSUzM4NCIsImtpZCI6IjA5YTRhNTMwODNiNWNlNWQzNzczYTc5YWM4YWFkOTQ5NDE4NTdmODQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlcyI6W3sic2VydmljZSI6IkFBUyIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlJvbGVNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJNYW5hZ2VyIn0seyJzZXJ2aWNlIjoiQUFTIiwibmFtZSI6IlVzZXJSb2xlTWFuYWdlciJ9LHsic2VydmljZSI6IkFBUyIsIm5hbWUiOiJDdXN0b21DbGFpbXNDcmVhdG9yIn1dLCJwZXJtaXNzaW9ucyI6W3sic2VydmljZSI6IkFBUyIsInJ1bGVzIjpbIio6KjoqIiwiY3VzdG9tX2NsYWltczpjcmVhdGUiLCJyb2xlczpjcmVhdGU6KiIsInJvbGVzOmRlbGV0ZToqIiwicm9sZXM6cmV0cmlldmU6KiIsInJvbGVzOnNlYXJjaDoqIiwidXNlcl9yb2xlczpjcmVhdGU6KiIsInVzZXJfcm9sZXM6ZGVsZXRlOioiLCJ1c2VyX3JvbGVzOnJldHJpZXZlOioiLCJ1c2VyX3JvbGVzOnNlYXJjaDoqIiwidXNlcnM6Y3JlYXRlOioiLCJ1c2VyczpkZWxldGU6KiIsInVzZXJzOnJldHJpZXZlOioiLCJ1c2VyczpzZWFyY2g6KiIsInVzZXJzOnN0b3JlOioiXX1dLCJleHAiOjE2NzE3MDExOTgsImlhdCI6MTY3MTY5Mzk2OCwiaXNzIjoiQUFTIEpXVCBJc3N1ZXIiLCJuYmYiOjE2NzE2OTM5NjgsInN1YiI6ImFhc0FkbWluVXNlciJ9.eWok-dTBM2lVwQj962CC7DtJDmS7_JG4985zDP6RiIquyRzRf7K8gbsqpmXaGNVHVQfm4PT0SXqN8_Pf57WMkHQkAGPH9JT8lzHcmgUUgBQTgFj047pVNgS5WDtGNc62DL8Zb8UD6HykimiCvaruvRekI0LcxkedFtJTGSHWUzUfdrcGy7_M65Kv4kwuAeHVRcMUSJhSX82MkTXEqmTVWMo271C145yv1RDH5BjIlgEHLtgKY5BPJcccf6pr5KhKcjJNUTtOYx0lgZklENMYHmGAeRnRxYFw3GZhNKoHAgQ6DlC-pAcHkqLeITIjHFcBjNok9PWfjkjSDEXu-IRLXIjcCqQusGE2ZChBPItIwFu4YoxkPtdkYqP5vjH721mbZdC2NYX_NNcqhL4pMo20z5wgZfOJAQnkki_mAoDcZrLGjn3ozgeXeE9nCd0tBMUMj-jzbMMMha-DkrinhNHGIzcumxxGx5wFbB1Iabtc8phOVM-IKD6WwzRqirnFMFa6"
+						}
+					]
+				}
+			],
+			"description": "To make an API request to an Intel® SecL-DC service, an authentication\r\ntoken is now required. API requests must now include an Authorization\r\nheader with an appropriate token:\r\n\r\n```\r\nAuthorization: Bearer <token>\r\n```\r\n\r\nThe token is issued by the AAS and will expire after a set amount of time.\r\nThis token may be used with any Intel® SecL-DC service, and will carry the\r\nappropriate permissions for the role(s) assigned to the account the token was\r\ngenerated for.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Creating RSA Keys in Key Broker Service",
+			"item": [
+				{
+					"name": "keyTransferPolicy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"keyTransferPolicyId\", pm.response.json().id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerTokenKbs}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "(Required) Content-Type header"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": "(Required) Accept header",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenEa}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"a145ed1ef1f770bc9ba7dc43fdd3321d06b87ba3364757ccbab0d7f3ab0bac1f\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    },\n    \"cert_issuer\": [\n        \"CMS TLS Client CA\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"key-transfer-policies"
+							]
+						},
+						"description": "Creates a key transfer policy.\n\nThe serialized KeyTransferPolicyAttributes Go struct object represents the content of the request body.\n\n | Attribute                                    | Description |\n |----------------------------------------------|-------------|\n | sgx_enclave_issuer_anyof                     | Array of hash of enclave signing key. This is mandatory field. |\n | sgx_enclave_issuer_product_id                | Enclave Product ID. The ISV should configure a unique ProdID for each product which may want to share sealed data between enclaves signed with a specific MRSIGNER. This is mandatory field. |\n | sgx_enclave_measurement_anyof                | Array of enclave measurements that are allowed to retrieve the key (MRENCLAVE). Expect client to have one of these measurements in the SGX quote (this supports use case of providing key only to an SGX enclave that will enforce the key usage policy locally). |\n | sgx_enclave_svn_minimum                      | Minimum version number required. |\n | tls_client_certificate_issuer_cn_anyof       | Array of Common Name to expect on client certificate's issuer field. Expect client certificate to have any one of these issuers. |\n | tls_client_certificate_san_anyof             | Array of Subject Alternative Name to expect in client certificate's extensions. Expect client certificate to have any of these names. |\n | tls_client_certificate_san_allof             | Array of Subject Alternative Name to expect in client certificate's extensions. Expect client certificate to have all of these names. |\n | attestation_type_anyof                       | Array of Attestation Type identifiers that client must support to get the key expect client to advertise these with the key request e.g. \"SGX\" (note that if key server needs to restrict technologies, then it should list only the ones that can receive the key). |\n | sgx_enforce_tcb_up_to_date                   | Boolean. |\n"
+					},
+					"response": [
+						{
+							"name": "keyTransferPolicy",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"description": "(Required) Accept header",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"a145ed1ef1f770bc9ba7dc43fdd3321d06b87ba3364757ccbab0d7f3ab0bac1f\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    },\n    \"cert_issuer\": [\n        \"CMS TLS Client CA\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"key-transfer-policies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:26:49 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "479"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"5fa37f9d-2d5f-405d-876e-bd3d65b7a1ca\",\n    \"created_at\": \"2022-12-22T07:26:49.676680037Z\",\n    \"updated_at\": \"2022-12-22T07:26:49.676680037Z\",\n    \"attestation_type\": [\n        \"SGX\"\n    ],\n    \"sgx\": {\n        \"attributes\": {\n            \"mrsigner\": [\n                \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n            ],\n            \"isvprodid\": [\n                0\n            ],\n            \"mrenclave\": [\n                \"a145ed1ef1f770bc9ba7dc43fdd3321d06b87ba3364757ccbab0d7f3ab0bac1f\"\n            ],\n            \"isvsvn\": 1,\n            \"client_permissions\": [\n                \"nginx\",\n                \"USA\"\n            ],\n            \"enforce_tcb_upto_date\": false\n        }\n    },\n    \"cert_issuer\": [\n        \"CMS TLS Client CA\"\n    ]\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"description": "(Required) Accept header",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_enclave_svn_minimum\": 1,\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ],\n    \"sgx_enforce_tcb_up_to_date\": false,\n    \"sgx_enclave_issuer_product_id\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/key-transfer-policies",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"key-transfer-policies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 08 Sep 2021 19:35:03 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "497"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"{{keyTransferPolicyId}}\",\n    \"created_at\": \"2021-09-08T19:35:03.69181252Z\",\n    \"sgx_enclave_issuer_anyof\": [\n        \"cd171c56941c6ce49690b455f691d9c8a04c2e43e0a4d30f752fa5285c7ee57f\"\n    ],\n    \"sgx_enclave_issuer_product_id\": 0,\n    \"sgx_enclave_measurement_anyof\": [\n        \"7df0b7e815bd4b4af41239038d04a740daccf0beb412a2056c8d900b45b621fd\"\n    ],\n    \"sgx_enclave_svn_minimum\": 1,\n    \"tls_client_certificate_issuer_cn_anyof\": [\n        \"CMSCA\",\n        \"CMS TLS Client CA\"\n    ],\n    \"client_permissions_allof\": [\n        \"nginx\",\n        \"USA\"\n    ],\n    \"attestation_type_anyof\": [\n        \"SGX\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "createKey",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerTokenKbs}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenEa}}"
+							},
+							{
+								"description": "(Required) Accept header",
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "(Required) Content-Type header"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072\n    },\n    \"transfer_policy_ID\": \"{{keyTransferPolicyId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"keys"
+							]
+						},
+						"description": "Creates or Registers a key.\n\nThe serialized KeyRequest Go struct object represents the content of the request body.\n\n | Attribute          | Description |\n |--------------------|-------------|\n | key_information    | A json object having all the required information about a key. |\n | transfer_policy_id | Unique identifier of the transfer policy to apply to this key. |\n | label              | String to attach optionally a text description to the key, e.g. \"US Nginx key\". |\n | usage              | String to attach optionally a usage criteria for the key, e.g. \"Country:US,State:CA\". |\n\nThe serialized KeyInformation Go struct object represents the content of the key_information field.\n\n | Attribute   | Description |\n |-------------|-------------|\n | algorithm   | Encryption algorithm used to create or register key. Supported algorithms are AES, RSA and EC. |\n | key_length  | Key length used to create key. Supported key lengths are 128,192,256 bits for AES and 2048,3072,4096,7680,15360 bits for RSA. |\n | curve_type  | Elliptic curve used to create key. Supported curves are secp256r1, secp384r1 and secp521r1. |\n | key_string  | Base64 encoded private key to be registered. Supported only if key is created locally. |\n | kmip_key_id | Unique KMIP identifier of key to be registered. Supported only if key is created on KMIP server. |\n"
+					},
+					"response": [
+						{
+							"name": "createKey",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}"
+									},
+									{
+										"description": "(Required) Accept header",
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072\n    },\n    \"transfer_policy_ID\": \"{{keyTransferPolicyId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"keys"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:26:57 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "331"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"key_information\": {\n        \"id\": \"82a221c0-8bf9-4ef9-9371-ca8d21b06205\",\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"593\"\n    },\n    \"transfer_policy_id\": \"5fa37f9d-2d5f-405d-876e-bd3d65b7a1ca\",\n    \"transfer_link\": \"https://10.165.59.43:30448/kbs/v1/keys/82a221c0-8bf9-4ef9-9371-ca8d21b06205/transfer\",\n    \"created_at\": \"2022-12-22T07:26:57.515679352Z\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}"
+									},
+									{
+										"description": "(Required) Accept header",
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "(Required) Content-Type header"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"key_string\": \"{{privateKey}}\"\n    },\n    \"transfer_policy_ID\": \"{{keyTransferPolicyId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"keys"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 09 Nov 2020 10:46:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "289"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"key_information\": {\n        \"id\": \"{{keyId}}\",\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072\n    },\n    \"transfer_policy_id\": \"{{keyTransferPolicyId}}\",\n    \"transfer_link\": \"https://{{kbs}}:{{kbsPort}}/v1/keys/1403a86e-e75e-451e-a481-c12cbfe3bd21/transfer\",\n    \"created_at\": \"2020-11-09T10:46:23.354730925Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "createKeyUsingKMIPId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerTokenKbs}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenEa}}"
+							},
+							{
+								"description": "(Required) Accept header",
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"description": "(Required) Content-Type header",
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_ID\": \"{{keyTransferPolicyId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+							"protocol": "https",
+							"host": [
+								"{{kbs}}"
+							],
+							"port": "{{kbsPort}}",
+							"path": [
+								"kbs",
+								"v1",
+								"keys"
+							]
+						},
+						"description": "Creates or Registers a key.\n\nThe serialized KeyRequest Go struct object represents the content of the request body.\n\n | Attribute          | Description |\n |--------------------|-------------|\n | key_information    | A json object having all the required information about a key. |\n | transfer_policy_id | Unique identifier of the transfer policy to apply to this key. |\n | label              | String to attach optionally a text description to the key, e.g. \"US Nginx key\". |\n | usage              | String to attach optionally a usage criteria for the key, e.g. \"Country:US,State:CA\". |\n\nThe serialized KeyInformation Go struct object represents the content of the key_information field.\n\n | Attribute   | Description |\n |-------------|-------------|\n | algorithm   | Encryption algorithm used to create or register key. Supported algorithms are AES, RSA and EC. |\n | key_length  | Key length used to create key. Supported key lengths are 128,192,256 bits for AES and 2048,3072,4096,7680,15360 bits for RSA. |\n | curve_type  | Elliptic curve used to create key. Supported curves are secp256r1, secp384r1 and secp521r1. |\n | key_string  | Base64 encoded private key to be registered. Supported only if key is created locally. |\n | kmip_key_id | Unique KMIP identifier of key to be registered. Supported only if key is created on KMIP server. |\n"
+					},
+					"response": [
+						{
+							"name": "createKeyUsingKMIPId",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}"
+									},
+									{
+										"description": "(Required) Accept header",
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "(Required) Content-Type header",
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_ID\": \"{{keyTransferPolicyId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"keys"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:27:06 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "331"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"key_information\": {\n        \"id\": \"8f850ae7-2019-42e8-80fb-088c082af7f7\",\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"589\"\n    },\n    \"transfer_policy_id\": \"5fa37f9d-2d5f-405d-876e-bd3d65b7a1ca\",\n    \"transfer_link\": \"https://10.165.59.43:30448/kbs/v1/keys/8f850ae7-2019-42e8-80fb-088c082af7f7/transfer\",\n    \"created_at\": \"2022-12-22T07:27:06.583720186Z\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenEa}}"
+									},
+									{
+										"description": "(Required) Accept header",
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "(Required) Content-Type header",
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key_information\": {\n        \"algorithm\": \"RSA\",\n        \"key_length\": 3072,\n        \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_ID\": \"{{keyTransferPolicyId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{kbs}}:{{kbsPort}}/kbs/v1/keys",
+									"protocol": "https",
+									"host": [
+										"{{kbs}}"
+									],
+									"port": "{{kbsPort}}",
+									"path": [
+										"kbs",
+										"v1",
+										"keys"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Apr 2021 07:30:39 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "324"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"key_information\": {\n        \"id\": \"{{keyId}}\",\n        \"algorithm\": \"RSA\",\n\t\t\"key_length\": 3072,\n         \"kmip_key_id\": \"{{kmipKeyId}}\"\n    },\n    \"transfer_policy_id\": \"{{keyTransferPolicyId}}\",\n    \"transfer_link\": \"https://{{kbs}}:{{kbsPort}}/v1/keys/1403a86e-e75e-451e-a481-c12cbfe3bd21/transfer\",\n    \"created_at\": \"2020-11-09T10:46:23.354730925Z\"\n}"
+						}
+					]
+				}
+			],
+			"description": "**Steps to run KMIP Server**\n\nNote: Below mentioned steps are provided as script (install_pykmip.sh and pykmip.service) as part of kbs_script folder which will install KMIP Server as daemon. Refer to ‘Install KMIP Server as daemon’ section.\n\n```\n1. Install python3 and vim-common\n   # dnf -y install python3-pip vim-common (RHEL 8.4)\n   # apt -y install python3-pip vim-common (UBUNTU 20.04) \n   ln -s /usr/bin/python3 /usr/bin/python  > /dev/null 2>&1\n   ln -s /usr/bin/pip3 /usr/bin/pip  > /dev/null 2>&1\n\n2. Install pykmip\n   # pip3 install pykmip==0.9.1\n\n3. In the /etc/ directory create pykmip and policies folders\n   mkdir -p /etc/pykmip/policies\n\n4. Configure pykmip server using server.conf\n   Update hostname in the server.conf\n\n5. Copy the following to /etc/pykmip/ from kbs_script folder available under binaries directory\n   create_certificates.py, run_server.py, server.conf\n\n6. Create certificates\n   > cd /etc/pykmip\n   > python3 create_certificates.py\n\n7. Kill running KMIP Server processes and wait for 10 seconds until all the KMIP Server processes are killed. \n   > ps -ef | grep run_server.py | grep -v grep | awk '{print $2}' | xargs kill\n\n8. Run pykmip server using run_server.py script\n   > python3 run_server.py &\n\n```\n\n**Install KMIP Server as daemon**\n\n```\n1. cd into /root/binaries/kbs_script folder \n\n2. Configure pykmip server using server.conf\n   Update hostname in the server.conf\n\n3. Run the install_pykmip.sh script and KMIP server will be installed as daemon process\n   ./install_pykmip.sh\n```\n\n**Create RSA key in PyKMIP and generate certificate**\n\nNOTE: This step is required only when PyKMIP script is used as a backend KMIP server.\n\n```\n1. Update Host IP in /root/binaries/kbs_script rsa_create.py script\n2. In the kbs_script folder, Run rsa_create.py script\n    > cd /root/binaries/kbs_script\n    > python3 rsa_create.py\n\nThis script will generate “Private Key ID” and “Server certificate”, which should be provided in the kbs.conf file for “KMIP_KEY_ID” and “SERVER_CERT”.\n```\n\n**Configuration Update to create Keys in KBS**\n    \n    cd into /root/binaries/kbs_script folder\n\t\n    **To register keys with KBS KMIP**\n    \n    Update the following variables in kbs.conf:\n    \n        KMIP_KEY_ID (Private key ID registered in KMIP server)\n        \n        SERVER_CERT (Server certificate for created private key)\n\t\t\n\t\tEnterprise system IP address where CMS, AAS and KBS services are deployed\n        \n\t\tPort of CMS, AAS and KBS services deployed on enterprise system\n    \n\t    AAS admin and Enterprise admin credentials\n        \nNOTE: If KMIP_KEY_ID is not provided then RSA key register will be done with keystring.\n\nUpdate sgx_enclave_measurement_anyof value in transfer_policy_request.json with enclave measurement value obtained using sgx_sign utility. Refer to \"Extracting SGX Enclave values for Key Transfer Policy\" section.\n\n**Create RSA Key**\n\n\tExecute the command\n\t\n\t./run.sh reg\n\nCopy the generated cert file to SGX Compute node where skc_library is deployed. Also make a note of the key id generated.\n\n```\nscp <cert path> root@<SGX Compute Node>:/root/\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "KBS key-transfer flow",
+			"item": [
+				{
+					"name": "sgxVerifyQuote",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerTokenKbs}}",
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quote\": \"AwACAAAAAAAGAAsAk5pyM/ecTKmUCg2zlX8GB1obJ5fsdDPnqdQKnQySLq8AAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAACQRv4RMZIqKxheSPQ+Pc+dHNEUmWv8x8+P7sOH3TXh2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAKDtqek5bBMZRqfK0bQkYtKolooktdT+kXCjZXrDzYKTkXgC8UPM1QHeMxQCbeHdZ6o5igkRoZRYW3GuWCYui43pgRaXXbd2MT6X0ze8XzF3hSdjqPO77qTq9UFAilX1a6/gO87m25OTrJoH1L+/puPi463SpCq+QXjGm7NqQEG8AgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAFxgaTuTglIDbWPPgJ2tBdKqHc0aTg3f+RFRMLraJCY+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyDi60vm5l2dlHVt1Z7oFyIIUp62D5NZh2HewYoKELGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANYQn/wjmyNhTRju1HFZR6bTRkPCNGSr7EWR7PVE2v12HznKjxP1FYsjBc5gheh1XFscxrpfqQr9od8SCObzUKSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBS0xmb3lxSno1WC9DNWZ4VThoZ252aUJnTlRFTUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJeE1EZ3kKTmpBMk1qTXhPRm9YRFRJNE1EZ3lOakEyTWpNeE9Gb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVFWZXoxbCtKR1MKclNYay9oc29MR0owT3ZZTnJsbGhOZW8zVXFDWW50OU9CWG5MMEsveVVaUVdKOHRnVHRUZ0RFTGE4T0FzdGFTMlo0SDM1TWVuMWlwSgpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVRTEcxYXRRNAplSFJTdTg0UjhCd1U3NFR0V3Fvd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBREU4UENSZzR1VTg2MGtDOXNaNzRrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFKaXAvdnVvT1VycjYzbUJrOEVncjFEQkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQU0vMmhGNno3aE5GaDdRVmhxYzVjZEFWYUtXamRPVjllK1ZIaUxMamNNZUlBaUVBcW9ueVoxYllyeGh1WThMZQpDYnloemgyUE1iYWFlTEdrVU9nUFlpR0lHSGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}"
+						},
+						"url": {
+							"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/sgx_qv_verify_quote",
+							"protocol": "https",
+							"host": [
+								"{{sqvs}}"
+							],
+							"port": "{{sqvsPort}}",
+							"path": [
+								"svs",
+								"v1",
+								"sgx_qv_verify_quote"
+							]
+						},
+						"description": "Verifies the SGX ECDSA quote provided in the request body.\nQuote verifier requests SGX Quote Verification Service (SQVS) to verify quote.\nSQVS parses the quote, verifies all the parameters in the quote and returns the response.\n"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenKbs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quote\": \"AwACAAAAAAAGAAsAk5pyM/ecTKmUCg2zlX8GB1obJ5fsdDPnqdQKnQySLq8AAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAACQRv4RMZIqKxheSPQ+Pc+dHNEUmWv8x8+P7sOH3TXh2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAKDtqek5bBMZRqfK0bQkYtKolooktdT+kXCjZXrDzYKTkXgC8UPM1QHeMxQCbeHdZ6o5igkRoZRYW3GuWCYui43pgRaXXbd2MT6X0ze8XzF3hSdjqPO77qTq9UFAilX1a6/gO87m25OTrJoH1L+/puPi463SpCq+QXjGm7NqQEG8AgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAFxgaTuTglIDbWPPgJ2tBdKqHc0aTg3f+RFRMLraJCY+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyDi60vm5l2dlHVt1Z7oFyIIUp62D5NZh2HewYoKELGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANYQn/wjmyNhTRju1HFZR6bTRkPCNGSr7EWR7PVE2v12HznKjxP1FYsjBc5gheh1XFscxrpfqQr9od8SCObzUKSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBS0xmb3lxSno1WC9DNWZ4VThoZ252aUJnTlRFTUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJeE1EZ3kKTmpBMk1qTXhPRm9YRFRJNE1EZ3lOakEyTWpNeE9Gb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVFWZXoxbCtKR1MKclNYay9oc29MR0owT3ZZTnJsbGhOZW8zVXFDWW50OU9CWG5MMEsveVVaUVdKOHRnVHRUZ0RFTGE4T0FzdGFTMlo0SDM1TWVuMWlwSgpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVRTEcxYXRRNAplSFJTdTg0UjhCd1U3NFR0V3Fvd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBREU4UENSZzR1VTg2MGtDOXNaNzRrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFKaXAvdnVvT1VycjYzbUJrOEVncjFEQkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQU0vMmhGNno3aE5GaDdRVmhxYzVjZEFWYUtXamRPVjllK1ZIaUxMamNNZUlBaUVBcW9ueVoxYllyeGh1WThMZQpDYnloemgyUE1iYWFlTEdrVU9nUFlpR0lHSGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/sgx_qv_verify_quote",
+									"protocol": "https",
+									"host": [
+										"{{sqvs}}"
+									],
+									"port": "{{sqvsPort}}",
+									"path": [
+										"svs",
+										"v1",
+										"sgx_qv_verify_quote"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 08 Sep 2021 21:33:07 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "348"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"reportData\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n    \"Message\": \"SGX_QL_QV_RESULT_OK\",\n    \"EnclaveIssuer\": \"d412a4f07ef83892a5915fb2ab584be31e186e5a4f95ab5f6950fd4eb8694d7b\",\n    \"EnclaveMeasurement\": \"2411bf844c648a8ac617923d0f8f73e7473445265aff31f3e3fbb0e1f74d7876\",\n    \"EnclaveIssuerProdID\": \"00\",\n    \"IsvSvn\": \"00\",\n    \"TcbLevel\": \"OutOfDate\"\n}"
+						},
+						{
+							"name": "sgxVerifyQuote",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearerTokenKbs}}",
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quote\": \"AwACAAAAAAAGAAsAk5pyM/ecTKmUCg2zlX8GB1obJ5fsdDPnqdQKnQySLq8AAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAACQRv4RMZIqKxheSPQ+Pc+dHNEUmWv8x8+P7sOH3TXh2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAKDtqek5bBMZRqfK0bQkYtKolooktdT+kXCjZXrDzYKTkXgC8UPM1QHeMxQCbeHdZ6o5igkRoZRYW3GuWCYui43pgRaXXbd2MT6X0ze8XzF3hSdjqPO77qTq9UFAilX1a6/gO87m25OTrJoH1L+/puPi463SpCq+QXjGm7NqQEG8AgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAFxgaTuTglIDbWPPgJ2tBdKqHc0aTg3f+RFRMLraJCY+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACyDi60vm5l2dlHVt1Z7oFyIIUp62D5NZh2HewYoKELGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANYQn/wjmyNhTRju1HFZR6bTRkPCNGSr7EWR7PVE2v12HznKjxP1FYsjBc5gheh1XFscxrpfqQr9od8SCObzUKSAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBS0xmb3lxSno1WC9DNWZ4VThoZ252aUJnTlRFTUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJeE1EZ3kKTmpBMk1qTXhPRm9YRFRJNE1EZ3lOakEyTWpNeE9Gb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVFWZXoxbCtKR1MKclNYay9oc29MR0owT3ZZTnJsbGhOZW8zVXFDWW50OU9CWG5MMEsveVVaUVdKOHRnVHRUZ0RFTGE4T0FzdGFTMlo0SDM1TWVuMWlwSgpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVRTEcxYXRRNAplSFJTdTg0UjhCd1U3NFR0V3Fvd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBREU4UENSZzR1VTg2MGtDOXNaNzRrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFKaXAvdnVvT1VycjYzbUJrOEVncjFEQkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQU0vMmhGNno3aE5GaDdRVmhxYzVjZEFWYUtXamRPVjllK1ZIaUxMamNNZUlBaUVBcW9ueVoxYllyeGh1WThMZQpDYnloemgyUE1iYWFlTEdrVU9nUFlpR0lHSGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v1/sgx_qv_verify_quote",
+									"protocol": "https",
+									"host": [
+										"{{sqvs}}"
+									],
+									"port": "{{sqvsPort}}",
+									"path": [
+										"svs",
+										"v1",
+										"sgx_qv_verify_quote"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:27:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "348"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"reportData\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n    \"Message\": \"SGX_QL_QV_RESULT_OK\",\n    \"EnclaveIssuer\": \"d412a4f07ef83892a5915fb2ab584be31e186e5a4f95ab5f6950fd4eb8694d7b\",\n    \"EnclaveMeasurement\": \"2411bf844c648a8ac617923d0f8f73e7473445265aff31f3e3fbb0e1f74d7876\",\n    \"EnclaveIssuerProdID\": \"00\",\n    \"IsvSvn\": \"00\",\n    \"TcbLevel\": \"OutOfDate\"\n}"
+						}
+					]
+				},
+				{
+					"name": "sgxVerifyQuoteAndSign",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{bearerTokenKbs}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quote\": \"<string>\",\n    \"userData\": \"<string>\",\n    \"nonce\": \"<string>\",\n    \"challenge\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v2/sgx_qv_verify_quote",
+							"protocol": "https",
+							"host": [
+								"{{sqvs}}"
+							],
+							"port": "{{sqvsPort}}",
+							"path": [
+								"svs",
+								"v2",
+								"sgx_qv_verify_quote"
+							]
+						},
+						"description": "Verifies the SGX ECDSA quote provided in the request body.\nQuote verifier requests SGX Quote Verification Service (SQVS) to verify quote.\nSQVS parses the quote, verifies all the parameters in the quote and returns the response.\nIt signs the quote verification response in case it is configured to do so.\n\n\nNote: KBS is not going to use this API in v3.6GA Release, it will be used in future releases."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{bearerTokenKbs}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quote\": \"AwACAAAAAAAFAAoAk5pyM/ecTKmUCg2zlX8GByMqADFimUjvNnla5ELEz5AAAAAAAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAADnAAAAAAAAAMEUXU9fPsSXu9VcnFDf+o0OOlDKxxXq1A9B47TK5HugAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUEqTwfvg4kqWRX7KrWEvjHhhuWk+Vq19pUP1OuGlNewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2BAAAMcpaIKGq3SkXNzLrRhqjAmdIj2kNCRXwhTWgcTx+xhJew2QQHxw8AkfKwx3mloCnU6sspA8elDHqofy5AQozwcSs0GGQsADhMYYjuG0Ex3Uyylqp8MA+MJujMJfWWOhRitQe/PPdtONXpbTLPohfxB0SR7JG04DzVYXJlvVLN9dAgIAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAADnAAAAAAAAAGDYWvKL6NHECgjZiwCdX4rME4Sjhc9GCADkeHkdGpecAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMT1d115ZQPpYTf3fGioKaAFasje1wFAsIGwlEkMV7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+QaxkHLkZmIYLtuxD6wi2Ejwml2sYwklUVVn0ilgz2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfCvbOVDHdLksINRQVMr2O4w2DH4EaEyaJCr3HTDLQUmyGSTENR6VBAnJAHXNTuxsIEfCP8jM0RPeD2gtIABhcyAAAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8FAHAOAAAtLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRTlqQ0NCSnVnQXdJQkFnSVZBTW5hTlU0VXNxc0xQNFQ4MXhHNVY4d0xCVlJ6TUFvR0NDcUdTTTQ5QkFNQ01IQXhJakFnQmdOVgpCQU1NR1VsdWRHVnNJRk5IV0NCUVEwc2dVR3hoZEdadmNtMGdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52Y25CdmNtRjBhVzl1Ck1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUpCZ05WQkFZVEFsVlRNQjRYRFRJd01USXgKTmpBNE1EY3lNMW9YRFRJM01USXhOakE0TURjeU0xb3djREVpTUNBR0ExVUVBd3daU1c1MFpXd2dVMGRZSUZCRFN5QkRaWEowYVdacApZMkYwWlRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnUTI5eWNHOXlZWFJwYjI0eEZEQVNCZ05WQkFjTUMxTmhiblJoSUVOc1lYSmhNUXN3CkNRWURWUVFJREFKRFFURUxNQWtHQTFVRUJoTUNWVk13V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPUFFNQkJ3TkNBQVNnR3pJL2o5VXEKYk9hRGJnSHF2V0J3ZW80ZEhPS0M4dmRBMWh3d3BpU2hhbVJqbU9ObDdYUGtLeGptT1h1NXlHb3U5S1J5cExTVSs1RURvQm4xbm9QVwpvNElERURDQ0F3d3dId1lEVlIwakJCZ3dGb0FVV1NQVHAwcW9ZMVF1T1hDdDRBOEhLMWNrS3Jjd2J3WURWUjBmQkdnd1pqQmtvR0tnCllJWmVhSFIwY0hNNkx5OXpZbmd1WVhCcExuUnlkWE4wWldSelpYSjJhV05sY3k1cGJuUmxiQzVqYjIwdmMyZDRMMk5sY25ScFptbGoKWVhScGIyNHZkak12Y0dOclkzSnNQMk5oUFhCc1lYUm1iM0p0Sm1WdVkyOWthVzVuUFdSbGNqQWRCZ05WSFE0RUZnUVVlTkVoWXoycQplays1SjdwY3oxMjNDNHV4MzRjd0RnWURWUjBQQVFIL0JBUURBZ2JBTUF3R0ExVWRFd0VCL3dRQ01BQXdnZ0k1QmdrcWhraUcrRTBCCkRRRUVnZ0lxTUlJQ0pqQWVCZ29xaGtpRytFMEJEUUVCQkJBY2RIcXJkZ0tIQlVWRUZvajVnancrTUlJQll3WUtLb1pJaHZoTkFRMEIKQWpDQ0FWTXdFQVlMS29aSWh2aE5BUTBCQWdFQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdJQ0FRSXdFQVlMS29aSWh2aE5BUTBCQWdNQwpBUUF3RUFZTEtvWklodmhOQVEwQkFnUUNBUUF3RUFZTEtvWklodmhOQVEwQkFnVUNBUUF3RUFZTEtvWklodmhOQVEwQkFnWUNBUUF3CkVBWUxLb1pJaHZoTkFRMEJBZ2NDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2dDQVFBd0VBWUxLb1pJaHZoTkFRMEJBZ2tDQVFBd0VBWUwKS29aSWh2aE5BUTBCQWdvQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWdzQ0FRQXdFQVlMS29aSWh2aE5BUTBCQWd3Q0FRQXdFQVlMS29aSQpodmhOQVEwQkFnMENBUUF3RUFZTEtvWklodmhOQVEwQkFnNENBUUF3RUFZTEtvWklodmhOQVEwQkFnOENBUUF3RUFZTEtvWklodmhOCkFRMEJBaEFDQVFBd0VBWUxLb1pJaHZoTkFRMEJBaEVDQVFvd0h3WUxLb1pJaHZoTkFRMEJBaElFRUFJQ0FBQUFBQUFBQUFBQUFBQUEKQUFBd0VBWUtLb1pJaHZoTkFRMEJBd1FDQUFBd0ZBWUtLb1pJaHZoTkFRMEJCQVFHSUdCcUFBQUFNQThHQ2lxR1NJYjRUUUVOQVFVSwpBUUV3SGdZS0tvWklodmhOQVEwQkJnUVFrZkNIaG5mR3pranVDZ1AyaG1Mem16QkVCZ29xaGtpRytFMEJEUUVITURZd0VBWUxLb1pJCmh2aE5BUTBCQndFQkFmOHdFQVlMS29aSWh2aE5BUTBCQndJQkFRQXdFQVlMS29aSWh2aE5BUTBCQndNQkFmOHdDZ1lJS29aSXpqMEUKQXdJRFNRQXdSZ0loQUtMRWxXVEMwRzd2cmM5cGhvR01BWWRMSFl5N244YksxMjZWTWw5TG9CUmZBaUVBbWNUMXRvNWpHNVBSSW5hMApTZUZVdlIrVXFHVG5LaSthM2lkVTYraEFRL0U9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0tLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJQ21qQ0NBa0NnQXdJQkFnSVVXU1BUcDBxb1kxUXVPWEN0NEE4SEsxY2tLcmN3Q2dZSUtvWkl6ajBFQXdJdwphREVhTUJnR0ExVUVBd3dSU1c1MFpXd2dVMGRZSUZKdmIzUWdRMEV4R2pBWUJnTlZCQW9NRVVsdWRHVnNJRU52CmNuQnZjbUYwYVc5dU1SUXdFZ1lEVlFRSERBdFRZVzUwWVNCRGJHRnlZVEVMTUFrR0ExVUVDQXdDUTBFeEN6QUoKQmdOVkJBWVRBbFZUTUI0WERURTVNVEF6TVRFeU16TTBOMW9YRFRNME1UQXpNVEV5TXpNME4xb3djREVpTUNBRwpBMVVFQXd3WlNXNTBaV3dnVTBkWUlGQkRTeUJRYkdGMFptOXliU0JEUVRFYU1CZ0dBMVVFQ2d3UlNXNTBaV3dnClEyOXljRzl5WVhScGIyNHhGREFTQmdOVkJBY01DMU5oYm5SaElFTnNZWEpoTVFzd0NRWURWUVFJREFKRFFURUwKTUFrR0ExVUVCaE1DVlZNd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRd3ArTGMrVFVCdGcxSAorVThKSXNNc2JqSGpDa1R0WGI4alBNNnIyZGh1OXpJYmxoRFo3SU5mcXQzSXg4WGNGS0Q4azBORVhya1o2NnFKClhhMUt6TElLbzRHL01JRzhNQjhHQTFVZEl3UVlNQmFBRk9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1GWUcKQTFVZEh3UlBNRTB3UzZCSm9FZUdSV2gwZEhCek9pOHZjMko0TFdObGNuUnBabWxqWVhSbGN5NTBjblZ6ZEdWawpjMlZ5ZG1salpYTXVhVzUwWld3dVkyOXRMMGx1ZEdWc1UwZFlVbTl2ZEVOQkxtUmxjakFkQmdOVkhRNEVGZ1FVCldTUFRwMHFvWTFRdU9YQ3Q0QThISzFja0tyY3dEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUkKTUFZQkFmOENBUUF3Q2dZSUtvWkl6ajBFQXdJRFNBQXdSUUloQUoxcStGVHorZ1V1VmZCUXVDZ0pzRnJMMlRUUwplMWFCWjUzTzUyVGpGaWU2QWlBcmlQYVJhaFVYOU9hOWtHTGxBY2hXWEtUNmo0UldTUjUwQnFock4zVVQ0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNsRENDQWptZ0F3SUJBZ0lWQU9ub1JGSlRObHhMR0pvUi9FTVlMS1hjSUlCSU1Bb0dDQ3FHU000OUJBTUMKTUdneEdqQVlCZ05WQkFNTUVVbHVkR1ZzSUZOSFdDQlNiMjkwSUVOQk1Sb3dHQVlEVlFRS0RCRkpiblJsYkNCRApiM0p3YjNKaGRHbHZiakVVTUJJR0ExVUVCd3dMVTJGdWRHRWdRMnhoY21FeEN6QUpCZ05WQkFnTUFrTkJNUXN3CkNRWURWUVFHRXdKVlV6QWVGdzB4T1RFd016RXdPVFE1TWpGYUZ3MDBPVEV5TXpFeU16VTVOVGxhTUdneEdqQVkKQmdOVkJBTU1FVWx1ZEdWc0lGTkhXQ0JTYjI5MElFTkJNUm93R0FZRFZRUUtEQkZKYm5SbGJDQkRiM0p3YjNKaApkR2x2YmpFVU1CSUdBMVVFQnd3TFUyRnVkR0VnUTJ4aGNtRXhDekFKQmdOVkJBZ01Ba05CTVFzd0NRWURWUVFHCkV3SlZVekJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEEwSUFCRS82RC8xV0hOcld3UG1OTUl5QktNVzUKSjZKek1zam82eFAydmtLMWNkWkdiMVBHUlAvQy84RUNnaURrbWtsbXp3THpMaSswMDBtN0xMcnRLSkEzb0MyagpnYjh3Z2J3d0h3WURWUjBqQkJnd0ZvQVU2ZWhFVWxNMlhFc1ltaEg4UXhnc3Bkd2dnRWd3VmdZRFZSMGZCRTh3ClRUQkxvRW1nUjRaRmFIUjBjSE02THk5elluZ3RZMlZ5ZEdsbWFXTmhkR1Z6TG5SeWRYTjBaV1J6WlhKMmFXTmwKY3k1cGJuUmxiQzVqYjIwdlNXNTBaV3hUUjFoU2IyOTBRMEV1WkdWeU1CMEdBMVVkRGdRV0JCVHA2RVJTVXpaYwpTeGlhRWZ4REdDeWwzQ0NBU0RBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRFZSMFRBUUgvQkFnd0JnRUIvd0lCCkFUQUtCZ2dxaGtqT1BRUURBZ05KQURCR0FpRUF6dzl6ZFVpVUhQTVVkMEM0bXg0MWpsRlprck0zeTVmMWxnblYKTzdGYmpPb0NJUUNvR3RVbVQ0Y1h0N1YreVNIYko4SG9iOUFhbnB2WE5IMUVSKy9nWkYrb3BRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\",\n    \"userData\": \"\",\n    \"challenge\": \"abcd\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v2/sgx_qv_verify_quote",
+									"protocol": "https",
+									"host": [
+										"{{sqvs}}"
+									],
+									"port": "{{sqvsPort}}",
+									"path": [
+										"svs",
+										"v2",
+										"sgx_qv_verify_quote"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 30 Apr 2021 10:39:52 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"quoteData\":\"<Base 64 encoded JSON>\",\n    \"signature\": \"<Digital Signature of the content of response field>\",\n    \"certificateChain\": \"<Chain of leaf and intermediate certs>\"\n}"
+						},
+						{
+							"name": "sgxVerifyQuoteAndSign",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"description": "Enter your bearer token in the format **Bearer &lt;token&gt;**",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{bearerTokenKbs}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quote\": \"<string>\",\n    \"userData\": \"<string>\",\n    \"nonce\": \"<string>\",\n    \"challenge\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{sqvs}}:{{sqvsPort}}/svs/v2/sgx_qv_verify_quote",
+									"protocol": "https",
+									"host": [
+										"{{sqvs}}"
+									],
+									"port": "{{sqvsPort}}",
+									"path": [
+										"svs",
+										"v2",
+										"sgx_qv_verify_quote"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 07:27:25 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"quoteData\": \"eyJNZXNzYWdlIjoiNDAwOiBDb3VsZCBub3QgcGFyc2Ugc2d4IGVjZHNhIHF1b3RlIiwiUXVvdGUiOiJcdTAwM2NzdHJpbmdcdTAwM2UiLCJDaGFsbGVuZ2UiOiJcdTAwM2NzdHJpbmdcdTAwM2UifQ==\",\n    \"signature\": \"XJooNmrfeeS/IVMr95YyDTXgU7VSs4rcCuBl6JtlGv9oQPih+c74akJa17Ai9QlNlysKK9L9AsX8x4zw3RBin64p9s1ZV9pF5rEXEJCXUO7HJDHphZ5fWYoVutgV1T1FbmBGZLhYCNf/7cr1VsggI6wJjRKPAHbi88J+buaYW/YuCoXExWJEv56O/jGVena8O4lYkYm2VzdC9Q7hanoj3npCBSE/mT3xsaKaTt6XmVWD7bXXHS+ly9doaAXlZMxv2Om/SJUAxWXRYqBl/s+7LdzVX6ATth22W/jsx3vj1/SI6OpXfqJhj0odRjcBkt+neP/tlfq1gp3M3dH4NNnwP6zeiCCL6NWHc3E1Aw3iGFY+e34xhhiwhY1OD63xU+sKcmCnIyaI3RfDZZuK9OYMNtPg2UGlXPz7ObO2PvM/2Qp/gJzvYIjvVg9ADSGHtGjpoLY//Mo7NOKnCkd7WtLHxEU7iuf7wtrZHjAM3OxI/iqYvxKQ03bqF3Np2c8e1jQ3\",\n    \"certificateChain\": \"-----BEGIN CERTIFICATE-----\\nMIIELjCCApagAwIBAgIBETANBgkqhkiG9w0BAQwFADBQMQswCQYDVQQGEwJVUzEL\\nMAkGA1UECBMCU0YxCzAJBgNVBAcTAlNDMQ4wDAYDVQQKEwVJTlRFTDEXMBUGA1UE\\nAxMOQ01TIFNpZ25pbmcgQ0EwHhcNMjIxMjIyMDQ0MTMzWhcNMjMxMjIyMDQ0MTMz\\nWjAwMS4wLAYDVQQDEyVTUVZTIFFWTCBSZXNwb25zZSBTaWduaW5nIENlcnRpZmlj\\nYXRlMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA4DcgA9HBYBa2aNtu\\nm/4TnARniGgLBfswLb7QVMD5msL7DY6GjaFyzLZIStBD0SVphp2GGNqlGnvGEMym\\nU9myCuDPgYSe+tnCeca9MlmFwYsa3P4AauLci1YOVxK/IAJX7CLoa5ft+AYF45DL\\nujnYs/pps9qUshXa3TnkPOTI1kE3r/RC9rPihi/oCQH2X0gbF+yOZGYfJ5L6JmYP\\noKPfz2Krl6OVRe04CNzRTOn3/G9lGkLlg6pIZnMOyKxhKL21qeG225xxcDRQhHEs\\nH8XO0KKZqe7e+xspeNA9x8W+SaF1pzxjiD4A2/yGUHTYb76XSyAJtaJCpXssxDOD\\nr37vmvKc9hQizIcNjirrdbpgmz5enfBNy23pz5l+K0LIXwIddRehKvCJuMfRLqzL\\nIkMhJ8gvzAu6VUEk7pN+p3TAxIJ9GAe9Yuf2SJT50JtpCFRtosfyIzjZCyZPKOE5\\n8GaXOovaV4Vmm6BNklKCNCc4eW20KFJ981azmooLFB/QFIQlAgMBAAGjMzAxMA4G\\nA1UdDwEB/wQEAwIGwDAfBgNVHSMEGDAWgBTyZDf/gWP+rmua+RVHoWCclBSGxzAN\\nBgkqhkiG9w0BAQwFAAOCAYEAI8n58q43hQBcjJbaCmYvGTbjDIO800rd/Y2dGkSW\\nHPFjX2eFLFNsaXgR8pTgg5cMxhRfSltGJzJd/+r/BT94KFW9YsSGZHMZv6aARa9j\\nm8FYbTCqQo2mlXABec4HcELeR7ayXOdeP//dDKID5Jk7hFYjFrfMllxzWI5+HJIJ\\ngwJR/HBiGqRnLqg59oiu6ImxjrgQC4kQ07y74yyYl2jDJUymwyZFY97xsJW3M6Lz\\n5cvMxjOcY+TBONj2CDfcokoUqVFTta+0+k3NAq/2T9wv5ehLMwTtvrFT9L9wJeDy\\nPSRiwwBaNx0gAJSqgHbVqV+w26Hr0e4bl+6jZOE541jobPgLSvV2eiiYKPOH0Wb/\\nJxi4Ug+VQi3Ne1E0YpPU2DNfwkBE/TZkVkqn3KIWKXVcE7ooaYH9BbFGh2SOjTjQ\\nLBxA0XPpezGndKaFFfrb9D3vSJZJdICkJDV7QAE88ndnxCj1VkBH+RtlVnuW5tav\\nhewRuP3mJVq+x14CAEnJUfhb\\n-----END CERTIFICATE-----\\n-----BEGIN CERTIFICATE-----\\nMIIEdTCCAt2gAwIBAgIBAzANBgkqhkiG9w0BAQwFADBHMQswCQYDVQQGEwJVUzEL\\nMAkGA1UECBMCU0YxCzAJBgNVBAcTAlNDMQ4wDAYDVQQKEwVJTlRFTDEOMAwGA1UE\\nAxMFQ01TQ0EwHhcNMjIxMjIyMDMzNjQ4WhcNMjcxMjIyMDMzNjQ4WjBQMQswCQYD\\nVQQGEwJVUzELMAkGA1UECBMCU0YxCzAJBgNVBAcTAlNDMQ4wDAYDVQQKEwVJTlRF\\nTDEXMBUGA1UEAxMOQ01TIFNpZ25pbmcgQ0EwggGiMA0GCSqGSIb3DQEBAQUAA4IB\\njwAwggGKAoIBgQC5V3uYqBeCqgA9ix2/zrPit994hFhyfwIIpaUe1IECeg7E6LCQ\\nS2Zg3dAzAlwW++NEJtpH+8U4tMG/cmIlLshufzMfthXpr5koUn5Wqj2x8RLEBc2M\\nMYqaGJ3CNsNKx0OfZUQEOrq/zdWlZvWNkV5nliqNb3zbJ5FPZzATgPTTl4fd2BLu\\nRaPP+HY455+5IoVa55k/L5yX3RsMIoczatDmZoSwN3MQRLOCyYp5KuPEt9OPYZGy\\n15bYF8OwESjvJW01bk31mBelp+GWunBzs7CnH4N3wMm1Mk/fk6f1v2Yoz1Kd6hnQ\\nlzOV1vDVq5KFQEfGbxDkDQ/JtAOtSB+BqXTHxVOjK66eUIScn1UeYgtBBbhTtvDC\\naOsEQZQDIXZE/Tm7pwToruu1j/5AUsprE46jDARaFk/xXy2UAhJM4ndUYPfb/QvQ\\nWLeCzVD8VeSZJjDEwyaxYxJ+Kt0HgsPNQ6k6jn7lN3y+clep/i6CTsxB46oopl6k\\n+V8PZQncKJMRQbkCAwEAAaNjMGEwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQF\\nMAMBAf8wHQYDVR0OBBYEFPJkN/+BY/6ua5r5FUehYJyUFIbHMB8GA1UdIwQYMBaA\\nFGSCgjsXtc6XUOAZ8g8yIz4NZzNTMA0GCSqGSIb3DQEBDAUAA4IBgQB1zhZWyJDU\\nyvzopx7E+GtMxDQiTX/DpW01yFDsMB2Cb38qMTKOEkiXDUT9VuWXCtOx3EMa1gRy\\nsWTXeA64YeCxbWsbUfS3Vfdrm/cOPWyxBOk+py9MM2exTygtY8k1aK1YotNrjW3B\\n0psAO/uPkqlgzCTVgGCnOH2xh10oUNR1G6ulFUWdvr5fhDNx+Shp2qYEyRzNLUPv\\nAiPDIZAC7N9u1a8P+tc0/MPBVnBsFnuAFPp36mcOUMxop36bsMh9wo59qrjekmtt\\nRXQpmP2yKxCbq71gO3OFZJ0xmi4vcEx4anlmG7zH26Hk4HZljrMfJFZJizYKhnjp\\nuc/uwibfSAvUDAHzWIg/78moa6iqphLA8aIRqFQFGQmFYzCgUxXLkQOMGtfFXFSR\\njq6s3Miestpv9DFXoEBCAp2DZ18up0UBS4QCsLsbwENFkyWPTPXgOwTr1GkxL9dK\\n87kOhA2vjcJ7hYJ4gHLb7o71/1tAdqLiOXiGp4nudnEinw+GVKvTmvM=\\n-----END CERTIFICATE-----\\n\"\n}"
+						}
+					]
+				}
+			],
+			"description": "1. Nginx will initiate a Key Transfer with the new Key id by calling Key Broker Service (KBS) REST endpoint (GET /v1/keys/:keyId/dhsm2-transfer) and will get a 401 HTTP response from KBS since the session is not established. \n2. Nginx will create a new session key by calling the KBS REST endpoint (POST /v1/session).\n3. SKC Client will send the SGX Quote to KBS, then KBS will verify the quote by calling SGX Quote Verification Service(SQVS) REST endpoint (POST /v1/sgx_qv_verify_quote).\n4. SQVS checks whether the quote signature and PCK Certificate are valid checks other parameters in the quote and returns the verification result. SQVS contacts SGX Caching service (SCS) to make sure that PCKCRL, TCBInfo, and QEIdentity in the quote are correct. \n5. Once the session is successfully established, Again Nginx will initiate a Key Transfer with the key id by calling KBS REST endpoint (GET /v1/keys/:keyId/dhsm2-transfer) and will get the response as key transfer successful.\n\nOn SGX Compute node, Execute below commands for KBS key-transfer:\n\n\nNote: Before initiating key transfer make sure, PYKMIP server is running.\n\n```\n    pkill nginx\n```\n\nRemove any existing pkcs11 token\n\n```\n    rm -rf /opt/intel/cryptoapitoolkit/tokens/*\n```\n\nInitiate Key transfer from KBS\n\n```\n    systemctl restart nginx\n```\n\nChanging group ownership and permissions of pkcs11 token\n\n```\n    chown -R root:intel /opt/intel/cryptoapitoolkit/tokens/\n```\n\n```\n    chmod -R 770 /opt/intel/cryptoapitoolkit/tokens/\n```\n\nEstablish a tls session with the nginx using the key transferred inside the enclave\n\n```\n    wget https://localhost:2443 --no-check-certificate\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -16,14 +16,14 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/json"
-	cos "intel/isecl/lib/common/v4/os"
+	cos "intel/isecl/lib/common/v5/os"
 	"io"
 	"io/ioutil"
 	"math/big"
 	"net/http"
 	"strings"
 
-	"github.com/intel-secl/sample-sgx-attestation/v4/common"
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
 	"github.com/pkg/errors"
 	logger "github.com/sirupsen/logrus"
 )

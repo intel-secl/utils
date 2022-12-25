@@ -3,6 +3,6 @@
 
 FROM curlimages/curl
 
-COPY utils/tools/containers/init-wait/entrypoint.sh /entrypoint.sh
+COPY init-wait/entrypoint.sh /entrypoint.sh
 
 CMD ["/entrypoint.sh"]

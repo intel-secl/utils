@@ -14,32 +14,25 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"encoding/pem"
-	"encoding/xml"
 	"fmt"
+	constants "github.com/intel-secl/intel-secl/v5/pkg/hvs/constants/verifier-rules-and-faults"
 	"io"
 	"io/ioutil"
 	"math/big"
 	"os"
 	"path"
-	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/google/uuid"
-	asset_tag "github.com/intel-secl/intel-secl/v3/pkg/lib/asset-tag"
-	"github.com/intel-secl/intel-secl/v3/pkg/lib/flavor"
-	flavorCommon "github.com/intel-secl/intel-secl/v3/pkg/lib/flavor/common"
-	flavorModel "github.com/intel-secl/intel-secl/v3/pkg/lib/flavor/model"
-	flavorUtil "github.com/intel-secl/intel-secl/v3/pkg/lib/flavor/util"
-	hostConnType "github.com/intel-secl/intel-secl/v3/pkg/lib/host-connector/types"
-	"github.com/intel-secl/intel-secl/v3/pkg/lib/verifier"
-
-	"github.com/intel-secl/intel-secl/v3/pkg/model/hvs"
-	hvsModel "github.com/intel-secl/intel-secl/v3/pkg/model/hvs"
-	taModel "github.com/intel-secl/intel-secl/v3/pkg/model/ta"
+	assetTag "github.com/intel-secl/intel-secl/v5/pkg/lib/asset-tag"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/flavor"
+	flavorUtil "github.com/intel-secl/intel-secl/v5/pkg/lib/flavor/util"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/verifier"
+	hvsModel "github.com/intel-secl/intel-secl/v5/pkg/model/hvs"
+	taModel "github.com/intel-secl/intel-secl/v5/pkg/model/ta"
 	"github.com/pkg/errors"
 
-	pInfo "intel/isecl/lib/platform-info/v3/platforminfo"
+	pInfo "github.com/intel-secl/intel-secl/v5/pkg/lib/hostinfo"
 )
 
 // use these pair of key and cert to sign and verify to make things easier
@@ -52,9 +45,9 @@ var keyRSA *rsa.PrivateKey
 var assetTagHashB64 string
 var aikCertX509 *x509.Certificate
 
-var signedFlavors []hvs.SignedFlavor
+var signedFlavors []hvsModel.SignedFlavor
 
-func Attestation(w io.Writer, tpmSec, aikSec string) error {
+func Attestation(w io.Writer, tpmSec, aikSec, eventLogFilePath string) error {
 	var err error
 	tpmOwnerSecret = tpmSec
 	aikSecret = aikSec
@@ -73,14 +66,11 @@ func Attestation(w io.Writer, tpmSec, aikSec string) error {
 	if err != nil {
 		return errors.Wrap(err, "failed to create asset tag")
 	}
-	tempX509AttrCert, err := flavorModel.NewX509AttributeCertificate(assetTagCert)
+	tempX509AttrCert, err := hvsModel.NewX509AttributeCertificate(assetTagCert)
 	if err != nil {
 		return errors.Wrap(err, "flavorModel.NewX509AttributeCertificate(assetTagCert) failed")
 	}
-	hwUUID, err := pInfo.HardwareUUID()
-	if err != nil {
-		return errors.Wrap(err, "failed to get hw uuid")
-	}
+	hwUUID := pInfo.NewHostInfoParser().Parse().HardwareUUID
 	newTagCert := hvsModel.TagCertificate{
 		Certificate:  assetTagCert.Raw,
 		Subject:      tempX509AttrCert.Subject,
@@ -92,7 +82,7 @@ func Attestation(w io.Writer, tpmSec, aikSec string) error {
 	newTagCert.SetAssetTagDigest()
 	assetTagHashB64 = newTagCert.TagCertDigest
 	// get host manifest
-	manifest, err := getHostManifest()
+	manifest, err := getHostManifest(eventLogFilePath)
 	if err != nil {
 		return errors.Wrap(err, "failed to create host manifest")
 	}
@@ -116,7 +106,7 @@ func Attestation(w io.Writer, tpmSec, aikSec string) error {
 	if err != nil {
 		return errors.Wrap(err, "failed to create verifier")
 	}
-	collectiveTrustReport := hvs.TrustReport{}
+	collectiveTrustReport := hvsModel.TrustReport{}
 	for _, flv := range signedFlavors {
 		r, err := v.Verify(manifest, &flv, true)
 		if err != nil {
@@ -124,6 +114,11 @@ func Attestation(w io.Writer, tpmSec, aikSec string) error {
 		}
 		collectiveTrustReport.AddResults(r.Results)
 	}
+
+	collectiveTrustReport.HostManifest = *manifest
+	collectiveTrustReport.Trusted = collectiveTrustReport.IsTrusted()
+	collectiveTrustReport.PolicyName = constants.IntelBuilder
+
 	npwacmFound = fileExists(CheckNPWACMFile)
 	// if npw_acm detected, report can be untrusted but output is still passed
 	// as long as pcr 17 18 is the fault
@@ -185,11 +180,11 @@ func createTestKeyAndCert() error {
 
 // this function creates asset tag certificate
 func createAssetTag() (*x509.Certificate, error) {
-	tagConfig := asset_tag.TagCertConfig{
+	tagConfig := hvsModel.TagCertConfig{
 		SubjectUUID: "803f6068-06da-e811-906e-00163566263e",
 		PrivateKey:  keyRSA,
 		TagCACert:   certX509,
-		TagAttributes: []asset_tag.TagKvAttribute{{
+		TagAttributes: []hvsModel.TagKvAttribute{{
 			Key:   "Country",
 			Value: "US",
 		}, {
@@ -198,7 +193,7 @@ func createAssetTag() (*x509.Certificate, error) {
 		}},
 		ValidityInSeconds: 1000,
 	}
-	newTag := asset_tag.NewAssetTag()
+	newTag := assetTag.NewAssetTag()
 	tagCertificate, err := newTag.CreateAssetTag(tagConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create tag cert")
@@ -213,14 +208,11 @@ func createAssetTag() (*x509.Certificate, error) {
 // this function is doing things happens in function:
 //     func (ic *IntelConnector) GetHostManifestAcceptNonce(nonce string) (types.HostManifest, error)
 // written in file
-//     https://gitlab.devtools.intel.com/sst/isecl/intel-secl/-/blob/v3.1/develop/pkg/lib/host-connector/intel_host_connector.go
-func getHostManifest() (*hostConnType.HostManifest, error) {
+//    https://github.com/intel-innersource/applications.security.isecl.intel-secl/blob/v3.1/develop/pkg/lib/host-connector/host_connector.go
+func getHostManifest(eventLogFilePath string) (*hvsModel.HostManifest, error) {
 	var hostInfo taModel.HostInfo
 	// hostManifest.HostInfo is platform info
-	platformInfo, err := pInfo.GetPlatformInfo()
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to get platform info")
-	}
+	platformInfo := pInfo.NewHostInfoParser().Parse()
 	platformInfoJSON, err := json.Marshal(platformInfo)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to marshal platform info")
@@ -229,15 +221,15 @@ func getHostManifest() (*hostConnType.HostManifest, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to unmarshal host info")
 	}
-	hostManifest := hostConnType.HostManifest{HostInfo: hostInfo}
+	hostManifest := hvsModel.HostManifest{HostInfo: hostInfo}
 	pcrBankList := []string{"SHA1", "SHA256"}
-	tpmQuoteByte, err := tpm.GetTpmQuote(aikSecret, quoteNonce, pcrBankList, pcrList)
+	tpmQuoteByte, err := tpm.GetTpmQuote(quoteNonce, pcrBankList, pcrList)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get tpm quote")
 	}
 	// Nonce is not checked in the verifier, by pass it for this test
 	// not recreating verificationNonceInBytes
-	err = tpm.CreateAik(tpmOwnerSecret, aikSecret)
+	err = tpm.CreateAik(tpmOwnerSecret)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create aik")
 	}
@@ -256,18 +248,29 @@ func getHostManifest() (*hostConnType.HostManifest, error) {
 	if _, err = os.Stat(EventLogFile); os.IsNotExist(err) {
 		return nil, errors.Wrap(err, "event log: measure log file not exist")
 	}
-	eventLogBytes, err := ioutil.ReadFile(EventLogFile)
-	err = xml.Unmarshal(eventLogBytes, new(interface{}))
-	if err != nil {
-		return nil, errors.Wrap(err, "measure log xml is not valid")
+	// read event log measurement file
+	if _, err = os.Stat(EventLogFile); os.IsNotExist(err) {
+		return nil, errors.Wrap(err, "event log: measure log file not exist")
 	}
-	// this was needed to avoid an error in HVS parsing...
-	// 'Current state not START_ELEMENT, END_ELEMENT or ENTITY_REFERENCE'
-	xml := string(eventLogBytes)
-	xml = strings.Replace(xml, " ", "", -1)
-	xml = strings.Replace(xml, "\t", "", -1)
-	xml = strings.Replace(xml, "\n", "", -1)
-	eventLogBytes = []byte(xml)
+	txtParser := &txtEventLogParser{
+		devMemFilePath:    DevMemFilePath,
+		txtHeapBaseOffset: TxtHeapBaseOffset,
+		txtHeapSizeOffset: TxtHeapSizeOffset,
+	}
+
+	eventLogs, err := txtParser.GetEventLogs()
+	if err != nil {
+		return nil, errors.Wrap(err, "error getting event logs from host")
+	}
+	eventLogBytes, err := json.Marshal(eventLogs)
+	if err != nil {
+		return nil, errors.Wrap(err, "error encoding eventLogs to JSON")
+	}
+
+	err = ioutil.WriteFile(eventLogFilePath, eventLogBytes, 0777)
+	if err != nil {
+		return nil, errors.Wrap(err, "error writing eventLog to file")
+	}
 
 	// hostConnUtil.VerifyQuoteAndGetPCRManifest uses these operations
 	// to extract information for validating nonce
@@ -289,33 +292,18 @@ func getHostManifest() (*hostConnType.HostManifest, error) {
 	if assetTagHashB64 == "" {
 		return nil, errors.New("asset tag hasn't be created yet")
 	}
-	// tcbMeasurments
-	var tcbMeasurements []string
-	fileInfo, err := ioutil.ReadDir(RamfsDir)
-	if err != nil {
-		return nil, err
-	}
-	for _, file := range fileInfo {
-		if filepath.Ext(file.Name()) == ".xml" {
-			xml, err := ioutil.ReadFile(RamfsDir + file.Name())
-			if err != nil {
-				return nil, errors.Wrap(err, "error reading manifest file "+file.Name())
-			}
-			tcbMeasurements = append(tcbMeasurements, string(xml))
-		}
-	}
 	hostManifest.PcrManifest = pcrManifest
+	hostManifest.HostInfo = *platformInfo
 	hostManifest.AIKCertificate = aikCertificateBase64
 	hostManifest.AssetTagDigest = assetTagHashB64
-	// binding not used for attedstation
+	// binding key certificate not used for attestation
 	hostManifest.BindingKeyCertificate = base64.StdEncoding.EncodeToString(certBytes)
-	hostManifest.MeasurementXmls = tcbMeasurements
 	return &hostManifest, nil
 }
 
-// this function creats platforms
-func generateFlavor(m *hostConnType.HostManifest, tagCert *x509.Certificate) ([]hvs.SignedFlavor, error) {
-	pfp, err := flavor.NewPlatformFlavorProvider(m, tagCert)
+// this function creates platform flavor
+func generateFlavor(m *hvsModel.HostManifest, tagCert *x509.Certificate) ([]hvsModel.SignedFlavor, error) {
+	pfp, err := flavor.NewPlatformFlavorProvider(m, tagCert, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed creating platform flavor provider")
 	}
@@ -323,7 +311,7 @@ func generateFlavor(m *hostConnType.HostManifest, tagCert *x509.Certificate) ([]
 	if err != nil {
 		return nil, errors.Wrap(err, "failed generating platform flavor")
 	}
-	unsignedFlavors, err := (*flv).GetFlavorPartRaw(flavorCommon.FlavorPartPlatform)
+	unsignedFlavors, err := (*flv).GetFlavorPartRaw(hvsModel.FlavorPartPlatform)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed getting flavor parts")
 	}
@@ -453,7 +441,7 @@ func saveAttestationFiles() error {
 	return nil
 }
 
-func saveHostManifestAndReport(ts string, m *hostConnType.HostManifest, r *hvs.TrustReport) error {
+func saveHostManifestAndReport(ts string, m *hvsModel.HostManifest, r *hvsModel.TrustReport) error {
 	manifestFullpath := path.Join(SavedManifestDir, ts)
 	mb, err := json.Marshal(m)
 	if err != nil {
@@ -480,15 +468,15 @@ func fileExists(path string) bool {
 	return !os.IsNotExist(err)
 }
 
-func byPassPCR17And18(r *hvs.TrustReport) bool {
+func byPassPCR17And18(r *hvsModel.TrustReport) bool {
 	if !npwacmFound || r == nil {
 		return false
 	}
 	for _, ri := range r.Results {
 		if !ri.Trusted {
 			if ri.Rule.ExpectedPcr != nil {
-				if ri.Rule.ExpectedPcr.Index != 17 &&
-					ri.Rule.ExpectedPcr.Index != 18 {
+				if ri.Rule.ExpectedPcr.Pcr.Index != 17 &&
+					ri.Rule.ExpectedPcr.Pcr.Index != 18 {
 					return false
 				}
 			} else {

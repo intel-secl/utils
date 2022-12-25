@@ -10,8 +10,8 @@ import (
 	"math/big"
 	"strconv"
 
-	"github.com/intel-secl/sample-sgx-attestation/v4/attestingApp/controllers"
-	"github.com/intel-secl/sample-sgx-attestation/v4/common"
+	"github.com/intel-secl/sample-sgx-attestation/v5/attestingApp/controllers"
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
 	"github.com/pkg/errors"
 )
 

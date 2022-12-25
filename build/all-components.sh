@@ -9,9 +9,6 @@ echo "Installing Workload Security pre-reqs"
 cd workload-security/
 chmod +x ws-prereq.sh
 
-#VM-C
-./ws-prereq.sh -v
-
 #Container-Conf-Docker
 ./ws-prereq.sh -d
 

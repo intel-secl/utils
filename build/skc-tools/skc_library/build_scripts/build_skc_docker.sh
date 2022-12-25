@@ -63,7 +63,8 @@ build_skc_library_docker()
         \cp -prf ../../config ../../../../../skc_library/dist/image/
 	if [ "$OS" == "rhel" ]
 	then
-		tar -xf ../../../../../skc_library/dist/image/bin/sgx_rpm_local_repo.tgz -C ../../../../../skc_library/dist/image/bin/ || exit 1
+		echo "${red} Unsupported OS. Please use Ubuntu 20.04 ${reset}"
+		exit 1
 	fi
         cd ../../../../../skc_library
         mkdir -p out
@@ -75,7 +76,8 @@ build_skc_library_docker()
 rm -rf $SKCLIB_DIR
 
 if [ "$OS" == "rhel" ]; then
-	rm -f /etc/yum.repos.d/*sgx_rpm_local_repo.repo
+	echo "${red} Unsupported OS. Please use Ubuntu 20.04 ${reset}"
+	exit 1
 fi
 
 install_prerequisites

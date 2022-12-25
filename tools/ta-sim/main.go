@@ -9,7 +9,6 @@ import (
 	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
-	"crypto/sha1"
 	"crypto/sha256"
 	"crypto/tls"
 	"crypto/x509"
@@ -29,9 +28,9 @@ import (
 
 	"github.com/google/uuid"
 
-	client "github.com/intel-secl/intel-secl/v4/pkg/clients/ta"
-	"github.com/intel-secl/intel-secl/v4/pkg/lib/common/crypt"
-	tamodel "github.com/intel-secl/intel-secl/v4/pkg/model/ta"
+	client "github.com/intel-secl/intel-secl/v5/pkg/clients/ta"
+	"github.com/intel-secl/intel-secl/v5/pkg/lib/common/crypt"
+	tamodel "github.com/intel-secl/intel-secl/v5/pkg/model/ta"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -222,9 +221,9 @@ func NewController(ac *AppConfig) (*controller, error) {
 			return nil, errors.Wrap(err, "could not convert quote to base64")
 		} else {
 			// seperate out the quote into 3 parts. The first one is part of the quote before the
-			// sha1 of the nonce.
-			// second part is the where the sha1 of the nonce is at. We do not need to save this part
-			// We can just ignore it since we will be adding the sha1 of the new nonce
+			// sha256 of the nonce.
+			// second part is the where the sha256 of the nonce is at. We do not need to save this part
+			// We can just ignore it since we will be adding the sha256 of the new nonce
 			// Third part is the rest of the quote.
 
 			//determine the end of the quote. the first 2 bytes represent the length of the quote
@@ -314,7 +313,7 @@ func (ctrl controller) bindingKey(w http.ResponseWriter, _ *http.Request) {
 
 func (ctrl controller) getQuoteSignedWithNonce(nonce []byte, tagPresent bool, assetTag string) (*tamodel.TpmQuoteResponse, error) {
 	// make a copy of the the quote so that we leave the original untouched
-	hash := sha1.New()
+	hash := sha256.New()
 	hash.Write(nonce)
 	taNonce := hash.Sum(nil)
 
@@ -324,7 +323,7 @@ func (ctrl controller) getQuoteSignedWithNonce(nonce []byte, tagPresent bool, as
 			return nil, err
 		}
 
-		hash := sha1.New()
+		hash := sha256.New()
 		hash.Write(taNonce)
 		hash.Write(tag)
 		taNonce = hash.Sum(nil)

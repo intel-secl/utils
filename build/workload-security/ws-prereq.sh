@@ -162,7 +162,7 @@ install_prereq_skopeo() {
   elif [ "$OS" == "ubuntu" ]; then
     export DEBIAN_FRONTEND=noninteractive
     source /etc/os-release
-    if [ "$VERSION_ID" == "18.04" -o "$VERSION_ID" == "20.04" ]; then
+    if [ "$VERSION_ID" == "20.04" ]; then
       echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
       curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | sudo apt-key add -
       apt-get -y update
@@ -206,10 +206,9 @@ install_prereqs_packages_docker() {
 
 # functions handling i/o on command line
 print_help() {
-  echo "Usage: $0 [-hdcv]"
+  echo "Usage: $0 [-hdc]"
   echo "    -h     print help and exit"
   echo "    -c     pre-req setup for Workload Security:Launch Time Protection - Containers with CRIO Runtime"
-  echo "    -v     pre-req setup for Workload Security:Launch Time Protection - VM Confidentiality"
 }
 
 dispatch_works() {
@@ -222,12 +221,6 @@ dispatch_works() {
     install_prereqs_packages
     install_prereqs_packages_docker
     install_prereq_skopeo
-  elif [[ $1 == *"v"* ]]; then
-    echo "Installing Packages for Workload Security:Launch Time Protection - VM Confidentiality..."
-    if [ "$OS" == "rhel" ]; then
-      install_prereq_repos_rhel
-    fi
-    install_prereqs_packages
   else
     print_help
     exit 1
@@ -244,7 +237,6 @@ while getopts ${optstring} opt; do
     ;;
   d) work_list+="d" ;;
   c) work_list+="c" ;;
-  v) work_list+="v" ;;
   *)
     print_help
     exit 1

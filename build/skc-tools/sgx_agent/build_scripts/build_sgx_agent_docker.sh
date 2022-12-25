@@ -21,9 +21,6 @@ build_sgx_agent_docker()
 {
 	pushd $PWD
 	\cp -prf $SGX_AGENT_BIN_DIR ../../../../../$SGX_AGENT_REPO_NAME/dist/image/
-	if [ "$OS" == "rhel" ]; then
-		tar -xf ../../../../../$SGX_AGENT_REPO_NAME/dist/image/bin/sgx_rpm_local_repo.tgz -C ../../../../../$SGX_AGENT_REPO_NAME/dist/image/bin/
-	fi
 	cd ../../../../../$SGX_AGENT_REPO_NAME
 	make oci-archive || exit 1
 	rm -rf dist/image/bin

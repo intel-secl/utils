@@ -1,7 +1,7 @@
 Pre-requisite for the SGX Agent Deployment
 ==========================================
  - SGX and FLC Enabled in BIOS
- - RHEL 8.2 OS
+ - RHEL 8.4 or Ubuntu 20.04
 
 RHEL8 package Requirements
 ==========================
@@ -19,22 +19,7 @@ Following RHEL 8 repositories should be setup and available (/etc/yum.repos.d) t
 
 How to Deploy
 ==============
-- To verify the checksum of the SGX Agent Deployment tar file and extract it
-# ./agent_untar.sh
-
-# cd sgx_agent
-- Update the SGX Server IP Addresses, SGX Agent user credentials and CMS_TLS_SHA value in agent.conf
-	To find CMS_TLA_SHA run following command on the machine where CMS is installed
-	# cms tlscertsha384
-
-- To deploy SKC Agent on a SGX Enabled Server, run deploy_sgx_agent.sh
-# ./deploy_sgx_agent.sh
-
-Contents of the Deployment Tar file
-===================================
-- Deployment scripts:deploy_sgx_agent.sh sgx_agent_create_roles.sh and deployment_prerequisites.sh
-- Pre-filled agent.conf
-- Binaries/rpms/libraries in bin directory.
+- Follow the helm deployment instruction in product guide
 
 Repo Contents
 =============

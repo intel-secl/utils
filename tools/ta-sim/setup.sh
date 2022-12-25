@@ -85,9 +85,6 @@ if [ "$TA_SERVICE_MODE" == "outbound" ]; then
   [ -z "$TA_HOST_ID" ] && read -p "Enter TA host ID):" TA_HOST_ID
   echo -e "NatsServers : "$NATS_SERVERS >> configuration/config.yml
   echo -e "TaHostID : "$TA_HOST_ID >> configuration/config.yml
-else
-  [ -z "$TA_IP" ] && read -p "Enter the TA ip (ex: 10.1.2.3) (Leave empty to use the default response files):" TA_IP
-  TA_URL=https://$TA_IP:$TA_PORT
 fi
 
 sed -i "s/^\(HvsApiUrl\s*:\s*\).*\$/\1https:\/\/$HVS_IP:$HVS_PORT\/hvs\/v2\//" configuration/config.yml
@@ -142,9 +139,6 @@ openssl req -out $CSR_FILE -newkey rsa:3072 -nodes -keyout configuration/key.pem
 echo "Requesting token from CMS...."
 curl --noproxy "*" -k -X POST https://$CMS_IP:$CMS_PORT/cms/v1/certificates?certType=TLS -H 'Accept: application/x-pem-file' -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/x-pem-file' --data-binary "@$CSR_FILE" > configuration/cert.pem
 
-rm -rf ./repository/host_info.json
-rm -rf ./repository/quote.xml
-
 if [ "$TA_SERVICE_MODE" == "outbound" ] && [ -n "$NATS_SERVERS" ] && [ -n "$TA_HOST_ID" ]; then
   echo "Requesting Nats credentials for TA simulator as publisher from AAS...."
   curl --noproxy "*" -X POST -H "Authorization: Bearer $TOKEN" -H "Accept:application/xml" -H "Content-Type:application/json" https://$AAS_IP:$AAS_PORT/aas/v1/credentials -k -d '{"type" : "TA","parameters" : {"host-id" : ""}}' > ./repository/ta-sim.creds
@@ -152,15 +146,20 @@ if [ "$TA_SERVICE_MODE" == "outbound" ] && [ -n "$NATS_SERVERS" ] && [ -n "$TA_H
   curl --noproxy "*" -X POST -H "Authorization: Bearer $TOKEN" -H "Accept:application/xml" -H "Content-Type:application/json" https://$AAS_IP:$AAS_PORT/aas/v1/credentials -k -d '{"type" : "HVS","parameters" : {"host-id" : ""}}' > ./repository/ta-sub.creds
   echo "Downloading data from Trust Agent in outbound mode..."
   ./ta-sim get-host-data-from-nats
-elif [ -n "$TA_IP" ]; then
-    echo "Downloading data from Trust Agent in http mode..."
-    curl --noproxy "*" -H "Authorization: Bearer $TOKEN" -H "Accept:application/json" $TA_URL/v2/host -k > ./repository/host_info.json
-    FILE_SIZE=`wc -c < ./repository/host_info.json`
-    if [ -z "$FILE_SIZE" ] || [[ $FILE_SIZE == 0 ]]; then
-      echo "ERROR : Installation incomplete - unable to download content from Trust Agent at $TA_IP:$TA_PORT"
-      exit 1
+elif [ "$TA_SERVICE_MODE" == "http" ]; then
+    if [ -n "$TA_IP" ]; then
+      echo "Downloading data from Trust Agent in http mode..."
+      TA_URL=https://$TA_IP:$TA_PORT
+      curl --noproxy "*" -H "Authorization: Bearer $TOKEN" -H "Accept:application/json" $TA_URL/v2/host -k > ./repository/host_info.json
+      FILE_SIZE=`wc -c < ./repository/host_info.json`
+      if [ -z "$FILE_SIZE" ] || [[ $FILE_SIZE == 0 ]]; then
+        echo "ERROR : Installation incomplete - unable to download content from Trust Agent at $TA_IP:$TA_PORT"
+        exit 1
+      fi
+      curl --noproxy "*" -X POST -H "Authorization: Bearer $TOKEN" -H "Accept:application/xml" -H "Content-Type:application/json" $TA_URL/v2/tpm/quote -k -d '{"nonce":"+c4ZEmco4aj1G5dTXQvjIMGFd44=","pcrs":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],"pcrbanks":["SHA1", "SHA256", "SHA384"]}' > ./repository/quote.xml
+    else
+      echo "Using sample host-info and quote in http mode"
     fi
-    curl --noproxy "*" -X POST -H "Authorization: Bearer $TOKEN" -H "Accept:application/xml" -H "Content-Type:application/json" $TA_URL/v2/tpm/quote -k -d '{"nonce":"+c4ZEmco4aj1G5dTXQvjIMGFd44=","pcrs":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],"pcrbanks":["SHA1", "SHA256", "SHA384"]}' > ./repository/quote.xml
 else
   echo "ERROR: TA IP address or NATS_SERVER information with TA host ID must be given to download data from a trustagent"
 fi

@@ -1,7 +1,7 @@
 Pre-requisite for the Sample Apps build system
 ==============================================
- - RHEL 8.2 or UBUNTU 18.04 or UBUNTU 20.04
- - GoLang v1.13 or greater
+ - RHEL 8.4 or UBUNTU 20.04
+ - GoLang v1.18.8 or greater
  - gcc toolchain
  - make
  - Install Intel® SGX SDK for Linux*OS into /opt/intel/sgxsdk . Refer Intel® Software Guard Extensions (Intel® SGX) SDK for Linux* OS - Installation   guide . Please install the *-devel for Intel® SGX PSW packages as mentioned in the installation guide.

@@ -17,12 +17,13 @@ build_skc_library()
 	
 	\cp -pf skc_library_v*.bin $SKCLIB_BIN_DIR
 	popd
-        if [[ "$OS" == "rhel" && "$VER" == "8.1" || "$VER" == "8.2" ]]; then
-                \cp -pf $LIB_DIR/engines-1.1/pkcs11.so $SKCLIB_BIN_DIR
-        elif [[ "$OS" == "ubuntu" && "$VER" == "18.04" || "$VER" == "20.04" ]]; then
+        if [[ "$OS" == "rhel" && "$VER" == "8.4" ]]; then
+                echo "${red} Unsupported OS. Please use Ubuntu 20.04 ${reset}"
+				exit 1
+        elif [[ "$OS" == "ubuntu" && "$VER" == "20.04" ]]; then
                 \cp -pf $LIB_DIR/x86_64-linux-gnu/engines-1.1/pkcs11.so $SKCLIB_BIN_DIR
         fi
-        \cp -pf $LIB_DIR/libp11.so.3.4.3 $SKCLIB_BIN_DIR
+        \cp -pf $LIB_DIR/libp11.so.3.5.0 $SKCLIB_BIN_DIR
 }
 
 build_skc_library

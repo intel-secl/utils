@@ -9,11 +9,11 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
-	cos "intel/isecl/lib/common/v4/os"
+	cos "intel/isecl/lib/common/v5/os"
 	"io/ioutil"
 	"net/http"
 
-	"github.com/intel-secl/sample-sgx-attestation/v4/common"
+	"github.com/intel-secl/sample-sgx-attestation/v5/common"
 	"github.com/pkg/errors"
 )
 

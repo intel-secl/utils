@@ -1,1 +1,43 @@
-{"errorCode":0,"os_name":"RedHatEnterprise","os_version":"8.2","bios_version":"SE5C620.86B.00.01.0014.070920180847","vmm_name":"","vmm_version":"","processor_info":"54 06 05 00 FF FB EB BF","host_name":"vinil-prly-147","bios_name":"Intel Corporation","hardware_uuid":"8083ca40-94c8-e811-906e-00163566263e","process_flags":"FPU VME DE PSE TSC MSR PAE MCE CX8 APIC SEP MTRR PGE MCA CMOV PAT PSE-36 CLFSH DS ACPI MMX FXSR SSE SSE2 SS HTT TM PBE","tpm_version":"2.0","pcr_banks":["SHA1","SHA256"],"no_of_sockets":"2","tpm_enabled":"true","txt_enabled":"true","tboot_installed":"false","is_docker_env":"false","hardware_features":{"TXT":{"enabled":"true"},"TPM":{"enabled":"true","meta":{"tpm_version":"2.0","pcr_banks":"SHA1_SHA256"}}},"installed_components":["tagent"]}
+{
+  "os_name": "RedHatEnterprise",
+  "os_version": "8.3",
+  "os_type": "linux",
+  "bios_version": "SE5C620.86B.00.01.6016.032720190737",
+  "vmm_name": "",
+  "vmm_version": "",
+  "processor_info": "54 06 05 00 FF FB EB BF",
+  "host_name": "localhost.localdomain",
+  "bios_name": "Intel Corporation",
+  "hardware_uuid": "00b61da0-5ada-e811-906e-00163566263e",
+  "process_flags": "FPU VME DE PSE TSC MSR PAE MCE CX8 APIC SEP MTRR PGE MCA CMOV PAT PSE-36 CLFSH DS ACPI MMX FXSR SSE SSE2 SS HTT TM PBE",
+  "no_of_sockets": "72",
+  "tboot_installed": "false",
+  "is_docker_env": "false",
+  "hardware_features": {
+    "TXT": {
+      "enabled": "true"
+    },
+    "TPM": {
+      "enabled": "true",
+      "meta": {
+        "tpm_version": "2.0"
+      }
+    },
+    "CBNT": {
+      "enabled": "false",
+      "meta": {
+        "profile": "",
+        "msr": ""
+      }
+    },
+    "UEFI": {
+      "enabled": "true",
+      "meta": {
+        "secure_boot_enabled": false
+      }
+    }
+  },
+  "installed_components": [
+    "tagent"
+  ]
+}

@@ -5,6 +5,7 @@ mkdir -p /opt/bkc-tool/log/ca-cert
 mkdir -p /opt/bkc-tool/log/host-manifest
 mkdir -p /opt/bkc-tool/log/report
 mkdir -p /opt/bkc-tool/var
+touch /opt/bkc-tool/var/measure-log.json
 
 cp *.bin /opt/bkc-tool/bin/
 cp *.sh /opt/bkc-tool/bin/
@@ -25,7 +26,7 @@ install_packages() {
         if [ $? -ne 0 ]; then
             echo "Installing ${package}..."
             yum -y install ${package} 
-            if [ $? -ne 0 ]; then echo_failure "Failed to install ${package} "; return 1; fi
+            if [ $? -ne 0 ]; then echo "Failed to install ${package} "; return 1; fi
         fi
     done
 }

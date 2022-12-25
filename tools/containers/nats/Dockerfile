@@ -17,9 +17,9 @@ RUN wget -O /usr/local/bin/cfssl http://pkg.cfssl.org/R1.2/cfssl_linux-amd64 && 
 
 RUN mkdir -p /secrets
 
-COPY utils/tools/containers/nats/nats.conf /nats.conf
-COPY utils/tools/containers/nats/download-tls-certs.sh /download-tls-certs.sh
-COPY utils/tools/containers/nats/entrypoint.sh /entrypoint.sh
+COPY nats/nats.conf /nats.conf
+COPY nats/download-tls-certs.sh /download-tls-certs.sh
+COPY nats/entrypoint.sh /entrypoint.sh
 
 RUN touch /.container-env && chmod +x /entrypoint.sh && chmod +x /download-tls-certs.sh
 

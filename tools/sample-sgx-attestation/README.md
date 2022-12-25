@@ -23,8 +23,8 @@ The project demonstrates several fundamental usages of Intel® Software Guard Ex
 
 ### Pre-requisites
 
-- RHEL 8.2
-- GoLang v1.13 or greater
+- RHEL 8.4
+- GoLang v1.18.8 or greater
 - Intel® SGX SDK for Linux
 - gcc toolchain
 - make
