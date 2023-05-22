@@ -48,11 +48,12 @@ if [ "$OS" == "rhel" ]; then
 	fi
 fi
 
-source download_mpa_uefi_rpm.sh  
-if [ $? -ne 0 ]; then
-        echo "${red} mpa uefi rpm download failed ${reset}"
-        exit
-fi
+# Commenting due to a broken link, this module download is not needed
+# source download_mpa_uefi_rpm.sh  
+# if [ $? -ne 0 ]; then
+#         echo "${red} mpa uefi rpm download failed ${reset}"
+#         exit
+# fi
 
 source build_pckretrieval_tool.sh
 if [ $? -ne 0 ]; then
